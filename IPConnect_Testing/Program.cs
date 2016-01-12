@@ -324,7 +324,6 @@ namespace IPConnect_Testing
         static void ExtractSingleJpeg()
         {
 
-            //THIS, SORT OF, WORKS
             String lsResponse = string.Empty;
             using (HttpWebResponse lxResponse = (HttpWebResponse)ReturnHttpResponse(url))
             {
