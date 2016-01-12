@@ -108,7 +108,6 @@ namespace IPConnect_Testing
             }//while looking for header
 
             return ret;
-
         }//ReadHeader
 
         private int FindBoundary(List<byte> bytes)
