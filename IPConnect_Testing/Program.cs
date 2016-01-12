@@ -33,7 +33,7 @@ namespace IPConnect_Testing
         static void Main(string[] args)
         {
 
-            new ImageExtractor();
+            new ImageExtractor(url, username, password);
             return;
             boundaryBytes = Encoding.ASCII.GetBytes(boundaryString); //set the boundary bytes from the boundaryString
             RunStream();

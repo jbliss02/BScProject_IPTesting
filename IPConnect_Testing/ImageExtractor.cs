@@ -15,20 +15,23 @@ namespace IPConnect_Testing
     /// </summary>
     public class ImageExtractor
     {
-        static string url = "http://192.168.0.3/axis-cgi/mjpg/video.cgi?date=1&clock=1&resolution=320x240";
-        static string username = "root";
-        static string password = "root";
+        string url;
+        string username;
+        string password;
 
+        Regex contentLengthRegex = new Regex("Content-Length: (?<length>[0-9]+)\r\n\r\n", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        string boundaryString = @"--myboundary";
+        byte[] boundaryBytes; //a byte version of the boundary
+
+        List<byte[]> images; //the final image files
         static int fileNumber = 0;
 
-        static Regex contentLengthRegex = new Regex("Content-Length: (?<length>[0-9]+)\r\n\r\n", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
-        static string boundaryString = @"--myboundary";
-        static byte[] boundaryBytes;
-        static List<byte[]> images; //the final image files
-
-        public ImageExtractor()
+        public ImageExtractor(string url, string username, string password)
         {
+            this.username = username;
+            this.password = password;
+            this.url = url;
+
             boundaryBytes = Encoding.ASCII.GetBytes(boundaryString); //set the boundary bytes from the boundaryString
             images = new List<byte[]>();
             Run();
@@ -36,13 +39,13 @@ namespace IPConnect_Testing
 
         private HttpWebResponse ReturnHttpResponse(string URI)
         {
-            HttpWebRequest webrequest = null;
-            HttpWebResponse webresponse = null;
-            webrequest = (HttpWebRequest)WebRequest.Create(URI);
-            webrequest.Credentials = new NetworkCredential(username, password);
-            webresponse = (HttpWebResponse)webrequest.GetResponse();
+            HttpWebRequest req = null;
+            HttpWebResponse resp = null;
+            req = (HttpWebRequest)WebRequest.Create(URI);
+            req.Credentials = new NetworkCredential(username, password);
+            resp = (HttpWebResponse)req.GetResponse();
 
-            return webresponse;
+            return resp;
         }
 
         private void Run()
@@ -68,38 +71,43 @@ namespace IPConnect_Testing
 
         }//Run
 
+        /// <summary>
+        /// Steps through the stream until a header is identified
+        /// Moves the stream to the position immediatley after the header (the jpeg)
+        /// Returns the multipart HTTP header
+        /// </summary>
+        /// <param name="reader">the MJPEG HTTP binary stream</param>
+        /// <returns></returns>
         private string ReadHeader(BinaryReader reader)
         {
-            string ret = String.Empty; //what gets returned
-            bool gotHeader = false;
+            string header = String.Empty; //gets returned
+            List<byte> headerBuffer = new List<byte>(); //a cumulative view of the stream
+            byte[] headBuff = new byte[4]; //used to step throughthe stream
 
-            List<byte> headerBuffer = new List<byte>(); //used to hold the stream whilst extracting the header 
-            byte[] headBuff = new byte[4];
-
-            while(!gotHeader)
+            while(header == String.Empty)
             {
                 reader.Read(headBuff, 0, 4); //read the stream, 4 bytes at a time to find the boundary
-                headerBuffer.AddRange(headBuff); //build up a cumulative view of the header
+                headerBuffer.AddRange(headBuff); 
 
                 int boundaryStart = FindBoundary(headerBuffer);
 
                 if (boundaryStart > -1)
                 {
-                    //re-set the buffers, want a much smaller space
+                    //boundary found, re-set the buffers and step through the stream byte by byte
                     headBuff = new byte[1];
                     headerBuffer = new List<byte>();
 
-                    bool foundSplit = false;
-                    while (!foundSplit)
+                    //step through the rest of the stream, looking for the Content-Length line
+                    bool found = false;
+                    while (!found)
                     {
-                        //found the boundary, Content-Length starts 36 bytes later
                         reader.Read(headBuff, 0, 1); //read the stream byte by byte
                         headerBuffer.AddRange(headBuff);
-                        ret = Encoding.UTF8.GetString(headerBuffer.ToArray());
 
-                        if (contentLengthRegex.Match(ret).Success){
-                            foundSplit = true;
-                            gotHeader = true;
+                        header = Encoding.UTF8.GetString(headerBuffer.ToArray());
+
+                        if (contentLengthRegex.Match(header).Success){
+                            found = true;
                         }
 
                     }//looking for split
@@ -107,7 +115,7 @@ namespace IPConnect_Testing
                 }//boundary found
             }//while looking for header
 
-            return ret;
+            return header;
 
         }//ReadHeader
 
