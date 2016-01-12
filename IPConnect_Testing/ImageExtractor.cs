@@ -73,7 +73,7 @@ namespace IPConnect_Testing
             string ret = String.Empty; //what gets returned
             bool gotHeader = false;
 
-            List<byte> headerBuffer = new List<byte>(); //used to hold the stream whilst extracting the header
+            List<byte> headerBuffer = new List<byte>(); //used to hold the stream whilst extracting the header 
             byte[] headBuff = new byte[4];
 
             while(!gotHeader)
