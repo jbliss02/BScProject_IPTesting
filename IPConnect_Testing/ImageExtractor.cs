@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+
 namespace IPConnect_Testing
 {
     /// <summary>
@@ -15,6 +16,11 @@ namespace IPConnect_Testing
     /// </summary>
     public class ImageExtractor
     {
+        public event ImageCreateEvent imageCreated;
+        public delegate void ImageCreateEvent(byte[] img, EventArgs e);
+
+        public List<byte[]> images; //the final image files
+
         string url;
         string username;
         string password;
@@ -22,9 +28,6 @@ namespace IPConnect_Testing
         Regex contentLengthRegex = new Regex("Content-Length: (?<length>[0-9]+)\r\n\r\n", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         string boundaryString = @"--myboundary";
         byte[] boundaryBytes; //a byte version of the boundary
-
-        List<byte[]> images; //the final image files
-        static int fileNumber = 0;
 
         public ImageExtractor(string url, string username, string password)
         {
@@ -34,7 +37,6 @@ namespace IPConnect_Testing
 
             boundaryBytes = Encoding.ASCII.GetBytes(boundaryString); //set the boundary bytes from the boundaryString
             images = new List<byte[]>();
-            Run();
         }
 
         private HttpWebResponse ReturnHttpResponse(string URI)
@@ -48,7 +50,7 @@ namespace IPConnect_Testing
             return resp;
         }
 
-        private void Run()
+        public void Run()
         {
             if (boundaryBytes == null) { throw new Exception("boundaryBytes was null"); }
 
@@ -62,7 +64,9 @@ namespace IPConnect_Testing
 
                 byte[] img = reader.ReadBytes(contentLength);
                 images.Add(img);
-                WriteBytesToFile(img);
+                OnFileCreate(img);
+
+                //WriteBytesToFile(img);
 
             }//while stream.CanRead
 
@@ -184,26 +188,16 @@ namespace IPConnect_Testing
 
         }//GetContentLength
 
-        private void WriteBytesToFile(byte[] img)
+        protected virtual void OnFileCreate(byte[] img)
         {
-            using (FileStream fs = new FileStream(GenerateFileName(), FileMode.Create))
+            if (imageCreated != null)
             {
-                fs.Write(img, 0, img.Length);
+                imageCreated(img, EventArgs.Empty);
             }
 
-            WriteScreen("Image creeted");
         }
 
-        private String GenerateFileName()
-        {
-            return @"c:\temp\test_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second + "_"
-            + DateTime.Now.Millisecond + "_" + fileNumber + ".jpg";
-        }
 
-        private void WriteScreen(string st)
-        {
-            Console.WriteLine(DateTime.Now + " - " + st);
-        }
 
     }//ImageExtractor.cs
 
