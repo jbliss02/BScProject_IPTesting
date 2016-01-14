@@ -55,6 +55,11 @@ namespace IPConnect_Testing
             if (boundaryBytes == null) { throw new Exception("boundaryBytes was null"); }
 
             HttpWebResponse resp = ReturnHttpResponse(url);
+
+            if(resp.StatusCode != HttpStatusCode.OK) { throw new Exception("HTTP Request through a " + resp.StatusCode + " status code"); }
+
+            Console.WriteLine(resp.Headers.ToString());
+
             BinaryReader reader = new BinaryReader(resp.GetResponseStream());
 
             while (reader.BaseStream.CanRead)

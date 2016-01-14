@@ -11,12 +11,12 @@ using System.Windows.Media.Imaging;
 
 namespace IPConnect_Testing
 {
-    public class FileSaver
+    public class ImageSaver
     {
         List<byte[]> images; //the final image files
         static int fileNumber = 0;
 
-        public FileSaver()
+        public ImageSaver()
         {
             images = new List<byte[]>();
         }
@@ -26,9 +26,9 @@ namespace IPConnect_Testing
             imgClass.imageCreated += new ImageExtractor.ImageCreateEvent(FileCreated);
         }
 
-        public void FileCreated(object sender, EventArgs e)
+        public void FileCreated(byte[] img, EventArgs e)
         {
-            WriteBytesToFile( (byte[]) sender);
+            WriteBytesToFile( (byte[]) img);
         }
 
         private void WriteBytesToFile(byte[] img)
