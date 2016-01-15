@@ -16,8 +16,8 @@ namespace IPConnect_Testing
     /// </summary>
     public class ImageExtractor
     {
-        public event ImageCreateEvent imageCreated;
-        public delegate void ImageCreateEvent(byte[] img, EventArgs e);
+        public event ImageCreatedEvent imageCreated;
+        public delegate void ImageCreatedEvent(byte[] img, EventArgs e);
 
         public List<byte[]> images; //the final image files
 
@@ -195,14 +195,13 @@ namespace IPConnect_Testing
 
         protected virtual void OnFileCreate(byte[] img)
         {
+            Console.WriteLine("Image Extracted");
             if (imageCreated != null)
             {
                 imageCreated(img, EventArgs.Empty);
             }
 
-        }
-
-
+        }//OnFileCreate
 
     }//ImageExtractor.cs
 

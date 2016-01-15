@@ -23,13 +23,19 @@ namespace IPConnect_Testing
 
         public void ListenForImages(ImageExtractor imgClass)
         {
-            imgClass.imageCreated += new ImageExtractor.ImageCreateEvent(FileCreated);
+            imgClass.imageCreated += new ImageExtractor.ImageCreatedEvent(FileCreated);
         }
 
         public void FileCreated(byte[] img, EventArgs e)
         {
             WriteBytesToFile( (byte[]) img);
         }
+
+        public async Task FileCreatedAsync(byte[] img, EventArgs e)
+        {
+            await Task.Run(() => { WriteBytesToFile(img); } );
+        }
+
 
         private void WriteBytesToFile(byte[] img)
         {
@@ -38,7 +44,7 @@ namespace IPConnect_Testing
                 fs.Write(img, 0, img.Length);
             }
 
-            WriteScreen("Image creeted");
+            Console.WriteLine("Image Saved");
         }
 
         private String GenerateFileName()
