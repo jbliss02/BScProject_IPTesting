@@ -8,6 +8,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using System.Drawing;
+using System.Media;
+
 
 namespace IPConnect_Testing
 {
@@ -22,21 +25,28 @@ namespace IPConnect_Testing
         static string username = "root";
         static string password = "root";
 
+        static List<Bitmap> bitmaps = new List<Bitmap>(); //the converted bitmap's which are looked at 
+
+        static MotionSensor motionSensor;
+
         static void Main(string[] args)
         {
+            //  System.Threading.Thread.Sleep(10000);
+
+            Console.WriteLine(DateTime.Now + " - Started");
+            SystemSounds.Exclamation.Play(); 
+
             ImageExtractor imageExtractor = new ImageExtractor(url, username, password);
 
             //create the validator and subs
             ImageValidator imageValidator = new ImageValidator();
             imageValidator.ListenForImages(imageExtractor);
 
-            //subscribe to events from the validator
+            //subscribe to events from the validator (to and analyse)
             imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(ValidImageEventHandler);
-            
 
-
-
-           // new ImageSaver().ListenForImages(imageExtractor);
+            //set up the montion sensor
+            motionSensor = new MotionSensor(5);
 
             imageExtractor.Run();
 
@@ -49,9 +59,18 @@ namespace IPConnect_Testing
         /// <param name="e"></param>
         static void ValidImageEventHandler(byte[] img, EventArgs e)
         {
-            Task getInt = new ImageSaver().FileCreatedAsync(img, e);
+           // Task saveImage = new ImageSaver().FileCreatedAsync(img, e);
 
+
+            //Extract the bitmap and do some testing - this needs to be moved to a thread so it is asyncronhous
+            bitmaps.Add(new ImageConverter().ReturnBitmap(img));
+  
+            if(bitmaps.Count > 20) {
+                motionSensor.CheckForMotion(bitmaps);
+                bitmaps = new List<Bitmap>();
+            }
         }
+
 
         private static UInt64 Hash()
         {

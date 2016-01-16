@@ -36,21 +36,44 @@ namespace IPConnect_Testing
             await Task.Run(() => { WriteBytesToFile(img); } );
         }
 
+        public async Task SaveFiles(List<byte[]> imgs)
+        {
+            await Task.Run(() => {
+                for(int i = 0; i < imgs.Count; i++)
+                {
+                    WriteBytesToFile(imgs[i]);
+                }
+
+            });
+        }
 
         private void WriteBytesToFile(byte[] img)
         {
-            using (FileStream fs = new FileStream(GenerateFileName(), FileMode.Create))
+            try
             {
-                fs.Write(img, 0, img.Length);
+                using (FileStream fs = new FileStream(GenerateFileName(), FileMode.Create))
+                {
+                    fs.Write(img, 0, img.Length);
+                }
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(DateTime.Now + " - " + ex.Message);
             }
 
-            Console.WriteLine("Image Saved");
+           // Console.WriteLine("Image Saved");
         }
 
         private String GenerateFileName()
         {
-            return @"c:\temp\test_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second + "_"
-            + DateTime.Now.Millisecond + "_" + fileNumber + ".jpg";
+            //  return @"f:\temp\test_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second + "_"
+            //  + DateTime.Now.Millisecond + "_" + fileNumber + ".jpg";
+            ulong hash = (UInt64)(int)DateTime.Now.Kind;
+            var x = (hash << 62) | (UInt64)DateTime.Now.Ticks;
+
+            return @"f:\temp\test_" + x.ToString() + ".jpg";
+
         }
 
         private void WriteScreen(string st)

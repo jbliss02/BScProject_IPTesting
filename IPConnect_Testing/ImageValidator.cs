@@ -29,7 +29,7 @@ namespace IPConnect_Testing
             if(img[0] == JPEG_start[0] && img[1] == JPEG_start[1] && img[img.Length -2] == JPEG_end[0] && img[img.Length -1] == JPEG_end[1])
             {
 
-                Console.WriteLine("Image Validated");
+               // Console.WriteLine("Image Validated");
                 OnImageValidated(img); //raise the event
             }
             else

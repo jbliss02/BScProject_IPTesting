@@ -195,7 +195,7 @@ namespace IPConnect_Testing
 
         protected virtual void OnFileCreate(byte[] img)
         {
-            Console.WriteLine("Image Extracted");
+           // Console.WriteLine("Image Extracted");
             if (imageCreated != null)
             {
                 imageCreated(img, EventArgs.Empty);
