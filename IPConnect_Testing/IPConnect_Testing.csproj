@@ -52,6 +52,7 @@
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="ImageConverter.cs" />
     <Compile Include="Images\BitmapWrappers.cs" />
+    <Compile Include="Images\MJPEG.cs" />
     <Compile Include="Images\PixelAnalysis.cs" />
     <Compile Include="MotionSensor.cs" />
     <Compile Include="ImageSaver.cs" />

@@ -56,7 +56,7 @@ namespace IPConnect_Testing
 
             HttpWebResponse resp = ReturnHttpResponse(url);
 
-            if(resp.StatusCode != HttpStatusCode.OK) { throw new Exception("HTTP Request through a " + resp.StatusCode + " status code"); }
+            if(resp.StatusCode != HttpStatusCode.OK) { throw new Exception("HTTP Request returned a " + resp.StatusCode + " status code"); }
 
             Console.WriteLine(resp.Headers.ToString());
 
@@ -70,8 +70,6 @@ namespace IPConnect_Testing
                 byte[] img = reader.ReadBytes(contentLength);
                 images.Add(img);
                 OnFileCreate(img);
-
-                //WriteBytesToFile(img);
 
             }//while stream.CanRead
 
@@ -202,6 +200,11 @@ namespace IPConnect_Testing
             }
 
         }//OnFileCreate
+
+        private void WriteWholeFile(byte[] img)
+        {
+            //writes the whole file, including the boundaries and headers
+        }
 
     }//ImageExtractor.cs
 

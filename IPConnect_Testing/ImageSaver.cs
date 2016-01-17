@@ -14,11 +14,23 @@ namespace IPConnect_Testing
     public class ImageSaver
     {
         List<byte[]> images; //the final image files
-        static int fileNumber = 0;
+        static UInt64 fileNumber = 0;
+        static bool sequenceFileNumbers;
 
         public ImageSaver()
         {
             images = new List<byte[]>();
+        }
+
+        /// <summary>
+        /// When overloaded with a sequence integer the first file is saved with this value as the prefix
+        /// subsequent files are increased by 1
+        /// </summary>
+        /// <param name="sequenceStart"></param>
+        public ImageSaver(int sequenceStart)
+        {
+            fileNumber =(UInt64)sequenceStart;
+            sequenceFileNumbers = true;
         }
 
         public void ListenForImages(ImageExtractor imgClass)
@@ -67,10 +79,19 @@ namespace IPConnect_Testing
 
         private String GenerateFileName()
         {
-            //  return @"f:\temp\test_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second + "_"
-            //  + DateTime.Now.Millisecond + "_" + fileNumber + ".jpg";
-            ulong hash = (UInt64)(int)DateTime.Now.Kind;
-            var x = (hash << 62) | (UInt64)DateTime.Now.Ticks;
+            UInt64 x = 0;
+
+            if(sequenceFileNumbers)
+            {
+                x = fileNumber;
+                fileNumber = fileNumber + 1;
+            }
+            else
+            {
+                UInt64 hash = (UInt64)(int)DateTime.Now.Kind;
+                x = (hash << 62) | (UInt64)DateTime.Now.Ticks;
+            }
+
 
             return @"f:\temp\test_" + x.ToString() + ".jpg";
 

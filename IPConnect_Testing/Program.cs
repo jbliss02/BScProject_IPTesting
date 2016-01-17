@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Drawing;
 using System.Media;
+using IPConnect_Testing.Images;
 
 
 namespace IPConnect_Testing
@@ -29,12 +30,36 @@ namespace IPConnect_Testing
 
         static MotionSensor motionSensor;
 
+        static ImageSaver imageSaver;
+
         static void Main(string[] args)
         {
-            //  System.Threading.Thread.Sleep(10000);
+
+            RunMotionSensor();
+
+
+            //ExtractMjpegHeader();
+
+
+
+        }
+
+        static void ExtractMjpegHeader()
+        {
+            MJPEG mjpeg = new MJPEG(@"F:\temp\mjpeg\combined_0_1.avi");
+
+            Console.WriteLine(mjpeg.HeaderString());
+            Console.ReadLine();
+
+        }
+
+        static void RunMotionSensor()
+        {
+
+            //System.Threading.Thread.Sleep(10000);
 
             Console.WriteLine(DateTime.Now + " - Started");
-            SystemSounds.Exclamation.Play(); 
+            SystemSounds.Exclamation.Play();
 
             ImageExtractor imageExtractor = new ImageExtractor(url, username, password);
 
@@ -45,11 +70,13 @@ namespace IPConnect_Testing
             //subscribe to events from the validator (to and analyse)
             imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(ValidImageEventHandler);
 
+            //sset up the save file object
+            imageSaver = new ImageSaver(0);
+
             //set up the montion sensor
             motionSensor = new MotionSensor(5);
 
             imageExtractor.Run();
-
         }
 
         /// <summary>
@@ -59,8 +86,9 @@ namespace IPConnect_Testing
         /// <param name="e"></param>
         static void ValidImageEventHandler(byte[] img, EventArgs e)
         {
-           // Task saveImage = new ImageSaver().FileCreatedAsync(img, e);
+            // Task saveImage = new ImageSaver(0).FileCreatedAsync(img, e);
 
+            Task saveImage = imageSaver.FileCreatedAsync(img, e);
 
             //Extract the bitmap and do some testing - this needs to be moved to a thread so it is asyncronhous
             bitmaps.Add(new ImageConverter().ReturnBitmap(img));
@@ -77,6 +105,11 @@ namespace IPConnect_Testing
             //this needs to be changed and validated
             ulong hash = (UInt64)(int)DateTime.Now.Kind;
             return (hash << 62) | (UInt64) DateTime.Now.Ticks;
+        }
+
+        private static void fileInfo()
+        {
+            DateTime s = File.GetCreationTime(@"F:\temp\alarm\4469890.bmp");
         }
 
     }
