@@ -16,32 +16,27 @@ namespace HTTP_Streamer.Controllers
     public class MpegController : ApiController
     {
         public const int ReadStreamBufferSize = 1024 * 1024;
+        public const string boundary = "myboundary";
 
         [HttpGet]
-        public HttpResponseMessage Stream()
+        public HttpResponseMessage stream()
         {
-            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.PartialContent);
-
-            List<byte[]> bytes = new MJPEG().BytesFromFiles(@"f:\temp\stream");
-            List<byte> allbytes = new List<byte>();
-
-            //create the multipart section
-            for (int i = 0; i < bytes.Count; i++)
+            HttpResponseMessage response = null;
+            try
             {
-                allbytes.AddRange(Encoding.ASCII.GetBytes("--myboundary"));
-                allbytes.AddRange(Encoding.ASCII.GetBytes("\r\n"));
-                allbytes.AddRange(Encoding.ASCII.GetBytes("Content-Type: image/jpeg"));
-                allbytes.AddRange(Encoding.ASCII.GetBytes("\r\n"));
-                allbytes.AddRange(Encoding.ASCII.GetBytes("Content-Length: " + bytes[i].Length));
-                allbytes.AddRange(Encoding.ASCII.GetBytes("\r\n"));
-                allbytes.AddRange(Encoding.ASCII.GetBytes("\r\n"));
-                allbytes.AddRange(bytes[i].ToList());
-            }
+                response = new HttpResponseMessage(HttpStatusCode.OK);
 
-            response.Content = new ByteArrayContent(allbytes.ToArray());
-            response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
-            response.Content.Headers.Remove("Content-Type");
-            response.Content.Headers.TryAddWithoutValidation("Content-Type", "multipart/x-mixed-replace;boundary=myboundary");
+                // response.Content = new ByteArrayContent(allbytes.ToArray());
+                response.Content = new MJPEG().HTTPMultiPartPost(@"f:\temp\1", boundary);
+                response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
+                response.Content.Headers.Remove("Content-Type");
+                response.Content.Headers.TryAddWithoutValidation("Content-Type", "multipart/x-mixed-replace;boundary=myboundary");
+                
+            }
+            catch(Exception ex)
+            {
+                response = new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
 
             return response;
 

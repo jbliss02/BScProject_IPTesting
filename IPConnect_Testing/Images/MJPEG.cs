@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Net.Http;
 
 namespace IPConnect_Testing.Images
 {
@@ -106,16 +107,57 @@ namespace IPConnect_Testing.Images
         public List<byte[]> BytesFromFiles(string fileDirectory)
         {
             List<byte[]> ret = new List<byte[]>();
+            List<String> files = Directory.GetFiles(fileDirectory, "*.jpg").ToList();
 
-            foreach(var file in Directory.GetFiles(fileDirectory, "*.jpg"))
+            //sort by the file name convention 
+            //TO DO - CHECK THE FILE FORMAT 
+
+            files = (from f in files
+                     orderby f.Split('_')[1].Split('.')[0].ToString().StringToInt() 
+                     ascending select f).ToList();
+
+            foreach (var file in Directory.GetFiles(fileDirectory, "*.jpg"))
             {
+                Console.WriteLine(file);
                 byte[] bytes = File.ReadAllBytes(file);
                 ret.Add(bytes);
+
             }//for each file
 
             return ret;
 
         }//BytesFromFiles
+
+
+        /// <summary>
+        /// Returns bytes for all JPEG's found in the fileDirectory
+        /// Inserts the appropriate HTTP Multipart header information
+        /// </summary>
+        /// <param name="fileDirectory"></param>
+        /// <param name="boundary"></param>
+        /// <returns></returns>
+        public HttpContent HTTPMultiPartPost(string fileDirectory, string boundary)
+        {
+            List<byte[]> bytes = new MJPEG().BytesFromFiles(fileDirectory);
+            List<byte> allbytes = new List<byte>();
+
+            //create the multipart section, boundary followed by image
+            for (int i = 0; i < bytes.Count; i++)
+            {
+                allbytes.AddRange(Encoding.ASCII.GetBytes("--" + boundary));
+                allbytes.AddRange(Encoding.ASCII.GetBytes("\r\n"));
+                allbytes.AddRange(Encoding.ASCII.GetBytes("Content-Type: image/jpeg"));
+                allbytes.AddRange(Encoding.ASCII.GetBytes("\r\n"));
+                allbytes.AddRange(Encoding.ASCII.GetBytes("Content-Length: " + bytes[i].Length));
+                allbytes.AddRange(Encoding.ASCII.GetBytes("\r\n"));
+                allbytes.AddRange(Encoding.ASCII.GetBytes("\r\n"));
+                allbytes.AddRange(bytes[i].ToList());
+            }
+
+            return new ByteArrayContent(allbytes.ToArray());
+
+        }//HTTPMultiPartPost
+
 
     }
 }

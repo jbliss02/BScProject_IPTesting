@@ -11,6 +11,9 @@ using System.Windows.Media.Imaging;
 
 namespace IPConnect_Testing
 {
+    /// <summary>
+    /// Saves bytes as images
+    /// </summary>
     public class ImageSaver
     {
         List<byte[]> images; //the final image files
@@ -18,10 +21,16 @@ namespace IPConnect_Testing
         static bool sequenceFileNumbers;
         string savePath;
 
+        /// <summary>
+        /// The start string for each file that is saved
+        /// </summary>
+        public string fileStartName { get; set; }
+            
         public ImageSaver(string savePath)
         {
             images = new List<byte[]>();
             this.savePath = savePath;
+            SetDefaults();
         }
 
         /// <summary>
@@ -34,6 +43,12 @@ namespace IPConnect_Testing
             fileNumber =(UInt64)sequenceStart;
             sequenceFileNumbers = true;
             this.savePath = savePath;
+            SetDefaults();
+        }
+
+        private void SetDefaults()
+        {
+            fileStartName = "test";
         }
 
         public void ListenForImages(ImageExtractor imgClass)
@@ -96,7 +111,7 @@ namespace IPConnect_Testing
             }
 
 
-            return savePath + @"\test_" + x.ToString() + ".jpg";
+            return savePath + @"\" + fileStartName + "_" + x.ToString() + ".jpg";
 
         }
 

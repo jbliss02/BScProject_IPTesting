@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 namespace IPConnect_Testing
 {
     /// <summary>
-    /// Attachs to an MJPEG HTTP stream and extracts the individual JPEG's
+    /// Attachs to an MJPEG HTTP stream and extracts individual JPEG's
     /// </summary>
     public class ImageExtractor
     {

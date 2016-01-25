@@ -24,28 +24,24 @@ namespace IPConnect_Testing
     {
         // static string url = "http://192.168.0.3/axis-cgi/mjpg/video.cgi?date=1&clock=1&resolution=320x240";
         //static string url = "http://192.168.0.3/axis-cgi/mjpg/video.cgi";
+        static string url = "http://localhost:8080/api/Mpeg/stream";
 
-        static string url = "http://localhost:8080/api/Mpeg/Stream";
-
+        static string saveFolder = @"f:\temp\2";
 
         static string username = "root";
         static string password = "root";
-
         static List<Bitmap> bitmaps = new List<Bitmap>(); //the converted bitmap's which are looked at 
-
         static MotionSensor motionSensor;
-
         static ImageSaver imageSaver;
 
         static void Main(string[] args)
         {
             Write("IPConnect started");
-            ExtractImages();
+            //ExtractImages();
+
             Console.ReadLine();
-            //
-            //TestMjpegBoundaryBytes(@"f:\temp\large_combined3.avi");
             //RunMotionSensor();
-            //ExtractMjpegHeader();
+
 
         }
 
@@ -119,7 +115,7 @@ namespace IPConnect_Testing
             imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(ValidImageEventHandler);
 
             //sset up the save file object
-            imageSaver = new ImageSaver(0, @"f:\temp");
+            imageSaver = new ImageSaver(0, saveFolder);
 
             imageExtractor.Run();
         }
