@@ -16,10 +16,12 @@ namespace IPConnect_Testing
         List<byte[]> images; //the final image files
         static UInt64 fileNumber = 0;
         static bool sequenceFileNumbers;
+        string savePath;
 
-        public ImageSaver()
+        public ImageSaver(string savePath)
         {
             images = new List<byte[]>();
+            this.savePath = savePath;
         }
 
         /// <summary>
@@ -27,10 +29,11 @@ namespace IPConnect_Testing
         /// subsequent files are increased by 1
         /// </summary>
         /// <param name="sequenceStart"></param>
-        public ImageSaver(int sequenceStart)
+        public ImageSaver(int sequenceStart, string savePath)
         {
             fileNumber =(UInt64)sequenceStart;
             sequenceFileNumbers = true;
+            this.savePath = savePath;
         }
 
         public void ListenForImages(ImageExtractor imgClass)
@@ -93,7 +96,7 @@ namespace IPConnect_Testing
             }
 
 
-            return @"f:\temp\test_" + x.ToString() + ".jpg";
+            return savePath + @"\test_" + x.ToString() + ".jpg";
 
         }
 

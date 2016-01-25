@@ -56,7 +56,7 @@ namespace IPConnect_Testing
 
             HttpWebResponse resp = ReturnHttpResponse(url);
 
-            if(resp.StatusCode != HttpStatusCode.OK) { throw new Exception("HTTP Request returned a " + resp.StatusCode + " status code"); }
+           // if(resp.StatusCode != HttpStatusCode.OK) { throw new Exception("HTTP Request returned a " + resp.StatusCode + " status code"); }
 
             Console.WriteLine(resp.Headers.ToString());
 
@@ -183,7 +183,7 @@ namespace IPConnect_Testing
                 if(split[i].Contains("Content-Length:"))
                 {
                     string[] split2 = Regex.Split(split[i], "Content-Length: ");
-                    return Int16.Parse(split2[1].Trim());
+                    return Int32.Parse(split2[1].Trim());
                 }
             }
 

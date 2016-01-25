@@ -10,13 +10,15 @@ namespace IPConnect_Testing.Images
     /// <summary>
     /// Tools for MJPEG file analysis
     /// </summary>
-    class MJPEG
+    public class MJPEG
     {
         private string filePath; 
         private byte[] bytes; //loads to memory, the first method that loads adds here for subsequent use
 
         public byte[] startBoundary = new byte[2] { 255, 216 };
         public byte[] endBoundary = new byte[2] { 255, 217 };
+
+        public MJPEG() { }
 
         public MJPEG(string filePath) { this.filePath = filePath; bytes = File.ReadAllBytes(filePath); }
 
@@ -59,6 +61,61 @@ namespace IPConnect_Testing.Images
             return header.ToArray();
 
         }//Header
+
+        /// <summary>
+        /// returns all bytes found between the start and end bytes of a JPEG
+        /// </summary>
+        /// <returns></returns>
+        public List<byte[]> JpegBoundaryBytes()
+        {
+            List<byte[]> returnList = new List<byte[]>(); 
+            List<byte> currentSection = null;
+
+            for(int i = 1; i < bytes.Length; i++)
+            {
+                if (bytes[i - 1] == endBoundary[0] && bytes[i] == endBoundary[1])
+                {
+                    //end of jpeg found, start a new byte list
+                    currentSection = new List<byte>();
+                }
+                else if(bytes[i - 1] == startBoundary[0] && bytes[i] == startBoundary[1])
+                {
+                    //start of jpeg found, add the bytes to the return list
+                    if(currentSection != null) {
+                        currentSection.RemoveAt(currentSection.Count - 1);
+                        returnList.Add(currentSection.ToArray());
+                    }
+                }
+                else if(currentSection != null)
+                {
+                    //in a jpeg so add the bytes
+                    currentSection.Add(bytes[i]);
+                }
+
+            }//for each byte
+
+            return returnList;
+
+        }//JPegBoundaryBytes
+
+        /// <summary>
+        /// Takes a file directory and returns the bytes from each JPEG file within that directory
+        /// </summary>
+        /// <param name="fileDirectory"></param>
+        /// <returns></returns>
+        public List<byte[]> BytesFromFiles(string fileDirectory)
+        {
+            List<byte[]> ret = new List<byte[]>();
+
+            foreach(var file in Directory.GetFiles(fileDirectory, "*.jpg"))
+            {
+                byte[] bytes = File.ReadAllBytes(file);
+                ret.Add(bytes);
+            }//for each file
+
+            return ret;
+
+        }//BytesFromFiles
 
     }
 }

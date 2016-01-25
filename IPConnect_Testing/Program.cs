@@ -22,7 +22,12 @@ namespace IPConnect_Testing
 
     class Program
     {
-        static string url = "http://192.168.0.3/axis-cgi/mjpg/video.cgi?date=1&clock=1&resolution=320x240";
+        // static string url = "http://192.168.0.3/axis-cgi/mjpg/video.cgi?date=1&clock=1&resolution=320x240";
+        //static string url = "http://192.168.0.3/axis-cgi/mjpg/video.cgi";
+
+        static string url = "http://localhost:8080/api/Mpeg/Stream";
+
+
         static string username = "root";
         static string password = "root";
 
@@ -34,13 +39,13 @@ namespace IPConnect_Testing
 
         static void Main(string[] args)
         {
-
-            RunMotionSensor();
-
-
+            Write("IPConnect started");
+            ExtractImages();
+            Console.ReadLine();
+            //
+            //TestMjpegBoundaryBytes(@"f:\temp\large_combined3.avi");
+            //RunMotionSensor();
             //ExtractMjpegHeader();
-
-
 
         }
 
@@ -51,6 +56,28 @@ namespace IPConnect_Testing
             Console.WriteLine(mjpeg.HeaderString());
             Console.ReadLine();
 
+        }
+
+        static void TestMjpegBoundaryBytes(string source)
+        {
+            List<byte[]> boundaryBytes = new MJPEG(source).JpegBoundaryBytes();
+
+            for(int i = 0; i < boundaryBytes.Count; i++)
+            {
+                byte[] bytes = boundaryBytes[i];
+
+                //test 1, ends with 2E 00 00
+                string s = BitConverter.ToString(bytes);
+
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"f:\temp\boundary extract.txt", true))
+                {
+                    file.WriteLine(s);
+                }
+
+                var x = "nd";
+            }
+            Console.WriteLine("Finished");
+            Console.ReadLine();
         }
 
         static void RunMotionSensor()
@@ -71,13 +98,32 @@ namespace IPConnect_Testing
             imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(ValidImageEventHandler);
 
             //sset up the save file object
-            imageSaver = new ImageSaver(0);
+            imageSaver = new ImageSaver(0, @"f:\temp");
 
             //set up the montion sensor
             motionSensor = new MotionSensor(5);
 
             imageExtractor.Run();
         }
+
+        static void ExtractImages()
+        {
+
+            ImageExtractor imageExtractor = new ImageExtractor(url, username, password);
+
+            //create the validator and subs
+            ImageValidator imageValidator = new ImageValidator();
+            imageValidator.ListenForImages(imageExtractor);
+
+            //subscribe to events from the validator (to and analyse)
+            imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(ValidImageEventHandler);
+
+            //sset up the save file object
+            imageSaver = new ImageSaver(0, @"f:\temp");
+
+            imageExtractor.Run();
+        }
+
 
         /// <summary>
         /// Subscribes to a Image Validated event, then calls the methods to save the image, asyncrohously
@@ -93,12 +139,11 @@ namespace IPConnect_Testing
             //Extract the bitmap and do some testing - this needs to be moved to a thread so it is asyncronhous
             bitmaps.Add(new ImageConverter().ReturnBitmap(img));
   
-            if(bitmaps.Count > 20) {
+            if(bitmaps.Count > 20 && motionSensor != null) {
                 motionSensor.CheckForMotion(bitmaps);
                 bitmaps = new List<Bitmap>();
             }
         }
-
 
         private static UInt64 Hash()
         {
@@ -110,6 +155,11 @@ namespace IPConnect_Testing
         private static void fileInfo()
         {
             DateTime s = File.GetCreationTime(@"F:\temp\alarm\4469890.bmp");
+        }
+
+        private static void Write(String s)
+        {
+            Console.WriteLine(DateTime.Now + " - " + s);
         }
 
     }
