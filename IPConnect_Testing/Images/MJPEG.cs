@@ -149,15 +149,13 @@ namespace IPConnect_Testing.Images
                 allbytes.AddRange(Encoding.ASCII.GetBytes("Content-Type: image/jpeg"));
                 allbytes.AddRange(Encoding.ASCII.GetBytes("\r\n"));
                 allbytes.AddRange(Encoding.ASCII.GetBytes("Content-Length: " + bytes[i].Length));
-                allbytes.AddRange(Encoding.ASCII.GetBytes("\r\n"));
-                allbytes.AddRange(Encoding.ASCII.GetBytes("\r\n"));
+                allbytes.AddRange(Encoding.ASCII.GetBytes("\r\n\r\n"));
                 allbytes.AddRange(bytes[i].ToList());
             }
 
             return new ByteArrayContent(allbytes.ToArray());
 
         }//HTTPMultiPartPost
-
 
     }
 }
