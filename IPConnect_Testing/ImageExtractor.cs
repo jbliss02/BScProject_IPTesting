@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,7 +19,6 @@ namespace IPConnect_Testing
     {
         public event ImageCreatedEvent imageCreated;
         public delegate void ImageCreatedEvent(byte[] img, EventArgs e);
-
         public List<byte[]> images; //the final image files
 
         string url;
@@ -28,6 +28,10 @@ namespace IPConnect_Testing
         Regex contentLengthRegex = new Regex("Content-Length: (?<length>[0-9]+)\r\n\r\n", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         string boundaryString = @"--myboundary";
         byte[] boundaryBytes; //a byte version of the boundary
+
+
+        Stopwatch stopwatch;
+        int minutesToRun;
 
         public ImageExtractor(string url, string username, string password)
         {
@@ -50,6 +54,15 @@ namespace IPConnect_Testing
             return resp;
         }
 
+        //Runs the Image extractor for a set period
+        public void Run(int minutes)
+        {
+            minutesToRun = minutes;
+            stopwatch = new Stopwatch();
+            stopwatch.Start();
+            Run();
+        }
+
         public void Run()
         {
             if (boundaryBytes == null) { throw new Exception("boundaryBytes was null"); }
@@ -68,8 +81,13 @@ namespace IPConnect_Testing
                 int contentLength = GetContentLength(header);
 
                 byte[] img = reader.ReadBytes(contentLength);
-                images.Add(img);
+               // images.Add(img);
                 OnFileCreate(img);
+
+                if(stopwatch != null && stopwatch.Elapsed.Minutes > minutesToRun)
+                {
+                    return;
+                }
 
             }//while stream.CanRead
 

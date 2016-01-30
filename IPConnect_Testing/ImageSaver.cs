@@ -51,17 +51,7 @@ namespace IPConnect_Testing
             fileStartName = "test";
         }
 
-        public void ListenForImages(ImageExtractor imgClass)
-        {
-            imgClass.imageCreated += new ImageExtractor.ImageCreatedEvent(FileCreated);
-        }
-
-        public void FileCreated(byte[] img, EventArgs e)
-        {
-            WriteBytesToFile( (byte[]) img);
-        }
-
-        public async Task FileCreatedAsync(byte[] img, EventArgs e)
+        public async Task ImageCreatedAsync(byte[] img, EventArgs e)
         {
             await Task.Run(() => { WriteBytesToFile(img); } );
         }
@@ -92,7 +82,7 @@ namespace IPConnect_Testing
                 Console.WriteLine(DateTime.Now + " - " + ex.Message);
             }
 
-           // Console.WriteLine("Image Saved");
+            Console.WriteLine("Image Saved");
         }
 
         private String GenerateFileName()

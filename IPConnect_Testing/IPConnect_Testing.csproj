@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="ImageConverter.cs" />
+    <Compile Include="StreamAnalyser.cs" />
     <Compile Include="Images\BitmapWrappers.cs" />
     <Compile Include="Images\JPEG.cs" />
     <Compile Include="Images\MJPEG.cs" />

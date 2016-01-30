@@ -23,27 +23,26 @@ namespace IPConnect_Testing
     class Program
     {
         // static string url = "http://192.168.0.3/axis-cgi/mjpg/video.cgi?date=1&clock=1&resolution=320x240";
-       // static string url = "http://192.168.0.3/axis-cgi/mjpg/video.cgi";
+        //static string url = "http://192.168.0.3/axis-cgi/mjpg/video.cgi";
         //static string url = "http://localhost:8080/api/Mpeg/stream";
         static string url = "http://localhost:9000/api/Mpeg/Stream?id=1";
 
-        static string saveFolder = @"f:\temp\2";
+        static string saveFolder = @"f:\temp\3";
 
         static string username = "root";
         static string password = "root";
         static List<Bitmap> bitmaps = new List<Bitmap>(); //the converted bitmap's which are looked at 
         static MotionSensor motionSensor;
         static ImageSaver imageSaver;
+        static StreamAnalyser streamAnalyser;
 
         static void Main(string[] args)
         {
             Write("IPConnect started");
-            //ExtractImages();
-
+           // ExtractImages();
+            Console.WriteLine("Finished");
             Console.ReadLine();
             //RunMotionSensor();
-
-
         }
 
         static void ExtractMjpegHeader()
@@ -115,15 +114,18 @@ namespace IPConnect_Testing
             //subscribe to events from the validator (to and analyse)
             imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(ValidImageEventHandler);
 
-            //sset up the save file object
-            imageSaver = new ImageSaver(0, saveFolder);
+            //set up the save file object
+            //imageSaver = new ImageSaver(0, saveFolder);
+
+            //set up image logger
+            streamAnalyser = new StreamAnalyser(@"f:\temp\imageLogger.txt", true);
 
             imageExtractor.Run();
         }
 
 
         /// <summary>
-        /// Subscribes to a Image Validated event, then calls the methods to save the image, asyncrohously
+        /// Subscribes to a Image Validated event, then calls various other tied in methods
         /// </summary>
         /// <param name="img"></param>
         /// <param name="e"></param>
@@ -131,15 +133,18 @@ namespace IPConnect_Testing
         {
             // Task saveImage = new ImageSaver(0).FileCreatedAsync(img, e);
 
-            Task saveImage = imageSaver.FileCreatedAsync(img, e);
+            //Task saveImage = imageSaver.ImageCreatedAsync(img, e);
 
-            //Extract the bitmap and do some testing - this needs to be moved to a thread so it is asyncronhous
-            bitmaps.Add(new ImageConverter().ReturnBitmap(img));
+            Task streamAnalysis = streamAnalyser.ImageCreatedAsync(img, e);
+            
+
+            ////Extract the bitmap and do some testing - this needs to be moved to a thread so it is asyncronhous
+            //bitmaps.Add(new ImageConverter().ReturnBitmap(img));
   
-            if(bitmaps.Count > 20 && motionSensor != null) {
-                motionSensor.CheckForMotion(bitmaps);
-                bitmaps = new List<Bitmap>();
-            }
+            //if(bitmaps.Count > 20 && motionSensor != null) {
+            //    motionSensor.CheckForMotion(bitmaps);
+            //    bitmaps = new List<Bitmap>();
+            //}
         }
 
         private static UInt64 Hash()

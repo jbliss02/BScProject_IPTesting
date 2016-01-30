@@ -26,7 +26,7 @@ namespace HTTP_Streamer.Controllers
             try
             {
                 response = new HttpResponseMessage(HttpStatusCode.OK);
-                response.Content = new MJPEG().HTTPMultiPartPost(@"f:\temp\1", boundary);
+                response.Content = new MJPEG().HTTPMultiPartPost(@"f:\temp\3", boundary);
                 response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
                 response.Content.Headers.Remove("Content-Type");
                 response.Content.Headers.TryAddWithoutValidation("Content-Type", "multipart/x-mixed-replace;boundary=myboundary");
@@ -42,10 +42,9 @@ namespace HTTP_Streamer.Controllers
         }//Stream
 
         [HttpGet]
-        public HttpResponseMessage Stream(int i)
+        public HttpResponseMessage Stream(int id)
         {
-
-            var jpegStream = new MPegStream(@"f:\temp\1");
+            var jpegStream = new MPegStream(@"f:\temp\3");
             Func<Stream, HttpContent, TransportContext, Task> func = jpegStream.WriteToStream;
 
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
@@ -57,7 +56,6 @@ namespace HTTP_Streamer.Controllers
 
 
         }//StreamAsync
-
 
     }//MPeg controller ends
 
