@@ -23,12 +23,12 @@ namespace IPConnect_Testing
     class Program
     {
         // static string url = "http://192.168.0.3/axis-cgi/mjpg/video.cgi?date=1&clock=1&resolution=320x240";
-        //static string url = "http://192.168.0.3/axis-cgi/mjpg/video.cgi";
+        static string url = "http://192.168.0.3/axis-cgi/mjpg/video.cgi";
         //static string url = "http://localhost:8080/api/Mpeg/stream";
-       // static string url = "http://192.168.0.3/axis-cgi/mjpg/video.cgi?date=1&clock=1";
-        static string url = "http://localhost:9000/api/Mpeg/Stream?id=1";
+        // static string url = "http://192.168.0.3/axis-cgi/mjpg/video.cgi?date=1&clock=1";
+        //static string url = "http://localhost:9000/api/Mpeg/Stream?id=1";
 
-        static string saveFolder = @"f:\temp\4";
+
 
         static string username = "root";
         static string password = "root";
@@ -40,7 +40,7 @@ namespace IPConnect_Testing
         static void Main(string[] args)
         {
             Write("IPConnect started");
-            //ExtractImages();
+           // ExtractImages();
             Console.WriteLine("Finished");
             Console.ReadLine();
             //RunMotionSensor();

@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.IO;
 using Tools;
 
-namespace HTTP_Streamer
+namespace HTTP_Streamer.Models
 {
     /// <summary>
     /// Writes JEPG files to an output stream, asynchrously

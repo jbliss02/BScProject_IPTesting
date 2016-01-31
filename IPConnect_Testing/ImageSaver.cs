@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using System.Configuration;
 using Tools;
 
 namespace IPConnect_Testing
@@ -19,7 +20,7 @@ namespace IPConnect_Testing
     public class ImageSaver
     {
         public int framesPerSection { get; set; } = 1000;
-        public string parentDirectory { get; set; } = @"f:\captures"; //MOVE TO A CONFIG FILE
+        public string parentDirectory { get; set; } 
         public string captureDirectory { get; set; }  //the parent directory, in which all section directories will be stored
 
         string saveDirectory;
@@ -52,6 +53,8 @@ namespace IPConnect_Testing
         private void SetUp()
         {
             fileStartName = "test";
+
+            parentDirectory = ConfigurationManager.AppSettings["SaveLocation"].ToString();
 
             //define the camera directory, and create if not exists
             string cameraDirectory = parentDirectory + @"\" + cameraId;
@@ -146,7 +149,7 @@ namespace IPConnect_Testing
 
         private String GenerateFileName()
         {          
-            String ret = captureDirectory + @"\" + fileStartName + "_" + fileNumber.ToString() + ".jpg";
+            String ret = saveDirectory + @"\" + fileStartName + "_" + fileNumber.ToString() + ".jpg";
             fileNumber++;
             return ret;
         }
