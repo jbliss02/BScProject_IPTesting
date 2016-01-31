@@ -94,6 +94,10 @@
       <Project>{50a76ed1-5122-446d-adf1-8caa55c6a8e3}</Project>
       <Name>IPConnect_Testing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tools\Tools.csproj">
+      <Project>{871b781a-bec7-46e8-a267-19e4e41e222c}</Project>
+      <Name>Tools</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

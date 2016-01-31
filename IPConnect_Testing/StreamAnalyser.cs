@@ -77,7 +77,7 @@ namespace IPConnect_Testing
 
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(logFile, true))
                 {
-                    file.WriteLine(mainWatch.ElapsedMilliseconds + " - " +  frameRate);
+                    file.WriteLine(frameRate);
                 }
 
             });

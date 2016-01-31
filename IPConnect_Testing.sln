@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPConnect_Testing", "IPConn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HTTP_Streamer", "HTTP_Streamer\HTTP_Streamer.csproj", "{333D7319-2F86-4971-B189-72882C85D80F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools", "Tools\Tools.csproj", "{871B781A-BEC7-46E8-A267-19E4E41E222C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{75E76375-E6B2-4E93-BE6A-F5AA4D53027F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{333D7319-2F86-4971-B189-72882C85D80F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{333D7319-2F86-4971-B189-72882C85D80F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{333D7319-2F86-4971-B189-72882C85D80F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{871B781A-BEC7-46E8-A267-19E4E41E222C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{871B781A-BEC7-46E8-A267-19E4E41E222C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{871B781A-BEC7-46E8-A267-19E4E41E222C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{871B781A-BEC7-46E8-A267-19E4E41E222C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75E76375-E6B2-4E93-BE6A-F5AA4D53027F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75E76375-E6B2-4E93-BE6A-F5AA4D53027F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75E76375-E6B2-4E93-BE6A-F5AA4D53027F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75E76375-E6B2-4E93-BE6A-F5AA4D53027F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

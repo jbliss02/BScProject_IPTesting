@@ -132,6 +132,9 @@ namespace IPConnect_Testing.Images
         /// <summary>
         /// Returns bytes for all JPEG's found in the fileDirectory
         /// Inserts the appropriate HTTP Multipart header information
+        /// Not an efficient method as all bytes from the files are loaded
+        /// at the same time, MemoryExceptions will happen with
+        /// directories containing many files
         /// </summary>
         /// <param name="fileDirectory"></param>
         /// <param name="boundary"></param>

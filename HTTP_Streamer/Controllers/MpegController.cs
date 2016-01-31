@@ -44,7 +44,7 @@ namespace HTTP_Streamer.Controllers
         [HttpGet]
         public HttpResponseMessage Stream(int id)
         {
-            var jpegStream = new MPegStream(@"f:\temp\3");
+            var jpegStream = new MPegStream(@"f:\temp\4");
             Func<Stream, HttpContent, TransportContext, Task> func = jpegStream.WriteToStream;
 
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);

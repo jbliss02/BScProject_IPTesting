@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tools
+namespace IPConnect_Testing
 {
     public static class ExtensionMethods
     {
@@ -391,6 +391,7 @@ namespace Tools
         {
             return - int.Parse(value, System.Globalization.NumberStyles.HexNumber);
         }
+
 
    
 

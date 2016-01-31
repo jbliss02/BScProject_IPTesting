@@ -8,63 +8,124 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using Tools;
 
 namespace IPConnect_Testing
 {
     /// <summary>
-    /// Saves bytes as images
+    /// Saves bytes as JPEG images
+    /// Defines the folder structure, file allocation and file naming convention
     /// </summary>
     public class ImageSaver
     {
-        List<byte[]> images; //the final image files
-        static UInt64 fileNumber = 0;
-        static bool sequenceFileNumbers;
-        string savePath;
+        public int framesPerSection { get; set; } = 1000;
+        public string parentDirectory { get; set; } = @"f:\captures"; //MOVE TO A CONFIG FILE
+        public string captureDirectory { get; set; }  //the parent directory, in which all section directories will be stored
+
+        string saveDirectory;
+        int sessionCount = 0;
+        Int64 fileNumber = 0;
+        int cameraId;
 
         /// <summary>
         /// The start string for each file that is saved
         /// </summary>
         public string fileStartName { get; set; }
             
-        public ImageSaver(string savePath)
+        public ImageSaver(int cameraId)
         {
-            images = new List<byte[]>();
-            this.savePath = savePath;
-            SetDefaults();
+            this.cameraId = cameraId;
+            SetUp();
         }
 
         /// <summary>
         /// When overloaded with a sequence integer the first file is saved with this value as the prefix
         /// subsequent files are increased by 1
         /// </summary>
-        /// <param name="sequenceStart"></param>
-        public ImageSaver(int sequenceStart, string savePath)
+        /// <param name="cameraId"></param>
+        public ImageSaver(int sequenceStart, int cameraId)
         {
-            fileNumber =(UInt64)sequenceStart;
-            sequenceFileNumbers = true;
-            this.savePath = savePath;
-            SetDefaults();
+            fileNumber = sequenceStart;
+            SetUp();
         }
 
-        private void SetDefaults()
+        private void SetUp()
         {
             fileStartName = "test";
+
+            //define the camera directory, and create if not exists
+            string cameraDirectory = parentDirectory + @"\" + cameraId;
+            if (!Directory.Exists(cameraDirectory)) { CreateDirectory(cameraDirectory); }
+
+            //define, and create, this session's directory
+            captureDirectory = cameraDirectory + @"\" + Tools.ExtensionMethods.DateStamp();
+            CreateDirectory(captureDirectory);
+
+            //set up the initial save directory
+            CreateNewSaveDirectory();
+
+        }
+      
+        private void CreateDirectory(string directoryPath)
+        {
+            if (Directory.Exists(directoryPath)) { throw new Exception("Directory already exists"); }
+            Directory.CreateDirectory(directoryPath);
         }
 
+        /// <summary>
+        /// Called when a new saving directory is required, either when
+        /// object is instaniated or when a new section is generated
+        /// </summary>
+        private void CreateNewSaveDirectory()
+        {
+            sessionCount++;
+            saveDirectory = captureDirectory + @"\" + sessionCount;
+            CreateDirectory(saveDirectory);
+        }
+
+        /// <summary>
+        /// Event listener for when an image is created
+        /// Fires the appropriate methods to classify and save the
+        /// Image
+        /// </summary>
+        /// <param name="img"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
         public async Task ImageCreatedAsync(byte[] img, EventArgs e)
         {
-            await Task.Run(() => { WriteBytesToFile(img); } );
+            await Task.Run(() => {
+                WriteBytesToFile(img);
+                SetSection();
+            } );
         }
 
+        /// <summary>
+        /// Takes a List of byte files and creates
+        /// a seperate file for each element
+        /// </summary>
+        /// <param name="imgs"></param>
+        /// <returns></returns>
         public async Task SaveFiles(List<byte[]> imgs)
         {
             await Task.Run(() => {
-                for(int i = 0; i < imgs.Count; i++)
+                for (int i = 0; i < imgs.Count; i++)
                 {
                     WriteBytesToFile(imgs[i]);
                 }
 
             });
+        }
+
+        /// <summary>
+        /// Defines the current section directory
+        /// Creates and assigns new directories when the current session directory reaches it limit
+        /// </summary>
+        private void SetSection()
+        {
+            if(fileNumber % framesPerSection == 0)
+            {
+                CreateNewSaveDirectory();
+            }
         }
 
         private void WriteBytesToFile(byte[] img)
@@ -81,28 +142,13 @@ namespace IPConnect_Testing
             {
                 Console.WriteLine(DateTime.Now + " - " + ex.Message);
             }
-
-            Console.WriteLine("Image Saved");
         }
 
         private String GenerateFileName()
-        {
-            UInt64 x = 0;
-
-            if(sequenceFileNumbers)
-            {
-                x = fileNumber;
-                fileNumber = fileNumber + 1;
-            }
-            else
-            {
-                UInt64 hash = (UInt64)(int)DateTime.Now.Kind;
-                x = (hash << 62) | (UInt64)DateTime.Now.Ticks;
-            }
-
-
-            return savePath + @"\" + fileStartName + "_" + x.ToString() + ".jpg";
-
+        {          
+            String ret = captureDirectory + @"\" + fileStartName + "_" + fileNumber.ToString() + ".jpg";
+            fileNumber++;
+            return ret;
         }
 
         private void WriteScreen(string st)

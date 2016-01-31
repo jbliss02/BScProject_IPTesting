@@ -25,9 +25,10 @@ namespace IPConnect_Testing
         // static string url = "http://192.168.0.3/axis-cgi/mjpg/video.cgi?date=1&clock=1&resolution=320x240";
         //static string url = "http://192.168.0.3/axis-cgi/mjpg/video.cgi";
         //static string url = "http://localhost:8080/api/Mpeg/stream";
+       // static string url = "http://192.168.0.3/axis-cgi/mjpg/video.cgi?date=1&clock=1";
         static string url = "http://localhost:9000/api/Mpeg/Stream?id=1";
 
-        static string saveFolder = @"f:\temp\3";
+        static string saveFolder = @"f:\temp\4";
 
         static string username = "root";
         static string password = "root";
@@ -39,7 +40,7 @@ namespace IPConnect_Testing
         static void Main(string[] args)
         {
             Write("IPConnect started");
-           // ExtractImages();
+            //ExtractImages();
             Console.WriteLine("Finished");
             Console.ReadLine();
             //RunMotionSensor();
@@ -94,7 +95,7 @@ namespace IPConnect_Testing
             imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(ValidImageEventHandler);
 
             //sset up the save file object
-            imageSaver = new ImageSaver(0, @"f:\temp");
+            imageSaver = new ImageSaver(0, 1);
 
             //set up the montion sensor
             motionSensor = new MotionSensor(5);
@@ -115,7 +116,7 @@ namespace IPConnect_Testing
             imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(ValidImageEventHandler);
 
             //set up the save file object
-            //imageSaver = new ImageSaver(0, saveFolder);
+            imageSaver = new ImageSaver(0, 1);
 
             //set up image logger
             streamAnalyser = new StreamAnalyser(@"f:\temp\imageLogger.txt", true);
@@ -133,7 +134,7 @@ namespace IPConnect_Testing
         {
             // Task saveImage = new ImageSaver(0).FileCreatedAsync(img, e);
 
-            //Task saveImage = imageSaver.ImageCreatedAsync(img, e);
+            Task saveImage = imageSaver.ImageCreatedAsync(img, e);
 
             Task streamAnalysis = streamAnalyser.ImageCreatedAsync(img, e);
             

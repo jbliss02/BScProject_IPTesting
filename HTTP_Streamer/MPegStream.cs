@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
 using System.IO;
+using Tools;
 
 namespace HTTP_Streamer
 {
@@ -33,7 +34,15 @@ namespace HTTP_Streamer
         {
             byte[] crlf = Encoding.UTF8.GetBytes("\r\n");
 
-            foreach (var file in Directory.GetFiles(filePath, "*.jpg"))
+            //get the files in name order, important for frames to be played in sequence
+            List<String> files = Directory.GetFiles(filePath, "*.jpg").ToList();
+
+            files = (from f in files
+                        orderby f.Split('_')[1].Split('.')[0].ToString().StringToInt()
+                        ascending
+                        select f).ToList();
+
+            foreach (var file in files)
             {
                 var fileInfo = new FileInfo(file);
 
@@ -41,9 +50,9 @@ namespace HTTP_Streamer
                 await outputStream.WriteAsync(header, 0, header.Length); //write the header                  
                 await fileInfo.OpenRead().CopyToAsync(outputStream); //write the JPEG bytes 
                 await outputStream.WriteAsync(crlf, 0, crlf.Length); //write the new line 
-                await Task.Delay(100); //a delay
+                await Task.Delay(new TimeSpan(0,0,0,0,49)); //a ms delay to regulate the speed
 
-            }//each file
+             }//each file
 
         }
         catch
@@ -73,6 +82,15 @@ namespace HTTP_Streamer
             s.Append("\r\n\r\n");
 
             return  Encoding.UTF8.GetBytes(s.ToString());
+        }
+
+        /// <summary>
+        /// Returns a delay bases ./......................
+        /// </summary>
+        /// <returns></returns>
+        private int Delay()
+        {
+            return 1;
         }
 
     }
