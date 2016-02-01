@@ -69,11 +69,10 @@ namespace HTTP_Streamer.Controllers
 
         //Id is the session
         [Route("api/mpeg/{cameraId}/{sessionKey}")]
-        public HttpResponseMessage Get(int cameraId, long sessionKey)
+        public HttpResponseMessage Get(int cameraId, string sessionKey)
         {
-            string targetLocation = ConfigurationManager.AppSettings["SaveLocation"].ToString() + @"\" + cameraId + @"\" + sessionKey;
 
-            var jpegStream = new MPegStream(targetLocation);
+            MPegStream jpegStream = new MPegStream(cameraId, sessionKey);
             Func<Stream, HttpContent, TransportContext, Task> func = jpegStream.WriteToStream;
 
             HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
@@ -84,18 +83,18 @@ namespace HTTP_Streamer.Controllers
             return response;
         }
 
-        public HttpResponseMessage Get(int id, int jid)
-        {
-            var jpegStream = new MPegStream(@"f:\temp\4");
-            Func<Stream, HttpContent, TransportContext, Task> func = jpegStream.WriteToStream;
+        //public HttpResponseMessage Get(int id, int jid)
+        //{
+        //    var jpegStream = new MPegStream(@"f:\temp\4");
+        //    Func<Stream, HttpContent, TransportContext, Task> func = jpegStream.WriteToStream;
 
-            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-            response.Content = new PushStreamContent(func);
-            response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
-            response.Content.Headers.Remove("Content-Type");
-            response.Content.Headers.TryAddWithoutValidation("Content-Type", "multipart/x-mixed-replace;boundary=" + jpegStream.boundary);
-            return response;
-        }
+        //    HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+        //    response.Content = new PushStreamContent(func);
+        //    response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
+        //    response.Content.Headers.Remove("Content-Type");
+        //    response.Content.Headers.TryAddWithoutValidation("Content-Type", "multipart/x-mixed-replace;boundary=" + jpegStream.boundary);
+        //    return response;
+        //}
 
     }//MPeg controller ends
 

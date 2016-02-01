@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.IO;
 using Tools;
+using System.Configuration;
 
 namespace HTTP_Streamer.Models
 {
@@ -17,54 +18,56 @@ namespace HTTP_Streamer.Models
     public class MPegStream
     {
         public string boundary { get; set; } = "myboundary";
-        public string filePath { get; set; }
 
+        private string sessionKey { get; set; }
+        private int cameraId { get; set; }
+        private string filePath { get; set; }
         /// <summary>
         /// Defines the file path in which the .jpg files will merged
         /// </summary>
         /// <param name="filePath"></param>
+
+
+        public MPegStream(int cameraId, string sessionKey)
+        {
+            this.sessionKey = sessionKey;
+            this.cameraId = cameraId;
+        }
+
         public MPegStream(string filePath)
         {
             this.filePath = filePath;
         }
 
-    public async Task WriteToStream(Stream outputStream, HttpContent content, TransportContext context)
-    {
-        try
+        public async Task WriteToStream(Stream outputStream, HttpContent content, TransportContext context)
         {
-            byte[] crlf = Encoding.UTF8.GetBytes("\r\n");
-
-            //get the files in name order, important for frames to be played in sequence
-            List<String> files = Directory.GetFiles(filePath, "*.jpg").ToList();
-
-            files = (from f in files
-                        orderby f.Split('_')[1].Split('.')[0].ToString().StringToInt()
-                        ascending
-                        select f).ToList();
-
-            foreach (var file in files)
+            try
             {
-                var fileInfo = new FileInfo(file);
+                byte[] crlf = Encoding.UTF8.GetBytes("\r\n");
+              
+                foreach (var file in ImageFiles())
+                {
+                    var fileInfo = new FileInfo(file);
 
-                byte[] header = HTTPHeader(fileInfo.Length);
-                await outputStream.WriteAsync(header, 0, header.Length); //write the header                  
-                await fileInfo.OpenRead().CopyToAsync(outputStream); //write the JPEG bytes 
-                await outputStream.WriteAsync(crlf, 0, crlf.Length); //write the new line 
-                await Task.Delay(new TimeSpan(0,0,0,0,49)); //a ms delay to regulate the speed
+                    byte[] header = HTTPHeader(fileInfo.Length);
+                    await outputStream.WriteAsync(header, 0, header.Length); //write the header                  
+                    await fileInfo.OpenRead().CopyToAsync(outputStream); //write the JPEG bytes 
+                    await outputStream.WriteAsync(crlf, 0, crlf.Length); //write the new line 
+                    await Task.Delay(new TimeSpan(0,0,0,0,49)); //a ms delay to regulate the speed
 
-             }//each file
+                 }//each file
 
-        }
-        catch
-        {
-            return;
-        }
-        finally
-        {
-            outputStream.Close(); //browser will not show the stream without this
-        }
+            }
+            catch
+            {
+                return;
+            }
+            finally
+            {
+                outputStream.Close(); //browser will not show the stream without this
+            }
 
-    }//WriteToStream
+        }//WriteToStream
 
         /// <summary>
         /// Returns the byte representation of the header, for a specific image length
@@ -85,13 +88,37 @@ namespace HTTP_Streamer.Models
         }
 
         /// <summary>
-        /// Returns a delay bases ./......................
+        /// Returns an array of the file paths belonging to this session key
+        /// Sorts into the correct order, based on file name
         /// </summary>
         /// <returns></returns>
-        private int Delay()
+        public List<String> ImageFiles()
         {
-            return 1;
-        }
+            // string mainLocation = ConfigurationManager.AppSettings["SaveLocation"].ToString() + @"\" + cameraId + @"\" + sessionKey;
+            string mainLocation = @"f:\captures\" + cameraId + @"\" + sessionKey;
+            if (!Directory.Exists(mainLocation)) { throw new Exception("Directory does not exist"); }
+
+            List<String> ret = new List<string>(); //the return collection
+
+            //get all the section directories
+            List<String> dirs = (from dir in Directory.EnumerateDirectories(mainLocation)
+                        orderby dir.ToString().StringToInt() ascending
+                        select dir).ToList();
+
+            //iterate over each directory and retrieve the files
+            foreach (var dir in dirs)
+            {
+                var files = (from file in Directory.EnumerateFiles(dir).ToList()
+                             where new FileInfo(file).Extension == ".jpg"
+                             orderby file.Split('_')[1].Split('.')[0].ToString().StringToInt() ascending
+                             select file).ToList();
+
+                ret.AddRange(files);
+            }
+
+            return ret;
+
+        }//ImageFiles
 
     }
 }
