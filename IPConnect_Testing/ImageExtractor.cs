@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -18,8 +19,15 @@ namespace IPConnect_Testing
     public class ImageExtractor
     {
         public event ImageCreatedEvent imageCreated;
+        public event FramerateBroadcastEvent framerateBroadcast;
+
         public delegate void ImageCreatedEvent(byte[] img, EventArgs e);
-        public List<byte[]> images; //the final image files
+        public delegate void FramerateBroadcastEvent(double framerate, EventArgs e);
+
+        //framebroadcast info
+        int imagesAnalysed; //the number of images in the current broadcast (re-set on each broadcast)
+        int framesPerBroadcast; //the number of frames to process until the rate is broadcast
+        Stopwatch frameStopwatch; //used to calculate the frame rate
 
         string url;
         string username;
@@ -29,7 +37,7 @@ namespace IPConnect_Testing
         string boundaryString = @"--myboundary";
         byte[] boundaryBytes; //a byte version of the boundary
 
-
+        //main stopwatch for timing of the whole capture session
         Stopwatch stopwatch;
         int minutesToRun;
 
@@ -39,8 +47,9 @@ namespace IPConnect_Testing
             this.password = password;
             this.url = url;
 
+            this.framesPerBroadcast = ConfigurationManager.AppSettings["FramesPerBroadcast"].ToString().StringToInt();
+
             boundaryBytes = Encoding.ASCII.GetBytes(boundaryString); //set the boundary bytes from the boundaryString
-            images = new List<byte[]>();
         }
 
         private HttpWebResponse ReturnHttpResponse(string URI)
@@ -65,11 +74,13 @@ namespace IPConnect_Testing
 
         public void Run()
         {
+            Setup();
+
             if (boundaryBytes == null) { throw new Exception("boundaryBytes was null"); }
 
             HttpWebResponse resp = ReturnHttpResponse(url);
 
-           // if(resp.StatusCode != HttpStatusCode.OK) { throw new Exception("HTTP Request returned a " + resp.StatusCode + " status code"); }
+            if(resp.StatusCode != HttpStatusCode.OK) { throw new Exception("HTTP Request returned a " + resp.StatusCode + " status code"); }
 
             Console.WriteLine(resp.Headers.ToString());
 
@@ -95,6 +106,11 @@ namespace IPConnect_Testing
             reader.Dispose();
 
         }//Run
+
+        private void Setup()
+        {
+            if(framerateBroadcast != null) { frameStopwatch = new Stopwatch(); } //records the framerate
+        }
 
         /// <summary>
         /// Steps through the stream until a header is identified
@@ -211,18 +227,38 @@ namespace IPConnect_Testing
 
         protected virtual void OnFileCreate(byte[] img)
         {
-           // Console.WriteLine("Image Extracted");
             if (imageCreated != null)
             {
                 imageCreated(img, EventArgs.Empty);
             }
 
+            if(framerateBroadcast != null)
+            {
+                if (!frameStopwatch.IsRunning) { frameStopwatch.Start();  } //only start once the images start to come through
+
+                imagesAnalysed++;
+                if(imagesAnalysed % framesPerBroadcast == 0)
+                {
+                    frameStopwatch.Stop();
+                    BroadcastFramerate(frameStopwatch.Elapsed.TotalMilliseconds, imagesAnalysed);
+
+                    imagesAnalysed = 0;
+                    frameStopwatch.Restart();
+
+                }
+            }
+
         }//OnFileCreate
 
-        private void WriteWholeFile(byte[] img)
+        private async void BroadcastFramerate(double ms, int imagesAnalysed)
         {
-            //writes the whole file, including the boundaries and headers
+            var framerate = ms / imagesAnalysed;
+
+            await Task.Run(() => {
+                framerateBroadcast(framerate, EventArgs.Empty);
+            });            
         }
+
 
     }//ImageExtractor.cs
 

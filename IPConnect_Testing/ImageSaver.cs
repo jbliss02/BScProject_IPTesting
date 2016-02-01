@@ -28,6 +28,8 @@ namespace IPConnect_Testing
         Int64 fileNumber = 0;
         int cameraId;
 
+        public List<double> framerates { get; set; } = new List<double>();
+
         /// <summary>
         /// The start string for each file that is saved
         /// </summary>
@@ -94,14 +96,14 @@ namespace IPConnect_Testing
         /// <param name="img"></param>
         /// <param name="e"></param>
         /// <returns></returns>
-        public async Task ImageCreatedAsync(byte[] img, EventArgs e)
+        public async Task ImageCreatedAsync(byte[] img)
         {
             await Task.Run(() => {
                 WriteBytesToFile(img);
                 SetSection();
             } );
         }
-
+       
         /// <summary>
         /// Takes a List of byte files and creates
         /// a seperate file for each element
@@ -127,9 +129,32 @@ namespace IPConnect_Testing
         {
             if(fileNumber % framesPerSection == 0)
             {
+                WriteDatafileSummary(sessionCount);
                 CreateNewSaveDirectory();
             }
         }
+
+        /// <summary>
+        /// Writes the data file summary once a section has been completed
+        /// This includes framerate information
+        /// </summary>
+        private async void WriteDatafileSummary(int sessionNumber)
+        {
+            await Task.Run(() => {
+                double framerate = framerates.Average();
+                framerates.Clear(); //start again
+
+                //assumes data file doesn't exist, but it might so change this
+                string logfile = captureDirectory + @"\" + sessionNumber + @"\logfile.txt";
+
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(logfile, true))
+                {
+                    file.WriteLine("FR:" + framerate);
+                }
+
+            });
+
+        }//WriteDatafileSummary
 
         private void WriteBytesToFile(byte[] img)
         {
