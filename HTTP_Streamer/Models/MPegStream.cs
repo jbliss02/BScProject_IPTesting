@@ -26,7 +26,7 @@ namespace HTTP_Streamer.Models
         private Stopwatch regulatorClock; //times the speed between frames
         private int framesPerRegulationCheck; //how many frames in a speed check
         private int frameCount; //the number of frames in this regulation section
-        private int frameRate = 33; //to be re-set by the meta data file
+        private double requiredFramerate = 33; //to be re-set by the meta data file
 
         private string sessionKey { get; set; }
         private int cameraId { get; set; }
@@ -48,7 +48,7 @@ namespace HTTP_Streamer.Models
         private void Setup()
         {
             naturalFramesPerMinute = 1500; //start somewhere, move to config
-            currentDelayMs = 49;
+            currentDelayMs = 32; //32 is about the right speed for a delay!!
             frameCount = 0;
             regulatorClock = new Stopwatch();
             framesPerRegulationCheck = 100;
@@ -56,22 +56,26 @@ namespace HTTP_Streamer.Models
 
         public async Task WriteToStream(Stream outputStream, HttpContent content, TransportContext context)
         {
-            try
+
+         try
             {
                 byte[] crlf = Encoding.UTF8.GetBytes("\r\n");
               
                 foreach (var file in ImageFiles())
                 {
+                    
                     var fileInfo = new FileInfo(file);
 
                     byte[] header = HTTPHeader(fileInfo.Length);
                     await outputStream.WriteAsync(header, 0, header.Length); //write the header                  
                     await fileInfo.OpenRead().CopyToAsync(outputStream); //write the JPEG bytes 
                     await outputStream.WriteAsync(crlf, 0, crlf.Length); //write the new line 
-                    await Task.Delay(Delay()); //a ms delay to regulate the speed
+
+                    System.Threading.Thread.Sleep(currentDelayMs);
                     await RegulateFramerate(); //set the delay
 
-                 }//each file
+
+                }//each file
 
             }
             catch
@@ -158,18 +162,17 @@ namespace HTTP_Streamer.Models
                     {
                         //section is full, calculate the natural speed
                         regulatorClock.Stop();
-                        double totalDelayMs = currentDelayMs * frameCount; 
-                        double totalTransmissionMs = regulatorClock.Elapsed.TotalMilliseconds;
 
-                        double naturalTransmission = totalTransmissionMs - totalDelayMs;
-                        double naturalFramerate = naturalTransmission / framesPerRegulationCheck;
+                        double transmissionMs = regulatorClock.Elapsed.TotalMilliseconds;
+                        double delayMs = (currentDelayMs * framesPerRegulationCheck);
+                        double naturalTransmissionMs = transmissionMs - delayMs;
 
+                        double actualMsPerFrame = naturalTransmissionMs / framesPerRegulationCheck;
+                        double desiredMsPerFrame = (1 / requiredFramerate) * 1000;
 
+                        double requiredMsDelayPerFrame = desiredMsPerFrame - actualMsPerFrame;
 
-
-                        //work out what the delay should be
-                        double newDelay = (1 / naturalFramerate) * 1000;
-                       // currentDelayMs = newDelay 
+                        currentDelayMs = Convert.ToInt16(requiredMsDelayPerFrame);
 
                         //reset everything
                         frameCount = 0;

@@ -40,7 +40,7 @@ namespace IPConnect_Testing
         static void Main(string[] args)
         {
             Write("IPConnect started");
-            //ExtractImages();
+           // ExtractImages();
             Console.WriteLine("Finished");
             Console.ReadLine();
             //RunMotionSensor();
