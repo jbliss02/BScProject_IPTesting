@@ -55,7 +55,7 @@
   <ItemGroup>
     <Compile Include="ImageSaverTesting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MPegStreamTest.cs" />
+    <Compile Include="HTTP_Streamer\MPegStreamTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HTTP_Streamer\HTTP_Streamer.csproj">

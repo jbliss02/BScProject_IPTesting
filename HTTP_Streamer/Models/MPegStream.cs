@@ -22,7 +22,6 @@ namespace HTTP_Streamer.Models
 
         //Frame regulation - REFACTOR!
         private int currentDelayMs; //current delay in milliseconds
-        private int naturalFramesPerMinute; //frames per minute the web service would run without a delay
         private Stopwatch regulatorClock; //times the speed between frames
         private int framesPerRegulationCheck; //how many frames in a speed check
         private int frameCount; //the number of frames in this regulation section
@@ -47,33 +46,43 @@ namespace HTTP_Streamer.Models
 
         private void Setup()
         {
-            naturalFramesPerMinute = 1500; //start somewhere, move to config
-            currentDelayMs = 32; //32 is about the right speed for a delay!!
+            currentDelayMs = 32; 
             frameCount = 0;
             regulatorClock = new Stopwatch();
             framesPerRegulationCheck = 100;
         }
 
+        /// <summary>
+        /// Streams JPEG files across a HTTP connection, asyncrohously
+        /// </summary>
+        /// <param name="outputStream"></param>
+        /// <param name="content"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public async Task WriteToStream(Stream outputStream, HttpContent content, TransportContext context)
         {
+            try
 
-         try
             {
                 byte[] crlf = Encoding.UTF8.GetBytes("\r\n");
               
-                foreach (var file in ImageFiles())
+                foreach (var section in MpegSections())
                 {
-                    
-                    var fileInfo = new FileInfo(file);
+                    double sectionFramerate = section.Framerate();
+                    if (sectionFramerate > 0) { requiredFramerate = section.Framerate(); }//each section has its own framerate (hopefully)
 
-                    byte[] header = HTTPHeader(fileInfo.Length);
-                    await outputStream.WriteAsync(header, 0, header.Length); //write the header                  
-                    await fileInfo.OpenRead().CopyToAsync(outputStream); //write the JPEG bytes 
-                    await outputStream.WriteAsync(crlf, 0, crlf.Length); //write the new line 
+                    foreach (var file in section.imageFiles)
+                    {
+                        var fileInfo = new FileInfo(file);
 
-                    System.Threading.Thread.Sleep(currentDelayMs);
-                    await RegulateFramerate(); //set the delay
+                        byte[] header = HTTPHeader(fileInfo.Length);
+                        await outputStream.WriteAsync(header, 0, header.Length); //write the header                  
+                        await fileInfo.OpenRead().CopyToAsync(outputStream); //write the JPEG bytes 
+                        await outputStream.WriteAsync(crlf, 0, crlf.Length); //write the new line 
 
+                        System.Threading.Thread.Sleep(currentDelayMs); //block this thread for framerate regulation
+                        await RegulateFramerate(); //set the delay
+                    }
 
                 }//each file
 
@@ -108,32 +117,25 @@ namespace HTTP_Streamer.Models
         }
 
         /// <summary>
-        /// Returns an array of the file paths belonging to this session key
-        /// Sorts into the correct order, based on file name
+        /// Returns a list of MpegSections from the paths belonging to this session key
+        /// Each Mpeg section contains a sorted list of files and some settings related to the files
         /// </summary>
         /// <returns></returns>
-        public List<String> ImageFiles()
+        public List<MpegSection> MpegSections()
         {
             // string mainLocation = ConfigurationManager.AppSettings["SaveLocation"].ToString() + @"\" + cameraId + @"\" + sessionKey;
             string mainLocation = @"f:\captures\" + cameraId + @"\" + sessionKey;
-            if (!Directory.Exists(mainLocation)) { throw new Exception("Directory does not exist"); }
-
-            List<String> ret = new List<string>(); //the return collection
+            List<MpegSection> ret = new List<MpegSection>(); //the return collection
 
             //get all the section directories
             List<String> dirs = (from dir in Directory.EnumerateDirectories(mainLocation)
                         orderby dir.ToString().StringToInt() ascending
                         select dir).ToList();
 
-            //iterate over each directory and retrieve the files
             foreach (var dir in dirs)
             {
-                var files = (from file in Directory.EnumerateFiles(dir).ToList()
-                             where new FileInfo(file).Extension == ".jpg"
-                             orderby file.Split('_')[1].Split('.')[0].ToString().StringToInt() ascending
-                             select file).ToList();
-
-                ret.AddRange(files);
+                MpegSection section = new MpegSection(dir);
+                ret.Add(section);                
             }
 
             return ret;
@@ -183,5 +185,6 @@ namespace HTTP_Streamer.Models
             });
         }//RegulateFramerate
 
+          
     }
 }
