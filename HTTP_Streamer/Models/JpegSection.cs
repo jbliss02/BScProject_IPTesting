@@ -12,20 +12,46 @@ namespace HTTP_Streamer.Models
     /// Represents a set of JEPG files used to form part of a MPEG stream
     /// Extracts the tags from the settings file
     /// </summary>
-    public class MpegSection
+    public class JpegSection
     {
         public Dictionary<string, string> settings { get; set; }
         public List<String> imageFiles { get; set; }
 
         private string directory { get; set; }
+        private int startFrame { get; set; }
+        private int endFrame { get; set; }
+        private bool limitedFrames { get; set; }
+
         /// <summary>
         /// Extracts the JPEG files, and settings from the specified directory
         /// </summary>
         /// <param name="directory"></param>
-        public MpegSection(string directory)
+        public JpegSection(string directory)
         {          
             if (!Directory.Exists(directory)) { throw new DirectoryNotFoundException(directory); }
             this.directory = directory;
+            Setup();
+        }
+
+        /// <summary>
+        /// Extracts the JPEG files, and settings from the specified directory
+        /// If the frame number of the file falls into the specified range
+        /// </summary>
+        /// <param name="directory"></param>
+        /// <param name="startframe"></param>
+        /// <param name="endframe"></param>
+        public JpegSection(string directory, int startframe, int endframe)
+        {
+            if (!Directory.Exists(directory)) { throw new DirectoryNotFoundException(directory); }
+            this.directory = directory;
+            this.startFrame = startframe;
+            this.endFrame = endframe;
+            Setup();
+        }
+
+        private void Setup()
+        {
+            if (startFrame > 0 && endFrame > 1) { limitedFrames = true; }
             ExtractSettings();
             ExtractFileNames();
         }
@@ -66,12 +92,26 @@ namespace HTTP_Streamer.Models
         {
             imageFiles = new List<string>();
 
-            var files = (from file in Directory.EnumerateFiles(directory).ToList()
-                         where new FileInfo(file).Extension == ".jpg"
-                         orderby file.Split('_')[1].Split('.')[0].ToString().StringToInt() ascending
-                         select file).ToList();
+            if(limitedFrames)
+            {
+                var files = (from file in Directory.EnumerateFiles(directory).ToList()
+                             where new FileInfo(file).Extension == ".jpg"
+                             && file.Split('_')[1].Split('.')[0].ToString().StringToInt() >= startFrame
+                             && file.Split('_')[1].Split('.')[0].ToString().StringToInt() <= endFrame
+                             orderby file.Split('_')[1].Split('.')[0].ToString().StringToInt() ascending
+                             select file).ToList();
 
-            imageFiles.AddRange(files);
+                imageFiles.AddRange(files);
+            }
+            else
+            {
+                var files = (from file in Directory.EnumerateFiles(directory).ToList()
+                             where new FileInfo(file).Extension == ".jpg"
+                             orderby file.Split('_')[1].Split('.')[0].ToString().StringToInt() ascending
+                             select file).ToList();
+
+                imageFiles.AddRange(files);
+            }
 
         }//ExtractFilesNames
 

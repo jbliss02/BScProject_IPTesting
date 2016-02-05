@@ -16,7 +16,7 @@ namespace HTTP_Streamer.Models
     /// Writes JEPG files to an output stream, asynchrously
     /// Used to stream an MPEG
     /// </summary>
-    public class MPegStream
+    public class JpegStream
     {
         public string boundary { get; set; } = "myboundary";
 
@@ -31,16 +31,29 @@ namespace HTTP_Streamer.Models
         private int cameraId { get; set; }
         private string filePath { get; set; }
 
-        public MPegStream(int cameraId, string sessionKey)
+        private int startFrame { get; set; }
+        private int endFrame { get; set; }
+        private bool limitedFrames { get; set; }
+
+        public JpegStream(string filePath)
+        {
+            this.filePath = filePath;
+            Setup();
+        }
+
+        public JpegStream(int cameraId, string sessionKey)
         {
             this.sessionKey = sessionKey;
             this.cameraId = cameraId;
             Setup();
         }
 
-        public MPegStream(string filePath)
+        public JpegStream(int cameraId, string sessionKey, int startFrame, int endFrame)
         {
-            this.filePath = filePath;
+            this.sessionKey = sessionKey;
+            this.cameraId = cameraId;
+            this.startFrame = startFrame;
+            this.endFrame = endFrame;
             Setup();
         }
 
@@ -50,6 +63,7 @@ namespace HTTP_Streamer.Models
             frameCount = 0;
             regulatorClock = new Stopwatch();
             framesPerRegulationCheck = 100;
+            if(startFrame > 0 && endFrame > 1) { limitedFrames = true; }
         }
 
         /// <summary>
@@ -62,10 +76,9 @@ namespace HTTP_Streamer.Models
         public async Task WriteToStream(Stream outputStream, HttpContent content, TransportContext context)
         {
             try
-
             {
                 byte[] crlf = Encoding.UTF8.GetBytes("\r\n");
-              
+
                 foreach (var section in MpegSections())
                 {
                     double sectionFramerate = section.Framerate();
@@ -121,11 +134,11 @@ namespace HTTP_Streamer.Models
         /// Each Mpeg section contains a sorted list of files and some settings related to the files
         /// </summary>
         /// <returns></returns>
-        public List<MpegSection> MpegSections()
+        public List<JpegSection> MpegSections()
         {
             // string mainLocation = ConfigurationManager.AppSettings["SaveLocation"].ToString() + @"\" + cameraId + @"\" + sessionKey;
             string mainLocation = @"f:\captures\" + cameraId + @"\" + sessionKey;
-            List<MpegSection> ret = new List<MpegSection>(); //the return collection
+            List<JpegSection> ret = new List<JpegSection>(); //the return collection
 
             //get all the section directories
             List<String> dirs = (from dir in Directory.EnumerateDirectories(mainLocation)
@@ -134,8 +147,18 @@ namespace HTTP_Streamer.Models
 
             foreach (var dir in dirs)
             {
-                MpegSection section = new MpegSection(dir);
-                ret.Add(section);                
+                JpegSection section = null;
+
+                if (limitedFrames)
+                {
+                    section = new JpegSection(dir, startFrame, endFrame);
+                }
+                else
+                {
+                    section = new JpegSection(dir);
+                }
+                
+                if (section.imageFiles.Count > 0) { ret.Add(section); } //if a range of frames is asked for may return no files         
             }
 
             return ret;

@@ -77,9 +77,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\MpegController.cs" />
-    <Compile Include="Models\MpegSection.cs" />
-    <Compile Include="Models\MPegStream.cs" />
+    <Compile Include="Controllers\JpegController.cs" />
+    <Compile Include="Models\JpegSection.cs" />
+    <Compile Include="Models\JpegStream.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
