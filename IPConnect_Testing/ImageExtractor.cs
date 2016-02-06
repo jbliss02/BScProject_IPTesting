@@ -40,6 +40,7 @@ namespace IPConnect_Testing
         //main stopwatch for timing of the whole capture session
         Stopwatch stopwatch;
         int minutesToRun;
+        bool keepRunning; //event may want to stop extraction
 
         public ImageExtractor(string url, string username, string password)
         {
@@ -86,7 +87,7 @@ namespace IPConnect_Testing
 
             BinaryReader reader = new BinaryReader(resp.GetResponseStream());
 
-            while (reader.BaseStream.CanRead)
+            while (reader.BaseStream.CanRead && keepRunning)
             {
                 String header = ReadHeader(reader); //moves the stream on, and extracts the header
                 int contentLength = GetContentLength(header);
@@ -110,6 +111,7 @@ namespace IPConnect_Testing
         private void Setup()
         {
             if(framerateBroadcast != null) { frameStopwatch = new Stopwatch(); } //records the framerate
+            keepRunning = true;
         }
 
         /// <summary>
@@ -259,6 +261,10 @@ namespace IPConnect_Testing
             });            
         }
 
+        private void StopImageExtractionEventHandler(object o, EventArgs e)
+        {
+            keepRunning = false;
+        }
 
     }//ImageExtractor.cs
 

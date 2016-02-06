@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Drawing;
-using IPConnect_Testing.Images;
+using IPConnect_Testing.Images.Bitmaps;
 
 namespace IPConnect_Testing
 {
@@ -14,7 +14,7 @@ namespace IPConnect_Testing
     /// </summary>
     public class MotionSensor
     {
-        private BitmapWrappers bitmaps;   
+        private BitmapWrapperList bitmaps;   
 
         private double highestTolerance = 2.6;
         private double lowestTolerance = 0.3;
@@ -51,7 +51,7 @@ namespace IPConnect_Testing
 
         public void CheckForMotion(List<Bitmap> bitmaps)
         {
-            this.bitmaps = new BitmapWrappers(bitmaps);
+            this.bitmaps = new BitmapWrapperList(bitmaps);
 
             if (!toleranceSet)
             {

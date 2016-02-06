@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 using System.Drawing;
 using System.IO;
 
-namespace IPConnect_Testing
+namespace IPConnect_Testing.Images
 {
     public class ImageConverter
     {

@@ -10,8 +10,10 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Drawing;
 using System.Media;
+using System.Diagnostics;
 using IPConnect_Testing.Images;
-
+using IPConnect_Testing.Images.Bitmaps;
+using IPConnect_Testing.Analysis;
 
 namespace IPConnect_Testing
 {
@@ -22,13 +24,15 @@ namespace IPConnect_Testing
 
     class Program
     {
-        // static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi?date=1&clock=1&resolution=320x240";
-        static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi";
+        //static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi?date=1&clock=1&resolution=135x180";
+        static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi?resolution=480x360";
+        //static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi";
         //static string url = "http://localhost:8080/api/Mpeg/stream";
         // static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi?date=1&clock=1";
         //static string url = "http://localhost:9000/api/Mpeg/Stream?id=1";
 
-
+        public event StopImageExtraction stopImageExtration;
+        public delegate void StopImageExtraction(object o, EventArgs e);
 
         static string username = "root";
         static string password = "root";
@@ -40,10 +44,11 @@ namespace IPConnect_Testing
         static void Main(string[] args)
         {
             Write("IPConnect started");
-            //ExtractImages();
+           // JpegAnalysis();
+            ExtractImages();
             Console.WriteLine("Finished");
             Console.ReadLine();
-            //RunMotionSensor();
+
         }
 
         static void ExtractMjpegHeader()
@@ -176,6 +181,40 @@ namespace IPConnect_Testing
         {
             Console.WriteLine(DateTime.Now + " - " + s);
         }
+
+        private static void JpegAnalysis()
+        {
+            //create am
+
+
+            JpegAnalysis jpegAnalysis = new Analysis.JpegAnalysis();
+
+            //640x480
+            Console.WriteLine(Environment.NewLine +  "640x480");
+            JPEG jpeg = new JPEG(@"f:\temp\analysis\640x480\test_0.jpg");
+            Console.WriteLine(jpegAnalysis.MsToBitmap(jpeg).ToString());
+            Console.WriteLine(jpegAnalysis.MsToBitmapAndTotalPixels(jpeg).ToString());
+
+            //320x240
+            Console.WriteLine(Environment.NewLine  + "320x240");
+            jpeg = new JPEG(@"f:\temp\analysis\320x240\test_0.jpg");
+            Console.WriteLine(jpegAnalysis.MsToBitmap(jpeg).ToString());
+            Console.WriteLine(jpegAnalysis.MsToBitmapAndTotalPixels(jpeg).ToString());
+
+            //160x120
+            Console.WriteLine(Environment.NewLine +  "160x120");
+            jpeg = new JPEG(@"f:\temp\analysis\160x120\test_0.jpg");
+            Console.WriteLine(jpegAnalysis.MsToBitmap(jpeg).ToString());
+            Console.WriteLine(jpegAnalysis.MsToBitmapAndTotalPixels(jpeg).ToString());
+
+            //60x80
+            Console.WriteLine(Environment.NewLine +  "60x80");
+            jpeg = new JPEG(@"f:\temp\analysis\60x80\test_0.jpg");
+            Console.WriteLine(jpegAnalysis.MsToBitmap(jpeg).ToString());
+            Console.WriteLine(jpegAnalysis.MsToBitmapAndTotalPixels(jpeg).ToString());
+
+        }
+
 
     }
 }

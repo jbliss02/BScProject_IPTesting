@@ -1,31 +1,31 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace IPConnect_Testing.Images
+namespace IPConnect_Testing.Images.Bitmaps
 {
     /// <summary>
     /// A collection of BitmapWrapper with assorted methods to manage the components
     /// </summary>
-    class BitmapWrappers
+    public class BitmapWrapperList
     {
-        public BitmapWrappers(List<SingleBitmapWrapper> list) { this.list = list; }
-        public BitmapWrappers(List<Bitmap> bitmaps)
+        public BitmapWrapperList(List<BitmapWrapper> list) { this.list = list; }
+        public BitmapWrapperList(List<Bitmap> bitmaps)
         {
-            list = new List<SingleBitmapWrapper>();
+            list = new List<BitmapWrapper>();
             for (int i = 0; i < bitmaps.Count; i++)
             {
-                SingleBitmapWrapper b = new SingleBitmapWrapper(bitmaps[i]);
+                BitmapWrapper b = new BitmapWrapper(bitmaps[i]);
                 b.pixelAnalysis.TotalPixels();
                 list.Add(b);
             }
 
             SortByPixelTotal();
         }
-        public List<SingleBitmapWrapper> list { get; set; }
+        public List<BitmapWrapper> list { get; set; }
 
         private bool pixelListSorted;
 
@@ -47,19 +47,15 @@ namespace IPConnect_Testing.Images
 
     }
 
-    class SingleBitmapWrapper
+    public class BitmapWrapper
     {
         public UInt64 hash { get; set; }
 
         public Bitmap bitmap { get; set; }
 
-        public SingleBitmapWrapper(Bitmap bitmap) { this.bitmap = bitmap; pixelAnalysis = new PixelAnalysis(bitmap); }
+        public BitmapWrapper(Bitmap bitmap) { this.bitmap = bitmap; pixelAnalysis = new PixelAnalysis(bitmap); }
 
         public PixelAnalysis pixelAnalysis { get; set; }
-
-
-
-
 
     }
 
