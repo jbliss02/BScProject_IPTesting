@@ -78,6 +78,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\JpegController.cs" />
+    <Compile Include="Models\Cameras.cs" />
+    <Compile Include="Models\CaptureSessions.cs" />
     <Compile Include="Models\JpegSection.cs" />
     <Compile Include="Models\JpegStream.cs" />
     <Compile Include="Program.cs" />

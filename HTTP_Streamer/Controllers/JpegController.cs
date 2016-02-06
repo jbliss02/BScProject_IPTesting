@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.Http.Headers;
 using HTTP_Streamer.Models;
 using IPConnect_Testing.Images;
+using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Configuration;
 
@@ -17,7 +18,6 @@ namespace HTTP_Streamer.Controllers
 {
     public class JpegController : ApiController
     {
-        public const int ReadStreamBufferSize = 1024 * 1024;
         public const string boundary = "myboundary";
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace HTTP_Streamer.Controllers
         /// <param name="cameraId"></param>
         /// <param name="sessionKey"></param>
         /// <returns></returns>
-        [Route("api/mpeg/{cameraId}/{sessionKey}")]
+        [Route("api/jpeg/{cameraId}/{sessionKey}")]
         public HttpResponseMessage Get(int cameraId, string sessionKey)
         {
             try
@@ -41,7 +41,7 @@ namespace HTTP_Streamer.Controllers
                 response.Content.Headers.TryAddWithoutValidation("Content-Type", "multipart/x-mixed-replace;boundary=" + jpegStream.boundary);
                 return response;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
@@ -57,10 +57,10 @@ namespace HTTP_Streamer.Controllers
         /// <param name="startframe"></param>
         /// <param name="endframe"></param>
         /// <returns></returns>
-        [Route("api/mpeg/{cameraId}/{sessionKey}/{startframe}/{endframe}")]
+        [Route("api/jpeg/{cameraId}/{sessionKey}/{startframe}/{endframe}")]
         public HttpResponseMessage Get(int cameraId, string sessionKey, int startframe, int endframe)
         {
-            if(endframe <= startframe) { return new HttpResponseMessage(HttpStatusCode.BadRequest); }
+            if (endframe <= startframe) { return new HttpResponseMessage(HttpStatusCode.BadRequest); }
 
             try
             {
@@ -74,14 +74,52 @@ namespace HTTP_Streamer.Controllers
                 response.Content.Headers.TryAddWithoutValidation("Content-Type", "multipart/x-mixed-replace;boundary=" + jpegStream.boundary);
                 return response;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
 
         }
 
+        /// <summary>
+        /// Returns a JSON list of all the camera Id's that have a directory in the file system
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/jpeg")]
+        public IHttpActionResult Get()
+        {
+            try
+            {
+                //get and return the list of cameraIds
+                Cameras cameras = new Cameras();
+                return Ok(JsonConvert.SerializeObject(cameras));
+            }
+            catch
+            {
+                return InternalServerError();
+            }
 
-    }//MPeg controller ends
+        }//MPeg controller ends
 
+        /// <summary>
+        /// Returns a JSON list of all the capture session Ids 
+        /// within the cameraId specified
+        /// </summary>
+        /// <returns></returns>
+        [Route("api/jpeg/{cameraId}")]
+        public IHttpActionResult Get(int cameraId)
+        {
+            try
+            {
+                //get and return the list of sessions in this cameraId
+                CaptureSessions captures = new CaptureSessions(cameraId);
+                return Ok(JsonConvert.SerializeObject(captures));
+            }
+            catch
+            {
+                return InternalServerError();
+            }
+
+        }//MPeg controller ends
+    }
 }

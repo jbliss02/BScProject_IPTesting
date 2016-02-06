@@ -82,7 +82,7 @@ namespace HTTP_Streamer.Models
                 foreach (var section in MpegSections())
                 {
                     double sectionFramerate = section.Framerate();
-                    if (sectionFramerate > 0) { requiredFramerate = section.Framerate(); }//each section has its own framerate (hopefully)
+                    if (sectionFramerate > 0) { requiredFramerate = section.Framerate(); }//each section has its own framerate, if not use the last
 
                     foreach (var file in section.imageFiles)
                     {
@@ -170,43 +170,43 @@ namespace HTTP_Streamer.Models
             return new TimeSpan(0, 0, 0, 0, currentDelayMs);
         }
 
-        public async Task RegulateFramerate()
+public async Task RegulateFramerate()
+{
+    await Task.Run(() =>
+    {                             
+        if(!regulatorClock.IsRunning)
         {
-            await Task.Run(() =>
-            {              
-                //start the stopwatch on the initial image creation
-                if(!regulatorClock.IsRunning)
-                {
-                    regulatorClock.Start();
-                }
-                else
-                {
-                    frameCount++;
+            regulatorClock.Start(); //start the stopwatch on the initial image creation
+        }
+        else
+        {
+            frameCount++;
 
-                    if(frameCount % framesPerRegulationCheck == 0)
-                    {
-                        //section is full, calculate the natural speed
-                        regulatorClock.Stop();
+            if(frameCount % framesPerRegulationCheck == 0)
+            {
+                //calculate the natural speed
+                regulatorClock.Stop();
 
-                        double transmissionMs = regulatorClock.Elapsed.TotalMilliseconds;
-                        double delayMs = (currentDelayMs * framesPerRegulationCheck);
-                        double naturalTransmissionMs = transmissionMs - delayMs;
+                double transmissionMs = regulatorClock.Elapsed.TotalMilliseconds;
+                double delayMs = (currentDelayMs * framesPerRegulationCheck);
+                double naturalTransmissionMs = transmissionMs - delayMs;
 
-                        double actualMsPerFrame = naturalTransmissionMs / framesPerRegulationCheck;
-                        double desiredMsPerFrame = (1 / requiredFramerate) * 1000;
+                //calculate the actual, required and delta milliseconds per frame 
+                double actualMsPerFrame = naturalTransmissionMs / framesPerRegulationCheck;
+                double desiredMsPerFrame = (1 / requiredFramerate) * 1000;
+                double requiredMsDelayPerFrame = desiredMsPerFrame - actualMsPerFrame;
 
-                        double requiredMsDelayPerFrame = desiredMsPerFrame - actualMsPerFrame;
+                currentDelayMs = Convert.ToInt16(requiredMsDelayPerFrame); //set the delay
 
-                        currentDelayMs = Convert.ToInt16(requiredMsDelayPerFrame);
+                //reset counters
+                frameCount = 0;
+                regulatorClock.Restart();
+            }
+        }
 
-                        //reset everything
-                        frameCount = 0;
-                        regulatorClock.Restart();
-                    }
-                }
+    });
 
-            });
-        }//RegulateFramerate
+}//RegulateFramerate
 
           
     }

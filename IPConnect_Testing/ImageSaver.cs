@@ -19,7 +19,9 @@ namespace IPConnect_Testing
     /// </summary>
     public class ImageSaver
     {
-        public int framesPerSection { get; set; } = 1000;
+        public int framesPerSection { get; set; } = 1000; //the number of frames per section
+        public int initialFrameDetection { get; set; } = 200; //number of frames after which to write initial framerate
+
         public string parentDirectory { get; set; } 
         public string captureDirectory { get; set; }  //the parent directory, in which all section directories will be stored
 
@@ -68,7 +70,6 @@ namespace IPConnect_Testing
 
             //set up the initial save directory
             CreateNewSaveDirectory();
-
         }
       
         private void CreateDirectory(string directoryPath)
@@ -127,6 +128,8 @@ namespace IPConnect_Testing
         /// </summary>
         private void SetSection()
         {
+            if(fileNumber == initialFrameDetection) {
+                WriteDatafileSummary(sessionCount); } //write after 10 so we have a framerate
             if(fileNumber % framesPerSection == 0)
             {
                 WriteDatafileSummary(sessionCount);
@@ -141,15 +144,30 @@ namespace IPConnect_Testing
         private async void WriteDatafileSummary(int sessionNumber)
         {
             await Task.Run(() => {
+
                 double framerate = framerates.Average();
                 framerates.Clear(); //start again
 
-                //assumes data file doesn't exist, but it might so change this
+                //replace the FR in the log file, or write as new
                 string logfile = captureDirectory + @"\" + sessionNumber + @"\logfile.txt";
 
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(logfile, true))
+                if(File.Exists(logfile))
                 {
-                    file.WriteLine("FR:" + framerate);
+                    string txt = File.ReadAllText(logfile);
+
+                    Regex regex = new Regex("FR:(?<length>[0-9]+).(?<length>[0-9]+)\r\n");
+                    if(regex.IsMatch(txt))
+                    {
+                        txt = regex.Replace(txt, "FR:" + framerate);
+                        File.WriteAllText(logfile, txt);
+                    }
+                }
+                else
+                {
+                    using (System.IO.StreamWriter file = new System.IO.StreamWriter(logfile, true))
+                    {
+                        file.WriteLine("FR:" + framerate);
+                    }
                 }
 
             });
