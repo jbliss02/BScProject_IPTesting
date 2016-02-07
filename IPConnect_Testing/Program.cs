@@ -41,12 +41,7 @@ namespace IPConnect_Testing
         static void Main(string[] args)
         {
             Write("IPConnect started");
-
-            //new BitmapComparison().PixelSumComparision(@"f:\temp\analysis\base\test_2.bmp", @"f:\temp\analysis\base\test_3.bmp");
-            //Console.WriteLine();
-            new BitmapComparison().PixelSumComparision(@"f:\temp\analysis\base\test_1b.bmp", @"f:\temp\analysis\base\test_1g.bmp");
-            ////new JpegComparision(new JPEG(@"f:\temp\analysis\movement\test_474.jpg"), new JPEG(@"f:\temp\analysis\movement\test_506.jpg")).DifferenceInPixelSum();
-            ////new JpegAnalysis().RunBenchmarking(@"f:\temp\jpeg_benchmarking.txt");
+            RunPixelChanges_2();
             //ExtractImages();
             Console.WriteLine("Finished");
             Console.ReadLine();
@@ -210,6 +205,20 @@ namespace IPConnect_Testing
 
         }
 
+        //runs method 2 on 2 images
+        private static void RunPixelChanges_2()
+        {
+
+            PixelMatrix matrix = new JpegComparision(@"f:\temp\analysis\movement\test_1.jpg", @"f:\temp\analysis\movement\test_2.jpg").ReturnPixelMatrix();
+            matrix.DumpToText(@"f:\temp\analysis\movement\pixelchanges.txt");
+
+            //// Bitmap bm = new JpegComparision(new JPEG(@"f:\temp\analysis\movement\test_474.jpg"), new JPEG(@"f:\temp\analysis\movement\test_506.jpg")).ColourPixelChanges(Color.IndianRed);
+            //Bitmap bm = new JpegComparision(@"f:\temp\analysis\movement\test_1.jpg", @"f:\temp\analysis\movement\test_0.jpg").ColourPixelChanges(Color.IndianRed);
+            //bm.Save(@"f:\temp\analysis\movement\pixelchanges2.bmp");
+
+
+
+        }
 
     }
 }
