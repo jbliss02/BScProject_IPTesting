@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Net.Http;
+using ExtensionMethods;
 
 namespace IPConnect_Testing.Images
 {

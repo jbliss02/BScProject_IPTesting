@@ -389,7 +389,7 @@ namespace Tools
 
         public static int HexToInt(this string value)
         {
-            return - int.Parse(value, System.Globalization.NumberStyles.HexNumber);
+            return  int.Parse(value, System.Globalization.NumberStyles.HexNumber);
         }
 
    

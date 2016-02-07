@@ -95,7 +95,6 @@ namespace IPConnect_Testing
         /// Image
         /// </summary>
         /// <param name="img"></param>
-        /// <param name="e"></param>
         /// <returns></returns>
         public async Task ImageCreatedAsync(byte[] img)
         {
@@ -104,7 +103,23 @@ namespace IPConnect_Testing
                 SetSection();
             } );
         }
-       
+
+        /// <summary>
+        /// Event listener for when an image is created
+        /// Fires the appropriate methods to classify and save the
+        /// Image
+        /// </summary>
+        /// <param name="img"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public async void ImageCreatedAsync(byte[] img, EventArgs e)
+        {
+            await Task.Run(() => {
+                WriteBytesToFile(img);
+                SetSection();
+            });
+        }
+
         /// <summary>
         /// Takes a List of byte files and creates
         /// a seperate file for each element

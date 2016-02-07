@@ -14,6 +14,7 @@ using System.Diagnostics;
 using IPConnect_Testing.Images;
 using IPConnect_Testing.Images.Bitmaps;
 using IPConnect_Testing.Analysis;
+using IPConnect_Testing.Streams;
 
 namespace IPConnect_Testing
 {
@@ -31,21 +32,22 @@ namespace IPConnect_Testing
         // static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi?date=1&clock=1";
         //static string url = "http://localhost:9000/api/Mpeg/Stream?id=1";
 
-        public event StopImageExtraction stopImageExtration;
-        public delegate void StopImageExtraction(object o, EventArgs e);
-
         static string username = "root";
         static string password = "root";
         static List<Bitmap> bitmaps = new List<Bitmap>(); //the converted bitmap's which are looked at 
         static MotionSensor motionSensor;
         static ImageSaver imageSaver;
-        static StreamAnalyser streamAnalyser;
 
         static void Main(string[] args)
         {
             Write("IPConnect started");
-           // JpegAnalysis();
-            ExtractImages();
+
+            //new BitmapComparison().PixelSumComparision(@"f:\temp\analysis\base\test_2.bmp", @"f:\temp\analysis\base\test_3.bmp");
+            //Console.WriteLine();
+            new BitmapComparison().PixelSumComparision(@"f:\temp\analysis\base\test_1b.bmp", @"f:\temp\analysis\base\test_1g.bmp");
+            ////new JpegComparision(new JPEG(@"f:\temp\analysis\movement\test_474.jpg"), new JPEG(@"f:\temp\analysis\movement\test_506.jpg")).DifferenceInPixelSum();
+            ////new JpegAnalysis().RunBenchmarking(@"f:\temp\jpeg_benchmarking.txt");
+            //ExtractImages();
             Console.WriteLine("Finished");
             Console.ReadLine();
 
@@ -110,24 +112,17 @@ namespace IPConnect_Testing
 
         static void ExtractImages()
         {
-
+            //set up the extractor
             ImageExtractor imageExtractor = new ImageExtractor(url, username, password);
-
-            //create the validator and subs
-            ImageValidator imageValidator = new ImageValidator();
-            imageValidator.ListenForImages(imageExtractor);
-
-            //subscribe to events from the validator (to and analyse)
-            imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(ValidImageEventHandler);
-
-            //subscribe to the framerateBroadcast Event
             imageExtractor.framerateBroadcast += new ImageExtractor.FramerateBroadcastEvent(FramerateBroadcastEventHandler);
+
+            //create the validator 
+            ImageValidator imageValidator = new ImageValidator();
+            imageValidator.ListenForImages(imageExtractor);        
+            imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(ValidImageEventHandler);//subscribe to events from the validator
 
             //set up the save file object
             imageSaver = new ImageSaver(0, 1);
-
-            //set up image logger
-            //streamAnalyser = new StreamAnalyser(@"f:\temp\imageLogger.txt", true);
 
             imageExtractor.Run();
         }
@@ -193,25 +188,25 @@ namespace IPConnect_Testing
             Console.WriteLine(Environment.NewLine +  "640x480");
             JPEG jpeg = new JPEG(@"f:\temp\analysis\640x480\test_0.jpg");
             Console.WriteLine(jpegAnalysis.MsToBitmap(jpeg).ToString());
-            Console.WriteLine(jpegAnalysis.MsToBitmapAndTotalPixels(jpeg).ToString());
+            Console.WriteLine(jpegAnalysis.MsToBitmapAndSumPixels(jpeg).ToString());
 
             //320x240
             Console.WriteLine(Environment.NewLine  + "320x240");
             jpeg = new JPEG(@"f:\temp\analysis\320x240\test_0.jpg");
             Console.WriteLine(jpegAnalysis.MsToBitmap(jpeg).ToString());
-            Console.WriteLine(jpegAnalysis.MsToBitmapAndTotalPixels(jpeg).ToString());
+            Console.WriteLine(jpegAnalysis.MsToBitmapAndSumPixels(jpeg).ToString());
 
             //160x120
             Console.WriteLine(Environment.NewLine +  "160x120");
             jpeg = new JPEG(@"f:\temp\analysis\160x120\test_0.jpg");
             Console.WriteLine(jpegAnalysis.MsToBitmap(jpeg).ToString());
-            Console.WriteLine(jpegAnalysis.MsToBitmapAndTotalPixels(jpeg).ToString());
+            Console.WriteLine(jpegAnalysis.MsToBitmapAndSumPixels(jpeg).ToString());
 
             //60x80
             Console.WriteLine(Environment.NewLine +  "60x80");
             jpeg = new JPEG(@"f:\temp\analysis\60x80\test_0.jpg");
             Console.WriteLine(jpegAnalysis.MsToBitmap(jpeg).ToString());
-            Console.WriteLine(jpegAnalysis.MsToBitmapAndTotalPixels(jpeg).ToString());
+            Console.WriteLine(jpegAnalysis.MsToBitmapAndSumPixels(jpeg).ToString());
 
         }
 

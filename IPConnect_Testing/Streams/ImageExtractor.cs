@@ -10,8 +10,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using ExtensionMethods;
 
-namespace IPConnect_Testing
+namespace IPConnect_Testing.Streams
 {
     /// <summary>
     /// Attachs to an MJPEG HTTP stream and extracts individual JPEG's
@@ -40,7 +41,9 @@ namespace IPConnect_Testing
         //main stopwatch for timing of the whole capture session
         Stopwatch stopwatch;
         int minutesToRun;
-        bool keepRunning; //event may want to stop extraction
+
+        bool singleImageExtraction; //whether we only want one image
+
 
         public ImageExtractor(string url, string username, string password)
         {
@@ -62,6 +65,16 @@ namespace IPConnect_Testing
             resp = (HttpWebResponse)req.GetResponse();
 
             return resp;
+        }
+
+        /// <summary>
+        /// Only extracts a single image, and then stops
+        /// </summary>
+        /// <param name="singleImage"></param>
+        public void Run(bool singleImage)
+        {
+            singleImageExtraction = true;
+            Run();
         }
 
         //Runs the Image extractor for a set period
@@ -87,17 +100,18 @@ namespace IPConnect_Testing
 
             BinaryReader reader = new BinaryReader(resp.GetResponseStream());
 
-            while (reader.BaseStream.CanRead && keepRunning)
+            while (reader.BaseStream.CanRead)
             {
                 String header = ReadHeader(reader); //moves the stream on, and extracts the header
                 int contentLength = GetContentLength(header);
 
                 byte[] img = reader.ReadBytes(contentLength);
-               // images.Add(img);
                 OnFileCreate(img);
 
-                if(stopwatch != null && stopwatch.Elapsed.Minutes > minutesToRun)
+                if((stopwatch != null && stopwatch.Elapsed.Minutes > minutesToRun) || singleImageExtraction)
                 {
+                    resp.Dispose();
+                    reader.Dispose();
                     return;
                 }
 
@@ -111,7 +125,6 @@ namespace IPConnect_Testing
         private void Setup()
         {
             if(framerateBroadcast != null) { frameStopwatch = new Stopwatch(); } //records the framerate
-            keepRunning = true;
         }
 
         /// <summary>
@@ -259,11 +272,6 @@ namespace IPConnect_Testing
             await Task.Run(() => {
                 framerateBroadcast(framerate, EventArgs.Empty);
             });            
-        }
-
-        private void StopImageExtractionEventHandler(object o, EventArgs e)
-        {
-            keepRunning = false;
         }
 
     }//ImageExtractor.cs

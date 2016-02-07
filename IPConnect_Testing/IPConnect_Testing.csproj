@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ExtensionMethods">
+      <HintPath>..\..\..\..\dev\ExtensionMethods\ExtensionMethods\bin\Release\ExtensionMethods.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -50,7 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analysis\BitmapComparison.cs" />
     <Compile Include="Analysis\JpegAnalysis.cs" />
+    <Compile Include="Analysis\JpegComparision.cs" />
+    <Compile Include="Analysis\PixelMatrix.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Images\ImageConverter.cs" />
     <Compile Include="StreamAnalyser.cs" />
@@ -60,7 +66,7 @@
     <Compile Include="Images\Bitmaps\PixelAnalysis.cs" />
     <Compile Include="MotionSensor.cs" />
     <Compile Include="ImageSaver.cs" />
-    <Compile Include="ImageExtractor.cs" />
+    <Compile Include="Streams\ImageExtractor.cs" />
     <Compile Include="ImageValidator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,10 +75,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tools\Tools.csproj">
-      <Project>{871b781a-bec7-46e8-a267-19e4e41e222c}</Project>
-      <Name>Tools</Name>
-    </ProjectReference>
+    <Folder Include="MotionSensor\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

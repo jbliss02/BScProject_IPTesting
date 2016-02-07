@@ -19,7 +19,7 @@ namespace IPConnect_Testing.Images.Bitmaps
             for (int i = 0; i < bitmaps.Count; i++)
             {
                 BitmapWrapper b = new BitmapWrapper(bitmaps[i]);
-                b.pixelAnalysis.TotalPixels();
+                b.pixelAnalysis.SumRGB();
                 list.Add(b);
             }
 

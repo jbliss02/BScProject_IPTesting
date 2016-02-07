@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
-
+using ExtensionMethods;
 namespace IPConnect_Testing.Images.Bitmaps
 {
     public class PixelAnalysis
@@ -14,14 +14,20 @@ namespace IPConnect_Testing.Images.Bitmaps
         public Int64 totalPixelColors;
         
         /// <summary>
-        /// Returns the hex value of all pixels in the bitmap
+        /// Returns the hex value of all RGB pixels in the bitmap
         /// </summary>
-        public Int64 TotalPixels()
+        public Int64 SumRGB()
         {
             for (int i = 0; i < bitmap.Height; i++)
             {
-                Color c = bitmap.GetPixel(1, i);
-                totalPixelColors += c.Name.HexToInt();
+                for(int n = 0; n < bitmap.Width; n++)
+                {
+                    Color c = bitmap.GetPixel(n, i);
+
+                    totalPixelColors += (c.R + c.G + c.B);
+
+                  //  totalPixelColors += c.Name.HexToInt();
+                }
             }
 
             return totalPixelColors;
