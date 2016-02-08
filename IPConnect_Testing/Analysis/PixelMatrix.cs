@@ -31,7 +31,7 @@ namespace IPConnect_Testing.Analysis
         {
             if (new FileInfo(image1Path).Extension == ".jpg" && new FileInfo(image2Path).Extension == ".jpg")
             {
-                Populate(new JPEG(image1Path).ReturnBitmapWrapper(), new JPEG(image1Path).ReturnBitmapWrapper());
+                Populate(new JPEG(image1Path).ReturnBitmapWrapper(), new JPEG(image2Path).ReturnBitmapWrapper());
             }
             else if (new FileInfo(image1Path).Extension == ".bmp" && new FileInfo(image2Path).Extension == ".bmp")
             {

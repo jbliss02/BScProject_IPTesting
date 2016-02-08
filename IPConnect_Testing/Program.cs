@@ -41,8 +41,9 @@ namespace IPConnect_Testing
         static void Main(string[] args)
         {
             Write("IPConnect started");
-           // RunPixelChanges_2();
-            ExtractImages();
+
+            RunPixelChanges_3();
+           
             Console.WriteLine("Finished");
             Console.ReadLine();
 
@@ -232,14 +233,40 @@ namespace IPConnect_Testing
         //takes the range difference across many images
         private static void RunPixelChanges_3()
         {
-            //no movement
+            //movement
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             List<String> ranges = new List<string>();
             var files = Directory.GetFiles(@"f:\temp\analysis\multiple_movement");
-
-            for(int i = 1; i < files.Length; i++)
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"f:\temp\analysis\multiple_movement\ranges.txt", true))
             {
+                for (int i = 1; i < files.Length; i++)
+                {
+                    PixelMatrix matrix = new PixelMatrix();
+                    matrix.Populate(files[i - 1], files[i]);
 
-            }
+                    file.WriteLine(i - 1 + "~" + i + "~" + (matrix.maxChanged - matrix.minChanged));
+                }//each file
+            }//write to file
+
+            Console.WriteLine(sw.Elapsed.TotalSeconds);
+
+            //no movement
+            ranges = new List<string>();
+            files = Directory.GetFiles(@"f:\temp\analysis\multiple_no_movement");
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"f:\temp\analysis\multiple_no_movement\ranges.txt", true))
+            {
+                for (int i = 1; i < files.Length; i++)
+                {
+                    PixelMatrix matrix = new PixelMatrix();
+                    matrix.Populate(files[i - 1], files[i]);
+
+                    file.WriteLine(i - 1 + "~" + i + "~" + (matrix.maxChanged - matrix.minChanged));
+                }//each file
+            }//write to file
+
+            sw.Stop();
+            Console.WriteLine(sw.Elapsed.TotalSeconds);
 
         }//RunPixelChanges_3
 
