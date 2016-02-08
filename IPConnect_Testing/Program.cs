@@ -41,8 +41,8 @@ namespace IPConnect_Testing
         static void Main(string[] args)
         {
             Write("IPConnect started");
-            RunPixelChanges_2();
-            //ExtractImages();
+           // RunPixelChanges_2();
+            ExtractImages();
             Console.WriteLine("Finished");
             Console.ReadLine();
 
@@ -208,17 +208,40 @@ namespace IPConnect_Testing
         //runs method 2 on 2 images
         private static void RunPixelChanges_2()
         {
+            //Takes two images, works out the pixel difference, and draws a red change map
 
             PixelMatrix matrix = new JpegComparision(@"f:\temp\analysis\movement\test_1.jpg", @"f:\temp\analysis\movement\test_2.jpg").ReturnPixelMatrix();
-            matrix.DumpToText(@"f:\temp\analysis\movement\pixelchanges.txt");
+
+            matrix.SetReducedColumns();
+
+
+
+            Bitmap changeImage = matrix.DrawPixelChanges();
+           // matrix.DumpToText(@"f:\temp\analysis\movement\pixelchanges.txt");
+            changeImage.Save(@"f:\temp\analysis\movement\pixelchanges_grey.bmp");
+            matrix.DumpReducedToText(@"f:\temp\analysis\movement\reducedpixelchanges.txt");
+
 
             //// Bitmap bm = new JpegComparision(new JPEG(@"f:\temp\analysis\movement\test_474.jpg"), new JPEG(@"f:\temp\analysis\movement\test_506.jpg")).ColourPixelChanges(Color.IndianRed);
             //Bitmap bm = new JpegComparision(@"f:\temp\analysis\movement\test_1.jpg", @"f:\temp\analysis\movement\test_0.jpg").ColourPixelChanges(Color.IndianRed);
             //bm.Save(@"f:\temp\analysis\movement\pixelchanges2.bmp");
 
-
-
         }
+
+        //runs method 2 on multiple images
+        //takes the range difference across many images
+        private static void RunPixelChanges_3()
+        {
+            //no movement
+            List<String> ranges = new List<string>();
+            var files = Directory.GetFiles(@"f:\temp\analysis\multiple_movement");
+
+            for(int i = 1; i < files.Length; i++)
+            {
+
+            }
+
+        }//RunPixelChanges_3
 
     }
 }

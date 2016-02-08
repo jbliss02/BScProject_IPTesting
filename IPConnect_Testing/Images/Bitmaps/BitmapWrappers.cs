@@ -53,6 +53,8 @@ namespace IPConnect_Testing.Images.Bitmaps
 
         public Bitmap bitmap { get; set; }
 
+        public BitmapWrapper(string path) { bitmap = new Bitmap(path); }
+
         public BitmapWrapper(Bitmap bitmap) { this.bitmap = bitmap; pixelAnalysis = new PixelAnalysis(bitmap); }
 
         public PixelAnalysis pixelAnalysis { get; set; }
