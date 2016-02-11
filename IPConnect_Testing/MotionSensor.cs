@@ -12,7 +12,7 @@ namespace IPConnect_Testing
     /// <summary>
     /// Takes a list of Bitmaps and sees whether there is any motion
     /// </summary>
-    public class MotionSensor
+    public class MotionSensor_old
     {
         private BitmapWrapperList bitmaps;   
 
@@ -35,13 +35,13 @@ namespace IPConnect_Testing
         /// </summary>
         /// <param name="setTolerance"></param>
         /// 
-        public MotionSensor(bool setTolerance)
+        public MotionSensor_old(bool setTolerance)
         {
             this.setTolerance = setTolerance;
             if (setTolerance) { percentDifferences = new List<double>(); }
         }
 
-        public MotionSensor(double tolerancePercent)
+        public MotionSensor_old(double tolerancePercent)
         {
             this.highestTolerance = tolerancePercent;
             this.toleranceSet = true;

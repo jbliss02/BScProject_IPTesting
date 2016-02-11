@@ -13,15 +13,24 @@ namespace IPConnect_Testing.Analysis
     /// <summary>
     /// Represents each pixel within an image
     /// each pixel contains meta-data related to the equivalent pixel, 
-    /// or comparision of that pixel across many images
+    /// or comparision of that pixel across multiple images
     /// </summary>
     public class PixelMatrix
     {
+        public PixelMatrix() { }
+
+        public PixelMatrix(BitmapWrapper image1, BitmapWrapper image2) { Populate(image1, image2); }
+
+        public PixelMatrix(string path1, string path2) { Populate(path1, path2); }
         public List<PixelColumn> columns { get; set; }
 
         public List<PixelColumn> reducedColumns { get; set; } //the matrix, where the change values are reduced to a 0 - 255 range
 
-        public int numberChangedPixels { get{return (from c in columns select c.numberChangedPixels).Sum(); } }
+        /// <summary>
+        /// Each pixel has a value which contains the numeric different between the two images, this
+        /// method returns the sum of those differences
+        /// </summary>
+        public double SumChangedPixels { get { return (from c in columns select c.numberChangedPixels).Sum(); } }
 
         public double maxChanged { get { return (from c in columns select c.maxChange).Max(); } }
 

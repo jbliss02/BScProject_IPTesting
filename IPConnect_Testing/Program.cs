@@ -35,18 +35,37 @@ namespace IPConnect_Testing
         static string username = "root";
         static string password = "root";
         static List<Bitmap> bitmaps = new List<Bitmap>(); //the converted bitmap's which are looked at 
-        static MotionSensor motionSensor;
+
         static ImageSaver imageSaver;
 
         static void Main(string[] args)
         {
             Write("IPConnect started");
+           // System.Threading.Thread.Sleep(1000); //let the HTTP streamer come online
+            RunMotionSensor2_1("20162820254901");
 
-            RunPixelChanges_3();
-           
             Console.WriteLine("Finished");
             Console.ReadLine();
 
+        }
+
+        static void RunMotionSensor2_1(string sessKey)
+        {
+            //set up the extractor
+            string uri = "http://localhost:9000/api/jpeg/0/" + sessKey;
+
+            ImageExtractor imageExtractor = new ImageExtractor(uri, username, password);
+            imageExtractor.framerateBroadcast += new ImageExtractor.FramerateBroadcastEvent(FramerateBroadcastEventHandler);
+
+            //create the motion sensor
+            MotionSensor.MotionSensor_2a motionSensor = new MotionSensor.MotionSensor_2a();
+
+            //create the validator 
+            ImageValidator imageValidator = new ImageValidator();
+            imageValidator.ListenForImages(imageExtractor);
+            imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreated);//subscribe to events from the validator
+
+            imageExtractor.Run();
         }
 
         static void ExtractMjpegHeader()
@@ -100,8 +119,6 @@ namespace IPConnect_Testing
             //sset up the save file object
             imageSaver = new ImageSaver(0, 1);
 
-            //set up the montion sensor
-            motionSensor = new MotionSensor(5);
 
             imageExtractor.Run();
         }

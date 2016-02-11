@@ -102,7 +102,7 @@ namespace IPConnect_Testing.Analysis
         public Bitmap ColourPixelChanges(System.Drawing.Color color)
         {
             PixelMatrix matrix  = ReturnPixelMatrix();
-            Console.WriteLine(matrix.numberChangedPixels);
+            Console.WriteLine(matrix.SumChangedPixels);
 
             Bitmap bitmap = new Bitmap(bm2.bitmap.Width, bm2.bitmap.Height);
 

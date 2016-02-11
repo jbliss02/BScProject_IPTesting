@@ -59,6 +59,7 @@
     <Compile Include="Analysis\PixelMatrix.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Images\ImageConverter.cs" />
+    <Compile Include="MotionSensor\MotionSensor_2.1.cs" />
     <Compile Include="StreamAnalyser.cs" />
     <Compile Include="Images\Bitmaps\BitmapWrappers.cs" />
     <Compile Include="Images\Jpeg\JPEG.cs" />
@@ -74,9 +75,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MotionSensor\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

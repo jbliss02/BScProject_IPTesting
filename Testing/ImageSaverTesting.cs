@@ -9,6 +9,7 @@ namespace Testing
     public class ImageSaverTesting
     {
         [TestMethod]
+        [TestCategory("Image Saving")]
         public void DirectoryCreation()
         {
             ImageSaver saver = new ImageSaver(1);

@@ -196,7 +196,14 @@ public async Task RegulateFramerate()
                 double desiredMsPerFrame = (1 / requiredFramerate) * 1000;
                 double requiredMsDelayPerFrame = desiredMsPerFrame - actualMsPerFrame;
 
-                currentDelayMs = Convert.ToInt16(requiredMsDelayPerFrame); //set the delay
+                if(requiredMsDelayPerFrame > 0)
+                {
+                    currentDelayMs = Convert.ToInt16(requiredMsDelayPerFrame); 
+                }
+                else
+                {
+                    Console.WriteLine("Less than 0 delay??");
+                }
 
                 //reset counters
                 frameCount = 0;

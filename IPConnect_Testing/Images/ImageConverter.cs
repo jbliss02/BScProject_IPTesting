@@ -9,7 +9,7 @@ using System.IO;
 
 namespace IPConnect_Testing.Images
 {
-    public class ImageConverter
+    public class ImageConvert
     {
         public byte[] JPEG_header = new byte[5] { 255, 216, 255, 254, 0 };
 
