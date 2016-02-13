@@ -9,11 +9,11 @@ using System.IO;
 
 namespace IPConnect_Testing.Images
 {
-    public class ImageConvert
+    public static class ImageConvert
     {
-        public byte[] JPEG_header = new byte[5] { 255, 216, 255, 254, 0 };
+        public static byte[] JPEG_header = new byte[5] { 255, 216, 255, 254, 0 };
 
-        public Bitmap ReturnBitmap(byte[] img)
+        public static Bitmap ReturnBitmap(byte[] img)
         {
             MemoryStream stream = new MemoryStream(img);
             BinaryReader reader = new BinaryReader(stream);

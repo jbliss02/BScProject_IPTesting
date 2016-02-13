@@ -77,61 +77,6 @@ namespace IPConnect_Testing
             imageExtractor.Run();
         }
 
-        static void ExtractMjpegHeader()
-        {
-            MJPEG mjpeg = new MJPEG(@"F:\temp\mjpeg\combined_0_1.avi");
-
-            Console.WriteLine(mjpeg.HeaderString());
-            Console.ReadLine();
-
-        }
-
-        static void TestMjpegBoundaryBytes(string source)
-        {
-            List<byte[]> boundaryBytes = new MJPEG(source).JpegBoundaryBytes();
-
-            for(int i = 0; i < boundaryBytes.Count; i++)
-            {
-                byte[] bytes = boundaryBytes[i];
-
-                //test 1, ends with 2E 00 00
-                string s = BitConverter.ToString(bytes);
-
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"f:\temp\boundary extract.txt", true))
-                {
-                    file.WriteLine(s);
-                }
-
-                var x = "nd";
-            }
-            Console.WriteLine("Finished");
-            Console.ReadLine();
-        }
-
-        static void RunMotionSensor()
-        {
-
-            //System.Threading.Thread.Sleep(10000);
-
-            Console.WriteLine(DateTime.Now + " - Started");
-            SystemSounds.Exclamation.Play();
-
-            ImageExtractor imageExtractor = new ImageExtractor(url, username, password);
-
-            //create the validator and subs
-            ImageValidator imageValidator = new ImageValidator();
-            imageValidator.ListenForImages(imageExtractor);
-
-            //subscribe to events from the validator (to and analyse)
-            imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(ValidImageEventHandler);
-
-            //sset up the save file object
-            imageSaver = new ImageSaver(0, 1);
-
-
-            imageExtractor.Run();
-        }
-
         static void ExtractImages()
         {
             //set up the extractor
@@ -180,18 +125,6 @@ namespace IPConnect_Testing
             {
                 imageSaver.framerates.Add(framerate);
             }
-        }
-
-        private static UInt64 Hash()
-        {
-            //this needs to be changed and validated
-            ulong hash = (UInt64)(int)DateTime.Now.Kind;
-            return (hash << 62) | (UInt64) DateTime.Now.Ticks;
-        }
-
-        private static void fileInfo()
-        {
-            DateTime s = File.GetCreationTime(@"F:\temp\alarm\4469890.bmp");
         }
 
         private static void Write(String s)

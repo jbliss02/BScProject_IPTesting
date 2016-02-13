@@ -16,61 +16,49 @@ namespace IPConnect_Testing.MotionSensor
     /// 2a is an approach which takes a stream of images and compares the sum of pixel colours between adjacent images
     /// A control sample is taken initially which determines a threshold, beyond which the move in pixel colour totals
     /// is considered abnormal, and therefore classed as movement. 
-    /// 
-    /// Works on percentage change
-    /// 
-    /// TO DO - CHANGE THE THRESHOLD EVERY XX MINUTES, AS LONG AS NO MOVEMENT HAS BEEN DETECTED
-    /// 
     /// </summary>
-
 
     public class MotionSensor_2a : MotionSensor_2
     { 
-        public async override void Compare()
+        public override void Compare(ByteWrapper image1, ByteWrapper image2)
         {
-            if (images.Count > 1)
-            {            
-                //take images out of the queue, as this is async other methods may dequeue between the calls so be defensive
-                ByteWrapper img1 = null;
-                if (images.Count > 0) { img1 = images.Dequeue(); }
-                ByteWrapper img2 = null;
-                if (images.Count > 0) { img2 = images.Dequeue();}
+            var bm1 = new BitmapWrapper(ImageConvert.ReturnBitmap(image1.bytes));
+            var bm2 = new BitmapWrapper(ImageConvert.ReturnBitmap(image2.bytes));
 
-                if(img1 != null && img2 != null)
+            PixelMatrix matrix = new PixelMatrix(bm1, bm2);
+            double sumChangedPixels = matrix.SumChangedPixels;
+
+            //keep adding for threshold calculation, set the threshold, or monitor
+            if(ThresholdSet)
+            {
+                //now scanning, compare the two images and see what the difference is
+                if (matrix.SumChangedPixels > pixelChangeThreshold)
                 {
-                    imagesChecked = imagesChecked + 2;
-                    var bm1 = new BitmapWrapper(new ImageConvert().ReturnBitmap(img1.bytes));
-                    var bm2 = new BitmapWrapper(new ImageConvert().ReturnBitmap(img2.bytes));
-
-                    PixelMatrix matrix = new PixelMatrix(bm1, bm2);
-                    double sumChangedPixels = matrix.SumChangedPixels;
-
-                    //keep adding for threshold calculation, set the threshold, or monitor
-                    if(ThresholdSet)
-                    {
-                        //now scanning, compare the two images and see what the difference is
-                        if (matrix.SumChangedPixels > pixelChangeThreshold)
-                        {
-                            OnMotion(img1, img2);
-                            Console.WriteLine("Movement");
-                            await SaveImageAsync(bm2, img2.sequenceNumber);
-                            numberMotionFiles++;
-                        }
-                    }
-                    else if (!ThresholdSet && pixelChange.Count < ControlImageNumber)
-                    {
-                        pixelChange.Add(sumChangedPixels);
-                    }
-                    else  
-                    {
-                        SetThreshold(); //enough images received to set the threshold and start monitoring
-                    }
-
-
-                }//if images are not null
-            }//if images > 1
+                    OnMotion(image1, image2);
+                }
+            }
+            else if (!ThresholdSet && pixelChange.Count < ControlImageNumber)
+            {
+                pixelChange.Add(sumChangedPixels);
+            }
+            else  
+            {
+                SetThreshold(); //enough images received to set the threshold and start monitoring
+            }
 
         }//Compare
 
+        /// <summary>
+        /// Called when the threshold is to be set, or re-set
+        /// takes the current range of changes and calculates threshold
+        /// based on these ranges, and the specified sensitivity
+        /// </summary>
+        private void SetThreshold()
+        {
+            double range = ((pixelChange.Max() - pixelChange.Min()) / pixelChange.Min()) * 100;
+            double buffer = range * 2 * sensitivity;
+            pixelChangeThreshold = pixelChange.Max() + buffer;
+            ThresholdSet = true;
+        }
     }
 }

@@ -224,7 +224,7 @@ namespace IPConnect_Testing.Analysis
         /// Sets the reducedColumns structure, reduced the change value in each pixel
         /// to a range in between 0 and 255
         /// </summary>
-        public void SetReducedColumns()
+        private void SetReducedColumns()
         {
             if (Columns == null) { throw new Exception("Matrix has no columns"); }
             ReducedColumns = new List<PixelColumn>();
@@ -297,6 +297,14 @@ namespace IPConnect_Testing.Analysis
         public bool hasChanged { get; set; }
 
         public int simpleColour { get; set; }
+    }
+
+    public class GridImage
+    {
+        public List<GridColumn> columns;
+        public GridImage() { columns = new List<GridColumn>(); }
+
+        public GridImage(List<GridColumn> columns) { this.columns = columns; }
     }
 
     public class GridColumn

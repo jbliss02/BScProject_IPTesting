@@ -48,18 +48,7 @@ namespace IPConnect_Testing.MotionSensor
             sensitivity = 1;
         }
 
-        /// <summary>
-        /// Called when the threshold is to be set, or re-set
-        /// takes the current range of changes and calculates threshold
-        /// based on these ranges, and the specified sensitivity
-        /// </summary>
-        protected void SetThreshold()
-        {
-            double range = ((pixelChange.Max() - pixelChange.Min()) / pixelChange.Min()) * 100;
-            double buffer = range * 2 * sensitivity;
-            pixelChangeThreshold = pixelChange.Max() + buffer;
-            ThresholdSet = true;
-        }
+
 
         /// <summary>
         /// Called when the object detects motion, creates the event
@@ -73,31 +62,38 @@ namespace IPConnect_Testing.MotionSensor
             }
         }
 
-        /// <summary>
-        /// THIS NEEDS TO BE MOVED OUTSIDE OF THIS THREAD
-        /// </summary>
-        /// <param name="bitmapWrapper"></param>
-        /// <param name="sequenceNumber"></param>
-        /// <returns></returns>
-        public async Task SaveImageAsync(BitmapWrapper bitmapWrapper, int sequenceNumber)
-        {
-            await Task.Run(() =>
-            {
-                bitmapWrapper.bitmap.Save(@"f:\temp\MotionSensor\2.1\movement\" + sequenceNumber + ".bmp");
-            });
-        }
-
         public async void ImageCreated(ByteWrapper img, EventArgs e)
         {
             await Task.Run(() =>
             {
                 imagesReceived++;
                 images.Enqueue(img);
-                Compare();
+                SendForCompare();
             });
         }
 
-        public virtual void Compare() { } //will always be implemented in the sub class
+        /// <summary>
+        /// Gets the next two images on the queue and sends for analysis
+        /// </summary>
+        private void SendForCompare()
+        {
+            if (images.Count > 1)
+            {
+                //take images out of the queue, as this is async other methods may dequeue between the calls so be defensive
+                ByteWrapper img1 = null;
+                if (images.Count > 0) { img1 = images.Dequeue(); }
+                ByteWrapper img2 = null;
+                if (images.Count > 0) { img2 = images.Dequeue(); }
+
+                if (img1 != null && img2 != null)
+                {
+                    Compare(img1, img2);
+                    imagesChecked = imagesChecked + 2;
+                }
+            }
+        }
+
+        public virtual void Compare(ByteWrapper img1, ByteWrapper img2) { } //will always be implemented in the sub class
 
 
     }
