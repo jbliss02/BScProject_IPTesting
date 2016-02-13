@@ -110,7 +110,7 @@ namespace IPConnect_Testing.Analysis
                     {
                         cell.hasChanged = true;
                         cell.change = Int64.Parse(image1.bitmap.GetPixel(i, n).Name, System.Globalization.NumberStyles.HexNumber) - Int64.Parse(image2.bitmap.GetPixel(i, n).Name, System.Globalization.NumberStyles.HexNumber);
-                        grid.change += cell.change;
+                        if (GridSystemOn) { grid.change += cell.change; }
                     }
                     else
                     {
@@ -118,14 +118,14 @@ namespace IPConnect_Testing.Analysis
                     }
 
                     column.cells.Add(cell);
-                    if (n + 1 == image1.bitmap.Height && i % gridWidth == 0) {
-                        gridColumn.grids.Add(grid); }
+
+                    if (GridSystemOn && n + 1 == image1.bitmap.Height && i % gridWidth == 0) { gridColumn.grids.Add(grid); }
 
                 }//height
 
                 Columns.Add(column);
 
-                if (i + 1 == image1.bitmap.Width) { GridColumns.Add(gridColumn); }
+                if (GridSystemOn && i + 1 == image1.bitmap.Width) { GridColumns.Add(gridColumn); }
 
             }//width
 

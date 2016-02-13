@@ -13,8 +13,8 @@ namespace Testing
         public void DirectoryCreation()
         {
             ImageSaver saver = new ImageSaver(1);
-            Assert.IsTrue(Directory.Exists(saver.parentDirectory));
-            Assert.IsTrue(Directory.Exists(saver.captureDirectory));
+            Assert.IsTrue(Directory.Exists(saver.ParentDirectory));
+            Assert.IsTrue(Directory.Exists(saver.CaptureDirectory));
 
         }
     }

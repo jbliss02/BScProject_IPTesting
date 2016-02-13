@@ -23,10 +23,10 @@ namespace IPConnect_Testing
         public int framesPerSection { get; set; } = 1000; //the number of frames per section
         public int initialFrameDetection { get; set; } = 200; //number of frames after which to write initial framerate
 
-        public string parentDirectory { get; set; } 
-        public string captureDirectory { get; set; }  //the parent directory, in which all section directories will be stored
+        public string ParentDirectory { get; set; } 
+        public string CaptureDirectory { get; set; }  //the parent directory, in which all section directories will be stored
+        public string SaveDirectory { get; set; } //some images (like motion) saved outside of captures
 
-        string saveDirectory;
         int sessionCount = 0;
         Int64 fileNumber = 0;
         int cameraId;
@@ -55,19 +55,21 @@ namespace IPConnect_Testing
             SetUp();
         }
 
+        public ImageSaver(string saveDirectory, string fileStartName) { this.SaveDirectory = saveDirectory; this.fileStartName = fileStartName; }
+
         private void SetUp()
         {
             fileStartName = "test";
 
-            parentDirectory = ConfigurationManager.AppSettings["SaveLocation"].ToString();
+            ParentDirectory = ConfigurationManager.AppSettings["SaveLocation"].ToString();
 
             //define the camera directory, and create if not exists
-            string cameraDirectory = parentDirectory + @"\" + cameraId;
+            string cameraDirectory = ParentDirectory + @"\" + cameraId;
             if (!Directory.Exists(cameraDirectory)) { CreateDirectory(cameraDirectory); }
 
             //define, and create, this session's directory
-            captureDirectory = cameraDirectory + @"\" + Tools.ExtensionMethods.DateStamp();
-            CreateDirectory(captureDirectory);
+            CaptureDirectory = cameraDirectory + @"\" + Tools.ExtensionMethods.DateStamp();
+            CreateDirectory(CaptureDirectory);
 
             //set up the initial save directory
             CreateNewSaveDirectory();
@@ -86,8 +88,8 @@ namespace IPConnect_Testing
         private void CreateNewSaveDirectory()
         {
             sessionCount++;
-            saveDirectory = captureDirectory + @"\" + sessionCount;
-            CreateDirectory(saveDirectory);
+            SaveDirectory = CaptureDirectory + @"\" + sessionCount;
+            CreateDirectory(SaveDirectory);
         }
 
         /// <summary>
@@ -165,7 +167,7 @@ namespace IPConnect_Testing
                 framerates.Clear(); //start again
 
                 //replace the FR in the log file, or write as new
-                string logfile = captureDirectory + @"\" + sessionNumber + @"\logfile.txt";
+                string logfile = CaptureDirectory + @"\" + sessionNumber + @"\logfile.txt";
 
                 if(File.Exists(logfile))
                 {
@@ -208,7 +210,14 @@ namespace IPConnect_Testing
 
         private String GenerateFileName()
         {          
-            String ret = saveDirectory + @"\" + fileStartName + "_" + fileNumber.ToString() + ".jpg";
+            String ret = SaveDirectory + @"\" + fileStartName + "_" + fileNumber.ToString() + ".jpg";
+            fileNumber++;
+            return ret;
+        }
+
+        private String GenerateFileName(int sequenceNumber)
+        {
+            String ret = SaveDirectory + @"\" + fileStartName + "_" + sequenceNumber.ToString() + ".jpg";
             fileNumber++;
             return ret;
         }
@@ -217,5 +226,21 @@ namespace IPConnect_Testing
         {
             Console.WriteLine(DateTime.Now + " - " + st);
         }
+
+        /// <summary>
+        /// Writes a single file to the location specified, called outide of this
+        /// </summary>
+        public async void WriteBytesToFileAsync(ByteWrapper image, EventArgs e)
+        {
+            await Task.Run(() => {
+                using (FileStream fs = new FileStream(GenerateFileName(image.sequenceNumber), FileMode.Create))
+                {
+                    fs.Write(image.bytes, 0, image.bytes.Length);
+                }
+            });
+
+        }
+            
+
     }
 }

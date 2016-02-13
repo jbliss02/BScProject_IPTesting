@@ -77,7 +77,7 @@ namespace IPConnect_Testing.Analysis
 
                 //set up the save file object
                 ImageSaver imageSaver = new ImageSaver(0, 1);
-                saveLocations.Add(imageSaver.captureDirectory);
+                saveLocations.Add(imageSaver.CaptureDirectory);
 
                 //create the validator 
                 ImageValidator imageValidator = new ImageValidator();

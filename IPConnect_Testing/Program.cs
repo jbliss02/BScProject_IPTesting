@@ -45,15 +45,15 @@ namespace IPConnect_Testing
         {
             Write("IPConnect started");
             //ExtractImages();
-            Motion2b_analysis();
-            //RunMotionSensor2_1("2016213155544107");
+            //Motion2b_analysis();
+            RunMotionSensor2_a("2016213155544107");
 
             Console.WriteLine("Finished");
             Console.ReadLine();
 
         }
 
-        static void RunMotionSensor2_1(string sessKey)
+        static void RunMotionSensor2_a(string sessKey)
         {
             //set up the extractor
             string uri = "http://localhost:9000/api/jpeg/0/" + sessKey;
@@ -61,9 +61,13 @@ namespace IPConnect_Testing
             ImageExtractor imageExtractor = new ImageExtractor(uri, username, password);
             imageExtractor.framerateBroadcast += new ImageExtractor.FramerateBroadcastEvent(FramerateBroadcastEventHandler);
 
-            //create the motion sensor
+            //set the image saver
+            ImageSaver imageSaver = new ImageSaver(@"F:\temp\MotionSensor\2.1\movement", "movement");
+
+            //create the motion sensor, and listen for images
             MotionSensor.MotionSensor_2a motionSensor = new MotionSensor.MotionSensor_2a();
             motionSensor.logfile = @"F:\temp\MotionSensor\2.1\movement\info.txt";
+            motionSensor.motionDetected += new MotionSensor.MotionSensor_2.MotionDetected(imageSaver.WriteBytesToFileAsync);
 
             //create the validator 
             ImageValidator imageValidator = new ImageValidator();

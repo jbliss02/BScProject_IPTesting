@@ -12,9 +12,9 @@ namespace IPConnect_Testing.Images.Jpeg
     public class ByteWrapper
     {
         public byte[] bytes { get; set; }
-        public DateTime created;
-        public int sequenceNumber;
-
+        public DateTime created { get; set; }
+        public int sequenceNumber { get; set; }
+        public string saveFilePath { get; set; }
         public ByteWrapper(byte[] bytes, int sequenceNumber) { this.bytes = bytes; this.sequenceNumber = sequenceNumber; }
     }
 }
