@@ -27,7 +27,7 @@ namespace IPConnect_Testing
     class Program
     {
         //static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi?date=1&clock=1&resolution=135x180";
-        static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi?resolution=480x360";
+        static string url = "http://192.168.0.4/axis-cgi/mjpg/video.cgi?resolution=480x360";
         //static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi";
         //static string url = "http://localhost:8080/api/Mpeg/stream";
         // static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi?date=1&clock=1";
@@ -39,10 +39,14 @@ namespace IPConnect_Testing
 
         static ImageSaver imageSaver;
 
+
+
         static void Main(string[] args)
         {
             Write("IPConnect started");
-            RunMotionSensor2_1("20162713524185");
+            //ExtractImages();
+            Motion2b_analysis();
+            //RunMotionSensor2_1("2016213155544107");
 
             Console.WriteLine("Finished");
             Console.ReadLine();
@@ -59,6 +63,7 @@ namespace IPConnect_Testing
 
             //create the motion sensor
             MotionSensor.MotionSensor_2a motionSensor = new MotionSensor.MotionSensor_2a();
+            motionSensor.logfile = @"F:\temp\MotionSensor\2.1\movement\info.txt";
 
             //create the validator 
             ImageValidator imageValidator = new ImageValidator();
@@ -228,16 +233,16 @@ namespace IPConnect_Testing
         {
             //Takes two images, works out the pixel difference, and draws a red change map
 
-            PixelMatrix matrix = new JpegComparision(@"f:\temp\analysis\movement\test_1.jpg", @"f:\temp\analysis\movement\test_2.jpg").ReturnPixelMatrix();
+            //PixelMatrix matrix = new JpegComparision(@"f:\temp\analysis\movement\test_1.jpg", @"f:\temp\analysis\movement\test_2.jpg").ReturnPixelMatrix();
 
-            matrix.SetReducedColumns();
+            PixelMatrix matrix = new JpegComparision(@"F:\captures\0\2016213162849209\1\test_281.jpg", @"f:\temp\analysis\movement\test_306.jpg").ReturnPixelMatrix();
 
+            //matrix.SetReducedColumns();
 
-
-            Bitmap changeImage = matrix.DrawPixelChanges();
+            //Bitmap changeImage = matrix.DrawPixelChanges();
            // matrix.DumpToText(@"f:\temp\analysis\movement\pixelchanges.txt");
-            changeImage.Save(@"f:\temp\analysis\movement\pixelchanges_grey.bmp");
-            matrix.DumpReducedToText(@"f:\temp\analysis\movement\reducedpixelchanges.txt");
+            //changeImage.Save(@"f:\temp\analysis\movement\pixelchanges_grey.bmp");
+            matrix.DumpReducedToText(@"f:\temp\MotionSensor\2.2\pixelinfo.txt");
 
 
             //// Bitmap bm = new JpegComparision(new JPEG(@"f:\temp\analysis\movement\test_474.jpg"), new JPEG(@"f:\temp\analysis\movement\test_506.jpg")).ColourPixelChanges(Color.IndianRed);
@@ -262,7 +267,7 @@ namespace IPConnect_Testing
                     PixelMatrix matrix = new PixelMatrix();
                     matrix.Populate(files[i - 1], files[i]);
 
-                    file.WriteLine(i - 1 + "~" + i + "~" + (matrix.maxChanged - matrix.minChanged));
+                    file.WriteLine(i - 1 + "~" + i + "~" + (matrix.MaxChanged - matrix.MinChanged));
                 }//each file
             }//write to file
 
@@ -278,7 +283,7 @@ namespace IPConnect_Testing
                     PixelMatrix matrix = new PixelMatrix();
                     matrix.Populate(files[i - 1], files[i]);
 
-                    file.WriteLine(i - 1 + "~" + i + "~" + (matrix.maxChanged - matrix.minChanged));
+                    file.WriteLine(i - 1 + "~" + i + "~" + (matrix.MaxChanged - matrix.MinChanged));
                 }//each file
             }//write to file
 
@@ -286,6 +291,17 @@ namespace IPConnect_Testing
             Console.WriteLine(sw.Elapsed.TotalSeconds);
 
         }//RunPixelChanges_3
+
+        private static void Motion2b_analysis()
+        {
+            PixelMatrix matrix = new PixelMatrix();
+            matrix.GridSystemOn = true;
+            matrix.Populate(@"F:\temp\MotionSensor\2.2\test_101.jpg", @"F:\temp\MotionSensor\2.2\test_128.jpg");
+            matrix.DumpGridToText(@"F:\temp\MotionSensor\2.2\grid.txt");
+
+            var x = "ksd";
+
+        }
 
     }
 }

@@ -25,17 +25,17 @@ namespace IPConnect_Testing.MotionSensor
 
     public class MotionSensor_2a
     {
-        public int controlImageNumber = 50; //number of changes to use as the control (half the images as done in pairs)
+        public int controlImageNumber { get; set; } = 10; //number of changes to use as the control (half the images as done in pairs)
+        public Queue<ByteWrapper> images { get; set; } //images waiting to be processed
+        public String logfile { get; set; }
 
-        public Queue<ByteWrapper> images; //images waiting to be processed
         private int imagesReceived; //used to flush the queue of images
-
         private List<double> pixelChange; //holds a list of the difference between pixels of 2 images (used for setting threshold)
         private double pixelChangeThreshold;
-
         private int imagesChecked = 0;
-
         private int numberMotionFiles = 0;
+
+        private double sensitivity = 1;
 
         public MotionSensor_2a()
         {
@@ -45,8 +45,6 @@ namespace IPConnect_Testing.MotionSensor
             pixelChangeThreshold = -1;
         }
    
-
-
         public async void ImageCreated(ByteWrapper img, EventArgs e)
         {
             await Task.Run(() =>
@@ -56,63 +54,73 @@ namespace IPConnect_Testing.MotionSensor
 
                 Compare();
             });
-
         }
-        private void Compare()
+
+        private async void Compare()
         {
+            if (images.Count > 1)
+            {
+                imagesChecked = imagesChecked + 2;
 
-                if (images.Count > 1)
+                ByteWrapper img1 = images.Dequeue();
+                ByteWrapper img2 = null;
+                if (images.Count > 0)
                 {
-                    imagesChecked = imagesChecked + 2;
-
-                    byte[] img1 = null;
-                    byte[] img2 = null;
-                    if(images.Count > 0)
-                    {
-                        img1 = images.Dequeue().bytes;
-                    }
-                    if (images.Count > 0)
-                    {
-                        img2 = images.Dequeue().bytes;
-                    }
-
-                    if(img1 != null && img2 != null)
-                    {
-                        var bm1 = new BitmapWrapper(new ImageConvert().ReturnBitmap(img1));
-                        var bm2 = new BitmapWrapper(new ImageConvert().ReturnBitmap(img2));
-
-                       // Console.WriteLine(imagesReceived);
-
-                        if (pixelChange != null && pixelChange.Count < controlImageNumber)
-                        {
-                            PixelMatrix matrix = new PixelMatrix(bm1, bm2);
-                            pixelChange.Add(matrix.SumChangedPixels);
-
-                        }
-                        else if (pixelChangeThreshold == -1)
-                        {
-                            //enough images received, but thresholds not set
-                            pixelChangeThreshold = pixelChange.Max() * 1.1; //start with 0.2
-                            //pixelChange = null; //not needed anymore
-                            Console.WriteLine("Threshold found");
-                        }
-                        else
-                        {
-                           // Console.WriteLine("Start scan");
-                            //now scanning, compare the two images and see what the difference is
-                            PixelMatrix matrix = new PixelMatrix(bm1, bm2);
-                            if(matrix.SumChangedPixels > pixelChangeThreshold)
-                            {
-                                Console.WriteLine("Movement");
-                                bm1.bitmap.Save(@"f:\temp\MotionSensor\2.1\movement\" + numberMotionFiles +"_movement.bmp");
-                                numberMotionFiles++;
-                            }
-                           // Console.WriteLine("End scan");
-                        }
-                    }
+                    img2 = images.Dequeue();
                 }
 
+                if(img1 != null && img2 != null)
+                {
+                    var bm1 = new BitmapWrapper(new ImageConvert().ReturnBitmap(img1.bytes));
+                    var bm2 = new BitmapWrapper(new ImageConvert().ReturnBitmap(img2.bytes));
+
+                    PixelMatrix matrix = new PixelMatrix(bm1, bm2);
+                    double sumChangedPixels = matrix.SumChangedPixels;
+
+                    using (System.IO.StreamWriter file = new System.IO.StreamWriter(logfile, true))
+                    {
+                        file.WriteLine(img1.sequenceNumber + " - " + img2.sequenceNumber + " - " + sumChangedPixels);
+                    }
+
+                    if (pixelChange != null && pixelChange.Count < controlImageNumber)
+                    {
+                        pixelChange.Add(sumChangedPixels);
+                    }
+                    else if (pixelChangeThreshold == -1)
+                    {
+                        //enough images received, but thresholds not set
+
+                        double range = ((pixelChange.Max() - pixelChange.Min()) / pixelChange.Min()) * 100;
+                        double buffer = range * 2 * sensitivity;
+                        pixelChangeThreshold = pixelChange.Max() + buffer;
+
+                       // pixelChangeThreshold = pixelChange.Max() * 1.05; //start with 0.2
+                        Console.WriteLine("Threshold found");
+                    }
+                    else
+                    {
+                        //now scanning, compare the two images and see what the difference is
+                        if (matrix.SumChangedPixels > pixelChangeThreshold)
+                        {
+                            Console.WriteLine("Movement");
+                            await SaveImageAsync(bm2, img2.sequenceNumber);
+                            
+                            numberMotionFiles++;
+                        }
+
+                    }//if there are images
+                }
+            }//if images > 1
+
         }//Compare
+
+        public async Task SaveImageAsync(BitmapWrapper bitmapWrapper, int sequenceNumber)
+        {
+            await Task.Run(() => 
+            {
+                bitmapWrapper.bitmap.Save(@"f:\temp\MotionSensor\2.1\movement\" + sequenceNumber + ".bmp");
+            });
+        }
 
         /// <summary>
         /// move to 

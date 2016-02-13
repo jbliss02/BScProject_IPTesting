@@ -59,7 +59,7 @@ namespace IPConnect_Testing.Analysis
         {
             //create an matrix, the same size as the images, to store any changes in pixels
             PixelMatrix matrix = new PixelMatrix();
-            matrix.columns = new List<PixelColumn>();
+            matrix.Columns = new List<PixelColumn>();
 
             for(int i = 0; i < bm1.bitmap.Width; i++)
             {
@@ -83,7 +83,7 @@ namespace IPConnect_Testing.Analysis
 
                 }//height
 
-                matrix.columns.Add(column);
+                matrix.Columns.Add(column);
 
             }//width
 
@@ -110,7 +110,7 @@ namespace IPConnect_Testing.Analysis
             {
                 for (int n = 0; n < bm2.bitmap.Height; n++)
                 {
-                    if(matrix.columns[i].cells[n].hasChanged)
+                    if(matrix.Columns[i].cells[n].hasChanged)
                     {
                         bitmap.SetPixel(i, n, color);
                     }

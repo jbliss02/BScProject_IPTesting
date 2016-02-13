@@ -22,19 +22,27 @@ namespace IPConnect_Testing.Analysis
         public PixelMatrix(BitmapWrapper image1, BitmapWrapper image2) { Populate(image1, image2); }
 
         public PixelMatrix(string path1, string path2) { Populate(path1, path2); }
-        public List<PixelColumn> columns { get; set; }
+        public List<PixelColumn> Columns { get; set; }
+        public List<PixelColumn> ReducedColumns { get; set; } //the matrix, where the change values are reduced to a 0 - 255 range
 
-        public List<PixelColumn> reducedColumns { get; set; } //the matrix, where the change values are reduced to a 0 - 255 range
+        public List<GridColumn> GridColumns { get; set; } //the matrix represented in a grid system
+        public bool GridSystemOn { get; set; }
+        /// <summary>
+        /// The number of grids that fit on a single row / column
+        /// </summary>
+        public int GridSplit { get; set; } = 4;
+        private int gridWidth;
+        private int gridHeight;
 
         /// <summary>
         /// Each pixel has a value which contains the numeric different between the two images, this
         /// method returns the sum of those differences
         /// </summary>
-        public double SumChangedPixels { get { return (from c in columns select c.numberChangedPixels).Sum(); } }
+        public double SumChangedPixels { get { return (from col in Columns from cell in col.cells select cell.positiveChange).Sum(); } }
 
-        public double maxChanged { get { return (from c in columns select c.maxChange).Max(); } }
+        public double MaxChanged { get { return (from c in Columns select c.maxChange).Max(); } }
 
-        public double minChanged { get { return (from c in columns select c.minChange).Min(); } }
+        public double MinChanged { get { return (from c in Columns select c.minChange).Min(); } }
 
         public void Populate(string image1Path, string image2Path)
         {
@@ -53,33 +61,71 @@ namespace IPConnect_Testing.Analysis
 
         }//Populate
 
+        /// <summary>
+        /// Compares two images, pixel by pixel, with the analysis about the difference between pixels
+        /// pixel by pixel analysis is set into pixelColumns. GridColumns are also populated if GridSystemOn
+        /// </summary>
+        /// <param name="image1"></param>
+        /// <param name="image2"></param>
         public void Populate(BitmapWrapper image1, BitmapWrapper image2)
         {
-            columns = new List<PixelColumn>();
+            Columns = new List<PixelColumn>();
+            if (GridSystemOn) { SetGrids(image1.bitmap.Height, image1.bitmap.Width); GridColumns = new List<GridColumn>();}
 
+            //set some grid variables here, for scope reasons
+            GridColumn gridColumn = null;
+            Grid grid = null;
+
+            //look at every pixel in each image, and compare the colours
             for (int i = 0; i < image1.bitmap.Width; i++)
             {
                 PixelColumn column = new PixelColumn();
-                column.cells = new List<PixelCell>();
 
+                //set a new grid column, if required
+                if (GridSystemOn)
+                {                
+                    if (i == 0) { gridColumn = new GridColumn(); }
+                    else if (i % gridWidth == 0) { GridColumns.Add(gridColumn); gridColumn = new GridColumn(); }
+                }
+             
                 for (int n = 0; n < image1.bitmap.Height; n++)
                 {
                     PixelCell cell = new PixelCell();
+
+                    //set a new grid, if required              
+                    if (GridSystemOn)
+                    {                     
+                        if (n > 0 && n % gridHeight == 0 && i % gridWidth == 0)
+                        {
+                            gridColumn.grids.Add(grid);
+                            grid = new Grid();
+                        }
+                        else if (n == 0 && i % gridWidth == 0)
+                        {
+                            grid = new Grid();
+                        }
+                    }
+
                     if (image1.bitmap.GetPixel(i, n).Name != image2.bitmap.GetPixel(i, n).Name)
                     {
                         cell.hasChanged = true;
                         cell.change = Int64.Parse(image1.bitmap.GetPixel(i, n).Name, System.Globalization.NumberStyles.HexNumber) - Int64.Parse(image2.bitmap.GetPixel(i, n).Name, System.Globalization.NumberStyles.HexNumber);
-
+                        grid.change += cell.change;
                     }
                     else
                     {
                         cell.hasChanged = false;
                     }
+
                     column.cells.Add(cell);
+                    if (n + 1 == image1.bitmap.Height && i % gridWidth == 0) {
+                        gridColumn.grids.Add(grid); }
 
                 }//height
 
-                columns.Add(column);
+                Columns.Add(column);
+
+                if (i + 1 == image1.bitmap.Width) { GridColumns.Add(gridColumn); }
 
             }//width
 
@@ -94,11 +140,11 @@ namespace IPConnect_Testing.Analysis
         {
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(textfile, true))
             {
-                for(int i = 0; i < columns.Count; i++)
+                for(int i = 0; i < Columns.Count; i++)
                 {
-                    for(int n = 0; n < columns[i].cells.Count; n++)
+                    for(int n = 0; n < Columns[i].cells.Count; n++)
                     {
-                        file.WriteLine(columns[i].cells[n].change);
+                        file.WriteLine(Columns[i].cells[n].change);
                     }
                             
                 }
@@ -112,18 +158,40 @@ namespace IPConnect_Testing.Analysis
         /// <param name="textfile"></param>
         public void DumpReducedToText(string textfile)
         {
+            if(ReducedColumns == null) { throw new Exception("Can't create text file as reduced analysis not complete"); }
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(textfile, true))
             {
-                for (int i = 0; i < reducedColumns.Count; i++)
+                for (int i = 0; i < ReducedColumns.Count; i++)
                 {
-                    for (int n = 0; n < reducedColumns[i].cells.Count; n++)
+                    for (int n = 0; n < ReducedColumns[i].cells.Count; n++)
                     {
-                        file.WriteLine(reducedColumns[i].cells[n].simpleColour);
+                        file.WriteLine(ReducedColumns[i].cells[n].simpleColour);
                     }
 
                 }
             }
         }//DumpToText
+
+        /// <summary>
+        /// Dumps the grid data to a text file
+        /// Dumps in column order (i.e. last entry is last column, last row)
+        /// </summary>
+        /// <param name="textfile"></param>
+        public void DumpGridToText(string textfile)
+        {
+            if (GridColumns == null) { throw new Exception("Can't create text file as grid system is not on"); }
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(textfile, true))
+            {
+                for (int i = 0; i < GridColumns.Count; i++)
+                {
+                    for (int n = 0; n < GridColumns[i].grids.Count; n++)
+                    {
+                        file.WriteLine(GridColumns[i].grids[n].change);
+                    }
+
+                }
+            }
+        }
 
         /// <summary>
         /// Creates a new bitmap, each pixel represents the change number 
@@ -132,16 +200,16 @@ namespace IPConnect_Testing.Analysis
         /// <returns></returns>
         public Bitmap DrawPixelChanges()
         {
-            if (columns == null) { throw new Exception("Matrix has no columns"); }
-            if (reducedColumns == null) { SetReducedColumns();}
+            if (Columns == null) { throw new Exception("Matrix has no columns"); }
+            if (ReducedColumns == null) { SetReducedColumns();}
 
-            Bitmap bm = new Bitmap(reducedColumns.Count, reducedColumns[0].cells.Count);
+            Bitmap bm = new Bitmap(ReducedColumns.Count, ReducedColumns[0].cells.Count);
 
             for (int i = 0; i < bm.Width; i++)
             {
                 for (int n = 0; n < bm.Height; n++)
                 {
-                    int color = Convert.ToInt16(reducedColumns[i].cells[n].simpleColour);
+                    int color = Convert.ToInt16(ReducedColumns[i].cells[n].simpleColour);
                     bm.SetPixel(i, n, Color.FromArgb(color, color, color, color));
 
                 }//height
@@ -158,39 +226,50 @@ namespace IPConnect_Testing.Analysis
         /// </summary>
         public void SetReducedColumns()
         {
-            if (columns == null) { throw new Exception("Matrix has no columns"); }
-            reducedColumns = new List<PixelColumn>();
+            if (Columns == null) { throw new Exception("Matrix has no columns"); }
+            ReducedColumns = new List<PixelColumn>();
           
-            double min = minChanged;
-            double max = maxChanged;
-            double highest = -minChanged > maxChanged ? -minChanged : maxChanged; //everything goes to positive as interested in distance from 0
+            double min = MinChanged;
+            double max = MaxChanged;
+            double highest = -MinChanged > MaxChanged ? -MinChanged : MaxChanged; //everything goes to positive as interested in distance from 0
 
             double divisor = 255;
             double changesPerColor = highest / divisor;
 
-            for (int i = 0; i < columns.Count; i++)
+            for (int i = 0; i < Columns.Count; i++)
             {
                 PixelColumn col = new PixelColumn();
                 col.cells = new List<PixelCell>();
 
-                for (int n = 0; n < columns[i].cells.Count ; n++)
+                for (int n = 0; n < Columns[i].cells.Count ; n++)
                 {
                     PixelCell cell = new PixelCell();
-                    double change = columns[i].cells[n].change < 0 ? -columns[i].cells[n].change : columns[i].cells[n].change;
+                    double change = Columns[i].cells[n].change < 0 ? -Columns[i].cells[n].change : Columns[i].cells[n].change;
                     cell.simpleColour = 255 - Convert.ToInt16(change / changesPerColor);
                     col.cells.Add(cell);
                 }//height
 
-                reducedColumns.Add(col);
+                ReducedColumns.Add(col);
 
             }//width
 
         }//SetReducedColumns
 
+        /// <summary>
+        /// Sets the gridsheight and width based on the size of the images
+        /// The grid is always 4 x 4
+        /// </summary>
+        private void SetGrids(int imageHeight, int imageWidth)
+        {
+            gridHeight = imageHeight / GridSplit;
+            gridWidth = imageWidth / GridSplit;
+        }
+
     }
 
     public class PixelColumn
     {
+        public PixelColumn() { cells = new List<PixelCell>(); }
         public List<PixelCell> cells { get; set; }
 
         public int numberChangedPixels { get
@@ -213,13 +292,36 @@ namespace IPConnect_Testing.Analysis
 
     }
 
-    public class PixelCell
+    public class PixelCell : CellAnalysis
     {
         public bool hasChanged { get; set; }
 
+        public int simpleColour { get; set; }
+    }
+
+    public class GridColumn
+    {
+        public GridColumn() { grids = new List<Grid>(); }
+        public List<Grid> grids;
+    }
+
+    public class Grid : CellAnalysis
+    {
+        public double numberPixels { get; set; }
+    }
+
+    public class CellAnalysis
+    {        
+        /// <summary>
+        /// the numeric change between the color representation of the 2 pixels, can be negative
+        /// </summary>
         public double change { get; set; }
 
-        public int simpleColour { get; set; }
+        /// <summary>
+        /// the numeric change between the color representation of the 2 pixels, all number are positive
+        /// </summary>
+        public double positiveChange { get { return change < 0 ? -change : change; } }
+
     }
 
 }

@@ -15,6 +15,6 @@ namespace IPConnect_Testing.Images.Jpeg
         public DateTime created;
         public int sequenceNumber;
 
-        public ByteWrapper(byte[] bytes) { this.bytes = bytes; }
+        public ByteWrapper(byte[] bytes, int sequenceNumber) { this.bytes = bytes; this.sequenceNumber = sequenceNumber; }
     }
 }

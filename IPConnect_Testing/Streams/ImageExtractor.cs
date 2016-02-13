@@ -22,8 +22,6 @@ namespace IPConnect_Testing.Streams
     {
         public event ImageCreatedEvent imageCreated;
         public event FramerateBroadcastEvent framerateBroadcast;
-
-        //public delegate void ImageCreatedEvent(byte[] img, EventArgs e);
         public delegate void ImageCreatedEvent(ByteWrapper img, EventArgs e);
         public delegate void FramerateBroadcastEvent(double framerate, EventArgs e);
 
@@ -46,6 +44,7 @@ namespace IPConnect_Testing.Streams
 
         bool singleImageExtraction; //whether we only want one image
 
+        static int imagesReceived;
 
         public ImageExtractor(string url, string username, string password)
         {
@@ -246,7 +245,8 @@ namespace IPConnect_Testing.Streams
         {
             if (imageCreated != null)
             {
-                imageCreated(new ByteWrapper(img), EventArgs.Empty);
+                imagesReceived++;
+                imageCreated(new ByteWrapper(img, imagesReceived), EventArgs.Empty);
             }
 
             if(framerateBroadcast != null)
