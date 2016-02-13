@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Configuration;
 using Tools;
+using IPConnect_Testing.Images.Jpeg;
 
 namespace IPConnect_Testing
 {
@@ -96,7 +97,7 @@ namespace IPConnect_Testing
         /// </summary>
         /// <param name="img"></param>
         /// <returns></returns>
-        public async Task ImageCreatedAsync(byte[] img)
+        public async Task ImageCreatedAsync(ByteWrapper img)
         {
             await Task.Run(() => {
                 WriteBytesToFile(img);
@@ -112,7 +113,7 @@ namespace IPConnect_Testing
         /// <param name="img"></param>
         /// <param name="e"></param>
         /// <returns></returns>
-        public async void ImageCreatedAsync(byte[] img, EventArgs e)
+        public async void ImageCreatedAsync(ByteWrapper img, EventArgs e)
         {
             await Task.Run(() => {
                 WriteBytesToFile(img);
@@ -126,7 +127,7 @@ namespace IPConnect_Testing
         /// </summary>
         /// <param name="imgs"></param>
         /// <returns></returns>
-        public async Task SaveFiles(List<byte[]> imgs)
+        public async Task SaveFiles(List<ByteWrapper> imgs)
         {
             await Task.Run(() => {
                 for (int i = 0; i < imgs.Count; i++)
@@ -189,13 +190,13 @@ namespace IPConnect_Testing
 
         }//WriteDatafileSummary
 
-        private void WriteBytesToFile(byte[] img)
+        private void WriteBytesToFile(ByteWrapper img)
         {
             try
             {
                 using (FileStream fs = new FileStream(GenerateFileName(), FileMode.Create))
                 {
-                    fs.Write(img, 0, img.Length);
+                    fs.Write(img.bytes, 0, img.bytes.Length);
                 }
 
             }

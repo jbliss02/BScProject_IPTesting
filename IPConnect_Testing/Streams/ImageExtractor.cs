@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using ExtensionMethods;
+using IPConnect_Testing.Images.Jpeg;
 
 namespace IPConnect_Testing.Streams
 {
@@ -22,7 +23,8 @@ namespace IPConnect_Testing.Streams
         public event ImageCreatedEvent imageCreated;
         public event FramerateBroadcastEvent framerateBroadcast;
 
-        public delegate void ImageCreatedEvent(byte[] img, EventArgs e);
+        //public delegate void ImageCreatedEvent(byte[] img, EventArgs e);
+        public delegate void ImageCreatedEvent(ByteWrapper img, EventArgs e);
         public delegate void FramerateBroadcastEvent(double framerate, EventArgs e);
 
         //framebroadcast info
@@ -244,7 +246,7 @@ namespace IPConnect_Testing.Streams
         {
             if (imageCreated != null)
             {
-                imageCreated(img, EventArgs.Empty);
+                imageCreated(new ByteWrapper(img), EventArgs.Empty);
             }
 
             if(framerateBroadcast != null)

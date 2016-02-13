@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IPConnect_Testing.Streams;
+using IPConnect_Testing.Images.Jpeg;
 
 namespace IPConnect_Testing
 {
@@ -15,7 +16,7 @@ namespace IPConnect_Testing
     public class ImageValidator
     {
         public event ImageValidatedEvent imageValidated;
-        public delegate void ImageValidatedEvent(byte[] img, EventArgs e);
+        public delegate void ImageValidatedEvent(ByteWrapper img, EventArgs e);
 
         public byte[] JPEG_start = new byte[2] {255, 216};
         public byte[] JPEG_end = new byte[2] { 255, 217 };
@@ -25,9 +26,9 @@ namespace IPConnect_Testing
             imgClass.imageCreated += new ImageExtractor.ImageCreatedEvent(FileCreated);
         }
 
-        public void FileCreated(byte[] img, EventArgs e)
+        public void FileCreated(ByteWrapper img, EventArgs e)
         {
-            if(img[0] == JPEG_start[0] && img[1] == JPEG_start[1] && img[img.Length -2] == JPEG_end[0] && img[img.Length -1] == JPEG_end[1])
+            if(img.bytes[0] == JPEG_start[0] && img.bytes[1] == JPEG_start[1] && img.bytes[img.bytes.Length -2] == JPEG_end[0] && img.bytes[img.bytes.Length -1] == JPEG_end[1])
             {
 
                // Console.WriteLine("Image Validated");
@@ -40,7 +41,7 @@ namespace IPConnect_Testing
 
         }//FileCreated
 
-        protected virtual void OnImageValidated(byte[] img)
+        protected virtual void OnImageValidated(ByteWrapper img)
         {
             if(imageValidated != null)
             {

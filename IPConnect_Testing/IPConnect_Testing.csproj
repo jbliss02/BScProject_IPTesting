@@ -59,6 +59,7 @@
     <Compile Include="Analysis\PixelMatrix.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Images\ImageConverter.cs" />
+    <Compile Include="Images\Jpeg\ByteWrapper.cs" />
     <Compile Include="MotionSensor\MotionSensor_2.1.cs" />
     <Compile Include="StreamAnalyser.cs" />
     <Compile Include="Images\Bitmaps\BitmapWrappers.cs" />

@@ -13,6 +13,7 @@ using System.Media;
 using System.Diagnostics;
 using IPConnect_Testing.Images;
 using IPConnect_Testing.Images.Bitmaps;
+using IPConnect_Testing.Images.Jpeg;
 using IPConnect_Testing.Analysis;
 using IPConnect_Testing.Streams;
 
@@ -41,8 +42,7 @@ namespace IPConnect_Testing
         static void Main(string[] args)
         {
             Write("IPConnect started");
-           // System.Threading.Thread.Sleep(1000); //let the HTTP streamer come online
-            RunMotionSensor2_1("20162820254901");
+            RunMotionSensor2_1("20162713524185");
 
             Console.WriteLine("Finished");
             Console.ReadLine();
@@ -145,7 +145,7 @@ namespace IPConnect_Testing
         /// </summary>
         /// <param name="img"></param>
         /// <param name="e"></param>
-        static void ValidImageEventHandler(byte[] img, EventArgs e)
+        static void ValidImageEventHandler(ByteWrapper img, EventArgs e)
         {
             if(imageSaver != null)
             {

@@ -8,6 +8,7 @@ using System.Threading;
 using IPConnect_Testing.Images;
 using IPConnect_Testing.Analysis;
 using IPConnect_Testing.Images.Bitmaps;
+using IPConnect_Testing.Images.Jpeg;
 
 namespace IPConnect_Testing.MotionSensor
 {
@@ -26,7 +27,7 @@ namespace IPConnect_Testing.MotionSensor
     {
         public int controlImageNumber = 50; //number of changes to use as the control (half the images as done in pairs)
 
-        public Queue<byte[]> images; //images waiting to be processed
+        public Queue<ByteWrapper> images; //images waiting to be processed
         private int imagesReceived; //used to flush the queue of images
 
         private List<double> pixelChange; //holds a list of the difference between pixels of 2 images (used for setting threshold)
@@ -38,53 +39,41 @@ namespace IPConnect_Testing.MotionSensor
 
         public MotionSensor_2a()
         {
-            images = new Queue<byte[]>();
+            images = new Queue<ByteWrapper>();
             imagesReceived = 0;
             pixelChange = new List<double>();
             pixelChangeThreshold = -1;
         }
+   
 
-        public async void ImageCreated(byte[] img, EventArgs e)
+
+        public async void ImageCreated(ByteWrapper img, EventArgs e)
         {
-
             await Task.Run(() =>
             {
                 imagesReceived++;
-
-                if (imagesReceived % 100 == 0) { Console.WriteLine("REC - " + DateTime.Now + " - " + imagesReceived); }
-
                 images.Enqueue(img);
 
-                Task.Run(() => this.Compare());
+                Compare();
             });
 
-
-
-
         }
-        private async Task Compare()
+        private void Compare()
         {
-            await Task.Run(() =>
-            {
 
                 if (images.Count > 1)
                 {
                     imagesChecked = imagesChecked + 2;
-              
-                    //if(imagesChecked % 10 == 0) {
-                    //    Task.Delay(4000);
-                    //}
-                    Console.WriteLine("CHK - " + imagesChecked);
 
                     byte[] img1 = null;
                     byte[] img2 = null;
                     if(images.Count > 0)
                     {
-                        img1 = images.Dequeue();
+                        img1 = images.Dequeue().bytes;
                     }
                     if (images.Count > 0)
                     {
-                        img2 = images.Dequeue();
+                        img2 = images.Dequeue().bytes;
                     }
 
                     if(img1 != null && img2 != null)
@@ -122,7 +111,6 @@ namespace IPConnect_Testing.MotionSensor
                         }
                     }
                 }
-            });
 
         }//Compare
 
@@ -138,6 +126,11 @@ namespace IPConnect_Testing.MotionSensor
 
             return d / num1;
 
+        }
+
+        public void Write(string st)
+        {
+            Console.WriteLine(DateTime.Now + " - " + st);
         }
 
 
