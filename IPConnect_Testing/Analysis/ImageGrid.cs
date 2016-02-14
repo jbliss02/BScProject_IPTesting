@@ -42,5 +42,7 @@ namespace IPConnect_Testing.Analysis
     public class Grid : CellAnalysis
     {
         public double numberPixels { get; set; }
+
+        public double threshold { get; set; } //used when this grid cell is being used to define movement threshold
     }
 }

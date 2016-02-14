@@ -48,8 +48,6 @@ namespace IPConnect_Testing.MotionSensor
             sensitivity = 1;
         }
 
-
-
         /// <summary>
         /// Called when the object detects motion, creates the event
         /// </summary>

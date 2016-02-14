@@ -18,16 +18,18 @@ namespace IPConnect_Testing.MotionSensor
    
     public class MotionSensor_2b : MotionSensor_2
     {
-        private List<ImageGrid> gridImages; //a collection of images, in grid form
-        private ImageGrid thresholdImage; //the thresholds, per grid
+        private List<ImageGrid> gridImages = new List<ImageGrid>(); //a collection of images, in grid form
+        public ImageGrid thresholdImage{get; private set;} //the thresholds, per grid
 
         public override void Compare(ByteWrapper image1, ByteWrapper image2)
         {
             var bm1 = new BitmapWrapper(ImageConvert.ReturnBitmap(image1.bytes));
             var bm2 = new BitmapWrapper(ImageConvert.ReturnBitmap(image2.bytes));
 
-            PixelMatrix matrix = new PixelMatrix(bm1, bm2);
+            PixelMatrix matrix = new PixelMatrix();
             matrix.GridSystemOn = true;
+            matrix.Populate(bm1, bm2);
+
             double sumChangedPixels = matrix.SumChangedPixels;
 
             //keep adding for threshold calculation, set the threshold, or monitor
@@ -58,20 +60,23 @@ namespace IPConnect_Testing.MotionSensor
             thresholdImage = new ImageGrid(gridImages[0].Columns[0].grids.Count, gridImages[0].Columns.Count);
 
             //do the calculation grid by grid
-            //start with just grid 0,0
             for(int i = 0; i < thresholdImage.Columns.Count; i++)
             {
-                double gridTotals = 0;
-                for(int k = 0; k < gridImages.Count; k++)
+                for(int n = 0; n < thresholdImage.Columns[i].grids.Count; n++)
                 {
-                    gridTotals += gridImages[k].Columns[0].grids[0].positiveChange;
+                    List<double> gridTotals = new List<double>();
+                    for(int k = 0; k < gridImages.Count; k++)
+                    {
+                        gridTotals.Add(gridImages[k].Columns[i].grids[n].positiveChange);
+                    }
+
+                    double range = (gridTotals.Max() - gridTotals.Min()) / gridTotals.Min() * 100;
+                    double buffer = range * 2 * sensitivity;
+                    thresholdImage.Columns[i].grids[n].threshold = gridTotals.Max() + buffer;
                 }
 
-            }//each grid image
+            }//each grid column
 
-            double range = ((pixelChange.Max() - pixelChange.Min()) / pixelChange.Min()) * 100;
-            double buffer = range * 2 * sensitivity;
-            pixelChangeThreshold = pixelChange.Max() + buffer;
             ThresholdSet = true;
         }
     }
