@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analysis\BitmapComparison.cs" />
+    <Compile Include="Analysis\ImageGrid.cs" />
     <Compile Include="Analysis\JpegAnalysis.cs" />
     <Compile Include="Analysis\JpegComparision.cs" />
     <Compile Include="Analysis\PixelMatrix.cs" />

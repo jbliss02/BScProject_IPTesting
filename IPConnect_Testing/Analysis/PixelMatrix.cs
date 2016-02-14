@@ -23,16 +23,12 @@ namespace IPConnect_Testing.Analysis
 
         public PixelMatrix(string path1, string path2) { Populate(path1, path2); }
         public List<PixelColumn> Columns { get; set; }
+        
         public List<PixelColumn> ReducedColumns { get; set; } //the matrix, where the change values are reduced to a 0 - 255 range
 
-        public List<GridColumn> GridColumns { get; set; } //the matrix represented in a grid system
+        public ImageGrid imageGrid { get; set; }
+        //public List<GridColumn> GridColumns { get; set; } //the matrix represented in a grid system
         public bool GridSystemOn { get; set; }
-        /// <summary>
-        /// The number of grids that fit on a single row / column
-        /// </summary>
-        public int GridSplit { get; set; } = 4;
-        private int gridWidth;
-        private int gridHeight;
 
         /// <summary>
         /// Each pixel has a value which contains the numeric different between the two images, this
@@ -70,8 +66,8 @@ namespace IPConnect_Testing.Analysis
         public void Populate(BitmapWrapper image1, BitmapWrapper image2)
         {
             Columns = new List<PixelColumn>();
-            if (GridSystemOn) { SetGrids(image1.bitmap.Height, image1.bitmap.Width); GridColumns = new List<GridColumn>();}
-
+            if (GridSystemOn) { imageGrid = new ImageGrid(image1.bitmap.Height, image1.bitmap.Width); }
+                                
             //set some grid variables here, for scope reasons
             GridColumn gridColumn = null;
             Grid grid = null;
@@ -85,7 +81,7 @@ namespace IPConnect_Testing.Analysis
                 if (GridSystemOn)
                 {                
                     if (i == 0) { gridColumn = new GridColumn(); }
-                    else if (i % gridWidth == 0) { GridColumns.Add(gridColumn); gridColumn = new GridColumn(); }
+                    else if (i % imageGrid.GridWidth == 0) { imageGrid.Columns.Add(gridColumn); gridColumn = new GridColumn(); }
                 }
              
                 for (int n = 0; n < image1.bitmap.Height; n++)
@@ -95,12 +91,12 @@ namespace IPConnect_Testing.Analysis
                     //set a new grid, if required              
                     if (GridSystemOn)
                     {                     
-                        if (n > 0 && n % gridHeight == 0 && i % gridWidth == 0)
+                        if (n > 0 && n % imageGrid.GridHeight == 0 && i % imageGrid.GridWidth == 0)
                         {
                             gridColumn.grids.Add(grid);
                             grid = new Grid();
                         }
-                        else if (n == 0 && i % gridWidth == 0)
+                        else if (n == 0 && i % imageGrid.GridWidth == 0)
                         {
                             grid = new Grid();
                         }
@@ -119,13 +115,13 @@ namespace IPConnect_Testing.Analysis
 
                     column.cells.Add(cell);
 
-                    if (GridSystemOn && n + 1 == image1.bitmap.Height && i % gridWidth == 0) { gridColumn.grids.Add(grid); }
+                    if (GridSystemOn && n + 1 == image1.bitmap.Height && i % imageGrid.GridWidth == 0) { gridColumn.grids.Add(grid); }
 
                 }//height
 
                 Columns.Add(column);
 
-                if (GridSystemOn && i + 1 == image1.bitmap.Width) { GridColumns.Add(gridColumn); }
+                if (GridSystemOn && i + 1 == image1.bitmap.Width) { imageGrid.Columns.Add(gridColumn); }
 
             }//width
 
@@ -179,14 +175,14 @@ namespace IPConnect_Testing.Analysis
         /// <param name="textfile"></param>
         public void DumpGridToText(string textfile)
         {
-            if (GridColumns == null) { throw new Exception("Can't create text file as grid system is not on"); }
+            if (imageGrid.Columns == null) { throw new Exception("Can't create text file as grid system is not on"); }
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(textfile, true))
             {
-                for (int i = 0; i < GridColumns.Count; i++)
+                for (int i = 0; i < imageGrid.Columns.Count; i++)
                 {
-                    for (int n = 0; n < GridColumns[i].grids.Count; n++)
+                    for (int n = 0; n < imageGrid.Columns[i].grids.Count; n++)
                     {
-                        file.WriteLine(GridColumns[i].grids[n].change);
+                        file.WriteLine(imageGrid.Columns[i].grids[n].change);
                     }
 
                 }
@@ -259,11 +255,11 @@ namespace IPConnect_Testing.Analysis
         /// Sets the gridsheight and width based on the size of the images
         /// The grid is always 4 x 4
         /// </summary>
-        private void SetGrids(int imageHeight, int imageWidth)
-        {
-            gridHeight = imageHeight / GridSplit;
-            gridWidth = imageWidth / GridSplit;
-        }
+        //private void SetGrids(int imageHeight, int imageWidth)
+        //{
+        //    gridHeight = imageHeight / GridSplit;
+        //    gridWidth = imageWidth / GridSplit;
+        //}
 
     }
 
@@ -297,25 +293,6 @@ namespace IPConnect_Testing.Analysis
         public bool hasChanged { get; set; }
 
         public int simpleColour { get; set; }
-    }
-
-    public class GridImage
-    {
-        public List<GridColumn> columns;
-        public GridImage() { columns = new List<GridColumn>(); }
-
-        public GridImage(List<GridColumn> columns) { this.columns = columns; }
-    }
-
-    public class GridColumn
-    {
-        public GridColumn() { grids = new List<Grid>(); }
-        public List<Grid> grids;
-    }
-
-    public class Grid : CellAnalysis
-    {
-        public double numberPixels { get; set; }
     }
 
     public class CellAnalysis

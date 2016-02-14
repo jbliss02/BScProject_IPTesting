@@ -17,12 +17,12 @@ namespace Testing
             matrix.GridSystemOn = true;
             matrix.Populate(@"F:\temp\MotionSensor\2.2\test_101.jpg", @"F:\temp\MotionSensor\2.2\test_128.jpg");
 
-            Assert.IsNotNull(matrix.GridColumns);
-            Assert.IsTrue(matrix.GridColumns.Count == 4);
-            Assert.IsTrue(matrix.GridColumns[0].grids.Count == 4);
-            Assert.IsTrue(matrix.GridColumns[1].grids.Count == 4);
-            Assert.IsTrue(matrix.GridColumns[2].grids.Count == 4);
-            Assert.IsTrue(matrix.GridColumns[3].grids.Count == 4);
+            Assert.IsNotNull(matrix.imageGrid.Columns);
+            Assert.IsTrue(matrix.imageGrid.Columns.Count == 4);
+            Assert.IsTrue(matrix.imageGrid.Columns[0].grids.Count == 4);
+            Assert.IsTrue(matrix.imageGrid.Columns[1].grids.Count == 4);
+            Assert.IsTrue(matrix.imageGrid.Columns[2].grids.Count == 4);
+            Assert.IsTrue(matrix.imageGrid.Columns[3].grids.Count == 4);
         }
     }
 }
