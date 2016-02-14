@@ -23,7 +23,7 @@ namespace IPConnect_Testing.MotionSensor
         public delegate void MotionDetected(ByteWrapper image, EventArgs e);
 
         //threshold setting
-        public int ControlImageNumber { get; set; } = 10; //number of changes to use as the control (half the images as done in pairs)
+        public int ControlImageNumber { get; set; } = 30; //number of changes to use as the control (half the images as done in pairs)
         public bool ThresholdSet { get; set; }
         protected List<double> pixelChange; //holds a list of the difference between pixels of 2 images (used for setting threshold)
         protected double pixelChangeThreshold;
@@ -60,6 +60,22 @@ namespace IPConnect_Testing.MotionSensor
             }
         }
 
+        /// <summary>
+        /// Overload for the OnMotion procedure that includes an integer which defines
+        /// the grid number in which motion was detected
+        /// </summary>
+        /// <param name="image1"></param>
+        /// <param name="image2"></param>
+        /// <param name="motionGrid"></param>
+        protected void OnMotion(ByteWrapper image1, ByteWrapper image2, int motionGrid)
+        {
+            Console.WriteLine(image2.sequenceNumber + " movement in grid " + motionGrid);
+            OnMotion(image1, image2);
+        }
+
+
+
+
         public async void ImageCreated(ByteWrapper img, EventArgs e)
         {
             await Task.Run(() =>
@@ -75,6 +91,9 @@ namespace IPConnect_Testing.MotionSensor
         /// </summary>
         private void SendForCompare()
         {
+            //as there are multiple threads working the queue may have images removed by other threads
+            //move this to lock functionality, rather than losing 
+ 
             if (images.Count > 1)
             {
                 //take images out of the queue, as this is async other methods may dequeue between the calls so be defensive
@@ -89,6 +108,7 @@ namespace IPConnect_Testing.MotionSensor
                     imagesChecked = imagesChecked + 2;
                 }
             }
+
         }
 
         public virtual void Compare(ByteWrapper img1, ByteWrapper img2) { } //will always be implemented in the sub class

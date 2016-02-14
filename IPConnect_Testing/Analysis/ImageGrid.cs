@@ -31,6 +31,17 @@ namespace IPConnect_Testing.Analysis
             GridHeight = imageHeight / GridSplit;
             GridWidth = imageWidth / GridSplit;
         }
+
+        /// <summary>
+        /// Returns an integer for each grid
+        /// </summary>
+        /// <param name="column"></param>
+        /// <param name="row"></param>
+        /// <returns></returns>
+        public int GridNumber(int column, int row)
+        {
+            return row * column;
+        }
     }
 
     public class GridColumn

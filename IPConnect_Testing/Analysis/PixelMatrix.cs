@@ -106,7 +106,7 @@ namespace IPConnect_Testing.Analysis
                     {
                         cell.hasChanged = true;
                         cell.change = Int64.Parse(image1.bitmap.GetPixel(i, n).Name, System.Globalization.NumberStyles.HexNumber) - Int64.Parse(image2.bitmap.GetPixel(i, n).Name, System.Globalization.NumberStyles.HexNumber);
-                        if (GridSystemOn) { grid.change += cell.change; }
+                        if (GridSystemOn) { grid.change += cell.positiveChange; }
                     }
                     else
                     {

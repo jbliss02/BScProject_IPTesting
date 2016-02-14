@@ -43,10 +43,10 @@ namespace IPConnect_Testing
 
         static void Main(string[] args)
         {
-            Write("IPConnect started");
+            //Write("IPConnect started");
             //ExtractImages();
             //Motion2b_analysis();
-            RunMotionSensor2_a("2016213155544107");
+            RunMotionSensor2_b("201621411494640");
 
             Console.WriteLine("Finished");
             Console.ReadLine();
@@ -66,6 +66,30 @@ namespace IPConnect_Testing
 
             //create the motion sensor, and listen for images
             MotionSensor.MotionSensor_2a motionSensor = new MotionSensor.MotionSensor_2a();
+            motionSensor.logfile = @"F:\temp\MotionSensor\2.1\movement\info.txt";
+            motionSensor.motionDetected += new MotionSensor.MotionSensor_2.MotionDetected(imageSaver.WriteBytesToFileAsync);
+
+            //create the validator 
+            ImageValidator imageValidator = new ImageValidator();
+            imageValidator.ListenForImages(imageExtractor);
+            imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreated);//subscribe to events from the validator
+
+            imageExtractor.Run();
+        }
+
+        static void RunMotionSensor2_b(string sessKey)
+        {
+            //set up the extractor
+            string uri = "http://localhost:9000/api/jpeg/0/" + sessKey;
+
+            ImageExtractor imageExtractor = new ImageExtractor(uri, username, password);
+            imageExtractor.framerateBroadcast += new ImageExtractor.FramerateBroadcastEvent(FramerateBroadcastEventHandler);
+
+            //set the image saver
+            ImageSaver imageSaver = new ImageSaver(@"F:\temp\MotionSensor\2.2\movement", "movement");
+
+            //create the motion sensor, and listen for images
+            MotionSensor.MotionSensor_2b motionSensor = new MotionSensor.MotionSensor_2b();
             motionSensor.logfile = @"F:\temp\MotionSensor\2.1\movement\info.txt";
             motionSensor.motionDetected += new MotionSensor.MotionSensor_2.MotionDetected(imageSaver.WriteBytesToFileAsync);
 
