@@ -27,7 +27,7 @@ namespace IPConnect_Testing
     class Program
     {
         //static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi?date=1&clock=1&resolution=135x180";
-        static string url = "http://192.168.0.4/axis-cgi/mjpg/video.cgi?resolution=480x360";
+        static string url = "http://192.168.0.4/axis-cgi/mjpg/video.cgi?resolution=560x420";
         //static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi";
         //static string url = "http://localhost:8080/api/Mpeg/stream";
         // static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi?date=1&clock=1";
@@ -72,7 +72,7 @@ namespace IPConnect_Testing
             //create the validator 
             ImageValidator imageValidator = new ImageValidator();
             imageValidator.ListenForImages(imageExtractor);
-            imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreated);//subscribe to events from the validator
+            imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreatedAsync);//subscribe to events from the validator
 
             imageExtractor.Run();
         }
@@ -96,7 +96,7 @@ namespace IPConnect_Testing
             //create the validator 
             ImageValidator imageValidator = new ImageValidator();
             imageValidator.ListenForImages(imageExtractor);
-            imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreated);//subscribe to events from the validator
+            imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreatedAsync);//subscribe to events from the validator
 
             imageExtractor.Run();
         }

@@ -25,16 +25,16 @@ namespace Testing.MotionSensor
             foreach (var file in Directory.EnumerateFiles(@"f:\bsc\project\TestImages"))
             {
                 ByteWrapper wrapper = ImageConvert.ReturnByteWrapper(file);
-                motion.ImageCreated(wrapper, EventArgs.Empty);
+                motion.ImageCreatedAsync(wrapper, EventArgs.Empty);
                 Thread.Sleep(250);
             }
-            Assert.IsNotNull(motion.thresholdImage);
+            Assert.IsNotNull(motion.ThresholdImage);
 
-            for(int i = 0; i < motion.thresholdImage.Columns.Count; i++)
+            for(int i = 0; i < motion.ThresholdImage.Columns.Count; i++)
             {
-                for(int n = 0; n < motion.thresholdImage.Columns[i].grids.Count;n++)
+                for(int n = 0; n < motion.ThresholdImage.Columns[i].grids.Count;n++)
                 {
-                    Assert.IsTrue(motion.thresholdImage.Columns[i].grids[n].change != 0);
+                    Assert.IsTrue(motion.ThresholdImage.Columns[i].grids[n].change != 0);
                 }                     
             }
 

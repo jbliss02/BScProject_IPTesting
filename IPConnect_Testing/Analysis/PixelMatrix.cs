@@ -18,26 +18,28 @@ namespace IPConnect_Testing.Analysis
     public class PixelMatrix
     {
         public PixelMatrix() { }
-
         public PixelMatrix(BitmapWrapper image1, BitmapWrapper image2) { Populate(image1, image2); }
-
         public PixelMatrix(string path1, string path2) { Populate(path1, path2); }
-        public List<PixelColumn> Columns { get; set; }
-        
+        public List<PixelColumn> Columns { get; set; }       
         public List<PixelColumn> ReducedColumns { get; set; } //the matrix, where the change values are reduced to a 0 - 255 range
-
         public ImageGrid imageGrid { get; set; }
         //public List<GridColumn> GridColumns { get; set; } //the matrix represented in a grid system
         public bool GridSystemOn { get; set; }
+        /// <summary>
+        /// The number of pixels to search horizontally. Defaults to the image width if not set
+        /// </summary>
+        public int SearchWidth { get; set; }
+        /// <summary>
+        /// The number of pixels to search vertically. Defaults to the image height if not set
+        /// </summary>
+        public int SearchHeight { get; set; }
 
         /// <summary>
         /// Each pixel has a value which contains the numeric different between the two images, this
         /// method returns the sum of those differences
         /// </summary>
         public double SumChangedPixels { get { return (from col in Columns from cell in col.cells select cell.positiveChange).Sum(); } }
-
         public double MaxChanged { get { return (from c in Columns select c.maxChange).Max(); } }
-
         public double MinChanged { get { return (from c in Columns select c.minChange).Min(); } }
 
         public void Populate(string image1Path, string image2Path)
@@ -66,14 +68,19 @@ namespace IPConnect_Testing.Analysis
         public void Populate(BitmapWrapper image1, BitmapWrapper image2)
         {
             Columns = new List<PixelColumn>();
-            if (GridSystemOn) { imageGrid = new ImageGrid(image1.bitmap.Height, image1.bitmap.Width); }
+
+            //set the search dimensions
+            if(SearchWidth <=  0) { SearchWidth = image1.bitmap.Width; }
+            if (SearchHeight <= 0) { SearchHeight = image1.bitmap.Height; }
+
+            if (GridSystemOn) { imageGrid = new ImageGrid(SearchWidth, SearchHeight); }
                                 
             //set some grid variables here, for scope reasons
             GridColumn gridColumn = null;
             Grid grid = null;
 
             //look at every pixel in each image, and compare the colours
-            for (int i = 0; i < image1.bitmap.Width; i++)
+            for (int i = 0; i < SearchWidth; i++)
             {
                 PixelColumn column = new PixelColumn();
 
@@ -84,7 +91,7 @@ namespace IPConnect_Testing.Analysis
                     else if (i % imageGrid.GridWidth == 0) { imageGrid.Columns.Add(gridColumn); gridColumn = new GridColumn(); }
                 }
              
-                for (int n = 0; n < image1.bitmap.Height; n++)
+                for (int n = 0; n < SearchHeight; n++)
                 {
                     PixelCell cell = new PixelCell();
 
@@ -102,10 +109,13 @@ namespace IPConnect_Testing.Analysis
                         }
                     }
 
-                    if (image1.bitmap.GetPixel(i, n).Name != image2.bitmap.GetPixel(i, n).Name)
+                    string image1PixelName = image1.bitmap.GetPixel(i, n).Name;
+                    string image2PixelName = image2.bitmap.GetPixel(i, n).Name;
+
+                    if (image1PixelName != image2PixelName)
                     {
                         cell.hasChanged = true;
-                        cell.change = Int64.Parse(image1.bitmap.GetPixel(i, n).Name, System.Globalization.NumberStyles.HexNumber) - Int64.Parse(image2.bitmap.GetPixel(i, n).Name, System.Globalization.NumberStyles.HexNumber);
+                        cell.change = Int64.Parse(image1PixelName, System.Globalization.NumberStyles.HexNumber) - Int64.Parse(image2PixelName, System.Globalization.NumberStyles.HexNumber);
                         if (GridSystemOn) { grid.change += cell.positiveChange; }
                     }
                     else
@@ -250,16 +260,6 @@ namespace IPConnect_Testing.Analysis
             }//width
 
         }//SetReducedColumns
-
-        /// <summary>
-        /// Sets the gridsheight and width based on the size of the images
-        /// The grid is always 4 x 4
-        /// </summary>
-        //private void SetGrids(int imageHeight, int imageWidth)
-        //{
-        //    gridHeight = imageHeight / GridSplit;
-        //    gridWidth = imageWidth / GridSplit;
-        //}
 
     }
 

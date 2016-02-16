@@ -19,7 +19,7 @@ namespace IPConnect_Testing.MotionSensor
     public class MotionSensor_2b : MotionSensor_2
     {
         private List<ImageGrid> gridImages = new List<ImageGrid>(); //a collection of images, in grid form
-        public ImageGrid thresholdImage{get; private set;} //the thresholds, per grid
+        public ImageGrid ThresholdImage{get; private set;} //the thresholds, per grid
 
         public override void Compare(ByteWrapper image1, ByteWrapper image2)
         {
@@ -27,6 +27,8 @@ namespace IPConnect_Testing.MotionSensor
             var bm2 = new BitmapWrapper(ImageConvert.ReturnBitmap(image2.bytes));
 
             PixelMatrix matrix = new PixelMatrix();
+            if (SearchHeight > 0) { matrix.SearchHeight = SearchHeight; }
+            if (SearchWidth > 0) { matrix.SearchWidth = SearchWidth; }
             matrix.GridSystemOn = true;
             matrix.Populate(bm1, bm2);
 
@@ -36,18 +38,17 @@ namespace IPConnect_Testing.MotionSensor
             if (ThresholdSet)
             {
                 //do the motion detection
-                for(int i = 0; i < thresholdImage.Columns.Count; i++)
+                for(int i = 0; i < ThresholdImage.Columns.Count; i++)
                 {
-                    for(int n = 0; n < thresholdImage.Columns[i].grids.Count; n++)
+                    for(int n = 0; n < ThresholdImage.Columns[i].grids.Count; n++)
                     {
-                        if(matrix.imageGrid.Columns[i].grids[n].change > thresholdImage.Columns[i].grids[n].threshold)
+                        if(matrix.imageGrid.Columns[i].grids[n].change > ThresholdImage.Columns[i].grids[n].threshold)
                         {
-                            OnMotion(image1, image2, thresholdImage.GridNumber(i, n));
+                            OnMotion(image1, image2, ThresholdImage.GridNumber(i, n));
                             return;
                         }
                     }
                 }
-
             }
             else if (!ThresholdSet && gridImages.Count < ControlImageNumber)
             {
@@ -69,12 +70,12 @@ namespace IPConnect_Testing.MotionSensor
         private void SetThreshold()
         {
             //set the threshold image
-            thresholdImage = new ImageGrid(gridImages[0].Columns[0].grids.Count, gridImages[0].Columns.Count);
+            ThresholdImage = new ImageGrid(gridImages[0].Columns[0].grids.Count, gridImages[0].Columns.Count);
 
             //do the calculation grid by grid
             for(int i = 0; i < gridImages[0].Columns.Count; i++)
             {
-                thresholdImage.Columns.Add(new GridColumn());
+                ThresholdImage.Columns.Add(new GridColumn());
 
                 for(int n = 0; n < gridImages[0].Columns[i].grids.Count; n++)
                 {
@@ -86,8 +87,8 @@ namespace IPConnect_Testing.MotionSensor
 
                    // double range = (gridTotals.Max() - gridTotals.Min()) / gridTotals.Min() * 100;
                     double buffer = gridTotals.Max() * 1.2 * sensitivity;
-                    thresholdImage.Columns[i].grids.Add(new Grid());
-                    thresholdImage.Columns[i].grids[n].threshold = Math.Round(buffer, 0);
+                    ThresholdImage.Columns[i].grids.Add(new Grid());
+                    ThresholdImage.Columns[i].grids[n].threshold = Math.Round(buffer, 0);
                 }
 
             }//each grid column

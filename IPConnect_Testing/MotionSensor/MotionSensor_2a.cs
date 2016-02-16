@@ -19,13 +19,20 @@ namespace IPConnect_Testing.MotionSensor
     /// </summary>
 
     public class MotionSensor_2a : MotionSensor_2
-    { 
+    {
+        private List<double> pixelChange; //holds a list of the difference between pixels of 2 images (used for setting threshold)
+        private double pixelChangeThreshold;
+
+        public MotionSensor_2a() : base() { pixelChange = new List<double>(); }
+
         public override void Compare(ByteWrapper image1, ByteWrapper image2)
         {
             var bm1 = new BitmapWrapper(ImageConvert.ReturnBitmap(image1.bytes));
             var bm2 = new BitmapWrapper(ImageConvert.ReturnBitmap(image2.bytes));
 
             PixelMatrix matrix = new PixelMatrix(bm1, bm2);
+            if (SearchHeight > 0) { matrix.SearchHeight = SearchHeight; }
+            if (SearchWidth > 0) { matrix.SearchWidth = SearchWidth; }
             double sumChangedPixels = matrix.SumChangedPixels;
 
             //keep adding for threshold calculation, set the threshold, or monitor

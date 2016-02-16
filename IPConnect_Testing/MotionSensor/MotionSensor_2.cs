@@ -13,10 +13,10 @@ namespace IPConnect_Testing.MotionSensor
     /// <summary>
     /// Base class that provides basic functionality to serve Motion Sensor approaches in category 2 (pixel analysis)
     /// </summary>
-    public abstract class MotionSensor_2
+    public class MotionSensor_2
     {
         //Work queue
-        public Queue<ByteWrapper> images { get; set; } //images waiting to be processed
+        public Queue<ByteWrapper> Images { get; set; } //images waiting to be processed
 
         //motion detected event
         public event MotionDetected motionDetected;
@@ -25,9 +25,16 @@ namespace IPConnect_Testing.MotionSensor
         //threshold setting
         public int ControlImageNumber { get; set; } = 30; //number of changes to use as the control (half the images as done in pairs)
         public bool ThresholdSet { get; set; }
-        protected List<double> pixelChange; //holds a list of the difference between pixels of 2 images (used for setting threshold)
-        protected double pixelChangeThreshold;
         protected double sensitivity = 1;
+
+        /// <summary>
+        /// The number of pixels to search horizontally. Defaults to the image width if not set
+        /// </summary>
+        public int SearchWidth { get; set; }
+        /// <summary>
+        /// The number of pixels to search vertically. Defaults to the image height if not set
+        /// </summary>
+        public int SearchHeight { get; set; }
 
         //logging and saving
         public String logfile { get; set; }
@@ -42,8 +49,8 @@ namespace IPConnect_Testing.MotionSensor
 
         private void SetUp()
         {
-            images = new Queue<ByteWrapper>();
-            pixelChange = new List<double>();
+            Images = new Queue<ByteWrapper>();
+            
             ThresholdSet = false;
             sensitivity = 1;
         }
@@ -73,17 +80,21 @@ namespace IPConnect_Testing.MotionSensor
             OnMotion(image1, image2);
         }
 
-
-
-
-        public async void ImageCreated(ByteWrapper img, EventArgs e)
+        public async void ImageCreatedAsync(ByteWrapper img, EventArgs e)
         {
             await Task.Run(() =>
             {
                 imagesReceived++;
-                images.Enqueue(img);
+                Images.Enqueue(img);
                 SendForCompare();
             });
+        }
+
+        public void ImageCreated(ByteWrapper img, EventArgs e)
+        {
+            imagesReceived++;
+            Images.Enqueue(img);
+            SendForCompare();
         }
 
         /// <summary>
@@ -93,14 +104,13 @@ namespace IPConnect_Testing.MotionSensor
         {
             //as there are multiple threads working the queue may have images removed by other threads
             //move this to lock functionality, rather than losing 
- 
-            if (images.Count > 1)
+            if (Images.Count > 1)
             {
                 //take images out of the queue, as this is async other methods may dequeue between the calls so be defensive
                 ByteWrapper img1 = null;
-                if (images.Count > 0) { img1 = images.Dequeue(); }
+                if (Images.Count > 0) { img1 = Images.Dequeue(); }
                 ByteWrapper img2 = null;
-                if (images.Count > 0) { img2 = images.Dequeue(); }
+                if (Images.Count > 0) { img2 = Images.Dequeue(); }
 
                 if (img1 != null && img2 != null)
                 {
@@ -108,8 +118,7 @@ namespace IPConnect_Testing.MotionSensor
                     imagesChecked = imagesChecked + 2;
                 }
             }
-
-        }
+        }//SendForCompare
 
         public virtual void Compare(ByteWrapper img1, ByteWrapper img2) { } //will always be implemented in the sub class
 

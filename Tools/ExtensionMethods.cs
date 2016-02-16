@@ -391,9 +391,12 @@ namespace IPConnect_Testing
         {
             return - int.Parse(value, System.Globalization.NumberStyles.HexNumber);
         }
+        public static Int64 HexToNumber(this string value)
+        {
+            return Int64.Parse(value, System.Globalization.NumberStyles.HexNumber);
+        }
 
 
-   
 
     }
 }

@@ -26,7 +26,7 @@ namespace IPConnect_Testing.Analysis
         /// <summary>
         /// The number of grids that fit on a single row / column
         /// </summary>
-        public void Setgrid(int imageHeight, int imageWidth)
+        public void Setgrid(int imageWidth, int imageHeight)
         {
             GridHeight = imageHeight / GridSplit;
             GridWidth = imageWidth / GridSplit;
