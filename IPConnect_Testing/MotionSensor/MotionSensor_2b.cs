@@ -62,6 +62,14 @@ namespace IPConnect_Testing.MotionSensor
         }//Compare
 
         /// <summary>
+        /// Creates a dummy threshold image, used for testing and benchmarking
+        /// </summary>
+        public void CreateDummyThreshold(int width, int height)
+        {
+            ThresholdImage = new ImageGrid(width, height);
+        }
+
+        /// <summary>
         /// Called when the threshold is to be set, or re-set
         /// takes the current range of changes and calculates threshold
         /// based on these ranges, and the specified sensitivity

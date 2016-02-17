@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using IPConnect_Testing;
 using IPConnect_Testing.Images;
 using IPConnect_Testing.Images.Bitmaps;
 using IPConnect_Testing.Images.Jpeg;
@@ -69,6 +70,10 @@ namespace Testing.RumtimeAnalysis
 
         }
 
+
+        /// <summary>
+        /// Runs the whole end to end motion sensor
+        /// </summary>
         [TestMethod]
         [TestCategory("Runtime analysis")]
         public void MotionSensorPixelSize()
@@ -92,20 +97,12 @@ namespace Testing.RumtimeAnalysis
                             
                             MotionSensor_2a motion = new MotionSensor_2a();
                             motion.ThresholdSet = true;
+                            motion.SearchWidth = dimensions[i];
                             sw.Restart();
-                            motion.ImageCreatedAsync(image1, EventArgs.Empty);
-                            motion.ImageCreatedAsync(image2, EventArgs.Empty);
+                            motion.ImageCreated(image1, EventArgs.Empty);
+                            motion.ImageCreated(image2, EventArgs.Empty);
                             sw.Stop();
                             file.WriteLine(i + " - " + n + " - " + " no grid - " + sw.Elapsed.TotalMilliseconds);
-
-                            MotionSensor_2b motionb = new MotionSensor_2b();
-                            motionb.ThresholdSet = true;
-                            sw.Restart();
-                            motionb.ImageCreatedAsync(image1, EventArgs.Empty);
-                            motionb.ImageCreatedAsync(image2, EventArgs.Empty);
-                            sw.Stop();
-                            file.WriteLine(i + " - " + n + " - " + "  grid - " + sw.Elapsed.TotalMilliseconds);
-
 
                         }
                     }
@@ -118,6 +115,126 @@ namespace Testing.RumtimeAnalysis
             }
         }
 
+        [TestMethod]
+        [TestCategory("Runtime analysis")]
+        public void TestValidator()
+        {
+            ByteWrapper image1 = ImageConvert.ReturnByteWrapper(@"F:\temp\analysis\640x480\test_0.jpg");
+            ImageValidator validator = new ImageValidator();
+            try
+            {
+                List<int> dimensions = ReturnDimensions();
+                Stopwatch sw = new Stopwatch();
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"f:\temp\runtime\validator_analysis.txt", true))
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        sw.Restart();
+                        validator.FileCreated(image1, EventArgs.Empty);
+                        sw.Stop();
+                        file.WriteLine(sw.Elapsed.TotalMilliseconds);
+                    }
+                }
+                Assert.IsTrue(true);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(false);
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("Runtime analysis")]
+        public void LinqTesting()
+        {
+            try
+            {
+                List<int> dimensions = ReturnDimensions();
+                Stopwatch sw = new Stopwatch();
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"f:\temp\runtime\linqanalysis.txt", true))
+                {
+                    for(int m = 0; m < dimensions.Count; m++)
+                    {
+                        for (int i = 0; i < 30; i++)
+                        {
+                            //do the minimum
+                            BitmapWrapper bm1 = new BitmapWrapper(@"F:\temp\analysis\640x480\test_0.jpg");
+                            BitmapWrapper bm2 = new BitmapWrapper(@"F:\temp\analysis\640x480\test_1.jpg");
+                            PixelMatrix matrix = new PixelMatrix();
+                            matrix.SearchWidth = dimensions[m];
+                            matrix.Populate(bm1, bm2);
+
+                            //LINQ
+                            sw.Restart();
+                            double min = matrix.MinChanged;
+                            sw.Stop();
+                            file.WriteLine("LINQ - min - " + m + " - " + sw.Elapsed.TotalMilliseconds);
+
+                            sw.Restart();
+                            double max = matrix.MaxChanged;
+                            sw.Stop();
+                            file.WriteLine("LINQ - max - " + m + " - " + sw.Elapsed.TotalMilliseconds);
+
+                            sw.Restart();
+                            double sum = matrix.SumChangedPixels;
+                            sw.Stop();
+                            file.WriteLine("LINQ - sum - " + m + " - " + sw.Elapsed.TotalMilliseconds);
+
+                            //ITERATION
+                            sw.Restart();
+                            double min2 = 0;
+                            for (int n = 0; n < matrix.Columns.Count; n++)
+                            {
+                                for (int k = 0; k < matrix.Columns[n].cells.Count; k++)
+                                {
+                                    if (matrix.Columns[n].cells[k].change < min2)
+                                    {
+                                        min2 = matrix.Columns[n].cells[k].change;
+                                    }
+                                }
+                            }
+                            sw.Stop();
+                            file.WriteLine("ITERATION - min - " + m + " - " + sw.Elapsed.TotalMilliseconds);
+
+
+                            sw.Restart();                           
+                            double max2 = 0;
+                            for (int n = 0; n < matrix.Columns.Count; n++)
+                            {
+                                for (int k = 0; k < matrix.Columns[n].cells.Count; k++)
+                                {
+                                    if (matrix.Columns[n].cells[k].change > max2)
+                                    {
+                                        max2 = matrix.Columns[n].cells[k].change;
+                                    }
+                                }
+                            }
+                            sw.Stop();
+                            file.WriteLine("ITERATION - max - " + m + " - " + sw.Elapsed.TotalMilliseconds);
+
+                            sw.Restart();
+                            double sum2 = 0;                          
+                            for (int n = 0; n < matrix.Columns.Count; n++)
+                            {
+                                for (int k = 0; k < matrix.Columns[n].cells.Count; k++)
+                                {
+                                    sum2 += matrix.Columns[n].cells[k].change;
+                                }
+                            }
+                            sw.Stop();
+                            file.WriteLine("ITERATION - sum - " + m + " - " + sw.Elapsed.TotalMilliseconds);
+
+                        }
+                    }
+
+                }
+                Assert.IsTrue(true);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(false);
+            }
+        }
 
         /// <summary>
         /// returns various x by y sizes to fit certain number of pixels

@@ -20,7 +20,7 @@ namespace IPConnect_Testing.Analysis
         public PixelMatrix() { }
         public PixelMatrix(BitmapWrapper image1, BitmapWrapper image2) { Populate(image1, image2); }
         public PixelMatrix(string path1, string path2) { Populate(path1, path2); }
-        public List<PixelColumn> Columns { get; set; }       
+        public List<PixelColumn> Columns { get; set; }
         public List<PixelColumn> ReducedColumns { get; set; } //the matrix, where the change values are reduced to a 0 - 255 range
         public ImageGrid imageGrid { get; set; }
         //public List<GridColumn> GridColumns { get; set; } //the matrix represented in a grid system
@@ -38,9 +38,55 @@ namespace IPConnect_Testing.Analysis
         /// Each pixel has a value which contains the numeric different between the two images, this
         /// method returns the sum of those differences
         /// </summary>
-        public double SumChangedPixels { get { return (from col in Columns from cell in col.cells select cell.positiveChange).Sum(); } }
-        public double MaxChanged { get { return (from c in Columns select c.maxChange).Max(); } }
-        public double MinChanged { get { return (from c in Columns select c.minChange).Min(); } }
+        public double SumChangedPixels { get
+            {
+                double sum = 0;
+                for (int n = 0; n < Columns.Count; n++)
+                {
+                    for (int k = 0; k < Columns[n].cells.Count; k++)
+                    {
+                        sum += Columns[n].cells[k].change;
+                    }
+                }
+
+                return sum;
+            } }
+        public double SumChangedPixelsLINQ { get { return (from col in Columns from cell in col.cells select cell.positiveChange).Sum(); } }
+        public double MaxChangedLINQ { get { return (from c in Columns select c.maxChange).Max(); } }      
+        public double MaxChanged { get
+            {
+                double max = Columns[0].cells[0].change;
+                for (int n = 0; n < Columns.Count; n++)
+                {
+                    for (int k = 0; k < Columns[n].cells.Count; k++)
+                    {
+                        if (Columns[n].cells[k].change > max)
+                        {
+                            max = Columns[n].cells[k].change;
+                        }
+                    }
+                }
+
+                return max;
+            } }
+        public double MinChangedLINQ { get { return (from c in Columns select c.minChange).Min(); } }
+        public double MinChanged{ get
+            {
+                double min = Columns[0].cells[0].change; ;
+                for (int n = 0; n < Columns.Count; n++)
+                {
+                    for (int k = 0; k < Columns[n].cells.Count; k++)
+                    {
+                        if (Columns[n].cells[k].change < min)
+                        {
+                            min = Columns[n].cells[k].change;
+                        }
+                    }
+                }
+                return min;
+
+            }
+        }
 
         public void Populate(string image1Path, string image2Path)
         {
@@ -70,7 +116,7 @@ namespace IPConnect_Testing.Analysis
             Columns = new List<PixelColumn>();
 
             //set the search dimensions
-            if(SearchWidth <=  0) { SearchWidth = image1.bitmap.Width; }
+            if (SearchWidth <=  0) { SearchWidth = image1.bitmap.Width; }
             if (SearchHeight <= 0) { SearchHeight = image1.bitmap.Height; }
 
             if (GridSystemOn) { imageGrid = new ImageGrid(SearchWidth, SearchHeight); }

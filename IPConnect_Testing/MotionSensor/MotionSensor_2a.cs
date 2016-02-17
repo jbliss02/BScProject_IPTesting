@@ -30,9 +30,11 @@ namespace IPConnect_Testing.MotionSensor
             var bm1 = new BitmapWrapper(ImageConvert.ReturnBitmap(image1.bytes));
             var bm2 = new BitmapWrapper(ImageConvert.ReturnBitmap(image2.bytes));
 
-            PixelMatrix matrix = new PixelMatrix(bm1, bm2);
+            PixelMatrix matrix = new PixelMatrix();
             if (SearchHeight > 0) { matrix.SearchHeight = SearchHeight; }
             if (SearchWidth > 0) { matrix.SearchWidth = SearchWidth; }
+            matrix.Populate(bm1, bm2);
+
             double sumChangedPixels = matrix.SumChangedPixels;
 
             //keep adding for threshold calculation, set the threshold, or monitor
@@ -62,9 +64,12 @@ namespace IPConnect_Testing.MotionSensor
         /// </summary>
         private void SetThreshold()
         {
-            double range = ((pixelChange.Max() - pixelChange.Min()) / pixelChange.Min()) * 100;
+            double max = pixelChange.Max();
+            double min = pixelChange.Min();
+
+            double range = ((max - min) / min) * 100;
             double buffer = range * 2 * sensitivity;
-            pixelChangeThreshold = pixelChange.Max() + buffer;
+            pixelChangeThreshold = max + buffer;
             ThresholdSet = true;
         }
     }
