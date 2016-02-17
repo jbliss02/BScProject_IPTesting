@@ -27,21 +27,21 @@ namespace Testing.RumtimeAnalysis
         /// </summary>
         [TestMethod]
         [TestCategory("Runtime analysis")]
-        public void PixelSize()
+        public void PixelMatrix()
         {
             try
             {
                 List<int> dimensions = ReturnDimensions();
                 Stopwatch sw = new Stopwatch();
-                int count = 1;
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"f:\temp\runtime\analysis.txt", true))
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"f:\temp\runtime\pixelmatrixanalysis.txt", true))
                 {
                     for (int i = 0; i < dimensions.Count; i++)
                     {
-                        for(int n = 0; n < 10; n++)
+                        for(int n = 0; n < 200; n++)
                         {
                             BitmapWrapper bm1 = new BitmapWrapper(@"F:\temp\analysis\640x480\test_0.jpg");
-                            BitmapWrapper bm2 = new BitmapWrapper(@"F:\temp\analysis\640x480\test_0.jpg");
+                            BitmapWrapper bm2 = new BitmapWrapper(@"F:\temp\analysis\640x480\test_1.jpg");
+
                             sw.Restart();
                             PixelMatrix matrix = new PixelMatrix();
                             matrix.SearchWidth = dimensions[i];
@@ -49,15 +49,6 @@ namespace Testing.RumtimeAnalysis
                             sw.Stop();
                             file.WriteLine(i + " - " + n + " - " + " no grid - " + sw.Elapsed.TotalMilliseconds);
 
-                            sw.Restart();
-                            bm1 = new BitmapWrapper(@"F:\temp\analysis\640x480\test_0.jpg");
-                            bm2 = new BitmapWrapper(@"F:\temp\analysis\640x480\test_0.jpg");
-                            matrix = new PixelMatrix();
-                            matrix.SearchWidth = dimensions[i];
-                            matrix.GridSystemOn = true;
-                            matrix.Populate(bm1, bm2);
-                            sw.Stop();
-                            file.WriteLine(i + " - " + n + " - " + " grid - " + sw.Elapsed.TotalMilliseconds);
                         }
                     }
                 }
@@ -70,9 +61,8 @@ namespace Testing.RumtimeAnalysis
 
         }
 
-
         /// <summary>
-        /// Runs the whole end to end motion sensor
+        /// Runs the whole end to end motion sensor and logs the response times
         /// </summary>
         [TestMethod]
         [TestCategory("Runtime analysis")]
@@ -86,19 +76,19 @@ namespace Testing.RumtimeAnalysis
                 {
                     for (int i = 0; i < dimensions.Count; i++)
                     {
-                        for (int n = 0; n < 10; n++)
+                        for (int n = 0; n < 200; n++)
                         {
                             //images in memory when sent to the 
                             ByteWrapper image1 = ImageConvert.ReturnByteWrapper(@"F:\temp\analysis\640x480\test_0.jpg");
                             image1.sequenceNumber = i;
-                            ByteWrapper image2 = ImageConvert.ReturnByteWrapper(@"F:\temp\analysis\640x480\test_0.jpg");
+                            ByteWrapper image2 = ImageConvert.ReturnByteWrapper(@"F:\temp\analysis\640x480\test_1.jpg");
                             image2.sequenceNumber = i;
 
-                            
+                            sw.Restart();
                             MotionSensor_2a motion = new MotionSensor_2a();
                             motion.ThresholdSet = true;
                             motion.SearchWidth = dimensions[i];
-                            sw.Restart();
+                           
                             motion.ImageCreated(image1, EventArgs.Empty);
                             motion.ImageCreated(image2, EventArgs.Empty);
                             sw.Stop();
