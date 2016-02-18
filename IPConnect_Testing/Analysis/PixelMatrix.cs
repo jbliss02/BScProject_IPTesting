@@ -33,6 +33,15 @@ namespace IPConnect_Testing.Analysis
         /// The number of pixels to search vertically. Defaults to the image height if not set
         /// </summary>
         public int SearchHeight { get; set; }
+        
+        /// <summary>
+        /// The number of pixels the algorithm will move to the right when scanning images
+        /// </summary>
+        public int WidthSearchOffset { get; set; }
+        /// <summary>
+        /// The number of pixels the algorithm will move downwards when scanning images
+        /// </summary>
+        public int HeightSearchOffset { get; set; }
 
         /// <summary>
         /// Each pixel has a value which contains the numeric different between the two images, this
@@ -118,6 +127,10 @@ namespace IPConnect_Testing.Analysis
             //set the search dimensions
             if (SearchWidth <=  0) { SearchWidth = image1.bitmap.Width; }
             if (SearchHeight <= 0) { SearchHeight = image1.bitmap.Height; }
+            
+            //set thepixel scanning dimensions
+            if (WidthSearchOffset < 1) { WidthSearchOffset = 1; }
+            if (HeightSearchOffset < 1) { HeightSearchOffset = 1; }
 
             if (GridSystemOn) { imageGrid = new ImageGrid(SearchWidth, SearchHeight); }
                                 
@@ -126,7 +139,7 @@ namespace IPConnect_Testing.Analysis
             Grid grid = null;
 
             //look at every pixel in each image, and compare the colours
-            for (int i = 0; i < SearchWidth; i++)
+            for (int i = 0; i < SearchWidth; i += WidthSearchOffset)
             {
                 PixelColumn column = new PixelColumn();
 
@@ -137,7 +150,7 @@ namespace IPConnect_Testing.Analysis
                     else if (i % imageGrid.GridWidth == 0) { imageGrid.Columns.Add(gridColumn); gridColumn = new GridColumn(); }
                 }
              
-                for (int n = 0; n < SearchHeight; n++)
+                for (int n = 0; n < SearchHeight; n += HeightSearchOffset)
                 {
                     PixelCell cell = new PixelCell();
 

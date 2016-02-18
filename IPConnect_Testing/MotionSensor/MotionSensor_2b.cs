@@ -65,8 +65,20 @@ namespace IPConnect_Testing.MotionSensor
         /// Creates a dummy threshold image, used for testing and benchmarking
         /// </summary>
         public void CreateDummyThreshold(int width, int height)
-        {
+        {           
             ThresholdImage = new ImageGrid(width, height);
+            for(int i = 0; i < width; i++)
+            {
+                ThresholdImage.Columns.Add(new GridColumn());
+
+                for (int n = 0; n < height; n++)
+                {
+                    Random random = new Random();
+                    double buffer = ReturnBuffer(random.Next(25000000));
+                    ThresholdImage.Columns[i].grids.Add(new Grid());
+                    ThresholdImage.Columns[i].grids[n].threshold = Math.Round(buffer, 0);
+                }
+            }
         }
 
         /// <summary>
@@ -93,8 +105,7 @@ namespace IPConnect_Testing.MotionSensor
                         gridTotals.Add(gridImages[k].Columns[i].grids[n].positiveChange);
                     }
 
-                   // double range = (gridTotals.Max() - gridTotals.Min()) / gridTotals.Min() * 100;
-                    double buffer = gridTotals.Max() * 1.2 * sensitivity;
+                    double buffer = ReturnBuffer(ReturnMax(gridTotals));
                     ThresholdImage.Columns[i].grids.Add(new Grid());
                     ThresholdImage.Columns[i].grids[n].threshold = Math.Round(buffer, 0);
                 }
@@ -103,5 +114,22 @@ namespace IPConnect_Testing.MotionSensor
 
             ThresholdSet = true;
         }
+
+        private double ReturnBuffer(double max)
+        {
+            return max * 1.2 * sensitivity;
+        }
+
+        private double ReturnMax(List<double> list)
+        {
+            double result = list[0];
+            for(int i = 1; i < list.Count; i++)
+            {
+                if(list[i] > result) { result = list[i]; }
+            }
+
+            return result;
+        }
+
     }
 }

@@ -45,9 +45,11 @@ namespace Testing.RumtimeAnalysis
                             sw.Restart();
                             PixelMatrix matrix = new PixelMatrix();
                             matrix.SearchWidth = dimensions[i];
+                            matrix.GridSystemOn = true;
                             matrix.Populate(bm1, bm2);
+                            
                             sw.Stop();
-                            file.WriteLine(i + " - " + n + " - " + " no grid - " + sw.Elapsed.TotalMilliseconds);
+                            file.WriteLine(i + " - " + n + " - " + " grid - " + sw.Elapsed.TotalMilliseconds);
 
                         }
                     }
@@ -62,11 +64,53 @@ namespace Testing.RumtimeAnalysis
         }
 
         /// <summary>
+        /// Test what happens when we do not search every pixel
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Runtime analysis")]
+        public void PixelMatrix_skips()
+        {
+            try
+            {
+                List<int> dimensions = ReturnPixelJumps();
+
+                Stopwatch sw = new Stopwatch();
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"f:\temp\runtime\pixelmatrixanalysis_jumps.txt", true))
+                {
+                    for (int i = 0; i < dimensions.Count; i++)
+                    {
+                        for (int n = 0; n < 200; n++)
+                        {
+                            BitmapWrapper bm1 = new BitmapWrapper(@"F:\temp\analysis\640x480\test_0.jpg");
+                            BitmapWrapper bm2 = new BitmapWrapper(@"F:\temp\analysis\640x480\test_1.jpg");
+
+                            sw.Restart();
+                            PixelMatrix matrix = new PixelMatrix();
+                            matrix.WidthSearchOffset = dimensions[i];
+                            matrix.Populate(bm1, bm2);
+
+                            sw.Stop();
+                            file.WriteLine(i + " - " + n + " - " + " grid - " + sw.Elapsed.TotalMilliseconds);
+
+                        }
+                    }
+                }
+                Assert.IsTrue(true);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(false);
+            }
+        }
+
+
+
+        /// <summary>
         /// Runs the whole end to end motion sensor and logs the response times
         /// </summary>
         [TestMethod]
         [TestCategory("Runtime analysis")]
-        public void MotionSensorPixelSize()
+        public void MotionSensor2a()
         {
             try
             {
@@ -89,6 +133,51 @@ namespace Testing.RumtimeAnalysis
                             motion.ThresholdSet = true;
                             motion.SearchWidth = dimensions[i];
                            
+                            motion.ImageCreated(image1, EventArgs.Empty);
+                            motion.ImageCreated(image2, EventArgs.Empty);
+                            sw.Stop();
+                            file.WriteLine(i + " - " + n + " - " + " no grid - " + sw.Elapsed.TotalMilliseconds);
+
+                        }
+                    }
+                }
+                Assert.IsTrue(true);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(false);
+            }
+        }
+
+        /// <summary>
+        /// Runs analysis on MotionSensor2b
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Runtime analysis")]
+        public void MotionSensor2b()
+        {
+            try
+            {
+                List<int> dimensions = ReturnDimensions();
+                Stopwatch sw = new Stopwatch();
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"f:\temp\runtime\motion2b_analysis.txt", true))
+                {
+                    for (int i = 0; i < dimensions.Count; i++)
+                    {
+                        for (int n = 0; n < 200; n++)
+                        {
+                            //images in memory when sent to the 
+                            ByteWrapper image1 = ImageConvert.ReturnByteWrapper(@"F:\temp\analysis\640x480\test_0.jpg");
+                            image1.sequenceNumber = i;
+                            ByteWrapper image2 = ImageConvert.ReturnByteWrapper(@"F:\temp\analysis\640x480\test_1.jpg");
+                            image2.sequenceNumber = i;
+
+                            
+                            MotionSensor_2b motion = new MotionSensor_2b();
+                            motion.CreateDummyThreshold(4,4);
+                            sw.Restart();
+                            motion.ThresholdSet = true;
+                            motion.SearchWidth = dimensions[i];
                             motion.ImageCreated(image1, EventArgs.Empty);
                             motion.ImageCreated(image2, EventArgs.Empty);
                             sw.Stop();
@@ -240,6 +329,19 @@ namespace Testing.RumtimeAnalysis
             result.Add(80);
             result.Add(40);
             result.Add(20);
+            return result;
+        }
+
+        private List<int> ReturnPixelJumps()
+        {
+            //width is 480 in every case for consistent fall in pixel numbers
+            List<int> result = new List<int>();
+            result.Add(32);
+            result.Add(16);
+            result.Add(8);
+            result.Add(4);
+            result.Add(2);
+            result.Add(1);
             return result;
         }
 
