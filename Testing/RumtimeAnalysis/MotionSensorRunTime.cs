@@ -46,6 +46,7 @@ namespace Testing.RumtimeAnalysis
                             PixelMatrix matrix = new PixelMatrix();
                             matrix.SearchWidth = dimensions[i];
                             matrix.GridSystemOn = true;
+                            matrix.LinkCompare = true;
                             matrix.Populate(bm1, bm2);
 
                             sw.Stop();
@@ -314,7 +315,7 @@ namespace Testing.RumtimeAnalysis
         }
 
         [TestMethod]
-        [TestCategory("Rumtime analysis")]
+        [TestCategory("Runtime analysis")]
         public void BitmapGetColour()
         {
             BitmapWrapper bm1 = new BitmapWrapper(@"F:\temp\analysis\640x480\test_0.jpg");
@@ -322,26 +323,89 @@ namespace Testing.RumtimeAnalysis
             Stopwatch sw = new Stopwatch();
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"f:\temp\runtime\getpixel.txt", true))
             {
-                sw.Start();
-                for (int i = 0; i < 172800; i++)
+                List<Int32> lst = ReturnPixelSizes();
+
+                for (int k = 0; k < 10; k++)
                 {
+                    for(int n = 0; n < lst.Count; n++)
+                    {
+                        //sw.Start();
+                        //for (int i = 0; i < lst[n]; i++)
+                        //{
 
+                        //}
+                        //sw.Stop();
+                        //file.WriteLine(sw.Elapsed.TotalMilliseconds);
+
+                        sw.Restart();
+                        for(int i = 0; i < lst[n]; i++)
+                        {
+                            Int64 x = Int64.Parse(bm1.bitmap.GetPixel(12, 59).Name, System.Globalization.NumberStyles.HexNumber);
+                        }
+                        sw.Stop();
+                        file.WriteLine(k + " - " + lst[n] + " - "+ sw.Elapsed.TotalMilliseconds);
+                    }
                 }
-                sw.Stop();
-                file.WriteLine(sw.Elapsed.TotalMilliseconds);
 
-                sw.Restart();
-                for(int i = 0; i < 172800; i++)
-                {
-                    Int64 x = Int64.Parse(bm1.bitmap.GetPixel(12, 59).Name, System.Globalization.NumberStyles.HexNumber);
 
-                }
-                sw.Stop();
-                file.WriteLine(sw.Elapsed.TotalMilliseconds);
+
             }
 
 
 
+        }
+
+        [TestMethod]
+        [TestCategory("Runtime analysis")]
+        public void Motion2aSubequent()
+        {
+            try
+            {
+                List<int> dimensions = ReturnDimensions();
+                Stopwatch sw = new Stopwatch();
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"f:\temp\runtime\motion_analysis.txt", true))
+                {
+                    for (int i = 0; i < dimensions.Count; i++)
+                    {
+                        for (int n = 0; n < 200; n++)
+                        {
+                            //images in memory when sent to the 
+                            ByteWrapper image1 = ImageConvert.ReturnByteWrapper(@"F:\temp\analysis\640x480\test_0.jpg");
+                            image1.sequenceNumber = i;
+                            ByteWrapper image2 = ImageConvert.ReturnByteWrapper(@"F:\temp\analysis\640x480\test_1.jpg");
+                            image2.sequenceNumber = i;
+
+
+                            PixelMatrix dummy = new IPConnect_Testing.Analysis.PixelMatrix();
+                            dummy.LinkCompare = true;
+                            dummy.SearchWidth = dimensions[i];
+                            dummy.Populate(new BitmapWrapper(ImageConvert.ReturnBitmap(image1.bytes)), new BitmapWrapper(ImageConvert.ReturnBitmap(image2.bytes)));
+                            
+
+                            sw.Restart();
+                            MotionSensor_2a motion = new MotionSensor_2a();
+                            motion.ThresholdSet = true;
+                            motion.LinkCompare = true;
+                            motion.SearchWidth = dimensions[i];
+                            motion.Comparison = dummy.Comparision;
+
+                            motion.ImageCreated(image1, EventArgs.Empty);
+                            motion.ImageCreated(image2, EventArgs.Empty);
+
+                            motion.ImageCreated(image1, EventArgs.Empty);
+                            motion.ImageCreated(image2, EventArgs.Empty);
+                            sw.Stop();
+                            file.WriteLine(i + " - " + n + " - " + " no grid - " + sw.Elapsed.TotalMilliseconds);
+
+                        }
+                    }
+                }
+                Assert.IsTrue(true);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(false);
+            }
         }
 
         /// <summary>
@@ -374,5 +438,16 @@ namespace Testing.RumtimeAnalysis
             return result;
         }
 
+        private List<int> ReturnPixelSizes()
+        {
+            List<int> result = new List<int>();
+            result.Add(307200);
+            result.Add(153600);
+            result.Add(76800);
+            result.Add(38400);
+            result.Add(19200);
+            result.Add(9600);
+            return result;
+        }
     }
 }

@@ -31,9 +31,17 @@ namespace IPConnect_Testing.MotionSensor
             var bm2 = new BitmapWrapper(ImageConvert.ReturnBitmap(image2.bytes));
 
             PixelMatrix matrix = new PixelMatrix();
+            matrix.LinkCompare = LinkCompare;
             if (SearchHeight > 0) { matrix.SearchHeight = SearchHeight; }
-            if (SearchWidth > 0) { matrix.SearchWidth = SearchWidth; }
-            matrix.Populate(bm1, bm2);
+            if (SearchWidth > 0) {  matrix.SearchWidth = SearchWidth; }
+            if (LinkCompare && Comparison != null)
+            {
+                matrix.Populate(Comparison, bm2);
+            }
+            else
+            {
+                matrix.Populate(bm1, bm2);
+            }
 
             double sumChangedPixels = matrix.SumChangedPixels;
 
@@ -54,6 +62,8 @@ namespace IPConnect_Testing.MotionSensor
             {
                 SetThreshold(); //enough images received to set the threshold and start monitoring
             }
+
+            Comparison = matrix.Comparator;
 
         }//Compare
 

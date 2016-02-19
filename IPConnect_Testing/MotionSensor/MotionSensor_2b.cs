@@ -29,6 +29,7 @@ namespace IPConnect_Testing.MotionSensor
             PixelMatrix matrix = new PixelMatrix();
             if (SearchHeight > 0) { matrix.SearchHeight = SearchHeight; }
             if (SearchWidth > 0) { matrix.SearchWidth = SearchWidth; }
+            if (LinkCompare) { matrix.LinkCompare = true; }
             matrix.GridSystemOn = true;
             matrix.Populate(bm1, bm2);
 
@@ -58,6 +59,8 @@ namespace IPConnect_Testing.MotionSensor
             {
                 SetThreshold(); //enough images received to set the threshold and start monitoring
             }
+
+            Comparison = matrix.Comparator;
 
         }//Compare
 

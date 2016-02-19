@@ -97,6 +97,13 @@ namespace IPConnect_Testing.Analysis
 
             }
         }
+
+        /// <summary>
+        /// Whether the comparator and comparision objects should be used, this allows different instances
+        /// of the PixelMatrix to share comparision data, and save computation time, only applicable
+        /// when running syncrhously
+        /// </summary>
+        public bool LinkCompare;
         /// <summary>
         /// The image being compared to, this stores the colour of the pixel so it can be used in
         /// a later PixelMatrix object, this saves calling the GetPixel() method twixe
@@ -147,6 +154,7 @@ namespace IPConnect_Testing.Analysis
         public void Populate(List<PixelColumn> comparision, BitmapWrapper image2)
         {
             this.Comparision = comparision;
+            this.image2 = image2;
             DoPopulate();
         }
 
@@ -156,11 +164,12 @@ namespace IPConnect_Testing.Analysis
         private void DoPopulate()
         {
             Columns = new List<PixelColumn>();
-            Comparator = new List<PixelColumn>();
+            Comparator = null;
+            if (LinkCompare) { Comparator = new List<PixelColumn>(); }
 
             //set the search dimensions
-            if (SearchWidth <= 0) { SearchWidth = image1.bitmap.Width; }
-            if (SearchHeight <= 0) { SearchHeight = image1.bitmap.Height; }
+            if (SearchWidth <= 0 ) { SearchWidth = image2.bitmap.Width; }
+            if (SearchHeight <= 0 ) { SearchHeight = image2.bitmap.Height; }
 
             //set thepixel scanning dimensions
             if (WidthSearchOffset < 1) { WidthSearchOffset = 1; }
@@ -168,15 +177,17 @@ namespace IPConnect_Testing.Analysis
 
             if (GridSystemOn) { imageGrid = new ImageGrid(SearchWidth, SearchHeight); }
 
-            //set some grid variables here, for scope reasons
+            //set some grid and comparator variables here, for scope reasons
             GridColumn gridColumn = null;
             Grid grid = null;
+            PixelCell comparatorCell = null;
+            PixelColumn comparatorColumn = null;
 
             //look at every pixel in each image, and compare the colours
             for (int i = 0; i < SearchWidth; i += WidthSearchOffset)
             {
                 PixelColumn column = new PixelColumn();
-                PixelColumn comparatorColumn = new PixelColumn();
+                if (LinkCompare) { comparatorColumn = new PixelColumn(); }
 
                 //set a new grid column, if required
                 if (GridSystemOn)
@@ -188,7 +199,7 @@ namespace IPConnect_Testing.Analysis
                 for (int n = 0; n < SearchHeight; n += HeightSearchOffset)
                 {
                     PixelCell cell = new PixelCell();
-                    PixelCell comparatorCell = new PixelCell();
+                    if (LinkCompare) { comparatorCell = new PixelCell(); }
 
                     //set a new grid, if required              
                     if (GridSystemOn)
@@ -205,13 +216,12 @@ namespace IPConnect_Testing.Analysis
                     }
 
                     //get the pixel colours. image 1 pixel one either comes from image1, or the comparison PixelMatrix, if it exists
-                    Int64 image1Pixel = Comparision == null ? image1.bitmap.GetPixel(i, n).Name.HexToLong() : image2.bitmap.GetPixel(i, n).Name.HexToLong();
+                    Int64 image1Pixel = Comparision == null ? image1.bitmap.GetPixel(i, n).Name.HexToLong() : Comparision[i].cells[n].colour;
                     Int64 image2Pixel = image2.bitmap.GetPixel(i, n).Name.HexToLong();
 
                     //set the comparator
-                    comparatorCell.colour = image2Pixel;
-                    comparatorColumn.cells.Add(comparatorCell);
-
+                    if (LinkCompare) { comparatorCell.colour = image2Pixel; comparatorColumn.cells.Add(comparatorCell); }
+                    
                     if (image1Pixel != image2Pixel)
                     {
                         cell.hasChanged = true;
@@ -230,7 +240,7 @@ namespace IPConnect_Testing.Analysis
                 }//height
 
                 Columns.Add(column);
-                Comparator.Add(comparatorColumn);
+                if (LinkCompare) { Comparator.Add(comparatorColumn); }
 
                 if (GridSystemOn && i + 1 == image1.bitmap.Width) { imageGrid.Columns.Add(gridColumn); }
 

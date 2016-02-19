@@ -42,6 +42,13 @@ namespace IPConnect_Testing.MotionSensor
         protected int imagesChecked;
         protected int numberMotionFiles;
 
+        /// <summary>
+        /// Whether a compare action should try and share data with the next compare action
+        /// only applicable when running syncrohously
+        /// </summary>
+        public bool LinkCompare;
+        public List<PixelColumn> Comparison;//comparision object - returned from one capture, to be used in the next
+
         public MotionSensor_2()
         {
             SetUp();
