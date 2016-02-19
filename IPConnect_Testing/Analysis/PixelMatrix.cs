@@ -20,6 +20,9 @@ namespace IPConnect_Testing.Analysis
         public PixelMatrix() { }
         public PixelMatrix(BitmapWrapper image1, BitmapWrapper image2) { Populate(image1, image2); }
         public PixelMatrix(string path1, string path2) { Populate(path1, path2); }
+        //images being compared
+        private BitmapWrapper image1 { get; set; }
+        private BitmapWrapper image2 { get; set; }
         public List<PixelColumn> Columns { get; set; }
         public List<PixelColumn> ReducedColumns { get; set; } //the matrix, where the change values are reduced to a 0 - 255 range
         public ImageGrid imageGrid { get; set; }
@@ -33,7 +36,6 @@ namespace IPConnect_Testing.Analysis
         /// The number of pixels to search vertically. Defaults to the image height if not set
         /// </summary>
         public int SearchHeight { get; set; }
-        
         /// <summary>
         /// The number of pixels the algorithm will move to the right when scanning images
         /// </summary>
@@ -42,7 +44,6 @@ namespace IPConnect_Testing.Analysis
         /// The number of pixels the algorithm will move downwards when scanning images
         /// </summary>
         public int HeightSearchOffset { get; set; }
-
         /// <summary>
         /// Each pixel has a value which contains the numeric different between the two images, this
         /// method returns the sum of those differences
@@ -61,7 +62,7 @@ namespace IPConnect_Testing.Analysis
                 return sum;
             } }
         public double SumChangedPixelsLINQ { get { return (from col in Columns from cell in col.cells select cell.positiveChange).Sum(); } }
-        public double MaxChangedLINQ { get { return (from c in Columns select c.maxChange).Max(); } }      
+        public double MaxChangedLINQ { get { return (from c in Columns select c.maxChange).Max(); } }
         public double MaxChanged { get
             {
                 double max = Columns[0].cells[0].change;
@@ -79,7 +80,7 @@ namespace IPConnect_Testing.Analysis
                 return max;
             } }
         public double MinChangedLINQ { get { return (from c in Columns select c.minChange).Min(); } }
-        public double MinChanged{ get
+        public double MinChanged { get
             {
                 double min = Columns[0].cells[0].change; ;
                 for (int n = 0; n < Columns.Count; n++)
@@ -96,6 +97,16 @@ namespace IPConnect_Testing.Analysis
 
             }
         }
+        /// <summary>
+        /// The image being compared to, this stores the colour of the pixel so it can be used in
+        /// a later PixelMatrix object, this saves calling the GetPixel() method twixe
+        /// </summary>
+        public List<PixelColumn> Comparator { get; set; } 
+        /// <summary>
+        /// This may be sent in from a constructor, in the place of image 1, the simple colour has already been
+        /// turned into an integer
+        /// </summary>
+        public List<PixelColumn> Comparision { get; set; }
 
         public void Populate(string image1Path, string image2Path)
         {
@@ -122,18 +133,41 @@ namespace IPConnect_Testing.Analysis
         /// <param name="image2"></param>
         public void Populate(BitmapWrapper image1, BitmapWrapper image2)
         {
+            this.image1 = image1;
+            this.image2 = image2;
+            DoPopulate();
+        }//Populate
+
+        /// <summary>
+        /// Takes a PixelMatrix as image 1, which is expected to have a numerical colour
+        /// in each cell
+        /// </summary>
+        /// <param name="comparision"></param>
+        /// <param name="image2"></param>
+        public void Populate(List<PixelColumn> comparision, BitmapWrapper image2)
+        {
+            this.Comparision = comparision;
+            DoPopulate();
+        }
+
+        /// <summary>
+        /// Does the actual population of the Pixel Matrix
+        /// </summary>
+        private void DoPopulate()
+        {
             Columns = new List<PixelColumn>();
+            Comparator = new List<PixelColumn>();
 
             //set the search dimensions
-            if (SearchWidth <=  0) { SearchWidth = image1.bitmap.Width; }
+            if (SearchWidth <= 0) { SearchWidth = image1.bitmap.Width; }
             if (SearchHeight <= 0) { SearchHeight = image1.bitmap.Height; }
-            
+
             //set thepixel scanning dimensions
             if (WidthSearchOffset < 1) { WidthSearchOffset = 1; }
             if (HeightSearchOffset < 1) { HeightSearchOffset = 1; }
 
             if (GridSystemOn) { imageGrid = new ImageGrid(SearchWidth, SearchHeight); }
-                                
+
             //set some grid variables here, for scope reasons
             GridColumn gridColumn = null;
             Grid grid = null;
@@ -142,21 +176,23 @@ namespace IPConnect_Testing.Analysis
             for (int i = 0; i < SearchWidth; i += WidthSearchOffset)
             {
                 PixelColumn column = new PixelColumn();
+                PixelColumn comparatorColumn = new PixelColumn();
 
                 //set a new grid column, if required
                 if (GridSystemOn)
-                {                
+                {
                     if (i == 0) { gridColumn = new GridColumn(); }
                     else if (i % imageGrid.GridWidth == 0) { imageGrid.Columns.Add(gridColumn); gridColumn = new GridColumn(); }
                 }
-             
+
                 for (int n = 0; n < SearchHeight; n += HeightSearchOffset)
                 {
                     PixelCell cell = new PixelCell();
+                    PixelCell comparatorCell = new PixelCell();
 
                     //set a new grid, if required              
                     if (GridSystemOn)
-                    {                     
+                    {
                         if (n > 0 && n % imageGrid.GridHeight == 0 && i % imageGrid.GridWidth == 0)
                         {
                             gridColumn.grids.Add(grid);
@@ -168,13 +204,18 @@ namespace IPConnect_Testing.Analysis
                         }
                     }
 
-                    string image1PixelName = image1.bitmap.GetPixel(i, n).Name;
-                    string image2PixelName = image2.bitmap.GetPixel(i, n).Name;
+                    //get the pixel colours. image 1 pixel one either comes from image1, or the comparison PixelMatrix, if it exists
+                    Int64 image1Pixel = Comparision == null ? image1.bitmap.GetPixel(i, n).Name.HexToLong() : image2.bitmap.GetPixel(i, n).Name.HexToLong();
+                    Int64 image2Pixel = image2.bitmap.GetPixel(i, n).Name.HexToLong();
 
-                    if (image1PixelName != image2PixelName)
+                    //set the comparator
+                    comparatorCell.colour = image2Pixel;
+                    comparatorColumn.cells.Add(comparatorCell);
+
+                    if (image1Pixel != image2Pixel)
                     {
                         cell.hasChanged = true;
-                        cell.change = Int64.Parse(image1PixelName, System.Globalization.NumberStyles.HexNumber) - Int64.Parse(image2PixelName, System.Globalization.NumberStyles.HexNumber);
+                        cell.change = image1Pixel - image2Pixel;
                         if (GridSystemOn) { grid.change += cell.positiveChange; }
                     }
                     else
@@ -189,12 +230,12 @@ namespace IPConnect_Testing.Analysis
                 }//height
 
                 Columns.Add(column);
+                Comparator.Add(comparatorColumn);
 
                 if (GridSystemOn && i + 1 == image1.bitmap.Width) { imageGrid.Columns.Add(gridColumn); }
 
             }//width
-
-        }//Populate
+        }
 
         /// <summary>
         /// Dumps the pixel data to a text file
@@ -230,7 +271,7 @@ namespace IPConnect_Testing.Analysis
                 {
                     for (int n = 0; n < ReducedColumns[i].cells.Count; n++)
                     {
-                        file.WriteLine(ReducedColumns[i].cells[n].simpleColour);
+                        file.WriteLine(ReducedColumns[i].cells[n].colour);
                     }
 
                 }
@@ -274,7 +315,7 @@ namespace IPConnect_Testing.Analysis
             {
                 for (int n = 0; n < bm.Height; n++)
                 {
-                    int color = Convert.ToInt16(ReducedColumns[i].cells[n].simpleColour);
+                    int color = Convert.ToInt16(ReducedColumns[i].cells[n].colour);
                     bm.SetPixel(i, n, Color.FromArgb(color, color, color, color));
 
                 }//height
@@ -310,7 +351,7 @@ namespace IPConnect_Testing.Analysis
                 {
                     PixelCell cell = new PixelCell();
                     double change = Columns[i].cells[n].change < 0 ? -Columns[i].cells[n].change : Columns[i].cells[n].change;
-                    cell.simpleColour = 255 - Convert.ToInt16(change / changesPerColor);
+                    cell.colour = 255 - Convert.ToInt16(change / changesPerColor);
                     col.cells.Add(cell);
                 }//height
 
@@ -351,7 +392,7 @@ namespace IPConnect_Testing.Analysis
     {
         public bool hasChanged { get; set; }
 
-        public int simpleColour { get; set; }
+        public Int64 colour { get; set; }
     }
 
     public class CellAnalysis

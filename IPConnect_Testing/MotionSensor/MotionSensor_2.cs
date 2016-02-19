@@ -23,7 +23,7 @@ namespace IPConnect_Testing.MotionSensor
         public delegate void MotionDetected(ByteWrapper image, EventArgs e);
 
         //threshold setting
-        public int ControlImageNumber { get; set; } = 3; //number of changes to use as the control (half the images as done in pairs)
+        public int ControlImageNumber { get; set; } = 30; //number of changes to use as the control (half the images as done in pairs)
         public bool ThresholdSet { get; set; }
         protected double sensitivity = 1;
 

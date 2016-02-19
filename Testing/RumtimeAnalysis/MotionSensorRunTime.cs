@@ -37,7 +37,7 @@ namespace Testing.RumtimeAnalysis
                 {
                     for (int i = 0; i < dimensions.Count; i++)
                     {
-                        for(int n = 0; n < 200; n++)
+                        for (int n = 0; n < 200; n++)
                         {
                             BitmapWrapper bm1 = new BitmapWrapper(@"F:\temp\analysis\640x480\test_0.jpg");
                             BitmapWrapper bm2 = new BitmapWrapper(@"F:\temp\analysis\640x480\test_1.jpg");
@@ -47,7 +47,7 @@ namespace Testing.RumtimeAnalysis
                             matrix.SearchWidth = dimensions[i];
                             matrix.GridSystemOn = true;
                             matrix.Populate(bm1, bm2);
-                            
+
                             sw.Stop();
                             file.WriteLine(i + " - " + n + " - " + " grid - " + sw.Elapsed.TotalMilliseconds);
 
@@ -56,7 +56,7 @@ namespace Testing.RumtimeAnalysis
                 }
                 Assert.IsTrue(true);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Assert.IsTrue(false);
             }
@@ -103,8 +103,6 @@ namespace Testing.RumtimeAnalysis
             }
         }
 
-
-
         /// <summary>
         /// Runs the whole end to end motion sensor and logs the response times
         /// </summary>
@@ -132,7 +130,7 @@ namespace Testing.RumtimeAnalysis
                             MotionSensor_2a motion = new MotionSensor_2a();
                             motion.ThresholdSet = true;
                             motion.SearchWidth = dimensions[i];
-                           
+
                             motion.ImageCreated(image1, EventArgs.Empty);
                             motion.ImageCreated(image2, EventArgs.Empty);
                             sw.Stop();
@@ -172,9 +170,9 @@ namespace Testing.RumtimeAnalysis
                             ByteWrapper image2 = ImageConvert.ReturnByteWrapper(@"F:\temp\analysis\640x480\test_1.jpg");
                             image2.sequenceNumber = i;
 
-                            
+
                             MotionSensor_2b motion = new MotionSensor_2b();
-                            motion.CreateDummyThreshold(4,4);
+                            motion.CreateDummyThreshold(4, 4);
                             sw.Restart();
                             motion.ThresholdSet = true;
                             motion.SearchWidth = dimensions[i];
@@ -232,7 +230,7 @@ namespace Testing.RumtimeAnalysis
                 Stopwatch sw = new Stopwatch();
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"f:\temp\runtime\linqanalysis.txt", true))
                 {
-                    for(int m = 0; m < dimensions.Count; m++)
+                    for (int m = 0; m < dimensions.Count; m++)
                     {
                         for (int i = 0; i < 30; i++)
                         {
@@ -276,7 +274,7 @@ namespace Testing.RumtimeAnalysis
                             file.WriteLine("ITERATION - min - " + m + " - " + sw.Elapsed.TotalMilliseconds);
 
 
-                            sw.Restart();                           
+                            sw.Restart();
                             double max2 = 0;
                             for (int n = 0; n < matrix.Columns.Count; n++)
                             {
@@ -292,7 +290,7 @@ namespace Testing.RumtimeAnalysis
                             file.WriteLine("ITERATION - max - " + m + " - " + sw.Elapsed.TotalMilliseconds);
 
                             sw.Restart();
-                            double sum2 = 0;                          
+                            double sum2 = 0;
                             for (int n = 0; n < matrix.Columns.Count; n++)
                             {
                                 for (int k = 0; k < matrix.Columns[n].cells.Count; k++)
@@ -313,6 +311,37 @@ namespace Testing.RumtimeAnalysis
             {
                 Assert.IsTrue(false);
             }
+        }
+
+        [TestMethod]
+        [TestCategory("Rumtime analysis")]
+        public void BitmapGetColour()
+        {
+            BitmapWrapper bm1 = new BitmapWrapper(@"F:\temp\analysis\640x480\test_0.jpg");
+
+            Stopwatch sw = new Stopwatch();
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"f:\temp\runtime\getpixel.txt", true))
+            {
+                sw.Start();
+                for (int i = 0; i < 172800; i++)
+                {
+
+                }
+                sw.Stop();
+                file.WriteLine(sw.Elapsed.TotalMilliseconds);
+
+                sw.Restart();
+                for(int i = 0; i < 172800; i++)
+                {
+                    Int64 x = Int64.Parse(bm1.bitmap.GetPixel(12, 59).Name, System.Globalization.NumberStyles.HexNumber);
+
+                }
+                sw.Stop();
+                file.WriteLine(sw.Elapsed.TotalMilliseconds);
+            }
+
+
+
         }
 
         /// <summary>

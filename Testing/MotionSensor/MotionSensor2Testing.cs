@@ -12,6 +12,7 @@ namespace Testing.MotionSensor
     [TestClass]
     public class MotionSensor2Testing
     {
+
         /// <summary>
         /// Checks that 2b is setting the threshold grid correctly
         /// </summary>
@@ -34,7 +35,7 @@ namespace Testing.MotionSensor
             {
                 for(int n = 0; n < motion.ThresholdImage.Columns[i].grids.Count;n++)
                 {
-                    Assert.IsTrue(motion.ThresholdImage.Columns[i].grids[n].change != 0);
+                    Assert.IsTrue(motion.ThresholdImage.Columns[i].grids[n].threshold != 0);
                 }                     
             }
 
