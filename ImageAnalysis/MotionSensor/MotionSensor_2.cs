@@ -37,11 +37,7 @@ namespace ImageAnalysis.MotionSensor
         /// </summary>
         public int SearchHeight { get; set; }
 
-        //logging and saving
-        public String logfile { get; set; }
-        protected int imagesReceived; //used to flush the queue of images
-        protected int imagesChecked;
-        protected int numberMotionFiles;
+        public Logs.Logging logging;
 
         /// <summary>
         /// Whether a compare action should try and share data with the next compare action
@@ -68,6 +64,7 @@ namespace ImageAnalysis.MotionSensor
         private void SetUp()
         {
             WorkQueue = new Queue<ByteWrapper>();
+            logging = new Logs.Logging();
             ThresholdSet = false;
             sensitivity = 1;
         }
@@ -101,7 +98,7 @@ namespace ImageAnalysis.MotionSensor
         {
             await Task.Run(() =>
             {
-                imagesReceived++;
+                logging.imagesReceived++;
                 WorkQueue.Enqueue(img);
                 SendForCompareAsync(); //need to create an async method
             });
@@ -109,7 +106,7 @@ namespace ImageAnalysis.MotionSensor
 
         public void ImageCreated(ByteWrapper img, EventArgs e)
         {
-            imagesReceived++;
+            logging.imagesReceived++;
             WorkQueue.Enqueue(img);
             SendForCompare();
         }
@@ -120,8 +117,7 @@ namespace ImageAnalysis.MotionSensor
         private void SendForCompareAsync()
         {
             //as there are multiple threads working the queue may have images removed by other threads
-            //move this to lock functionality, rather than losing 
-           
+            //move this to lock functionality, rather than losing        
             lock (objLock)
             {
                 if (WorkQueue.Count > 1)
@@ -139,7 +135,6 @@ namespace ImageAnalysis.MotionSensor
             }
  
         }//SendForCompareAsync
-
 
         /// <summary>
         /// Syncrohous version. Takes the oldest image, removes from list, and comapres with comparision object
@@ -159,7 +154,7 @@ namespace ImageAnalysis.MotionSensor
                 if (img1 != null && img2 != null)
                 {
                     Compare(img1, img2);
-                    imagesChecked = imagesChecked + 2;
+                    logging.imagesChecked = logging.imagesChecked + 2;
                 }
             }
         }//SendForCompare

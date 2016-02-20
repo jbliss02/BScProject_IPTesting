@@ -22,8 +22,8 @@ namespace ImageAnalysis.Analysis
         public PixelMatrix(BitmapWrapper image1, BitmapWrapper image2) { Populate(image1, image2); }
         public PixelMatrix(string path1, string path2) { Populate(path1, path2); }
         //images being compared
-        private BitmapWrapper image1 { get; set; }
-        private BitmapWrapper image2 { get; set; }
+        public BitmapWrapper image1 { get; set; }
+        public BitmapWrapper image2 { get; set; }
         public List<PixelColumn> Columns { get; set; }
         public List<PixelColumn> ReducedColumns { get; set; } //the matrix, where the change values are reduced to a 0 - 255 range
         public ImageGrid imageGrid { get; set; }
@@ -62,6 +62,23 @@ namespace ImageAnalysis.Analysis
 
                 return sum;
             } }
+
+        public double SumChangedPixelsPositive
+        {
+            get
+            {
+                double sum = 0;
+                for (int n = 0; n < Columns.Count; n++)
+                {
+                    for (int k = 0; k < Columns[n].Cells.Count; k++)
+                    {
+                        sum += Columns[n].Cells[k].positiveChange;
+                    }
+                }
+
+                return sum;
+            }
+        }
         public double SumChangedPixelsLINQ { get { return (from col in Columns from cell in col.Cells select cell.positiveChange).Sum(); } }
         public double MaxChangedLINQ { get { return (from c in Columns select c.maxChange).Max(); } }
         public double MaxChanged { get
@@ -91,6 +108,45 @@ namespace ImageAnalysis.Analysis
                         if (Columns[n].Cells[k].change < min)
                         {
                             min = Columns[n].Cells[k].change;
+                        }
+                    }
+                }
+                return min;
+
+            }
+        }
+
+        public double MaxChangedPositive
+        {
+            get
+            {
+                double max = Columns[0].Cells[0].positiveChange;
+                for (int n = 0; n < Columns.Count; n++)
+                {
+                    for (int k = 0; k < Columns[n].Cells.Count; k++)
+                    {
+                        if (Columns[n].Cells[k].positiveChange > max)
+                        {
+                            max = Columns[n].Cells[k].positiveChange;
+                        }
+                    }
+                }
+
+                return max;
+            }
+        }
+        public double MinChangedPositive
+        {
+            get
+            {
+                double min = Columns[0].Cells[0].positiveChange; ;
+                for (int n = 0; n < Columns.Count; n++)
+                {
+                    for (int k = 0; k < Columns[n].Cells.Count; k++)
+                    {
+                        if (Columns[n].Cells[k].positiveChange < min)
+                        {
+                            min = Columns[n].Cells[k].positiveChange;
                         }
                     }
                 }

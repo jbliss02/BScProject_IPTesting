@@ -40,8 +40,11 @@ namespace ImageAnalysis.Streams
         //main stopwatch for timing of the whole capture session
         Stopwatch stopwatch;
         int minutesToRun;
+        bool EndCaputre;
 
         bool singleImageExtraction; //whether we only want one image
+
+        
 
         static int imagesReceived;
 
@@ -100,9 +103,10 @@ namespace ImageAnalysis.Streams
 
             BinaryReader reader = new BinaryReader(resp.GetResponseStream());
 
-            while (reader.BaseStream.CanRead)
+            while (reader.BaseStream.CanRead && !EndCaputre)
             {
                 String header = ReadHeader(reader); //moves the stream on, and extracts the header
+                if (EndCaputre) { return; }
                 int contentLength = GetContentLength(header);
 
                 byte[] img = reader.ReadBytes(contentLength);
@@ -114,7 +118,7 @@ namespace ImageAnalysis.Streams
                     reader.Dispose();
                     return;
                 }
-
+                
             }//while stream.CanRead
 
             resp.Dispose();
@@ -146,6 +150,7 @@ namespace ImageAnalysis.Streams
                 headerBuffer.AddRange(headBuff); 
 
                 int boundaryStart = FindBoundary(headerBuffer);
+                if (EndCaputre) { return String.Empty; }
 
                 if (boundaryStart > -1)
                 {
@@ -187,6 +192,11 @@ namespace ImageAnalysis.Streams
                     return i;
                 }
             }
+
+            if (bytes.Count > 40000 && bytes[0] == 13 && bytes[1] == 10 && bytes[2] == 0 && bytes[3] == 0 &&
+                bytes[4] == 13 && bytes[5] == 10 && bytes[6] == 0 && bytes[7] == 0
+                ) {
+                EndCaputre = true;} //no more images
 
             return -1;
         }//FindBoundary

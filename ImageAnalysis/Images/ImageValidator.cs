@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ImageAnalysis.Streams;
 using ImageAnalysis.Images.Jpeg;
 
-namespace ImageAnalysis
+namespace ImageAnalysis.Images
 {
     /// <summary>
     /// Validates that a byte array passed in contains an image

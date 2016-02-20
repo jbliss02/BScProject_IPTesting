@@ -21,14 +21,16 @@ namespace ImageAnalysis.MotionSensor
     public class MotionSensor_2a : MotionSensor_2
     {
         private List<double> pixelChange; //holds a list of the difference between pixels of 2 images (used for setting threshold)
-        private double pixelChangeThreshold;
+        public double pixelChangeThreshold;
 
         public MotionSensor_2a() : base() { pixelChange = new List<double>(); }
 
         public override void Compare(ByteWrapper image1, ByteWrapper image2)
         {
             var bm1 = new BitmapWrapper(ImageConvert.ReturnBitmap(image1.bytes));
+            bm1.sequenceNumber = logging.imagesReceived - 2;
             var bm2 = new BitmapWrapper(ImageConvert.ReturnBitmap(image2.bytes));
+            bm2.sequenceNumber = logging.imagesReceived - 1;
 
             PixelMatrix matrix = new PixelMatrix();
             matrix.LinkCompare = LinkCompare;
@@ -43,13 +45,13 @@ namespace ImageAnalysis.MotionSensor
                 matrix.Populate(bm1, bm2);
             }
 
-            double sumChangedPixels = matrix.SumChangedPixels;
+            double sumChangedPixels = matrix.SumChangedPixelsPositive;
 
             //keep adding for threshold calculation, set the threshold, or monitor
             if(ThresholdSet)
             {
                 //now scanning, compare the two images and see what the difference is
-                if (matrix.SumChangedPixels > pixelChangeThreshold)
+                if (sumChangedPixels > pixelChangeThreshold)
                 {
                     OnMotion(image1, image2);
                 }
@@ -65,6 +67,8 @@ namespace ImageAnalysis.MotionSensor
 
             Comparison = matrix.Comparator;
 
+            if (logging.LoggingOn && logging.matrices != null) { logging.matrices.Add(matrix); }
+
         }//Compare
 
 
@@ -76,13 +80,17 @@ namespace ImageAnalysis.MotionSensor
         /// </summary>
         private void SetThreshold()
         {
+            //double max = pixelChange.Max();
+            //double min = pixelChange.Min();
+
             double max = pixelChange.Max();
             double min = pixelChange.Min();
 
-            double range = ((max - min) / min) * 100;
-            double buffer = range * 2 * sensitivity;
-            pixelChangeThreshold = max + buffer;
+            double range = ((max - min) / min) * 100; //percentage change
+            double buffer = (100 + (range * 1.5 * sensitivity)) / 100; //this is a percentage
+            pixelChangeThreshold = max * buffer;
             ThresholdSet = true;
+            if (logging.LoggingOn) { logging.threshold = pixelChangeThreshold; }
         }
     }
 }

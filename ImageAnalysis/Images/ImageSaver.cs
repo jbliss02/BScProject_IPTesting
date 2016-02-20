@@ -11,7 +11,7 @@ using System.Configuration;
 using Tools;
 using ImageAnalysis.Images.Jpeg;
 
-namespace ImageAnalysis
+namespace ImageAnalysis.Images
 {
     /// <summary>
     /// Saves bytes as JPEG images
@@ -37,6 +37,11 @@ namespace ImageAnalysis
         /// </summary>
         public string fileStartName { get; set; }
             
+        public ImageSaver()
+        {
+            SetUp();
+        }
+
         public ImageSaver(int cameraId)
         {
             this.cameraId = cameraId;
@@ -238,6 +243,16 @@ namespace ImageAnalysis
                 }
             });
 
+        }
+
+        public static async void WriteBytesToFileAsync(ByteWrapper image, string filepath)
+        {
+            await Task.Run(() => {
+                using (FileStream fs = new FileStream(filepath, FileMode.Create))
+                {
+                    fs.Write(image.bytes, 0, image.bytes.Length);
+                }
+            });
         }
             
 

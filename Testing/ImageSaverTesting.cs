@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ImageAnalysis;
+using ImageAnalysis.Images;
 using System.IO;
 
 namespace Testing

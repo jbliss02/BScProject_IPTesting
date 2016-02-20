@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
-namespace ImageAnalysis
+namespace ImageAnalysis.Streams
 {
     /// <summary>
     /// Determines and logs meta-data about a stream of images

@@ -55,7 +55,7 @@ namespace IPConnect_Testing
         static void RunMotionTests_2a()
         {
             var motion = new Testing.MotionSensor2aTest();
-            motion.Run("2016220121312251");
+            motion.Run("201622012184227");
         }
 
         static void RunMotionTests_2b()
@@ -77,7 +77,6 @@ namespace IPConnect_Testing
 
             //create the motion sensor, and listen for images
             MotionSensor_2a motionSensor = new MotionSensor_2a();
-            motionSensor.logfile = @"F:\temp\MotionSensor\2.1\movement\info.txt";
             motionSensor.motionDetected += new MotionSensor_2.MotionDetected(imageSaver.WriteBytesToFileAsync);
 
             //create the validator 
@@ -101,7 +100,6 @@ namespace IPConnect_Testing
 
             //create the motion sensor, and listen for images
             MotionSensor_2b motionSensor = new MotionSensor_2b();
-            motionSensor.logfile = @"F:\temp\MotionSensor\2.1\movement\info.txt";
             motionSensor.motionDetected += new MotionSensor_2.MotionDetected(imageSaver.WriteBytesToFileAsync);
 
             //create the validator 

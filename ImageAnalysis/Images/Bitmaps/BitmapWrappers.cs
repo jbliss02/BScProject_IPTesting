@@ -49,9 +49,9 @@ namespace ImageAnalysis.Images.Bitmaps
 
     public class BitmapWrapper
     {
-        public UInt64 hash { get; set; }
-
         public Bitmap bitmap { get; set; }
+
+        public int sequenceNumber { get; set; }
 
         public BitmapWrapper(string path) { bitmap = new Bitmap(path); pixelAnalysis = new PixelAnalysis(bitmap); }
 

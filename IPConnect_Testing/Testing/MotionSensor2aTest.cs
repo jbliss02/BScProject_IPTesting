@@ -22,6 +22,13 @@ namespace IPConnect_Testing.Testing
 {
     public class MotionSensor2aTest
     {
+        string saveFilePath;
+        string captureKey;
+
+        string saveDirectory { get { return saveFilePath + @"\" + captureKey; } }
+
+        ImageSaver imageSaver;
+
         public void Run(string captureKey)
         {
             //set up the extractor
@@ -32,19 +39,43 @@ namespace IPConnect_Testing.Testing
             //create the motion sensor, and listen for images
             MotionSensor_2a motionSensor = new MotionSensor_2a();
             motionSensor.motionDetected += new MotionSensor_2.MotionDetected(MotionDetected);
+            motionSensor.logging.LoggingOn = true;
 
             //create the validator 
             ImageValidator imageValidator = new ImageValidator();
             imageValidator.ListenForImages(imageExtractor);
-            imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreatedAsync);//subscribe to events from the validator
+            imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreated); //subscribe to events from the validator (testing so sync only)
+
+            //saver
+            saveFilePath = @"f:\temp\analysis\motion";
 
             imageExtractor.Run();
 
-        }
+            motionSensor.logging.WriteToLog(@"f:\temp\analysis\227\matrixinfo.txt");
+            Console.WriteLine("Finished");
 
+
+
+        }
+        
         private void MotionDetected(ByteWrapper image, EventArgs e)
         {
-            Console.WriteLine("MOVEMENT");
+            SaveMotionFile(image);
+
+        }
+
+        private async void SaveMotionFile(ByteWrapper image)
+        {
+            await Task.Run(() =>
+            {
+                if (!Directory.Exists(saveDirectory)) { CreateSaveDirectory(); }
+                ImageSaver.WriteBytesToFileAsync(image, saveDirectory + @"\movement_" + image.sequenceNumber + ".jpg");
+            });
+        }
+
+        private void CreateSaveDirectory()
+        {
+            Directory.CreateDirectory(saveDirectory);
         }
 
     }
