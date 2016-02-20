@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using IPConnect_Testing.Analysis;
-using IPConnect_Testing.Images.Bitmaps;
+using ImageAnalysis.Analysis;
+using ImageAnalysis.Images.Bitmaps;
 using System.Drawing;
 
 namespace Testing

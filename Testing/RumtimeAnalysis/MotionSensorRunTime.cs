@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using IPConnect_Testing;
-using IPConnect_Testing.Images;
-using IPConnect_Testing.Images.Bitmaps;
-using IPConnect_Testing.Images.Jpeg;
-using IPConnect_Testing.MotionSensor;
-using IPConnect_Testing.Analysis;
+using ImageAnalysis;
+using ImageAnalysis.Images;
+using ImageAnalysis.Images.Bitmaps;
+using ImageAnalysis.Images.Jpeg;
+using ImageAnalysis.MotionSensor;
+using ImageAnalysis.Analysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Testing.RumtimeAnalysis
@@ -263,11 +263,11 @@ namespace Testing.RumtimeAnalysis
                             double min2 = 0;
                             for (int n = 0; n < matrix.Columns.Count; n++)
                             {
-                                for (int k = 0; k < matrix.Columns[n].cells.Count; k++)
+                                for (int k = 0; k < matrix.Columns[n].Cells.Count; k++)
                                 {
-                                    if (matrix.Columns[n].cells[k].change < min2)
+                                    if (matrix.Columns[n].Cells[k].change < min2)
                                     {
-                                        min2 = matrix.Columns[n].cells[k].change;
+                                        min2 = matrix.Columns[n].Cells[k].change;
                                     }
                                 }
                             }
@@ -279,11 +279,11 @@ namespace Testing.RumtimeAnalysis
                             double max2 = 0;
                             for (int n = 0; n < matrix.Columns.Count; n++)
                             {
-                                for (int k = 0; k < matrix.Columns[n].cells.Count; k++)
+                                for (int k = 0; k < matrix.Columns[n].Cells.Count; k++)
                                 {
-                                    if (matrix.Columns[n].cells[k].change > max2)
+                                    if (matrix.Columns[n].Cells[k].change > max2)
                                     {
-                                        max2 = matrix.Columns[n].cells[k].change;
+                                        max2 = matrix.Columns[n].Cells[k].change;
                                     }
                                 }
                             }
@@ -294,9 +294,9 @@ namespace Testing.RumtimeAnalysis
                             double sum2 = 0;
                             for (int n = 0; n < matrix.Columns.Count; n++)
                             {
-                                for (int k = 0; k < matrix.Columns[n].cells.Count; k++)
+                                for (int k = 0; k < matrix.Columns[n].Cells.Count; k++)
                                 {
-                                    sum2 += matrix.Columns[n].cells[k].change;
+                                    sum2 += matrix.Columns[n].Cells[k].change;
                                 }
                             }
                             sw.Stop();
@@ -306,6 +306,76 @@ namespace Testing.RumtimeAnalysis
                     }
 
                 }
+                Assert.IsTrue(true);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(false);
+            }
+        }
+
+
+        /// <summary>
+        /// Compares Matrix creation by Array and by list
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Runtime analysis")]
+        public void ListTesting()
+        {
+            try
+            {
+                List<int> dimensions = ReturnDimensions();
+                Stopwatch sw = new Stopwatch();
+
+                BitmapWrapper bm1 = new BitmapWrapper(@"F:\temp\analysis\640x480\test_0.jpg");
+
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"f:\temp\runtime\listanalysis.txt", true))
+                {
+                    for (int i = 0; i < dimensions.Count; i++)
+                    {
+                        for (int n = 0; n < 200; n++)
+                        {
+                            //Array
+                            sw.Restart();
+                            PixelColumnArray[] array = new PixelColumnArray[bm1.bitmap.Width];
+                            for(int w = 0; w < bm1.bitmap.Width; w++)
+                            {
+                                array[w] = new PixelColumnArray();
+                                array[w].Cells = new PixelCellArray[bm1.bitmap.Height];
+
+                                for (int h = 0; h < bm1.bitmap.Height; h++)
+                                {
+                                    array[w].Cells[h] = new PixelCellArray();
+                                    array[w].Cells[h].colour = 11111;
+                                }                                       
+                            }
+                            sw.Stop();
+                            file.WriteLine(i + " - " + n + " - " + " array - " + sw.Elapsed.TotalMilliseconds);
+
+                            //List
+                            sw.Restart();
+                            List<PixelColumn> list = new List<PixelColumn>();
+                            for (int w = 0; w < bm1.bitmap.Width; w++)
+                            {
+                                PixelColumn column = new PixelColumn();
+
+                                for (int h = 0; h < bm1.bitmap.Height; h++)
+                                {
+                                    PixelCell cell = new PixelCell();
+                                    cell.colour = 11111;
+                                    column.Cells.Add(cell);
+                                }
+
+                                list.Add(column);
+                            }
+                            sw.Stop();
+                            file.WriteLine(i + " - " + n + " - " + " list - " + sw.Elapsed.TotalMilliseconds);
+
+                        }//test iterations
+                    }//dimensions
+                }//write to file
+
+
                 Assert.IsTrue(true);
             }
             catch (Exception ex)
@@ -376,7 +446,7 @@ namespace Testing.RumtimeAnalysis
                             image2.sequenceNumber = i;
 
 
-                            PixelMatrix dummy = new IPConnect_Testing.Analysis.PixelMatrix();
+                            PixelMatrix dummy = new PixelMatrix();
                             dummy.LinkCompare = true;
                             dummy.SearchWidth = dimensions[i];
                             dummy.Populate(new BitmapWrapper(ImageConvert.ReturnBitmap(image1.bytes)), new BitmapWrapper(ImageConvert.ReturnBitmap(image2.bytes)));
@@ -408,7 +478,6 @@ namespace Testing.RumtimeAnalysis
             }
         }
 
-
         /// <summary>
         /// Checks that compare is being called the right number of times
         /// </summary>
@@ -422,7 +491,7 @@ namespace Testing.RumtimeAnalysis
                 ByteWrapper image1 = ImageConvert.ReturnByteWrapper(@"F:\temp\analysis\640x480\test_0.jpg");
                 ByteWrapper image2 = ImageConvert.ReturnByteWrapper(@"F:\temp\analysis\640x480\test_1.jpg");
 
-                PixelMatrix dummy = new IPConnect_Testing.Analysis.PixelMatrix();
+                PixelMatrix dummy = new PixelMatrix();
                 dummy.LinkCompare = true;
                 dummy.Populate(new BitmapWrapper(ImageConvert.ReturnBitmap(image1.bytes)), new BitmapWrapper(ImageConvert.ReturnBitmap(image2.bytes)));
 

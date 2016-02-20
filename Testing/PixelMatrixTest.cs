@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using IPConnect_Testing.Analysis;
+using ImageAnalysis.Analysis;
 namespace Testing
 {
     [TestClass]

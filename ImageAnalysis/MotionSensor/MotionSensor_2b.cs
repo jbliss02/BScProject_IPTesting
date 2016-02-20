@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IPConnect_Testing.Images;
-using IPConnect_Testing.Analysis;
-using IPConnect_Testing.Images.Bitmaps;
-using IPConnect_Testing.Images.Jpeg;
+using ImageAnalysis.Images;
+using ImageAnalysis.Analysis;
+using ImageAnalysis.Images.Bitmaps;
+using ImageAnalysis.Images.Jpeg;
 
-namespace IPConnect_Testing.MotionSensor
+namespace ImageAnalysis.MotionSensor
 {
    /// <summary>
    /// 2b involves the creation of a pixel comparision matrix between

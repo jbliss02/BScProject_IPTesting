@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Drawing;
-using IPConnect_Testing.Images.Bitmaps;
+using ImageAnalysis.Images.Bitmaps;
 
-namespace IPConnect_Testing.Images
+namespace ImageAnalysis.Images
 {
     public class JPEG
     {

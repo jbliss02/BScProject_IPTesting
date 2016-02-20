@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IPConnect_Testing.Images;
-using IPConnect_Testing.Images.Bitmaps;
+using ImageAnalysis.Images;
+using ImageAnalysis.Images.Bitmaps;
 using System.Drawing;
 
-namespace IPConnect_Testing.Analysis
+namespace ImageAnalysis.Analysis
 {
     public class JpegComparision
     {
@@ -64,7 +64,7 @@ namespace IPConnect_Testing.Analysis
             for(int i = 0; i < bm1.bitmap.Width; i++)
             {
                 PixelColumn column = new PixelColumn();
-                column.cells = new List<PixelCell>();
+                column.Cells = new List<PixelCell>();
 
                 for(int n = 0; n < bm1.bitmap.Height; n++)
                 {
@@ -79,7 +79,7 @@ namespace IPConnect_Testing.Analysis
                     {
                         cell.hasChanged = false;
                     }
-                    column.cells.Add(cell);
+                    column.Cells.Add(cell);
 
                 }//height
 
@@ -110,7 +110,7 @@ namespace IPConnect_Testing.Analysis
             {
                 for (int n = 0; n < bm2.bitmap.Height; n++)
                 {
-                    if(matrix.Columns[i].cells[n].hasChanged)
+                    if(matrix.Columns[i].Cells[n].hasChanged)
                     {
                         bitmap.SetPixel(i, n, color);
                     }

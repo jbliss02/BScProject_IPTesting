@@ -9,11 +9,10 @@ using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
-using ExtensionMethods;
-using IPConnect_Testing.Images.Jpeg;
+using Tools;
+using ImageAnalysis.Images.Jpeg;
 
-namespace IPConnect_Testing.Streams
+namespace ImageAnalysis.Streams
 {
     /// <summary>
     /// Attachs to an MJPEG HTTP stream and extracts individual JPEG's

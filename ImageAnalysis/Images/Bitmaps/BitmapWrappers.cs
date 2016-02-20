@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace IPConnect_Testing.Images.Bitmaps
+namespace ImageAnalysis.Images.Bitmaps
 {
     /// <summary>
     /// A collection of BitmapWrapper with assorted methods to manage the components

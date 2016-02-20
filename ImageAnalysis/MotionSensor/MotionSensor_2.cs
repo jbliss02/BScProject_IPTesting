@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IPConnect_Testing.Images;
-using IPConnect_Testing.Analysis;
-using IPConnect_Testing.Images.Bitmaps;
-using IPConnect_Testing.Images.Jpeg;
+using ImageAnalysis.Images;
+using ImageAnalysis.Analysis;
+using ImageAnalysis.Images.Bitmaps;
+using ImageAnalysis.Images.Jpeg;
 
-namespace IPConnect_Testing.MotionSensor
+namespace ImageAnalysis.MotionSensor
 {
     /// <summary>
     /// Base class that provides basic functionality to serve Motion Sensor approaches in category 2 (pixel analysis)
@@ -17,14 +17,14 @@ namespace IPConnect_Testing.MotionSensor
     {
         //Work queue
         public Queue<ByteWrapper> WorkQueue { get; set; } //images waiting to be processed
-        public List<ByteWrapper> WorkList { get; set; } //images waiting to be processed
+        object objLock = new object();
 
         //motion detected event
         public event MotionDetected motionDetected;
         public delegate void MotionDetected(ByteWrapper image, EventArgs e);
 
         //threshold setting
-        public int ControlImageNumber { get; set; } = 30; //number of changes to use as the control (half the images as done in pairs)
+        public int ControlImageNumber { get; set; } = 10; //number of changes to use as the control (half the images as done in pairs)
         public bool ThresholdSet { get; set; }
         protected double sensitivity = 1;
 
@@ -68,8 +68,6 @@ namespace IPConnect_Testing.MotionSensor
         private void SetUp()
         {
             WorkQueue = new Queue<ByteWrapper>();
-            WorkList = new List<ByteWrapper>();
-
             ThresholdSet = false;
             sensitivity = 1;
         }
@@ -80,7 +78,7 @@ namespace IPConnect_Testing.MotionSensor
         /// <param name="image"></param>
         protected void OnMotion(ByteWrapper image1, ByteWrapper image2)
         {
-            if(motionDetected != null)
+            if (motionDetected != null)
             {
                 motionDetected(image1, EventArgs.Empty);
             }
@@ -123,30 +121,33 @@ namespace IPConnect_Testing.MotionSensor
         {
             //as there are multiple threads working the queue may have images removed by other threads
             //move this to lock functionality, rather than losing 
-            if (WorkQueue.Count > 1)
+           
+            lock (objLock)
             {
-                //take images out of the queue, as this is async other methods may dequeue between the calls so be defensive
-                ByteWrapper img1 = null;
-                if (WorkQueue.Count > 0) { img1 = WorkQueue.Dequeue(); }
-                ByteWrapper img2 = null;
-                if (WorkQueue.Count > 0) { img2 = WorkQueue.Dequeue(); }
-
-                if (img1 != null && img2 != null)
+                if (WorkQueue.Count > 1)
                 {
-                    Compare(img1, img2);
-                    imagesChecked = imagesChecked + 2;
+                    ByteWrapper image1 = WorkQueue.Dequeue();
+                    ByteWrapper image2 = WorkQueue.Dequeue();
+
+                    if(image1 != null && image2 != null)
+                    {
+                        Console.WriteLine(image1.sequenceNumber);
+                        Compare(image1, image2);
+                    }
+
                 }
             }
+ 
         }//SendForCompareAsync
 
+
         /// <summary>
-        /// Syncrohous version. Takes the oldest image and removes from the list
-        /// Takes the second oldest image 
+        /// Syncrohous version. Takes the oldest image, removes from list, and comapres with comparision object
+        /// If no comparision object takes oldest image, removes from list, takes next oldest image but doesn't
+        /// remove from the list
         /// </summary>
         private void SendForCompare()
         {
-            //as there are multiple threads working the queue may have images removed by other threads
-            //move this to lock functionality, rather than losing 
             if (WorkQueue.Count > 1)
             {
                 //take images out of the queue, as this is async other methods may dequeue between the calls so be defensive
@@ -162,8 +163,6 @@ namespace IPConnect_Testing.MotionSensor
                 }
             }
         }//SendForCompare
-
-
 
         public virtual void Compare(ByteWrapper img1, ByteWrapper img2) { } //will always be implemented in the sub class
 

@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Threading;
-using IPConnect_Testing.Images;
-using IPConnect_Testing.Analysis;
-using IPConnect_Testing.Images.Bitmaps;
-using IPConnect_Testing.Images.Jpeg;
+using ImageAnalysis.Images;
+using ImageAnalysis.Analysis;
+using ImageAnalysis.Images.Bitmaps;
+using ImageAnalysis.Images.Jpeg;
 
-namespace IPConnect_Testing.MotionSensor
+namespace ImageAnalysis.MotionSensor
 {
     /// <summary>
     /// 2a is an approach which takes a stream of images and compares the sum of pixel colours between adjacent images
@@ -67,6 +67,8 @@ namespace IPConnect_Testing.MotionSensor
 
         }//Compare
 
+
+           
         /// <summary>
         /// Called when the threshold is to be set, or re-set
         /// takes the current range of changes and calculates threshold

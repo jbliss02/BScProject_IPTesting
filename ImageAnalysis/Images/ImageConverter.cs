@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
 using System.Drawing;
 using System.IO;
-using IPConnect_Testing.Images.Jpeg;
+using ImageAnalysis.Images.Jpeg;
 
-namespace IPConnect_Testing.Images
+namespace ImageAnalysis.Images
 {
     public static class ImageConvert
     {

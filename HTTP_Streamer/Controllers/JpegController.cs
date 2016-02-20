@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Net;
 using System.Net.Http.Headers;
 using HTTP_Streamer.Models;
-using IPConnect_Testing.Images;
+using ImageAnalysis.Images;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Configuration;

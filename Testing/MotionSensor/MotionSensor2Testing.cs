@@ -2,11 +2,12 @@
 using System.IO;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using IPConnect_Testing.Images;
-using IPConnect_Testing.Analysis;
-using IPConnect_Testing.Images.Bitmaps;
-using IPConnect_Testing.Images.Jpeg;
-using IPConnect_Testing.MotionSensor;
+using ImageAnalysis.Images;
+using ImageAnalysis.Analysis;
+using ImageAnalysis.Images.Bitmaps;
+using ImageAnalysis.Images.Jpeg;
+using ImageAnalysis.MotionSensor;
+
 namespace Testing.MotionSensor
 {
     [TestClass]

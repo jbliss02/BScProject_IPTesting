@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using IPConnect_Testing;
-using IPConnect_Testing.Images;
-using IPConnect_Testing.Images.Bitmaps;
-using IPConnect_Testing.Images.Jpeg;
-using IPConnect_Testing.MotionSensor;
-using IPConnect_Testing.Analysis;
+using ImageAnalysis;
+using ImageAnalysis.Images;
+using ImageAnalysis.Images.Bitmaps;
+using ImageAnalysis.Images.Jpeg;
+using ImageAnalysis.MotionSensor;
+using ImageAnalysis.Analysis;
 using Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

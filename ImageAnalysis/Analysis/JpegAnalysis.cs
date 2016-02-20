@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using IPConnect_Testing.Images;
-using IPConnect_Testing.Images.Bitmaps;
-using IPConnect_Testing.Streams;
+using ImageAnalysis.Images;
+using ImageAnalysis.Images.Bitmaps;
+using ImageAnalysis.Streams;
 
-namespace IPConnect_Testing.Analysis
+namespace ImageAnalysis.Analysis
 {
     /// <summary>
     /// Compares two jpeg images

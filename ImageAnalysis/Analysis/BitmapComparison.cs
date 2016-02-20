@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IPConnect_Testing.Images;
-using IPConnect_Testing.Images.Bitmaps;
+using ImageAnalysis.Images;
+using ImageAnalysis.Images.Bitmaps;
 using System.Drawing;
 
-namespace IPConnect_Testing.Analysis
+namespace ImageAnalysis.Analysis
 {
     public class BitmapComparison
     {

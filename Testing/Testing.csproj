@@ -68,6 +68,10 @@
       <Project>{333d7319-2f86-4971-b189-72882c85d80f}</Project>
       <Name>HTTP_Streamer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ImageAnalysis\ImageAnalysis.csproj">
+      <Project>{2565cd41-8bd7-4f44-9cdf-74390e525de2}</Project>
+      <Name>ImageAnalysis</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IPConnect_Testing\IPConnect_Testing.csproj">
       <Project>{50a76ed1-5122-446d-adf1-8caa55c6a8e3}</Project>
       <Name>IPConnect_Testing</Name>

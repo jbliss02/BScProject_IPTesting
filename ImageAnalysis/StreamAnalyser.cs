@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
-namespace IPConnect_Testing
+namespace ImageAnalysis
 {
     /// <summary>
     /// Determines and logs meta-data about a stream of images

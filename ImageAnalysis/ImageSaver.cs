@@ -7,12 +7,11 @@ using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
 using System.Configuration;
 using Tools;
-using IPConnect_Testing.Images.Jpeg;
+using ImageAnalysis.Images.Jpeg;
 
-namespace IPConnect_Testing
+namespace ImageAnalysis
 {
     /// <summary>
     /// Saves bytes as JPEG images

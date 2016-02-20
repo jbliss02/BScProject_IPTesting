@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
 using System.Drawing;
-using IPConnect_Testing.Images.Bitmaps;
+using ImageAnalysis.Images.Bitmaps;
 
-namespace IPConnect_Testing
+namespace ImageAnalysis.MotionSensor
 {
     /// <summary>
     /// Takes a list of Bitmaps and sees whether there is any motion

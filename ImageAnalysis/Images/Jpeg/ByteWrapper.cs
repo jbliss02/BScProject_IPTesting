@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IPConnect_Testing.Images.Jpeg
+namespace ImageAnalysis.Images.Jpeg
 {
     /// <summary>
     /// Conatins a JPEG, in byte form, with metadata about that file

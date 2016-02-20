@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IPConnect_Testing.Analysis
+namespace ImageAnalysis.Analysis
 {
     /// <summary>
     /// Divides an image into grids. Each grid represents a summary of the pixels that

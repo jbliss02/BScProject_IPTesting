@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.IO;
-using IPConnect_Testing.Images;
-using IPConnect_Testing.Images.Bitmaps;
+using ImageAnalysis.Images;
+using ImageAnalysis.Images.Bitmaps;
+using Tools; 
 
-namespace IPConnect_Testing.Analysis
+namespace ImageAnalysis.Analysis
 {
     /// <summary>
     /// Represents each pixel within an image
@@ -53,26 +54,26 @@ namespace IPConnect_Testing.Analysis
                 double sum = 0;
                 for (int n = 0; n < Columns.Count; n++)
                 {
-                    for (int k = 0; k < Columns[n].cells.Count; k++)
+                    for (int k = 0; k < Columns[n].Cells.Count; k++)
                     {
-                        sum += Columns[n].cells[k].change;
+                        sum += Columns[n].Cells[k].change;
                     }
                 }
 
                 return sum;
             } }
-        public double SumChangedPixelsLINQ { get { return (from col in Columns from cell in col.cells select cell.positiveChange).Sum(); } }
+        public double SumChangedPixelsLINQ { get { return (from col in Columns from cell in col.Cells select cell.positiveChange).Sum(); } }
         public double MaxChangedLINQ { get { return (from c in Columns select c.maxChange).Max(); } }
         public double MaxChanged { get
             {
-                double max = Columns[0].cells[0].change;
+                double max = Columns[0].Cells[0].change;
                 for (int n = 0; n < Columns.Count; n++)
                 {
-                    for (int k = 0; k < Columns[n].cells.Count; k++)
+                    for (int k = 0; k < Columns[n].Cells.Count; k++)
                     {
-                        if (Columns[n].cells[k].change > max)
+                        if (Columns[n].Cells[k].change > max)
                         {
-                            max = Columns[n].cells[k].change;
+                            max = Columns[n].Cells[k].change;
                         }
                     }
                 }
@@ -82,14 +83,14 @@ namespace IPConnect_Testing.Analysis
         public double MinChangedLINQ { get { return (from c in Columns select c.minChange).Min(); } }
         public double MinChanged { get
             {
-                double min = Columns[0].cells[0].change; ;
+                double min = Columns[0].Cells[0].change; ;
                 for (int n = 0; n < Columns.Count; n++)
                 {
-                    for (int k = 0; k < Columns[n].cells.Count; k++)
+                    for (int k = 0; k < Columns[n].Cells.Count; k++)
                     {
-                        if (Columns[n].cells[k].change < min)
+                        if (Columns[n].Cells[k].change < min)
                         {
-                            min = Columns[n].cells[k].change;
+                            min = Columns[n].Cells[k].change;
                         }
                     }
                 }
@@ -216,11 +217,11 @@ namespace IPConnect_Testing.Analysis
                     }
 
                     //get the pixel colours. image 1 pixel one either comes from image1, or the comparison PixelMatrix, if it exists
-                    Int64 image1Pixel = Comparision == null ? image1.bitmap.GetPixel(i, n).Name.HexToLong() : Comparision[i].cells[n].colour;
+                    Int64 image1Pixel = Comparision == null ? image1.bitmap.GetPixel(i, n).Name.HexToLong() : Comparision[i].Cells[n].colour;
                     Int64 image2Pixel = image2.bitmap.GetPixel(i, n).Name.HexToLong();
 
                     //set the comparator
-                    if (LinkCompare) { comparatorCell.colour = image2Pixel; comparatorColumn.cells.Add(comparatorCell); }
+                    if (LinkCompare) { comparatorCell.colour = image2Pixel; comparatorColumn.Cells.Add(comparatorCell); }
                     
                     if (image1Pixel != image2Pixel)
                     {
@@ -233,7 +234,7 @@ namespace IPConnect_Testing.Analysis
                         cell.hasChanged = false;
                     }
 
-                    column.cells.Add(cell);
+                    column.Cells.Add(cell);
 
                     if (GridSystemOn && n + 1 == image1.bitmap.Height && i % imageGrid.GridWidth == 0) { gridColumn.grids.Add(grid); }
 
@@ -258,9 +259,9 @@ namespace IPConnect_Testing.Analysis
             {
                 for(int i = 0; i < Columns.Count; i++)
                 {
-                    for(int n = 0; n < Columns[i].cells.Count; n++)
+                    for(int n = 0; n < Columns[i].Cells.Count; n++)
                     {
-                        file.WriteLine(Columns[i].cells[n].change);
+                        file.WriteLine(Columns[i].Cells[n].change);
                     }
                             
                 }
@@ -279,9 +280,9 @@ namespace IPConnect_Testing.Analysis
             {
                 for (int i = 0; i < ReducedColumns.Count; i++)
                 {
-                    for (int n = 0; n < ReducedColumns[i].cells.Count; n++)
+                    for (int n = 0; n < ReducedColumns[i].Cells.Count; n++)
                     {
-                        file.WriteLine(ReducedColumns[i].cells[n].colour);
+                        file.WriteLine(ReducedColumns[i].Cells[n].colour);
                     }
 
                 }
@@ -319,13 +320,13 @@ namespace IPConnect_Testing.Analysis
             if (Columns == null) { throw new Exception("Matrix has no columns"); }
             if (ReducedColumns == null) { SetReducedColumns();}
 
-            Bitmap bm = new Bitmap(ReducedColumns.Count, ReducedColumns[0].cells.Count);
+            Bitmap bm = new Bitmap(ReducedColumns.Count, ReducedColumns[0].Cells.Count);
 
             for (int i = 0; i < bm.Width; i++)
             {
                 for (int n = 0; n < bm.Height; n++)
                 {
-                    int color = Convert.ToInt16(ReducedColumns[i].cells[n].colour);
+                    int color = Convert.ToInt16(ReducedColumns[i].Cells[n].colour);
                     bm.SetPixel(i, n, Color.FromArgb(color, color, color, color));
 
                 }//height
@@ -355,14 +356,14 @@ namespace IPConnect_Testing.Analysis
             for (int i = 0; i < Columns.Count; i++)
             {
                 PixelColumn col = new PixelColumn();
-                col.cells = new List<PixelCell>();
+                col.Cells = new List<PixelCell>();
 
-                for (int n = 0; n < Columns[i].cells.Count ; n++)
+                for (int n = 0; n < Columns[i].Cells.Count ; n++)
                 {
                     PixelCell cell = new PixelCell();
-                    double change = Columns[i].cells[n].change < 0 ? -Columns[i].cells[n].change : Columns[i].cells[n].change;
+                    double change = Columns[i].Cells[n].change < 0 ? -Columns[i].Cells[n].change : Columns[i].Cells[n].change;
                     cell.colour = 255 - Convert.ToInt16(change / changesPerColor);
-                    col.cells.Add(cell);
+                    col.Cells.Add(cell);
                 }//height
 
                 ReducedColumns.Add(col);
@@ -375,30 +376,44 @@ namespace IPConnect_Testing.Analysis
 
     public class PixelColumn
     {
-        public PixelColumn() { cells = new List<PixelCell>(); }
-        public List<PixelCell> cells { get; set; }
+        public PixelColumn() { Cells = new List<PixelCell>(); }
+        public List<PixelCell> Cells { get; set; }
 
         public int numberChangedPixels { get
             {
-                return (from p in cells where p.hasChanged select p).Count();
+                return (from p in Cells where p.hasChanged select p).Count();
             } }
 
         public double maxChange { get
             {
-                return (from p in cells orderby p.change descending select p.change).First();
+                return (from p in Cells orderby p.change descending select p.change).First();
             } }
 
         public double minChange
         {
             get
             {
-                return (from p in cells orderby p.change ascending select p.change).First();
+                return (from p in Cells orderby p.change ascending select p.change).First();
             }
         }
 
     }
 
     public class PixelCell : CellAnalysis
+    {
+        public bool hasChanged { get; set; }
+
+        public Int64 colour { get; set; }
+    }
+
+    public class PixelColumnArray
+    {
+       // public PixelColumnArray(int cells) { Cells = new PixelCellArray[cells]; }
+        public PixelCellArray[] Cells { get; set; }
+
+    }
+
+    public class PixelCellArray : CellAnalysis
     {
         public bool hasChanged { get; set; }
 

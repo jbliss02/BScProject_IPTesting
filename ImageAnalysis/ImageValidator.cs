@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IPConnect_Testing.Streams;
-using IPConnect_Testing.Images.Jpeg;
+using ImageAnalysis.Streams;
+using ImageAnalysis.Images.Jpeg;
 
-namespace IPConnect_Testing
+namespace ImageAnalysis
 {
     /// <summary>
     /// Validates that a byte array passed in contains an image

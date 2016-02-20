@@ -11,11 +11,13 @@ using System.Windows.Media.Imaging;
 using System.Drawing;
 using System.Media;
 using System.Diagnostics;
-using IPConnect_Testing.Images;
-using IPConnect_Testing.Images.Bitmaps;
-using IPConnect_Testing.Images.Jpeg;
-using IPConnect_Testing.Analysis;
-using IPConnect_Testing.Streams;
+using ImageAnalysis;
+using ImageAnalysis.Images;
+using ImageAnalysis.Images.Bitmaps;
+using ImageAnalysis.Images.Jpeg;
+using ImageAnalysis.Analysis;
+using ImageAnalysis.Streams;
+using ImageAnalysis.MotionSensor;
 
 namespace IPConnect_Testing
 {
@@ -27,7 +29,7 @@ namespace IPConnect_Testing
     class Program
     {
         //static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi?date=1&clock=1&resolution=135x180";
-        static string url = "http://192.168.0.4/axis-cgi/mjpg/video.cgi?resolution=560x420";
+        static string url = "http://192.168.0.4/axis-cgi/mjpg/video.cgi?resolution=480x360";
         //static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi";
         //static string url = "http://localhost:8080/api/Mpeg/stream";
         // static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi?date=1&clock=1";
@@ -39,18 +41,27 @@ namespace IPConnect_Testing
 
         static ImageSaver imageSaver;
 
-
-
         static void Main(string[] args)
         {
             //Write("IPConnect started");
             //ExtractImages();
-            //Motion2b_analysis();
-            RunMotionSensor2_b("201621411494640");
-
+            // RunMotionSensor2_a("201622012184227");
+            RunMotionTests_2a();
             Console.WriteLine("Finished");
             Console.ReadLine();
 
+        }
+
+        static void RunMotionTests_2a()
+        {
+            var motion = new Testing.MotionSensor2aTest();
+            motion.Run("2016220121312251");
+        }
+
+        static void RunMotionTests_2b()
+        {
+            var motion = new Testing.MotionSensor2aTest();
+            motion.Run("2016220121312251");
         }
 
         static void RunMotionSensor2_a(string sessKey)
@@ -65,9 +76,9 @@ namespace IPConnect_Testing
             ImageSaver imageSaver = new ImageSaver(@"F:\temp\MotionSensor\2.1\movement", "movement");
 
             //create the motion sensor, and listen for images
-            MotionSensor.MotionSensor_2a motionSensor = new MotionSensor.MotionSensor_2a();
+            MotionSensor_2a motionSensor = new MotionSensor_2a();
             motionSensor.logfile = @"F:\temp\MotionSensor\2.1\movement\info.txt";
-            motionSensor.motionDetected += new MotionSensor.MotionSensor_2.MotionDetected(imageSaver.WriteBytesToFileAsync);
+            motionSensor.motionDetected += new MotionSensor_2.MotionDetected(imageSaver.WriteBytesToFileAsync);
 
             //create the validator 
             ImageValidator imageValidator = new ImageValidator();
@@ -89,9 +100,9 @@ namespace IPConnect_Testing
             ImageSaver imageSaver = new ImageSaver(@"F:\temp\MotionSensor\2.2\movement", "movement");
 
             //create the motion sensor, and listen for images
-            MotionSensor.MotionSensor_2b motionSensor = new MotionSensor.MotionSensor_2b();
+            MotionSensor_2b motionSensor = new MotionSensor_2b();
             motionSensor.logfile = @"F:\temp\MotionSensor\2.1\movement\info.txt";
-            motionSensor.motionDetected += new MotionSensor.MotionSensor_2.MotionDetected(imageSaver.WriteBytesToFileAsync);
+            motionSensor.motionDetected += new MotionSensor_2.MotionDetected(imageSaver.WriteBytesToFileAsync);
 
             //create the validator 
             ImageValidator imageValidator = new ImageValidator();
@@ -161,7 +172,7 @@ namespace IPConnect_Testing
             //create am
 
 
-            JpegAnalysis jpegAnalysis = new Analysis.JpegAnalysis();
+            JpegAnalysis jpegAnalysis = new JpegAnalysis();
 
             //640x480
             Console.WriteLine(Environment.NewLine +  "640x480");
