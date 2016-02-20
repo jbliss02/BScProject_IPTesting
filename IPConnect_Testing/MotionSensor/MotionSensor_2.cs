@@ -16,7 +16,8 @@ namespace IPConnect_Testing.MotionSensor
     public class MotionSensor_2
     {
         //Work queue
-        public Queue<ByteWrapper> Images { get; set; } //images waiting to be processed
+        public Queue<ByteWrapper> WorkQueue { get; set; } //images waiting to be processed
+        public List<ByteWrapper> WorkList { get; set; } //images waiting to be processed
 
         //motion detected event
         public event MotionDetected motionDetected;
@@ -47,7 +48,17 @@ namespace IPConnect_Testing.MotionSensor
         /// only applicable when running syncrohously
         /// </summary>
         public bool LinkCompare;
-        public List<PixelColumn> Comparison;//comparision object - returned from one capture, to be used in the next
+
+        /// <summary>
+        /// comparision object - returned from one capture, to be used in the next
+        /// </summary>
+        public List<PixelColumn> Comparison;
+
+        /// <summary>
+        /// Whether every image is processed twice (once as the comparator and once as the comparision
+        /// or whether groups of 2 images are processed, so each image only gets processed once
+        /// </summary>
+        public bool SequentialComparision { get; set; }
 
         public MotionSensor_2()
         {
@@ -56,8 +67,9 @@ namespace IPConnect_Testing.MotionSensor
 
         private void SetUp()
         {
-            Images = new Queue<ByteWrapper>();
-            
+            WorkQueue = new Queue<ByteWrapper>();
+            WorkList = new List<ByteWrapper>();
+
             ThresholdSet = false;
             sensitivity = 1;
         }
@@ -92,32 +104,56 @@ namespace IPConnect_Testing.MotionSensor
             await Task.Run(() =>
             {
                 imagesReceived++;
-                Images.Enqueue(img);
-                SendForCompare();
+                WorkQueue.Enqueue(img);
+                SendForCompareAsync(); //need to create an async method
             });
         }
 
         public void ImageCreated(ByteWrapper img, EventArgs e)
         {
             imagesReceived++;
-            Images.Enqueue(img);
+            WorkQueue.Enqueue(img);
             SendForCompare();
         }
 
         /// <summary>
         /// Gets the next two images on the queue and sends for analysis
         /// </summary>
+        private void SendForCompareAsync()
+        {
+            //as there are multiple threads working the queue may have images removed by other threads
+            //move this to lock functionality, rather than losing 
+            if (WorkQueue.Count > 1)
+            {
+                //take images out of the queue, as this is async other methods may dequeue between the calls so be defensive
+                ByteWrapper img1 = null;
+                if (WorkQueue.Count > 0) { img1 = WorkQueue.Dequeue(); }
+                ByteWrapper img2 = null;
+                if (WorkQueue.Count > 0) { img2 = WorkQueue.Dequeue(); }
+
+                if (img1 != null && img2 != null)
+                {
+                    Compare(img1, img2);
+                    imagesChecked = imagesChecked + 2;
+                }
+            }
+        }//SendForCompareAsync
+
+        /// <summary>
+        /// Syncrohous version. Takes the oldest image and removes from the list
+        /// Takes the second oldest image 
+        /// </summary>
         private void SendForCompare()
         {
             //as there are multiple threads working the queue may have images removed by other threads
             //move this to lock functionality, rather than losing 
-            if (Images.Count > 1)
+            if (WorkQueue.Count > 1)
             {
                 //take images out of the queue, as this is async other methods may dequeue between the calls so be defensive
                 ByteWrapper img1 = null;
-                if (Images.Count > 0) { img1 = Images.Dequeue(); }
+                if (WorkQueue.Count > 0) { img1 = WorkQueue.Dequeue(); }
                 ByteWrapper img2 = null;
-                if (Images.Count > 0) { img2 = Images.Dequeue(); }
+                if (WorkQueue.Count > 0) { img2 = WorkQueue.Dequeue(); }
 
                 if (img1 != null && img2 != null)
                 {
@@ -126,6 +162,8 @@ namespace IPConnect_Testing.MotionSensor
                 }
             }
         }//SendForCompare
+
+
 
         public virtual void Compare(ByteWrapper img1, ByteWrapper img2) { } //will always be implemented in the sub class
 

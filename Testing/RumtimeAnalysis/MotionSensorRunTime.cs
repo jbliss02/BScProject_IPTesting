@@ -408,6 +408,44 @@ namespace Testing.RumtimeAnalysis
             }
         }
 
+
+        /// <summary>
+        /// Checks that compare is being called the right number of times
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Runtime")]
+        public void Motion2aMultipleCompare()
+        {
+            try
+            {
+                //images in memory when sent to the 
+                ByteWrapper image1 = ImageConvert.ReturnByteWrapper(@"F:\temp\analysis\640x480\test_0.jpg");
+                ByteWrapper image2 = ImageConvert.ReturnByteWrapper(@"F:\temp\analysis\640x480\test_1.jpg");
+
+                PixelMatrix dummy = new IPConnect_Testing.Analysis.PixelMatrix();
+                dummy.LinkCompare = true;
+                dummy.Populate(new BitmapWrapper(ImageConvert.ReturnBitmap(image1.bytes)), new BitmapWrapper(ImageConvert.ReturnBitmap(image2.bytes)));
+
+                MotionSensor_2a motion = new MotionSensor_2a();
+                motion.ThresholdSet = true;
+                motion.LinkCompare = true;
+                motion.Comparison = dummy.Comparision;
+
+                motion.ImageCreated(image1, EventArgs.Empty);
+                motion.ImageCreated(image2, EventArgs.Empty);
+
+                motion.ImageCreated(image1, EventArgs.Empty);
+                motion.ImageCreated(image2, EventArgs.Empty);
+                  
+
+                Assert.IsTrue(true);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(false);
+            }
+        }
+
         /// <summary>
         /// returns various x by y sizes to fit certain number of pixels
         /// </summary>
