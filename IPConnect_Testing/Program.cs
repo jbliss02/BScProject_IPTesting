@@ -45,8 +45,8 @@ namespace IPConnect_Testing
         {
             //Write("IPConnect started");
             //ExtractImages();
-            // RunMotionSensor2_a("201622012184227");
-            RunMotionTests_2a();
+
+             RunMotionTests_2a();
             Console.WriteLine("Finished");
             Console.ReadLine();
 
@@ -55,7 +55,7 @@ namespace IPConnect_Testing
         static void RunMotionTests_2a()
         {
             var motion = new Testing.MotionSensor2aTest();
-            motion.Run("201622012184227");
+            motion.Run("2016220121715998");
         }
 
         static void RunMotionTests_2b()

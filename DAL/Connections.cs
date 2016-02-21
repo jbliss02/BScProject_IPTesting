@@ -10,5 +10,7 @@ namespace DAL
     {
         public enum DatabaseTypes { UNDEFINED, AZURE_SQLSERVER, MYSQL}
 
+        //public static string azure 
+
     }
 }

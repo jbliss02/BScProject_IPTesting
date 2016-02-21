@@ -17,6 +17,10 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DBCapture", "DBCapture\DBCa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageAnalysis", "ImageAnalysis\ImageAnalysis.csproj", "{2565CD41-8BD7-4F44-9CDF-74390E525DE2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageAdminWeb", "ImageAdminWeb\ImageAdminWeb.csproj", "{8FE77733-DD54-4A8A-9C42-A4B38EE06815}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageAnalysisDAL", "ImageAnalysisDAL\ImageAnalysisDAL.csproj", "{291D7591-ED18-45B3-A2F4-F1DD7860C881}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +57,14 @@ Global
 		{2565CD41-8BD7-4F44-9CDF-74390E525DE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2565CD41-8BD7-4F44-9CDF-74390E525DE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2565CD41-8BD7-4F44-9CDF-74390E525DE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FE77733-DD54-4A8A-9C42-A4B38EE06815}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FE77733-DD54-4A8A-9C42-A4B38EE06815}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FE77733-DD54-4A8A-9C42-A4B38EE06815}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FE77733-DD54-4A8A-9C42-A4B38EE06815}.Release|Any CPU.Build.0 = Release|Any CPU
+		{291D7591-ED18-45B3-A2F4-F1DD7860C881}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{291D7591-ED18-45B3-A2F4-F1DD7860C881}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{291D7591-ED18-45B3-A2F4-F1DD7860C881}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{291D7591-ED18-45B3-A2F4-F1DD7860C881}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

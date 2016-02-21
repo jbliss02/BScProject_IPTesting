@@ -32,6 +32,7 @@ namespace IPConnect_Testing.Testing
         public void Run(string captureKey)
         {
             //set up the extractor
+            this.captureKey = captureKey;
             string uri = "http://localhost:9000/api/jpeg/0/" + captureKey;
 
             ImageExtractor imageExtractor = new ImageExtractor(uri, "root", "root");
