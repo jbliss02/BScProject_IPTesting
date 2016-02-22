@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Capture.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Testing\MotionSensor2Testing.cs" />
@@ -61,8 +62,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="connections.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ImageAnalysisDAL\ImageAnalysisDAL.csproj">
+      <Project>{291d7591-ed18-45b3-a2f4-f1dd7860c881}</Project>
+      <Name>ImageAnalysisDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ImageAnalysis\ImageAnalysis.csproj">
       <Project>{2565cd41-8bd7-4f44-9cdf-74390e525de2}</Project>
       <Name>ImageAnalysis</Name>

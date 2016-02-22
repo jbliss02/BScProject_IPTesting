@@ -18,6 +18,7 @@ using ImageAnalysis.Images.Jpeg;
 using ImageAnalysis.Analysis;
 using ImageAnalysis.Streams;
 using ImageAnalysis.MotionSensor;
+using IPConnect_Testing.Data;
 
 namespace IPConnect_Testing
 {
@@ -46,10 +47,18 @@ namespace IPConnect_Testing
             //Write("IPConnect started");
             //ExtractImages();
 
-             RunMotionTests_2a();
+            // RunMotionTests_2a();
+            TestDb();
             Console.WriteLine("Finished");
             Console.ReadLine();
 
+        }
+
+        static void TestDb()
+        {
+            CaptureList captureList = new CaptureList();
+            captureList.PopulateAllCaptures();
+            var x = "j;";
         }
 
         static void RunMotionTests_2a()

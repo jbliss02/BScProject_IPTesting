@@ -54,6 +54,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Database\AzureTesting.cs" />
     <Compile Include="ImageSaverTesting.cs" />
     <Compile Include="MotionSensor\MotionSensor2Testing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,6 +69,10 @@
       <Project>{333d7319-2f86-4971-b189-72882c85d80f}</Project>
       <Name>HTTP_Streamer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ImageAnalysisDAL\ImageAnalysisDAL.csproj">
+      <Project>{291d7591-ed18-45b3-a2f4-f1dd7860c881}</Project>
+      <Name>ImageAnalysisDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ImageAnalysis\ImageAnalysis.csproj">
       <Project>{2565cd41-8bd7-4f44-9cdf-74390e525de2}</Project>
       <Name>ImageAnalysis</Name>
@@ -80,6 +85,12 @@
       <Project>{871b781a-bec7-46e8-a267-19e4e41e222c}</Project>
       <Name>Tools</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="connections.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
