@@ -14,33 +14,20 @@ using IPConnect_Testing;
 using IPConnect_Testing.Testing;
 using IPConnect_Testing.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-namespace Testing.Database
+using System.Xml;
+
+namespace Testing.Data
 {
     [TestClass]
-    public class AzureTesting
+    public class DataTests
     {
         [TestMethod]
-        [TestCategory("Database")]
-        public void TestConnection()
+        public void CatpureXml()
         {
             CaptureList captureList = new CaptureList();
             captureList.PopulateAllCaptures();
-            Assert.IsTrue(captureList.list.Count > 0);
-        }
-
-        [TestMethod]
-        [TestCategory("Database")]
-        public void TestCaptureMovementExtraction()
-        {
-            CaptureList captureList = new CaptureList();
-            captureList.PopulateAllCaptures();
-            captureList.PopulateMovement();
-
-            int nMovements = (from c in captureList.list
-                              select c.movement.Count).Sum();
-
-            Assert.IsTrue(nMovements > 0);
-
+            XmlDocument doc = captureList.CaptureXml();
+            Assert.IsTrue(doc.OuterXml.Count() > 0);
         }
     }
 }

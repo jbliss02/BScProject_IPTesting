@@ -11,6 +11,10 @@ namespace ImageAnalysisDAL
 {
     public class Db
     {
+        public Db(string connectionString) { this.connectionString = connectionString; }
+
+        protected string connectionString;
+
         public ConnectionStringSettingsCollection connections { get; set; } = ConfigurationManager.ConnectionStrings;
 
         public DataTable DataTableFromProc(string procName, string stcon)

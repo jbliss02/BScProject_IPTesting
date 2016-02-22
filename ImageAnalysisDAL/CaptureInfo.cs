@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.Sql;
-
+using System.Data.SqlClient;
+using System.Xml;
 namespace ImageAnalysisDAL
 {
     /// <summary>
@@ -13,14 +14,20 @@ namespace ImageAnalysisDAL
     /// </summary>
     public class CaptureInfo : Db
     {
-        string connectionString;
-        public CaptureInfo(string connectionString) { this.connectionString = connectionString; }
+        public CaptureInfo(string connectionString) :base(connectionString) {  }
 
-        public void ReturnAllCaptures()
+        public DataTable ReturnAllCaptures()
         {
-            DataTable dt = DataTableFromView("dbo.allCaptures", connectionString);
+            return DataTableFromView("dbo.allCaptures", connectionString);
+        }
 
-            var x = dt.Rows.Count;
+        public DataTable ReturnCaptureMovement(XmlDocument captureXml)
+        {
+            SqlParameter p = new SqlParameter();
+            p.ParameterName = "@xml";
+            p.DbType = DbType.Xml;
+            p.Value = captureXml.OuterXml;
+            return DataTableFromProc("dbo.returnCaptureMovement", connectionString, p);
         }
 
     }
