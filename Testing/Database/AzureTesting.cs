@@ -12,8 +12,9 @@ using ImageAnalysis.MotionSensor;
 using ImageAnalysis.Analysis;
 using IPConnect_Testing;
 using IPConnect_Testing.Testing;
-using IPConnect_Testing.Data;
+using ImageAnalysis.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 namespace Testing.Database
 {
     [TestClass]

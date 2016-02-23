@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ImageAnalysisDAL;
-using IPConnect_Testing.Data;
 using System.Configuration;
 using System.Data;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 
-namespace IPConnect_Testing.Data
+namespace ImageAnalysis.Data
 {
     public class CaptureList
     {
@@ -71,6 +70,10 @@ namespace IPConnect_Testing.Data
         }
 
     }
+
+    /// <summary>
+    /// Represents a single capture session
+    /// </summary>
     public class Capture
     {
         public string captureId { get; set; }

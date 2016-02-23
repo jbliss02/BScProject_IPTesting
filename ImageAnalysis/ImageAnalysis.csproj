@@ -48,6 +48,9 @@
     <Compile Include="Analysis\JpegAnalysis.cs" />
     <Compile Include="Analysis\JpegComparision.cs" />
     <Compile Include="Analysis\PixelMatrix.cs" />
+    <Compile Include="Data\Capture.cs" />
+    <Compile Include="Data\CaptureTest.cs" />
+    <Compile Include="Data\Movement.cs" />
     <Compile Include="Images\ImageSaver.cs" />
     <Compile Include="Images\Bitmaps\BitmapWrappers.cs" />
     <Compile Include="Images\Bitmaps\PixelAnalysis.cs" />
@@ -60,11 +63,16 @@
     <Compile Include="MotionSensor\MotionSensor_2a.cs" />
     <Compile Include="MotionSensor\MotionSensor_2b.cs" />
     <Compile Include="MotionSensor\MotionSensor_old.cs" />
+    <Compile Include="MotionSensor\Statics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Streams\StreamAnalyser.cs" />
     <Compile Include="Streams\ImageExtractor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ImageAnalysisDAL\ImageAnalysisDAL.csproj">
+      <Project>{291d7591-ed18-45b3-a2f4-f1dd7860c881}</Project>
+      <Name>ImageAnalysisDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tools\Tools.csproj">
       <Project>{871b781a-bec7-46e8-a267-19e4e41e222c}</Project>
       <Name>Tools</Name>

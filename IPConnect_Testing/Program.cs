@@ -18,7 +18,7 @@ using ImageAnalysis.Images.Jpeg;
 using ImageAnalysis.Analysis;
 using ImageAnalysis.Streams;
 using ImageAnalysis.MotionSensor;
-using IPConnect_Testing.Data;
+using ImageAnalysis.Data;
 
 namespace IPConnect_Testing
 {
