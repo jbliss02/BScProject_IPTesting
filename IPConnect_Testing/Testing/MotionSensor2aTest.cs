@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Media;
 using System.Diagnostics;
+using System.Configuration;
 using ImageAnalysis.Images;
 using ImageAnalysis.Images.Bitmaps;
 using ImageAnalysis.Images.Jpeg;
@@ -17,26 +18,23 @@ using ImageAnalysis.Analysis;
 using ImageAnalysis.Streams;
 using ImageAnalysis;
 using ImageAnalysis.MotionSensor;
+using ImageAnalysis.Data;
 
 namespace IPConnect_Testing.Testing
 {
     public class MotionSensor2aTest
     {
         string saveFilePath;
-        string captureKey;
+        string captureId;
+        string uri;
+        string saveDirectory { get { return saveFilePath + @"\" + captureId; } }
+        ImageExtractor imageExtractor;
+        List<Int32> movementFrames;
 
-        string saveDirectory { get { return saveFilePath + @"\" + captureKey; } }
-
-        ImageSaver imageSaver;
-
-        public void Run(string captureKey)
+        public void Run(string captureId)
         {
-            //set up the extractor
-            this.captureKey = captureKey;
-            string uri = "http://localhost:9000/api/jpeg/0/" + captureKey;
-
-            ImageExtractor imageExtractor = new ImageExtractor(uri, "root", "root");
-
+            Setup(captureId);
+           
             //create the motion sensor, and listen for images
             MotionSensor_2a motionSensor = new MotionSensor_2a();
             motionSensor.motionDetected += new MotionSensor_2.MotionDetected(MotionDetected);
@@ -48,21 +46,38 @@ namespace IPConnect_Testing.Testing
             imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreated); //subscribe to events from the validator (testing so sync only)
 
             //saver
-            saveFilePath = @"f:\temp\analysis\motion";
+            saveFilePath = ConfigurationManager.AppSettings["MotionSaveLocation"];
 
             imageExtractor.Run();
 
-            motionSensor.logging.WriteToLog(@"f:\temp\analysis\227\matrixinfo.txt");
-            Console.WriteLine("Finished");
-
-
+           // motionSensor.logging.WriteToLog(@"f:\temp\analysis\227\matrixinfo.txt");
+            //Console.WriteLine("Finished");
 
         }
-        
+
+        public List<Int32> ReturnMovements(string captureId)
+        {
+            Setup(captureId);
+            movementFrames = new List<int>();
+            Run(captureId);
+            return movementFrames;
+        }
+
+        private void Setup(string captureId)
+        {
+            this.captureId = captureId;
+            string uri = "http://localhost:9000/api/jpeg/0/" + captureId;
+            imageExtractor = new ImageExtractor(uri, "root", "root");
+        }
+     
         private void MotionDetected(ByteWrapper image, EventArgs e)
         {
             SaveMotionFile(image);
-
+            if(movementFrames != null)
+            {
+                movementFrames.Add(image.sequenceNumber);
+            }
+                   
         }
 
         private async void SaveMotionFile(ByteWrapper image)

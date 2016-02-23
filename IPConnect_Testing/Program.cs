@@ -19,7 +19,7 @@ using ImageAnalysis.Analysis;
 using ImageAnalysis.Streams;
 using ImageAnalysis.MotionSensor;
 using ImageAnalysis.Data;
-
+using IPConnect_Testing.Testing;
 namespace IPConnect_Testing
 {
 
@@ -44,21 +44,20 @@ namespace IPConnect_Testing
 
         static void Main(string[] args)
         {
-            //Write("IPConnect started");
-            //ExtractImages();
+            Write("IPConnect_Testing started");
 
-            // RunMotionTests_2a();
-            TestDb();
-            Console.WriteLine("Finished");
+            TestAllCaptures();
+
+            Write("IPConnect_Testing finished");
             Console.ReadLine();
 
         }
 
-        static void TestDb()
+        static void TestAllCaptures()
         {
-            CaptureList captureList = new CaptureList();
-            captureList.PopulateAllCaptures();
-            var x = "j;";
+            MotionTesting motion = new MotionTesting();
+            motion.TestAllCaptures(MotionSensorTypes.Motion2a);
+            var x = "jk;d";
         }
 
         static void RunMotionTests_2a()

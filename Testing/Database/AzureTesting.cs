@@ -25,7 +25,7 @@ namespace Testing.Database
         public void TestConnection()
         {
             CaptureList captureList = new CaptureList();
-            captureList.PopulateAllCaptures();
+            captureList.PopulateAllCaptures(false);
             Assert.IsTrue(captureList.list.Count > 0);
         }
 
@@ -34,7 +34,7 @@ namespace Testing.Database
         public void TestCaptureMovementExtraction()
         {
             CaptureList captureList = new CaptureList();
-            captureList.PopulateAllCaptures();
+            captureList.PopulateAllCaptures(false);
             captureList.PopulateMovement();
 
             int nMovements = (from c in captureList.list

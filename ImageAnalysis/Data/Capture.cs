@@ -17,7 +17,12 @@ namespace ImageAnalysis.Data
         public List<Capture> list { get; set; }
         CaptureInfo captureInfo { get; set; }
 
-        public void PopulateAllCaptures()
+        /// <summary>
+        /// Populates metadata about each capture session available
+        /// allData will load additional metadata, like when movement occurs
+        /// </summary>
+        /// <param name="allData"></param>
+        public void PopulateAllCaptures(bool allData)
         {
             list = new List<Capture>();
             ConnectionStringSettingsCollection connections = ConfigurationManager.ConnectionStrings;
@@ -31,6 +36,8 @@ namespace ImageAnalysis.Data
                 capture.capturedOn = dr.Field<DateTime?>("capturedOn");
                 list.Add(capture);
             }
+
+            if (allData) { PopulateMovement(); }
 
         }//PopulateAllCaptures
 
@@ -79,7 +86,16 @@ namespace ImageAnalysis.Data
         public string captureId { get; set; }
         [XmlIgnoreAttribute]
         public DateTime? capturedOn { get; set; }
+
+        /// <summary>
+        /// What frames we know have movement
+        /// </summary>
         public List<Movement> movement { get; set; } = new List<Movement>();
+
+        /// <summary>
+        /// What frame numbers have been identified as having movement
+        /// </summary>
+        public List<Int32> detectedMovmentFrames { get; set; }
 
       
 

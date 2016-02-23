@@ -25,7 +25,7 @@ namespace Testing.Data
         public void CatpureXml()
         {
             CaptureList captureList = new CaptureList();
-            captureList.PopulateAllCaptures();
+            captureList.PopulateAllCaptures(false);
             XmlDocument doc = captureList.CaptureXml();
             Assert.IsTrue(doc.OuterXml.Count() > 0);
         }
