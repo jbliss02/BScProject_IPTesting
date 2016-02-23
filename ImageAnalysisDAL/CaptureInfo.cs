@@ -30,5 +30,10 @@ namespace ImageAnalysisDAL
             return DataTableFromProc("dbo.returnCaptureMovement", connectionString, p);
         }
 
+        public void WriteMovementFrames(XmlDocument capturedMovements)
+        {
+
+        }
+
     }
 }

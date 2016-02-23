@@ -62,6 +62,13 @@ namespace ImageAnalysis.MotionSensor
 
             Comparison = matrix.Comparator;
 
+            //clean up the memory
+            matrix.Dispose();
+            bm1.bitmap.Dispose();
+            bm2.bitmap.Dispose();
+            bm1 = null;
+            bm2 = null;
+
         }//Compare
 
         /// <summary>

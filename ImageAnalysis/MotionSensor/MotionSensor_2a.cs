@@ -69,10 +69,16 @@ namespace ImageAnalysis.MotionSensor
 
             if (logging.LoggingOn && logging.matrices != null) { logging.matrices.Add(matrix); }
 
+            //clean up the memory
+            matrix.Dispose();
+            bm1.bitmap.Dispose();
+            bm2.bitmap.Dispose();
+            bm1 = null;
+            bm2 = null;
+
         }//Compare
 
-
-           
+       
         /// <summary>
         /// Called when the threshold is to be set, or re-set
         /// takes the current range of changes and calculates threshold

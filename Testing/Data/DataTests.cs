@@ -22,6 +22,7 @@ namespace Testing.Data
     public class DataTests
     {
         [TestMethod]
+        [TestCategory("Data")]
         public void CatpureXml()
         {
             CaptureList captureList = new CaptureList();

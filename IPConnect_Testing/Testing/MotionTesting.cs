@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IPConnect_Testing.Data;
 using ImageAnalysis.MotionSensor;
 using ImageAnalysis.Data;
 
@@ -15,7 +14,7 @@ namespace IPConnect_Testing.Testing
     /// </summary>
     public class MotionTesting
     {
-        public CaptureListTest captures { get; set; }
+        public CaptureList captures { get; set; }
 
         /// <summary>
         /// Tests all items in the captures list, against the specified motion sensor type
@@ -23,7 +22,7 @@ namespace IPConnect_Testing.Testing
         /// <param name="motionSensorType"></param>
         public void TestAllCaptures(MotionSensorTypes motionSensorType)
         {
-            captures = new CaptureListTest();
+            captures = new CaptureList();
             captures.PopulateAllCaptures(true);
             captures.list.ForEach(x => TestCapture(x, motionSensorType));
         }
@@ -33,15 +32,15 @@ namespace IPConnect_Testing.Testing
             if (motionSensorType == MotionSensorTypes.Motion2a)
             {
                 MotionSensor2aTest test = new MotionSensor2aTest();
-                capture.detectedMovmentFrames = new List<int>();
-                capture.detectedMovmentFrames.AddRange(test.ReturnMovements(capture.captureId));
+                capture.testing = new ImageAnalysis.CaptureTesting();
+                capture.testing.detectedMovmentFrames = new List<int>();
+                capture.testing.detectedMovmentFrames.AddRange(test.ReturnMovements(capture.captureId));
                 
             }
         }
 
         public void TestCapture(string captureId, MotionSensorTypes motionSensorType)
         {
-
 
         }//TestCapture
 

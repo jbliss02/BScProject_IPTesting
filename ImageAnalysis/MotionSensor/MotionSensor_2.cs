@@ -155,6 +155,7 @@ namespace ImageAnalysis.MotionSensor
                 {
                     Compare(img1, img2);
                     logging.imagesChecked = logging.imagesChecked + 2;
+      
                 }
             }
         }//SendForCompare

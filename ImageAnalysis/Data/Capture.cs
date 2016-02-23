@@ -76,6 +76,28 @@ namespace ImageAnalysis.Data
            return doc;
         }
 
+        public XmlDocument DetectedMovementXml()
+        {
+            //update the captureId in the testing object
+            list.Where(a => a.testing != null && a.testing.detectedMovmentFrames != null).ToList().ForEach(a => a.testing.captureId = a.captureId);
+
+            //get all the movements in a list
+            var testing = (from cap in list where cap.testing != null select cap.testing).ToList();     
+            List<CaptureTesting> movements = (from test in testing where test.detectedMovmentFrames != null select test).ToList();
+
+            //serialise into XML and return
+            XmlDocument doc = new XmlDocument();
+            using (MemoryStream stream = new MemoryStream())
+            {
+                XmlSerializer x = new XmlSerializer(typeof(List<CaptureTesting>));
+                x.Serialize(stream, movements);
+                stream.Seek(0, System.IO.SeekOrigin.Begin); //without this there is a 'missing' root element error
+                doc.Load(stream);
+            }
+
+            return doc;
+
+        }//DetectedMovementXml
     }
 
     /// <summary>
@@ -92,12 +114,6 @@ namespace ImageAnalysis.Data
         /// </summary>
         public List<Movement> movement { get; set; } = new List<Movement>();
 
-        /// <summary>
-        /// What frame numbers have been identified as having movement
-        /// </summary>
-        public List<Int32> detectedMovmentFrames { get; set; }
-
-      
-
+        public CaptureTesting testing;
     }
 }

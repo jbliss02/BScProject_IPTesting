@@ -19,47 +19,50 @@ namespace ImageAnalysisDAL
 
         public DataTable DataTableFromProc(string procName, string stcon)
         {
-            SqlConnection con = new SqlConnection(stcon);
-            con.Open();
-
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = procName;
-
-            SqlDataAdapter da = new SqlDataAdapter();
-            da.SelectCommand = cmd;
             DataTable dt = new DataTable();
-            da.Fill(dt);
+            using (SqlConnection con = new SqlConnection(stcon))
+            {
+                con.Open();
 
-            con.Close();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = procName;
+
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                da.Fill(dt);
+
+                con.Close();
+            }
 
             return dt;
         }
 
         public DataTable DataTableFromProc(string procName, string stcon, List<SqlParameter> paras)
         {
-            SqlConnection con = new SqlConnection(stcon);
-            con.Open();
-
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = procName;
-
-            foreach (SqlParameter p in paras)
-            {
-                cmd.Parameters.AddWithValue(p.ParameterName, p.Value);
-            }
-
-
-            SqlDataAdapter da = new SqlDataAdapter();
-            da.SelectCommand = cmd;
             DataTable dt = new DataTable();
-            da.Fill(dt);
 
-            con.Close();
+            using (SqlConnection con = new SqlConnection(stcon))
+            {
+                con.Open();
 
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = procName;
+
+                foreach (SqlParameter p in paras)
+                {
+                    cmd.Parameters.AddWithValue(p.ParameterName, p.Value);
+                }
+
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmd;               
+                da.Fill(dt);
+                con.Close();
+            }
+                         
             return dt;
         }
 

@@ -16,7 +16,7 @@ namespace ImageAnalysis.Analysis
     /// each pixel contains meta-data related to the equivalent pixel, 
     /// or comparision of that pixel across multiple images
     /// </summary>
-    public class PixelMatrix
+    public class PixelMatrix : IDisposable
     {
         public PixelMatrix() { }
         public PixelMatrix(BitmapWrapper image1, BitmapWrapper image2) { Populate(image1, image2); }
@@ -428,7 +428,19 @@ namespace ImageAnalysis.Analysis
 
         }//SetReducedColumns
 
-    }
+        public void Dispose()
+        {
+            this.Columns = null;
+            this.Comparator = null;
+            this.Comparision = null;
+            this.image1.bitmap.Dispose();
+            this.image1 = null;
+            this.image2.bitmap.Dispose();
+            this.image2 = null;
+            this.imageGrid = null;
+        }
+
+    }//PixelMatrix class
 
     public class PixelColumn
     {
