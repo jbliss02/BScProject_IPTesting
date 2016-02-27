@@ -27,9 +27,9 @@ namespace ImageAnalysis.MotionSensor
             var bm2 = new BitmapWrapper(ImageConvert.ReturnBitmap(image2.bytes));
 
             PixelMatrix matrix = new PixelMatrix();
-            if (SearchHeight > 0) { matrix.SearchHeight = SearchHeight; }
-            if (SearchWidth > 0) { matrix.SearchWidth = SearchWidth; }
-            if (LinkCompare) { matrix.LinkCompare = true; }
+            if (settings.searchHeight > 0) { matrix.SearchHeight = settings.searchHeight; }
+            if (settings.searchWidth > 0) { matrix.SearchWidth = settings.searchWidth; }
+            if (settings.linkCompare) { matrix.LinkCompare = true; }
             matrix.GridSystemOn = true;
             matrix.Populate(bm1, bm2);
 
@@ -127,7 +127,7 @@ namespace ImageAnalysis.MotionSensor
 
         private double ReturnBuffer(double max)
         {
-            return max * 1.2 * sensitivity;
+            return max * 1.2 * settings.sensitivity;
         }
 
         private double ReturnMax(List<double> list)

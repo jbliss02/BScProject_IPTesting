@@ -130,7 +130,7 @@ namespace Testing.RumtimeAnalysis
                             sw.Restart();
                             MotionSensor_2a motion = new MotionSensor_2a();
                             motion.ThresholdSet = true;
-                            motion.SearchWidth = dimensions[i];
+                            motion.settings.searchWidth = dimensions[i];
 
                             motion.ImageCreated(image1, EventArgs.Empty);
                             motion.ImageCreated(image2, EventArgs.Empty);
@@ -176,7 +176,7 @@ namespace Testing.RumtimeAnalysis
                             motion.CreateDummyThreshold(4, 4);
                             sw.Restart();
                             motion.ThresholdSet = true;
-                            motion.SearchWidth = dimensions[i];
+                            motion.settings.searchWidth = dimensions[i];
                             motion.ImageCreated(image1, EventArgs.Empty);
                             motion.ImageCreated(image2, EventArgs.Empty);
                             sw.Stop();
@@ -455,8 +455,8 @@ namespace Testing.RumtimeAnalysis
                             sw.Restart();
                             MotionSensor_2a motion = new MotionSensor_2a();
                             motion.ThresholdSet = true;
-                            motion.LinkCompare = true;
-                            motion.SearchWidth = dimensions[i];
+                            motion.settings.linkCompare = true;
+                            motion.settings.searchWidth = dimensions[i];
                             motion.Comparison = dummy.Comparision;
 
                             motion.ImageCreated(image1, EventArgs.Empty);
@@ -497,7 +497,7 @@ namespace Testing.RumtimeAnalysis
 
                 MotionSensor_2a motion = new MotionSensor_2a();
                 motion.ThresholdSet = true;
-                motion.LinkCompare = true;
+                motion.settings.linkCompare = true;
                 motion.Comparison = dummy.Comparision;
 
                 motion.ImageCreated(image1, EventArgs.Empty);

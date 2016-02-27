@@ -29,12 +29,13 @@ namespace IPConnect_Testing.Testing
         string uri;
         string saveDirectory { get { return saveFilePath + @"\" + captureId; } }
         ImageExtractor imageExtractor;
-        List<Int32> movementFrames;
+        public List<Int32> movementFrames { get; private set; }
 
         public void Run(string captureId)
         {
             Setup(captureId);
-           
+            movementFrames = new List<int>();
+
             //create the motion sensor, and listen for images
             MotionSensor_2a motionSensor = new MotionSensor_2a();
             motionSensor.motionDetected += new MotionSensor_2.MotionDetected(MotionDetected);
@@ -49,18 +50,6 @@ namespace IPConnect_Testing.Testing
             saveFilePath = ConfigurationManager.AppSettings["MotionSaveLocation"];
 
             imageExtractor.Run();
-
-           // motionSensor.logging.WriteToLog(@"f:\temp\analysis\227\matrixinfo.txt");
-            //Console.WriteLine("Finished");
-
-        }
-
-        public List<Int32> ReturnMovements(string captureId)
-        {
-            Setup(captureId);
-            movementFrames = new List<int>();
-            Run(captureId);
-            return movementFrames;
         }
 
         private void Setup(string captureId)

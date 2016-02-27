@@ -27,7 +27,6 @@ namespace ImageAnalysis.Analysis
         public List<PixelColumn> Columns { get; set; }
         public List<PixelColumn> ReducedColumns { get; set; } //the matrix, where the change values are reduced to a 0 - 255 range
         public ImageGrid imageGrid { get; set; }
-        //public List<GridColumn> GridColumns { get; set; } //the matrix represented in a grid system
         public bool GridSystemOn { get; set; }
         /// <summary>
         /// The number of pixels to search horizontally. Defaults to the image width if not set
@@ -62,7 +61,6 @@ namespace ImageAnalysis.Analysis
 
                 return sum;
             } }
-
         public double SumChangedPixelsPositive
         {
             get
@@ -115,7 +113,6 @@ namespace ImageAnalysis.Analysis
 
             }
         }
-
         public double MaxChangedPositive
         {
             get

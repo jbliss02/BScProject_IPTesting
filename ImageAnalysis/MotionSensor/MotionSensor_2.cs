@@ -26,35 +26,15 @@ namespace ImageAnalysis.MotionSensor
         //threshold setting
         public int ControlImageNumber { get; set; } = 10; //number of changes to use as the control (half the images as done in pairs)
         public bool ThresholdSet { get; set; }
-        protected double sensitivity = 1;
 
-        /// <summary>
-        /// The number of pixels to search horizontally. Defaults to the image width if not set
-        /// </summary>
-        public int SearchWidth { get; set; }
-        /// <summary>
-        /// The number of pixels to search vertically. Defaults to the image height if not set
-        /// </summary>
-        public int SearchHeight { get; set; }
+        public MotionSensorSettings settings { get; set; }
 
         public Logs.Logging logging;
-
-        /// <summary>
-        /// Whether a compare action should try and share data with the next compare action
-        /// only applicable when running syncrohously
-        /// </summary>
-        public bool LinkCompare;
 
         /// <summary>
         /// comparision object - returned from one capture, to be used in the next
         /// </summary>
         public List<PixelColumn> Comparison;
-
-        /// <summary>
-        /// Whether every image is processed twice (once as the comparator and once as the comparision
-        /// or whether groups of 2 images are processed, so each image only gets processed once
-        /// </summary>
-        public bool SequentialComparision { get; set; }
 
         public MotionSensor_2()
         {
@@ -66,7 +46,7 @@ namespace ImageAnalysis.MotionSensor
             WorkQueue = new Queue<ByteWrapper>();
             logging = new Logs.Logging();
             ThresholdSet = false;
-            sensitivity = 1;
+            settings = new MotionSensorSettings();
         }
 
         /// <summary>
@@ -161,7 +141,6 @@ namespace ImageAnalysis.MotionSensor
         }//SendForCompare
 
         public virtual void Compare(ByteWrapper img1, ByteWrapper img2) { } //will always be implemented in the sub class
-
 
     }
 }

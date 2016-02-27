@@ -33,10 +33,10 @@ namespace ImageAnalysis.MotionSensor
             bm2.sequenceNumber = logging.imagesReceived - 1;
 
             PixelMatrix matrix = new PixelMatrix();
-            matrix.LinkCompare = LinkCompare;
-            if (SearchHeight > 0) { matrix.SearchHeight = SearchHeight; }
-            if (SearchWidth > 0) {  matrix.SearchWidth = SearchWidth; }
-            if (LinkCompare && Comparison != null)
+            matrix.LinkCompare = settings.linkCompare;
+            if (settings.searchHeight > 0) { matrix.SearchHeight = settings.searchHeight; }
+            if (settings.searchWidth > 0) {  matrix.SearchWidth = settings.searchWidth; }
+            if (settings.linkCompare && Comparison != null)
             {
                 matrix.Populate(Comparison, bm2);
             }
@@ -77,8 +77,7 @@ namespace ImageAnalysis.MotionSensor
             bm2 = null;
 
         }//Compare
-
-       
+     
         /// <summary>
         /// Called when the threshold is to be set, or re-set
         /// takes the current range of changes and calculates threshold
@@ -86,14 +85,11 @@ namespace ImageAnalysis.MotionSensor
         /// </summary>
         private void SetThreshold()
         {
-            //double max = pixelChange.Max();
-            //double min = pixelChange.Min();
-
             double max = pixelChange.Max();
             double min = pixelChange.Min();
 
             double range = ((max - min) / min) * 100; //percentage change
-            double buffer = (100 + (range * 1.5 * sensitivity)) / 100; //this is a percentage
+            double buffer = (100 + (range * 1.5 * settings.sensitivity)) / 100; //this is a percentage
             pixelChangeThreshold = max * buffer;
             ThresholdSet = true;
             if (logging.LoggingOn) { logging.threshold = pixelChangeThreshold; }

@@ -59,6 +59,7 @@
     <Compile Include="Images\Jpeg\JPEG.cs" />
     <Compile Include="Images\ImageValidator.cs" />
     <Compile Include="MotionSensor\Logs\Logging.cs" />
+    <Compile Include="MotionSensor\MotionSensorSettings.cs" />
     <Compile Include="MotionSensor\MotionSensor_2.cs" />
     <Compile Include="MotionSensor\MotionSensor_2a.cs" />
     <Compile Include="MotionSensor\MotionSensor_2b.cs" />

@@ -24,26 +24,23 @@ namespace IPConnect_Testing.Testing
         {
             captures = new CaptureList();
             captures.PopulateAllCaptures(true);
-            captures.list.ForEach(x => TestCapture(x, motionSensorType));
+            captures.list.ForEach(x => TestMotion(x, motionSensorType));
         }
 
-        public void TestCapture(Capture capture, MotionSensorTypes motionSensorType)
+        public void TestMotion(Capture capture, MotionSensorTypes motionSensorType)
         {
             if (motionSensorType == MotionSensorTypes.Motion2a)
             {
                 MotionSensor2aTest test = new MotionSensor2aTest();
                 capture.testing = new ImageAnalysis.CaptureTesting();
+                capture.testing.startTime = DateTime.Now;
                 capture.testing.detectedMovmentFrames = new List<int>();
-                capture.testing.detectedMovmentFrames.AddRange(test.ReturnMovements(capture.captureId));
-                
+                test.Run(capture.captureId);
+
+                capture.testing.detectedMovmentFrames = test.movementFrames;
+                capture.testing.endTime = DateTime.Now;
             }
         }
-
-        public void TestCapture(string captureId, MotionSensorTypes motionSensorType)
-        {
-
-        }//TestCapture
-
 
     }
 }

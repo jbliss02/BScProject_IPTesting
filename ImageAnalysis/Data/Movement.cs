@@ -17,8 +17,8 @@ namespace ImageAnalysis.Data
         }
         
         public Movement() { }
-
         public int frameStart { get; set; }
         public int frameEnd { get; set; }
+        public DateTime movementTime { get; set; }
     }
 }
