@@ -22,15 +22,14 @@ using ImageAnalysis.Data;
 
 namespace IPConnect_Testing.Testing
 {
-    public class MotionSensor2aTest
+    public class MotionSensor2aTest : IMotionSensorTest
     {
         string saveFilePath;
         string captureId;
-        string uri;
         string saveDirectory { get { return saveFilePath + @"\" + captureId; } }
         ImageExtractor imageExtractor;
         public List<Int32> movementFrames { get; private set; }
-
+        public MotionSensorSettings settings { get; set; }
         public void Run(string captureId)
         {
             Setup(captureId);
@@ -38,6 +37,9 @@ namespace IPConnect_Testing.Testing
 
             //create the motion sensor, and listen for images
             MotionSensor_2a motionSensor = new MotionSensor_2a();
+            motionSensor.settings = new MotionSensorSettings();
+
+
             motionSensor.motionDetected += new MotionSensor_2.MotionDetected(MotionDetected);
             motionSensor.logging.LoggingOn = true;
 
@@ -65,8 +67,7 @@ namespace IPConnect_Testing.Testing
             if(movementFrames != null)
             {
                 movementFrames.Add(image.sequenceNumber);
-            }
-                   
+            }                  
         }
 
         private async void SaveMotionFile(ByteWrapper image)

@@ -16,6 +16,7 @@ namespace ImageAnalysis
         public string captureId { get; set; } //held here as this class is serialised seperatley
         public DateTime startTime { get; set; }
         public DateTime endTime { get; set; }
+        public String captureMethod { get; set; }
         /// <summary>
         /// What frame numbers have been identified as having movement
         /// </summary>

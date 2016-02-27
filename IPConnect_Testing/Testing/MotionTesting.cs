@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Threading.Tasks;
 using ImageAnalysis.MotionSensor;
 using ImageAnalysis.Data;
@@ -32,9 +33,12 @@ namespace IPConnect_Testing.Testing
             if (motionSensorType == MotionSensorTypes.Motion2a)
             {
                 MotionSensor2aTest test = new MotionSensor2aTest();
+
                 capture.testing = new ImageAnalysis.CaptureTesting();
                 capture.testing.startTime = DateTime.Now;
                 capture.testing.detectedMovmentFrames = new List<int>();
+                capture.testing.captureMethod = "a";
+
                 test.Run(capture.captureId);
 
                 capture.testing.detectedMovmentFrames = test.movementFrames;

@@ -15,7 +15,7 @@ namespace ImageAnalysis.Data
     public class CaptureList
     {
         public List<Capture> list { get; set; }
-        CaptureInfo captureInfo { get; set; }
+        CaptureDb captureInfo { get; set; }
 
         /// <summary>
         /// Populates metadata about each capture session available
@@ -26,7 +26,7 @@ namespace ImageAnalysis.Data
         {
             list = new List<Capture>();
             ConnectionStringSettingsCollection connections = ConfigurationManager.ConnectionStrings;
-            captureInfo = new CaptureInfo(connections["AZURE"].ConnectionString);
+            captureInfo = new ImageAnalysisDAL.CaptureDb(connections["AZURE"].ConnectionString);
             DataTable dt = captureInfo.ReturnAllCaptures();
             
             foreach(DataRow dr in dt.Rows)
@@ -76,7 +76,7 @@ namespace ImageAnalysis.Data
            return doc;
         }
 
-        public XmlDocument DetectedMovementXml()
+        public XmlDocument MotionTestingXml()
         {
             //update the captureId in the testing object
             list.Where(a => a.testing != null && a.testing.detectedMovmentFrames != null).ToList().ForEach(a => a.testing.captureId = a.captureId);

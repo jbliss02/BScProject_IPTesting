@@ -81,5 +81,33 @@ namespace ImageAnalysisDAL
             da.Fill(dt);
             return dt;
         }
+
+        public string RunProcWithReturn(string procName, string stcon, SqlParameter p)
+        {
+            string st = string.Empty;
+
+            SqlConnection con = new SqlConnection(stcon);
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = procName;
+
+            cmd.Parameters.AddWithValue(p.ParameterName, p.Value);
+
+            //add the return value
+            SqlParameter retval = cmd.Parameters.Add("@ret", SqlDbType.VarChar);
+            retval.Direction = ParameterDirection.ReturnValue;
+
+            cmd.ExecuteNonQuery();
+
+            st = (string)cmd.Parameters["@ret"].Value.ToString();
+
+            con.Close();
+
+            return st;
+        }
+
     }
 }

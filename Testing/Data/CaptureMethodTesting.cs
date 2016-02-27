@@ -32,6 +32,8 @@ namespace Testing.Data
             Capture cap = new Capture();
             cap.captureId = "111";
             cap.testing = new CaptureTesting();
+            cap.testing.startTime = DateTime.Now;
+            cap.testing.endTime = DateTime.Now.AddMinutes(1);
             cap.testing.detectedMovmentFrames = new List<int>();
             cap.testing.detectedMovmentFrames.Add(1);
             cap.testing.detectedMovmentFrames.Add(31);
@@ -42,6 +44,8 @@ namespace Testing.Data
             cap = new Capture();
             cap.captureId = "222";
             cap.testing = new CaptureTesting();
+            cap.testing.startTime = DateTime.Now;
+            cap.testing.endTime = DateTime.Now.AddMinutes(1);
             cap.testing.detectedMovmentFrames = new List<int>();
             cap.testing.detectedMovmentFrames.Add(8);
             cap.testing.detectedMovmentFrames.Add(88);
@@ -52,13 +56,15 @@ namespace Testing.Data
             cap = new Capture();
             cap.captureId = "333";
             cap.testing = new CaptureTesting();
+            cap.testing.startTime = DateTime.Now;
+            cap.testing.endTime = DateTime.Now.AddMinutes(1);
             capList.list.Add(cap);
 
             cap = new Capture();
             cap.captureId = "444";
             capList.list.Add(cap);
 
-            XmlDocument xmldoc = capList.DetectedMovementXml();
+            XmlDocument xmldoc = capList.MotionTestingXml();
             Assert.IsTrue(xmldoc.OuterXml.Count() > 0);
 
 

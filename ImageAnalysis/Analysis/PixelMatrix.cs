@@ -19,31 +19,44 @@ namespace ImageAnalysis.Analysis
     public class PixelMatrix : IDisposable
     {
         public PixelMatrix() { }
+
         public PixelMatrix(BitmapWrapper image1, BitmapWrapper image2) { Populate(image1, image2); }
+
         public PixelMatrix(string path1, string path2) { Populate(path1, path2); }
+
         //images being compared
         public BitmapWrapper image1 { get; set; }
+
         public BitmapWrapper image2 { get; set; }
+
         public List<PixelColumn> Columns { get; set; }
+
         public List<PixelColumn> ReducedColumns { get; set; } //the matrix, where the change values are reduced to a 0 - 255 range
+
         public ImageGrid imageGrid { get; set; }
+
         public bool GridSystemOn { get; set; }
+
         /// <summary>
         /// The number of pixels to search horizontally. Defaults to the image width if not set
         /// </summary>
         public int SearchWidth { get; set; }
+
         /// <summary>
         /// The number of pixels to search vertically. Defaults to the image height if not set
         /// </summary>
         public int SearchHeight { get; set; }
+
         /// <summary>
         /// The number of pixels the algorithm will move to the right when scanning images
         /// </summary>
         public int WidthSearchOffset { get; set; }
+
         /// <summary>
         /// The number of pixels the algorithm will move downwards when scanning images
         /// </summary>
         public int HeightSearchOffset { get; set; }
+
         /// <summary>
         /// Each pixel has a value which contains the numeric different between the two images, this
         /// method returns the sum of those differences
@@ -61,6 +74,7 @@ namespace ImageAnalysis.Analysis
 
                 return sum;
             } }
+
         public double SumChangedPixelsPositive
         {
             get
@@ -77,8 +91,11 @@ namespace ImageAnalysis.Analysis
                 return sum;
             }
         }
+
         public double SumChangedPixelsLINQ { get { return (from col in Columns from cell in col.Cells select cell.positiveChange).Sum(); } }
+
         public double MaxChangedLINQ { get { return (from c in Columns select c.maxChange).Max(); } }
+
         public double MaxChanged { get
             {
                 double max = Columns[0].Cells[0].change;
@@ -95,7 +112,9 @@ namespace ImageAnalysis.Analysis
 
                 return max;
             } }
+
         public double MinChangedLINQ { get { return (from c in Columns select c.minChange).Min(); } }
+
         public double MinChanged { get
             {
                 double min = Columns[0].Cells[0].change; ;
@@ -113,6 +132,7 @@ namespace ImageAnalysis.Analysis
 
             }
         }
+
         public double MaxChangedPositive
         {
             get
@@ -132,6 +152,7 @@ namespace ImageAnalysis.Analysis
                 return max;
             }
         }
+
         public double MinChangedPositive
         {
             get
@@ -158,11 +179,13 @@ namespace ImageAnalysis.Analysis
         /// when running syncrhously
         /// </summary>
         public bool LinkCompare;
+
         /// <summary>
         /// The image being compared to, this stores the colour of the pixel so it can be used in
         /// a later PixelMatrix object, this saves calling the GetPixel() method twixe
         /// </summary>
         public List<PixelColumn> Comparator { get; set; } 
+
         /// <summary>
         /// This may be sent in from a constructor, in the place of image 1, the simple colour has already been
         /// turned into an integer

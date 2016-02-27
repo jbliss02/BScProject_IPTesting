@@ -12,9 +12,9 @@ namespace ImageAnalysisDAL
     /// <summary>
     /// Writes, and returns, information on IP camera capture sessions
     /// </summary>
-    public class CaptureInfo : Db
+    public class CaptureDb : Db
     {
-        public CaptureInfo(string connectionString) :base(connectionString) {  }
+        public CaptureDb(string connectionString) :base(connectionString) {  }
 
         public DataTable ReturnAllCaptures()
         {
@@ -30,8 +30,20 @@ namespace ImageAnalysisDAL
             return DataTableFromProc("dbo.returnCaptureMovement", connectionString, p);
         }
 
-        public void WriteMovementFrames(XmlDocument capturedMovements)
+        /// <summary>
+        /// Creates a database record for a new detection session
+        /// returns the primary key detectionId for the session
+        /// </summary>
+        /// <param name="detecionSessionXml"></param>
+        /// <returns></returns>
+        public int CreateDetectionSession(XmlDocument motionTestingXml)
         {
+            SqlParameter p = new SqlParameter();
+            p.ParameterName = "@xml";
+            p.DbType = DbType.Xml;
+            p.Value = motionTestingXml.OuterXml;
+
+
 
         }
 
