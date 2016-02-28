@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ImageAnalysis.MotionSensor
 {
+
     /// <summary>
     /// Various settings that are applied to the motion detector during testing
     /// </summary>
@@ -34,6 +35,7 @@ namespace ImageAnalysis.MotionSensor
         /// </summary>
         public int verticalPixelsToSkip { get { return _verticalPixelsToSkip; } set { if (value >= 0) { this._verticalPixelsToSkip = value; }; } }
         private int _verticalPixelsToSkip;
+
         /// <summary>
         /// Multiplier used when determining whether there is motion, or not. Defaults to 1. Less than 1 increases
         /// sensitivity, great than 1 decreases sensitivity

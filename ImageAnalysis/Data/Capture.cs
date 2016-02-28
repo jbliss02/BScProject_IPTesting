@@ -64,19 +64,7 @@ namespace ImageAnalysis.Data
         /// </summary>
         public XmlDocument SerialiseMe()
         {
-
             return new Tools.Xml().SerialiseObject(list);
-
-           // XmlDocument doc = new XmlDocument();
-           // using (MemoryStream stream = new MemoryStream())
-           // {            
-           //     XmlSerializer x = new XmlSerializer(typeof(List<Capture>));
-           //     x.Serialize(stream, list);
-           //     stream.Seek(0, System.IO.SeekOrigin.Begin); //without this there is a 'missing' root element error
-           //     doc.Load(stream);
-           // }
-
-           //return doc;
         }
 
     }
