@@ -33,20 +33,36 @@ namespace ImageAnalysisDAL
         }
 
         /// <summary>
-        /// Creates a database record for a new detection session
-        /// returns the primary key detectionId for the session
+        /// Creates a database record for a new detection session, adds the header data
+        /// the detected movement frames, and the motion sensor detectors
         /// </summary>
         /// <param name="detecionSessionXml"></param>
         /// <returns></returns>
-        public int CreateDetectionSession(XmlDocument motionTestingXml)
+        public void CreateDetectionSession(XmlDocument motionTestingXml, XmlDocument motionSettingsXml)
         {
+            //add the header data
             SqlParameter p = new SqlParameter();
             p.ParameterName = "@xml";
             p.DbType = DbType.Xml;
             p.Value = motionTestingXml.OuterXml;
 
             string id = RunProcWithReturn("dbo.addDetectionTestData", p);
-            return id.StringToInt();
+
+            //add the settings
+            List<SqlParameter> paras = new List<SqlParameter>();
+            p = new SqlParameter();
+            p.ParameterName = "@xml";
+            p.DbType = DbType.Xml;
+            p.Value = motionSettingsXml.OuterXml;
+            paras.Add(p);
+
+            p = new SqlParameter();
+            p.ParameterName = "@detectionId";
+            p.Value = id.StringToInt();
+            p.DbType = DbType.Int16;
+            paras.Add(p);
+
+            RunProc("dbo.addDetectionSettings", paras);
 
         }
 

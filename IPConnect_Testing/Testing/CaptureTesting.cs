@@ -10,6 +10,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 using ImageAnalysis.Data;
+using Tools;
 
 namespace IPConnect_Testing.Testing
 {
@@ -61,24 +62,13 @@ namespace IPConnect_Testing.Testing
         public List<Int32> detectedMovmentFrames { get; set; }
 
         /// <summary>
-        /// Returns information about the CaptureMotionTesting 
+        ///Serialises the CaptureTesting class into XML
         /// </summary>
         /// <returns></returns>
-        public XmlDocument CaptureTestingXml()
+        public XmlDocument SerialiseMe()
         {
-           //serialise testing object XML and return
-            XmlDocument doc = new XmlDocument();
-            using (MemoryStream stream = new MemoryStream())
-            {
-                XmlSerializer x = new XmlSerializer(typeof(CaptureTesting));
-                x.Serialize(stream, this);
-                stream.Seek(0, System.IO.SeekOrigin.Begin); //without this there is a 'missing' root element error
-                doc.Load(stream);
-            }
-
-            return doc;
-
-        }//DetectedMovementXml 
+            return new Tools.Xml().SerialiseObject(this);
+        }
 
     }
 }

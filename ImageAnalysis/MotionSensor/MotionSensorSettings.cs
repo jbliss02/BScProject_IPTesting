@@ -20,20 +20,20 @@ namespace ImageAnalysis.MotionSensor
         /// The number of frames to skip during image analysis of motion detection
         /// Varaible is always used, defaults to 0
         /// </summary>
-        public int framesToSkip { get { return framesToSkip; } set { if (value >= 0) { this.framesToSkip = value; }; } }
-
+        public int framesToSkip { get { return _framesToSkip; } set { if (value >= 0) { _framesToSkip = value; }; } }
+        private int _framesToSkip;
         /// <summary>
         /// The number of pixels skipped horizontally when scanning an image
         /// Variable is always used, defaults to 0
         /// </summary>
-        public int horizontalPixelsToSkip { get { return horizontalPixelsToSkip; } set { if (value >= 0) { this.horizontalPixelsToSkip = value; }; } }
-
+        public int horizontalPixelsToSkip { get { return _horizontalPixelsToSkip; } set { if (value >= 0) { this._horizontalPixelsToSkip = value; }; } }
+        private int _horizontalPixelsToSkip;
         /// <summary>
         /// The number of pixels skipped vertically when scanning an image
         /// Variable is always used, defaults to 0
         /// </summary>
-        public int verticalPixelsToSkip { get { return verticalPixelsToSkip; } set { if (value >= 0) { this.verticalPixelsToSkip = value; }; } }
-
+        public int verticalPixelsToSkip { get { return _verticalPixelsToSkip; } set { if (value >= 0) { this._verticalPixelsToSkip = value; }; } }
+        private int _verticalPixelsToSkip;
         /// <summary>
         /// Multiplier used when determining whether there is motion, or not. Defaults to 1. Less than 1 increases
         /// sensitivity, great than 1 decreases sensitivity
@@ -56,7 +56,7 @@ namespace ImageAnalysis.MotionSensor
         /// </summary>
         public bool linkCompare { get; set; }
 
-        public MotionSensorSettings() { framesToSkip = 0; horizontalPixelsToSkip = 0; verticalPixelsToSkip = 0; }
+        public MotionSensorSettings() { framesToSkip = 0; horizontalPixelsToSkip = 0; verticalPixelsToSkip = 0; sensitivity = 1; }
 
     }
 }

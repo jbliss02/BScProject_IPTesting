@@ -7,7 +7,7 @@ namespace ImageAnalysis.Data
     {
         List<Capture> list { get; set; }
 
-        XmlDocument CaptureXml();
+        XmlDocument SerialiseMe();
         void PopulateAllCaptures(bool allData);
         void PopulateMovement();
     }

@@ -13,6 +13,5 @@ namespace ImageAnalysisDAL
     {
         public MotionSensorDb(string connectionString) :base(connectionString) { }
 
-
     }
 }

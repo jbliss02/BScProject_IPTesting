@@ -28,34 +28,38 @@ namespace IPConnect_Testing.Testing
             captures = new CaptureListTesting();
             captures.PopulateAllCaptures(true);
             captures.list.ForEach(x => TestMotion(x, motionSensorType));
-
         }
 
-        public void TestMotion(Capture capture, MotionSensorTypes motionSensorType)
+        public void TestMotion(CaptureTesting captureTesting, MotionSensorTypes motionSensorType)
         {
             if (motionSensorType == MotionSensorTypes.Motion2a)
             {
                 MotionSensor2aTest test = new MotionSensor2aTest();
 
-                CaptureTesting captureTesting = new CaptureTesting();
+                MotionSensorSettingsTest motionSettings = new MotionSensorSettingsTest();
+                test.settings = motionSettings;
+
                 captureTesting.detectionStartTime = DateTime.Now;
                 captureTesting.detectedMovmentFrames = new List<int>();
                 captureTesting.detectionMethod = "a";
 
-                test.Run(capture.captureId);
+                test.Run(captureTesting.captureId);
 
                 captureTesting.detectedMovmentFrames = test.movementFrames;
                 captureTesting.detectionEndTime = DateTime.Now;
 
-                WriteToDatabase(captureTesting);
+                WriteToDatabase(captureTesting, motionSettings);
             }
         }
 
-        private void WriteToDatabase(CaptureTesting captureTest)
+        private void WriteToDatabase(CaptureTesting captureTest, MotionSensorSettingsTest motionSettings)
         {
             var db = new CaptureDb(ConfigurationManager.ConnectionStrings["AZURE"].ConnectionString);
-            db.CreateDetectionSession(captureTest.CaptureTestingXml());
+            db.CreateDetectionSession(captureTest.SerialiseMe(), motionSettings.SerialiseMe());
+
         }
+
+
 
     }
 }

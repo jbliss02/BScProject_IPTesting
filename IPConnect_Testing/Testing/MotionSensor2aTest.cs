@@ -22,7 +22,7 @@ using ImageAnalysis.Data;
 
 namespace IPConnect_Testing.Testing
 {
-    public class MotionSensor2aTest : IMotionSensorTest
+    public class MotionSensor2aTest 
     {
         string saveFilePath;
         string captureId;

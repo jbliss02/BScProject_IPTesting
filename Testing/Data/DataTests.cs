@@ -27,8 +27,71 @@ namespace Testing.Data
         {
             CaptureList captureList = new CaptureList();
             captureList.PopulateAllCaptures(false);
-            XmlDocument doc = captureList.CaptureXml();
+            XmlDocument doc = captureList.SerialiseMe();
             Assert.IsTrue(doc.OuterXml.Count() > 0);
         }
+
+        [TestMethod]
+        [TestCategory("Data")]
+        public void CaptureListTestXml()
+        {
+
+            CaptureTesting cap = new CaptureTesting();
+            cap.captureId = "111";
+            cap.detectionStartTime = DateTime.Now;
+            cap.detectionEndTime = DateTime.Now.AddMinutes(1);
+            cap.detectionMethod = "a";
+            cap.detectedMovmentFrames = new List<int>();
+            cap.detectedMovmentFrames.Add(1);
+            cap.detectedMovmentFrames.Add(31);
+            cap.detectedMovmentFrames.Add(78);
+            cap.detectedMovmentFrames.Add(66);
+
+            XmlDocument xmldoc = cap.SerialiseMe();
+            Assert.IsTrue(xmldoc.OuterXml.Count() > 0);
+
+            cap = new CaptureTesting();
+            cap.captureId = "222";
+            cap.detectionMethod = "a";
+            cap.detectionStartTime = DateTime.Now;
+            cap.detectionEndTime = DateTime.Now.AddMinutes(1);
+            cap.detectedMovmentFrames = new List<int>();
+            cap.detectedMovmentFrames.Add(8);
+            cap.detectedMovmentFrames.Add(88);
+            cap.detectedMovmentFrames.Add(98);
+            cap.detectedMovmentFrames.Add(28);
+
+            xmldoc = cap.SerialiseMe();
+            Assert.IsTrue(xmldoc.OuterXml.Count() > 0);
+
+
+            cap = new CaptureTesting();
+            cap.captureId = "333";
+            cap.detectionMethod = "a";
+            cap.detectionStartTime = DateTime.Now;
+            cap.detectionEndTime = DateTime.Now.AddMinutes(1);
+
+            xmldoc = cap.SerialiseMe();
+            Assert.IsTrue(xmldoc.OuterXml.Count() > 0);
+
+
+            cap = new CaptureTesting();
+            cap.captureId = "444";
+            cap.detectionMethod = "a";
+            xmldoc = cap.SerialiseMe();
+            Assert.IsTrue(xmldoc.OuterXml.Count() > 0);
+
+        }
+
+        [TestMethod]
+        [TestCategory("Data")]
+        public void CatpureSettingsXml()
+        {
+            MotionSensorSettingsTest test = new MotionSensorSettingsTest();
+            XmlDocument doc = test.SerialiseMe();
+            Assert.IsTrue(doc.OuterXml.Count() > 0);
+        }
+
+
     }
 }

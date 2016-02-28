@@ -56,9 +56,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Testing\CaptureTesting.cs" />
-    <Compile Include="Testing\IMotionSensorTest.cs" />
     <Compile Include="Testing\MotionSensor2aTest.cs" />
     <Compile Include="Testing\MotionSensor2bTest.cs" />
+    <Compile Include="Testing\MotionSensorSettingsTest.cs" />
     <Compile Include="Testing\MotionTesting.cs" />
   </ItemGroup>
   <ItemGroup>

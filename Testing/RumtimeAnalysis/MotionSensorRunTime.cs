@@ -25,7 +25,7 @@ namespace Testing.RumtimeAnalysis
         /// Looks at the time to analyse two images on PixelMatrix
         /// Various numbers of pixels are analysed
         /// </summary>
-        [TestMethod]
+       // [TestMethod]
         [TestCategory("Runtime analysis")]
         public void PixelMatrix()
         {
@@ -67,7 +67,7 @@ namespace Testing.RumtimeAnalysis
         /// <summary>
         /// Test what happens when we do not search every pixel
         /// </summary>
-        [TestMethod]
+      //  [TestMethod]
         [TestCategory("Runtime analysis")]
         public void PixelMatrix_skips()
         {
@@ -107,7 +107,7 @@ namespace Testing.RumtimeAnalysis
         /// <summary>
         /// Runs the whole end to end motion sensor and logs the response times
         /// </summary>
-        [TestMethod]
+     //   [TestMethod]
         [TestCategory("Runtime analysis")]
         public void MotionSensor2a()
         {
@@ -151,7 +151,7 @@ namespace Testing.RumtimeAnalysis
         /// <summary>
         /// Runs analysis on MotionSensor2b
         /// </summary>
-        [TestMethod]
+      //  [TestMethod]
         [TestCategory("Runtime analysis")]
         public void MotionSensor2b()
         {
@@ -193,7 +193,7 @@ namespace Testing.RumtimeAnalysis
             }
         }
 
-        [TestMethod]
+       // [TestMethod]
         [TestCategory("Runtime analysis")]
         public void TestValidator()
         {
@@ -221,7 +221,7 @@ namespace Testing.RumtimeAnalysis
             }
         }
 
-        [TestMethod]
+      //  [TestMethod]
         [TestCategory("Runtime analysis")]
         public void LinqTesting()
         {
@@ -318,7 +318,7 @@ namespace Testing.RumtimeAnalysis
         /// <summary>
         /// Compares Matrix creation by Array and by list
         /// </summary>
-        [TestMethod]
+       // [TestMethod]
         [TestCategory("Runtime analysis")]
         public void ListTesting()
         {
@@ -384,7 +384,7 @@ namespace Testing.RumtimeAnalysis
             }
         }
 
-        [TestMethod]
+      //  [TestMethod]
         [TestCategory("Runtime analysis")]
         public void BitmapGetColour()
         {
@@ -425,7 +425,7 @@ namespace Testing.RumtimeAnalysis
 
         }
 
-        [TestMethod]
+     //   [TestMethod]
         [TestCategory("Runtime analysis")]
         public void Motion2aSubequent()
         {
@@ -481,7 +481,7 @@ namespace Testing.RumtimeAnalysis
         /// <summary>
         /// Checks that compare is being called the right number of times
         /// </summary>
-        [TestMethod]
+     //   [TestMethod]
         [TestCategory("Runtime")]
         public void Motion2aMultipleCompare()
         {

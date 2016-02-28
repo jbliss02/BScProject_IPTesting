@@ -46,7 +46,7 @@ namespace ImageAnalysis.Data
         /// </summary>
         public void PopulateMovement()
         {
-            DataTable dt = captureInfo.ReturnCaptureMovement(CaptureXml());
+            DataTable dt = captureInfo.ReturnCaptureMovement(SerialiseMe());
 
             foreach(DataRow dr in dt.Rows)
             {
@@ -62,18 +62,21 @@ namespace ImageAnalysis.Data
         /// <summary>
         /// XML representation of the captures in the list
         /// </summary>
-        public XmlDocument CaptureXml()
+        public XmlDocument SerialiseMe()
         {
-            XmlDocument doc = new XmlDocument();
-            using (MemoryStream stream = new MemoryStream())
-            {            
-                XmlSerializer x = new XmlSerializer(typeof(List<Capture>));
-                x.Serialize(stream, list);
-                stream.Seek(0, System.IO.SeekOrigin.Begin); //without this there is a 'missing' root element error
-                doc.Load(stream);
-            }
 
-           return doc;
+            return new Tools.Xml().SerialiseObject(list);
+
+           // XmlDocument doc = new XmlDocument();
+           // using (MemoryStream stream = new MemoryStream())
+           // {            
+           //     XmlSerializer x = new XmlSerializer(typeof(List<Capture>));
+           //     x.Serialize(stream, list);
+           //     stream.Seek(0, System.IO.SeekOrigin.Begin); //without this there is a 'missing' root element error
+           //     doc.Load(stream);
+           // }
+
+           //return doc;
         }
 
     }
