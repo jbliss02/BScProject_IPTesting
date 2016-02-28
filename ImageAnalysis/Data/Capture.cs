@@ -76,33 +76,6 @@ namespace ImageAnalysis.Data
            return doc;
         }
 
-
-        ///// <summary>
-        ///// THUS IS DEPRECATED BY THE CALLS IN EACH ITME?
-        ///// </summary>
-        ///// <returns></returns>
-        //public XmlDocument MotionTestingXml()
-        //{
-        //    //update the captureId in the testing object
-        //    list.Where(a => a.testing != null && a.testing.detectedMovmentFrames != null).ToList().ForEach(a => a.testing.captureId = a.captureId);
-
-        //    //get all the movements in a list
-        //    var testing = (from cap in list where cap.testing != null select cap.testing).ToList();     
-        //    List<CaptureMotionTesting> testingList = (from test in testing where test.detectedMovmentFrames != null select test).ToList();
-
-        //    //serialise into XML and return
-        //    XmlDocument doc = new XmlDocument();
-        //    using (MemoryStream stream = new MemoryStream())
-        //    {
-        //        XmlSerializer x = new XmlSerializer(typeof(List<CaptureMotionTesting>));
-        //        x.Serialize(stream, testingList);
-        //        stream.Seek(0, System.IO.SeekOrigin.Begin); //without this there is a 'missing' root element error
-        //        doc.Load(stream);
-        //    }
-
-        //    return doc;
-
-       // }//DetectedMovementXml
     }
 
     /// <summary>
@@ -114,38 +87,14 @@ namespace ImageAnalysis.Data
         [XmlIgnoreAttribute]
         public DateTime? capturedOn { get; set; }
 
+        public DateTime? captureStart { get; set; }
+
+        public DateTime? captureEnd { get; set; }
+
         /// <summary>
         /// What frames we know have movement
         /// </summary>
         public List<Movement> movement { get; set; } = new List<Movement>();
-
-        //public CaptureMotionTesting testing;
-
-
-        ///// <summary>
-        ///// Returns information about the CaptureMotionTesting 
-        ///// </summary>
-        ///// <returns></returns>
-        //public XmlDocument TestingXml()
-        //{
-        //    if (this.testing == null) { throw new Exception("Testing object was null"); }
-
-        //    //update the captureId in the testing object
-        //    this.testing.captureId = this.captureId;
-
-        //    //serialise testing object XML and return
-        //    XmlDocument doc = new XmlDocument();
-        //    using (MemoryStream stream = new MemoryStream())
-        //    {
-        //        XmlSerializer x = new XmlSerializer(typeof(CaptureMotionTesting));
-        //        x.Serialize(stream, this.testing);
-        //        stream.Seek(0, System.IO.SeekOrigin.Begin); //without this there is a 'missing' root element error
-        //        doc.Load(stream);
-        //    }
-
-        //    return doc;
-
-        //}//DetectedMovementXml 
 
     }
 }

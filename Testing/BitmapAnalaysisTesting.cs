@@ -16,7 +16,6 @@ namespace Testing
             BitmapWrapper bitmap = new BitmapWrapper(@"F:\temp\analysis\multiple_movement\test_266.jpg");
 
             Assert.IsTrue(bitmap.pixelAnalysis.SumPixelHex == bitmap.pixelAnalysis.totalPixelColors);
-            var x = "nmd.";
         }
     }
 }

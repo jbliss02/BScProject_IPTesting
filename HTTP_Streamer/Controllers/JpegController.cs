@@ -41,7 +41,7 @@ namespace HTTP_Streamer.Controllers
                 response.Content.Headers.TryAddWithoutValidation("Content-Type", "multipart/x-mixed-replace;boundary=" + jpegStream.boundary);
                 return response;
             }
-            catch (Exception ex)
+            catch
             {
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
@@ -74,7 +74,7 @@ namespace HTTP_Streamer.Controllers
                 response.Content.Headers.TryAddWithoutValidation("Content-Type", "multipart/x-mixed-replace;boundary=" + jpegStream.boundary);
                 return response;
             }
-            catch (Exception ex)
+            catch
             {
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }

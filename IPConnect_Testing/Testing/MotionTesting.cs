@@ -37,24 +37,24 @@ namespace IPConnect_Testing.Testing
             {
                 MotionSensor2aTest test = new MotionSensor2aTest();
 
-                CaptureMotionTesting captureTesting = new CaptureMotionTesting();
-                captureTesting.startTime = DateTime.Now;
+                CaptureTesting captureTesting = new CaptureTesting();
+                captureTesting.detectionStartTime = DateTime.Now;
                 captureTesting.detectedMovmentFrames = new List<int>();
                 captureTesting.detectionMethod = "a";
 
                 test.Run(capture.captureId);
 
                 captureTesting.detectedMovmentFrames = test.movementFrames;
-                captureTesting.endTime = DateTime.Now;
+                captureTesting.detectionEndTime = DateTime.Now;
 
                 WriteToDatabase(captureTesting);
             }
         }
 
-        private void WriteToDatabase(CaptureMotionTesting captureTest)
+        private void WriteToDatabase(CaptureTesting captureTest)
         {
             var db = new CaptureDb(ConfigurationManager.ConnectionStrings["AZURE"].ConnectionString);
-            db.CreateDetectionSession(captureTest.MotionTestingXml());
+            db.CreateDetectionSession(captureTest.CaptureTestingXml());
         }
 
     }

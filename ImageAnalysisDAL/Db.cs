@@ -17,10 +17,10 @@ namespace ImageAnalysisDAL
 
         public ConnectionStringSettingsCollection connections { get; set; } = ConfigurationManager.ConnectionStrings;
 
-        public DataTable DataTableFromProc(string procName, string stcon)
+        public DataTable DataTableFromProc(string procName)
         {
             DataTable dt = new DataTable();
-            using (SqlConnection con = new SqlConnection(stcon))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
 
@@ -39,11 +39,11 @@ namespace ImageAnalysisDAL
             return dt;
         }
 
-        public DataTable DataTableFromProc(string procName, string stcon, List<SqlParameter> paras)
+        public DataTable DataTableFromProc(string procName, List<SqlParameter> paras)
         {
             DataTable dt = new DataTable();
 
-            using (SqlConnection con = new SqlConnection(stcon))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
 
@@ -66,27 +66,27 @@ namespace ImageAnalysisDAL
             return dt;
         }
 
-        public DataTable DataTableFromProc(string procName, string stcon, SqlParameter para)
+        public DataTable DataTableFromProc(string procName, SqlParameter para)
         {
             List<SqlParameter> paras = new List<SqlParameter>();
             paras.Add(para);
-            return DataTableFromProc(procName, stcon, paras);
+            return DataTableFromProc(procName, paras);
         }
 
-        public DataTable DataTableFromView(string viewName, string stcon)
+        public DataTable DataTableFromView(string viewName)
         {
-            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM " + viewName, stcon);
+            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM " + viewName, connectionString);
 
             DataTable dt = new DataTable();
             da.Fill(dt);
             return dt;
         }
 
-        public string RunProcWithReturn(string procName, string stcon, SqlParameter p)
+        public string RunProcWithReturn(string procName, SqlParameter p)
         {
             string st = string.Empty;
 
-            SqlConnection con = new SqlConnection(stcon);
+            SqlConnection con = new SqlConnection(connectionString);
             con.Open();
 
             SqlCommand cmd = new SqlCommand();

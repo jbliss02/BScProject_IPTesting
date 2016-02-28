@@ -9,13 +9,13 @@ using System.Data;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
+using ImageAnalysis.Data;
 
-
-namespace ImageAnalysis.Data
+namespace IPConnect_Testing.Testing
 {
     public class CaptureListTesting : CaptureList, ICaptureList
     {
-        public new List<CaptureMotionTesting> list { get; set; }
+        public new List<CaptureTesting> list { get; set; }
 
         /// <summary>
         /// Populates metadata about each capture session available
@@ -24,14 +24,14 @@ namespace ImageAnalysis.Data
         /// <param name="allData"></param>
         public new void PopulateAllCaptures(bool allData)
         {
-            list = new List<CaptureMotionTesting>();
+            list = new List<CaptureTesting>();
             ConnectionStringSettingsCollection connections = ConfigurationManager.ConnectionStrings;
             captureInfo = new ImageAnalysisDAL.CaptureDb(connections["AZURE"].ConnectionString);
             DataTable dt = captureInfo.ReturnAllCaptures();
 
             foreach (DataRow dr in dt.Rows)
             {
-                CaptureMotionTesting capture = new CaptureMotionTesting();
+                CaptureTesting capture = new CaptureTesting();
                 capture.captureId = dr.Field<String>("captureId");
                 capture.capturedOn = dr.Field<DateTime?>("capturedOn");
                 list.Add(capture);
@@ -45,13 +45,13 @@ namespace ImageAnalysis.Data
     /// <summary>
     /// Used to hold testing data about a single Capture object
     /// </summary>
-    public class CaptureMotionTesting : Capture, ICapture
+    public class CaptureTesting : Capture, ICapture
     {
-        public CaptureMotionTesting() {  }
+        public CaptureTesting() {  }
 
-        public DateTime startTime { get; set; }
+        public DateTime detectionStartTime { get; set; }
 
-        public DateTime endTime { get; set; }
+        public DateTime detectionEndTime { get; set; }
 
         public String detectionMethod { get; set; }
 
@@ -60,20 +60,17 @@ namespace ImageAnalysis.Data
         /// </summary>
         public List<Int32> detectedMovmentFrames { get; set; }
 
-
         /// <summary>
         /// Returns information about the CaptureMotionTesting 
         /// </summary>
         /// <returns></returns>
-        public XmlDocument MotionTestingXml()
+        public XmlDocument CaptureTestingXml()
         {
-
- 
            //serialise testing object XML and return
             XmlDocument doc = new XmlDocument();
             using (MemoryStream stream = new MemoryStream())
             {
-                XmlSerializer x = new XmlSerializer(typeof(CaptureMotionTesting));
+                XmlSerializer x = new XmlSerializer(typeof(CaptureTesting));
                 x.Serialize(stream, this);
                 stream.Seek(0, System.IO.SeekOrigin.Begin); //without this there is a 'missing' root element error
                 doc.Load(stream);

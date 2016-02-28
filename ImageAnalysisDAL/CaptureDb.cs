@@ -7,6 +7,8 @@ using System.Data;
 using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Xml;
+using Tools;
+
 namespace ImageAnalysisDAL
 {
     /// <summary>
@@ -18,16 +20,16 @@ namespace ImageAnalysisDAL
 
         public DataTable ReturnAllCaptures()
         {
-            return DataTableFromView("dbo.allCaptures", connectionString);
+            return DataTableFromView("dbo.allCaptures");
         }
 
-        public DataTable ReturnCaptureMovement(XmlDocument captureXml)
+        public DataTable ReturnCaptureMovement(XmlDocument captureXml) 
         {
             SqlParameter p = new SqlParameter();
             p.ParameterName = "@xml";
             p.DbType = DbType.Xml;
             p.Value = captureXml.OuterXml;
-            return DataTableFromProc("dbo.returnCaptureMovement", connectionString, p);
+            return DataTableFromProc("dbo.returnCaptureMovement", p);
         }
 
         /// <summary>
@@ -43,8 +45,8 @@ namespace ImageAnalysisDAL
             p.DbType = DbType.Xml;
             p.Value = motionTestingXml.OuterXml;
 
-            return -1;
-
+            string id = RunProcWithReturn("dbo.addDetectionTestData", p);
+            return id.StringToInt();
 
         }
 

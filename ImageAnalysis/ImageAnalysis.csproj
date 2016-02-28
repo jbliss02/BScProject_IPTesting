@@ -49,7 +49,6 @@
     <Compile Include="Analysis\JpegComparision.cs" />
     <Compile Include="Analysis\PixelMatrix.cs" />
     <Compile Include="Data\Capture.cs" />
-    <Compile Include="Data\CaptureMotionTesting.cs" />
     <Compile Include="Data\ICapture.cs" />
     <Compile Include="Data\ICaptureList.cs" />
     <Compile Include="Data\Movement.cs" />

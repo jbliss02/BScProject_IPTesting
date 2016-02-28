@@ -57,7 +57,6 @@ namespace IPConnect_Testing
         {
             MotionTesting motion = new MotionTesting();
             motion.TestAllCaptures(MotionSensorTypes.Motion2a);
-            var x = "jk;d";
         }
 
         static void RunMotionTests_2a()
@@ -276,8 +275,6 @@ namespace IPConnect_Testing
             matrix.GridSystemOn = true;
             matrix.Populate(@"F:\temp\MotionSensor\2.2\test_101.jpg", @"F:\temp\MotionSensor\2.2\test_128.jpg");
             matrix.DumpGridToText(@"F:\temp\MotionSensor\2.2\grid.txt");
-
-            var x = "ksd";
 
         }
 

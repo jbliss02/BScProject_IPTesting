@@ -26,48 +26,49 @@ namespace Testing.Data
         public void CaptureListTestXml()
         {
 
-            CaptureMotionTesting cap = new CaptureMotionTesting();
+            CaptureTesting cap = new CaptureTesting();
             cap.captureId = "111";
-            cap.startTime = DateTime.Now;
-            cap.endTime = DateTime.Now.AddMinutes(1);          
+            cap.detectionStartTime = DateTime.Now;
+            cap.detectionEndTime = DateTime.Now.AddMinutes(1);
+            cap.detectionMethod = "a";     
             cap.detectedMovmentFrames = new List<int>();
             cap.detectedMovmentFrames.Add(1);
             cap.detectedMovmentFrames.Add(31);
             cap.detectedMovmentFrames.Add(78);
             cap.detectedMovmentFrames.Add(66);
 
-            XmlDocument xmldoc = cap.MotionTestingXml();
+            XmlDocument xmldoc = cap.CaptureTestingXml();
             Assert.IsTrue(xmldoc.OuterXml.Count() > 0);
 
-            cap = new CaptureMotionTesting();
+            cap = new CaptureTesting();
             cap.captureId = "222";
-            cap = new CaptureMotionTesting();
-            cap.startTime = DateTime.Now;
-            cap.endTime = DateTime.Now.AddMinutes(1);
+            cap.detectionMethod = "a";
+            cap.detectionStartTime = DateTime.Now;
+            cap.detectionEndTime = DateTime.Now.AddMinutes(1);
             cap.detectedMovmentFrames = new List<int>();
             cap.detectedMovmentFrames.Add(8);
             cap.detectedMovmentFrames.Add(88);
             cap.detectedMovmentFrames.Add(98);
             cap.detectedMovmentFrames.Add(28);
 
-            xmldoc = cap.MotionTestingXml();
+            xmldoc = cap.CaptureTestingXml();
             Assert.IsTrue(xmldoc.OuterXml.Count() > 0);
 
 
-            cap = new CaptureMotionTesting();
+            cap = new CaptureTesting();
             cap.captureId = "333";
-            cap = new CaptureMotionTesting();
-            cap.startTime = DateTime.Now;
-            cap.endTime = DateTime.Now.AddMinutes(1);
+            cap.detectionMethod = "a";
+            cap.detectionStartTime = DateTime.Now;
+            cap.detectionEndTime = DateTime.Now.AddMinutes(1);
 
-            xmldoc = cap.MotionTestingXml();
+            xmldoc = cap.CaptureTestingXml();
             Assert.IsTrue(xmldoc.OuterXml.Count() > 0);
 
 
-            cap = new CaptureMotionTesting();
+            cap = new CaptureTesting();
             cap.captureId = "444";
-
-            xmldoc = cap.MotionTestingXml();
+            cap.detectionMethod = "a";
+            xmldoc = cap.CaptureTestingXml();
             Assert.IsTrue(xmldoc.OuterXml.Count() > 0);
 
         }

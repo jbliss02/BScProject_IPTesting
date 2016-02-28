@@ -57,7 +57,7 @@ namespace Testing.RumtimeAnalysis
                 }
                 Assert.IsTrue(true);
             }
-            catch (Exception ex)
+            catch
             {
                 Assert.IsTrue(false);
             }
@@ -98,7 +98,7 @@ namespace Testing.RumtimeAnalysis
                 }
                 Assert.IsTrue(true);
             }
-            catch (Exception ex)
+            catch
             {
                 Assert.IsTrue(false);
             }
@@ -142,7 +142,7 @@ namespace Testing.RumtimeAnalysis
                 }
                 Assert.IsTrue(true);
             }
-            catch (Exception ex)
+            catch
             {
                 Assert.IsTrue(false);
             }
@@ -187,7 +187,7 @@ namespace Testing.RumtimeAnalysis
                 }
                 Assert.IsTrue(true);
             }
-            catch (Exception ex)
+            catch
             {
                 Assert.IsTrue(false);
             }
@@ -215,7 +215,7 @@ namespace Testing.RumtimeAnalysis
                 }
                 Assert.IsTrue(true);
             }
-            catch (Exception ex)
+            catch 
             {
                 Assert.IsTrue(false);
             }
@@ -308,7 +308,7 @@ namespace Testing.RumtimeAnalysis
                 }
                 Assert.IsTrue(true);
             }
-            catch (Exception ex)
+            catch
             {
                 Assert.IsTrue(false);
             }
@@ -378,7 +378,7 @@ namespace Testing.RumtimeAnalysis
 
                 Assert.IsTrue(true);
             }
-            catch (Exception ex)
+            catch
             {
                 Assert.IsTrue(false);
             }
@@ -472,7 +472,7 @@ namespace Testing.RumtimeAnalysis
                 }
                 Assert.IsTrue(true);
             }
-            catch (Exception ex)
+            catch 
             {
                 Assert.IsTrue(false);
             }
@@ -509,7 +509,7 @@ namespace Testing.RumtimeAnalysis
 
                 Assert.IsTrue(true);
             }
-            catch (Exception ex)
+            catch 
             {
                 Assert.IsTrue(false);
             }
