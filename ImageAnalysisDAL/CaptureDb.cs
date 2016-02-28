@@ -43,6 +43,7 @@ namespace ImageAnalysisDAL
             p.DbType = DbType.Xml;
             p.Value = motionTestingXml.OuterXml;
 
+            return -1;
 
 
         }

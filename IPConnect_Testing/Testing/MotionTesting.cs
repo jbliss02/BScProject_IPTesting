@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using System.Configuration;
 using System.Threading.Tasks;
 using ImageAnalysis.MotionSensor;
 using ImageAnalysis.Data;
+using ImageAnalysisDAL;
 
 namespace IPConnect_Testing.Testing
 {
@@ -15,7 +17,7 @@ namespace IPConnect_Testing.Testing
     /// </summary>
     public class MotionTesting
     {
-        public CaptureList captures { get; set; }
+        public CaptureListTesting captures { get; set; }
 
         /// <summary>
         /// Tests all items in the captures list, against the specified motion sensor type
@@ -23,9 +25,10 @@ namespace IPConnect_Testing.Testing
         /// <param name="motionSensorType"></param>
         public void TestAllCaptures(MotionSensorTypes motionSensorType)
         {
-            captures = new CaptureList();
+            captures = new CaptureListTesting();
             captures.PopulateAllCaptures(true);
             captures.list.ForEach(x => TestMotion(x, motionSensorType));
+
         }
 
         public void TestMotion(Capture capture, MotionSensorTypes motionSensorType)
@@ -34,16 +37,24 @@ namespace IPConnect_Testing.Testing
             {
                 MotionSensor2aTest test = new MotionSensor2aTest();
 
-                capture.testing = new ImageAnalysis.CaptureTesting();
-                capture.testing.startTime = DateTime.Now;
-                capture.testing.detectedMovmentFrames = new List<int>();
-                capture.testing.captureMethod = "a";
+                CaptureMotionTesting captureTesting = new CaptureMotionTesting();
+                captureTesting.startTime = DateTime.Now;
+                captureTesting.detectedMovmentFrames = new List<int>();
+                captureTesting.detectionMethod = "a";
 
                 test.Run(capture.captureId);
 
-                capture.testing.detectedMovmentFrames = test.movementFrames;
-                capture.testing.endTime = DateTime.Now;
+                captureTesting.detectedMovmentFrames = test.movementFrames;
+                captureTesting.endTime = DateTime.Now;
+
+                WriteToDatabase(captureTesting);
             }
+        }
+
+        private void WriteToDatabase(CaptureMotionTesting captureTest)
+        {
+            var db = new CaptureDb(ConfigurationManager.ConnectionStrings["AZURE"].ConnectionString);
+            db.CreateDetectionSession(captureTest.MotionTestingXml());
         }
 
     }
