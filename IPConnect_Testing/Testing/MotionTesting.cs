@@ -27,17 +27,21 @@ namespace IPConnect_Testing.Testing
         {
             captures = new CaptureListTesting();
             captures.PopulateAllCaptures(true);
-            captures.list.ForEach(x => TestMotion(x, motionSensorType));
+
+            var settingsList = new MotionSensorSettingsList().list;
+
+            foreach (MotionSensorSettingsTest setting in settingsList)
+            {
+                captures.list.ForEach(x => TestMotion(x, motionSensorType, setting));
+            }
         }
 
-        public void TestMotion(CaptureTesting captureTesting, MotionSensorTypes motionSensorType)
+        public void TestMotion(CaptureTesting captureTesting, MotionSensorTypes motionSensorType, MotionSensorSettingsTest settings)
         {
             if (motionSensorType == MotionSensorTypes.Motion2a)
             {
                 MotionSensor2aTest test = new MotionSensor2aTest();
-
-                MotionSensorSettingsTest motionSettings = new MotionSensorSettingsTest();
-                test.settings = motionSettings;
+                test.settings = settings;
 
                 captureTesting.detectionStartTime = DateTime.Now;
                 captureTesting.detectedMovmentFrames = new List<int>();
@@ -48,7 +52,7 @@ namespace IPConnect_Testing.Testing
                 captureTesting.detectedMovmentFrames = test.movementFrames;
                 captureTesting.detectionEndTime = DateTime.Now;
 
-                WriteToDatabase(captureTesting, motionSettings);
+                WriteToDatabase(captureTesting, settings);
             }
         }
 
@@ -58,8 +62,6 @@ namespace IPConnect_Testing.Testing
             db.CreateDetectionSession(captureTest.SerialiseMe(), motionSettings.SerialiseMe());
 
         }
-
-
 
     }
 }

@@ -75,11 +75,15 @@ namespace ImageAnalysisDAL
 
         protected DataTable DataTableFromView(string viewName)
         {
-            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM " + viewName, connectionString);
-
             DataTable dt = new DataTable();
-            da.Fill(dt);
+            using (SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM " + viewName, connectionString))
+            {
+                da.Fill(dt);
+
+            }
+
             return dt;
+               
         }
 
         protected string RunProcWithReturn(string procName, SqlParameter p)

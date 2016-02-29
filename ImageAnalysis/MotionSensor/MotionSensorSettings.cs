@@ -40,7 +40,7 @@ namespace ImageAnalysis.MotionSensor
         /// Multiplier used when determining whether there is motion, or not. Defaults to 1. Less than 1 increases
         /// sensitivity, great than 1 decreases sensitivity
         /// </summary>
-        public double sensitivity { get; set; }
+        public decimal sensitivity { get; set; }
 
         /// <summary>
         /// The number of pixels to search horizontally. Defaults to the image width if not set

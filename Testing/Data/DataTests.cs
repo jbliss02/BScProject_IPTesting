@@ -89,9 +89,21 @@ namespace Testing.Data
         {
             MotionSensorSettingsTest test = new MotionSensorSettingsTest();
             test.captureId = "111";
-            test.sensitivity = 3.111;
+            test.sensitivity = (decimal)3.111;
             XmlDocument doc = test.SerialiseMe();
             Assert.IsTrue(doc.OuterXml.Count() > 0);
+        }
+
+        /// <summary>
+        /// Tests that the motion settings ranges are extracted from the database,
+        /// and that a colleciton of MotionSensorSettingsTest's is created
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Data")]
+        public void MotionSettingRanges()
+        {
+            MotionSensorSettingsList settings = new MotionSensorSettingsList();
+            Assert.IsTrue(settings.list.Count > 0);
         }
 
 

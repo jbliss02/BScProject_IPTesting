@@ -5,6 +5,8 @@ using System.Text;
 using System.Xml;
 using System.Configuration;
 using System.Threading.Tasks;
+using System.Data;
+using System.Data.SqlClient;
 using System.Reflection;
 using ImageAnalysis.MotionSensor;
 using ImageAnalysis.Data;
@@ -20,32 +22,45 @@ namespace IPConnect_Testing.Testing
     {
         public List<MotionSensorSettingsTest> list { get; set; }
 
-        public struct sentitivity
-        {
-            public double min { get; set; }
-            public double max { get; set; }
-            public double increment { get; set; }
-        }
+        public MotionSensorSettingsList() { Populate(); }
 
-        /// <summary>
-        /// TODO - MAKE THIS DYNAMIC INTO A DATABASE 
-        /// </summary>
         public void Populate()
         {
             //get a list of different sensitivities to start
             list = new List<MotionSensorSettingsTest>();
 
-            sentitivity sens = new sentitivity();
-            sens.min = 0.1;
-            sens.max = 5;
-            sens.increment = 0.2;
+            var db = new DAL.CaptureDbTest(ConfigurationManager.ConnectionStrings["AZURE"].ConnectionString);
+            Convert(db.ReturnSettingTypeRanges());
 
-            for(double i = sens.min; i < sens.max; i += sens.increment)
+        }//Populate
+
+        private void Convert(DataTable dt)
+        {
+            foreach (DataRow dr in dt.Rows)
             {
 
-            }
+                if (dr["dataType"].ToString() == "decimal" && dr["settingTypeName"].ToString() == "sensitivity")
+                {
+                    decimal min = dr["minimum"].ToString().StringToDec();
+                    decimal max = dr["maximum"].ToString().StringToDec();
+                    decimal inc = dr["increment"].ToString().StringToDec();
 
-        }
+                    for (decimal i = min; i <= max; i += inc)
+                    {
+                        MotionSensorSettingsTest test = new MotionSensorSettingsTest();
+                        test.sensitivity = i;
+                        list.Add(test);
+                    }
+
+                }
+                else if(dr["settingTypeName"].ToString() == "int")
+                {
+
+                }
+
+            }
+        }//Convert
+
     }
 
     /// <summary>
@@ -96,4 +111,5 @@ namespace IPConnect_Testing.Testing
         }
 
     }
+
 }

@@ -127,7 +127,8 @@ namespace ImageAnalysis.MotionSensor
 
         private double ReturnBuffer(double max)
         {
-            return max * 1.2 * settings.sensitivity;
+            //return max * 1.2 * (double)settings.sensitivity;
+            return max * (double)settings.sensitivity;
         }
 
         private double ReturnMax(List<double> list)
