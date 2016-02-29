@@ -46,7 +46,7 @@ namespace ImageAnalysisDAL
             p.DbType = DbType.Xml;
             p.Value = motionTestingXml.OuterXml;
 
-            string id = RunProcWithReturn("dbo.addDetectionTestData", p);
+            string id = RunProcWithReturn("dbo.addDetectionData", p);
 
             //add the settings
             List<SqlParameter> paras = new List<SqlParameter>();
@@ -62,7 +62,7 @@ namespace ImageAnalysisDAL
             p.DbType = DbType.Int16;
             paras.Add(p);
 
-            RunProc("dbo.addDetectionSettings", paras);
+            RunProc("test.addDetectionSessionSettings", paras);
 
         }
 

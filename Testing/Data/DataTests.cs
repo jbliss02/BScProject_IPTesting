@@ -88,6 +88,8 @@ namespace Testing.Data
         public void CatpureSettingsXml()
         {
             MotionSensorSettingsTest test = new MotionSensorSettingsTest();
+            test.captureId = "111";
+            test.sensitivity = 3.111;
             XmlDocument doc = test.SerialiseMe();
             Assert.IsTrue(doc.OuterXml.Count() > 0);
         }
