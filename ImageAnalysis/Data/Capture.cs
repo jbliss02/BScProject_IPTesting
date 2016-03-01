@@ -26,7 +26,7 @@ namespace ImageAnalysis.Data
         {
             list = new List<Capture>();
             ConnectionStringSettingsCollection connections = ConfigurationManager.ConnectionStrings;
-            captureInfo = new ImageAnalysisDAL.CaptureDb(connections["AZURE"].ConnectionString);
+            captureInfo = new ImageAnalysisDAL.CaptureDb(connections["LOCALDB"].ConnectionString);
             DataTable dt = captureInfo.ReturnAllCaptures();
             
             foreach(DataRow dr in dt.Rows)

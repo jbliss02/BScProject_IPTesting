@@ -22,12 +22,19 @@ namespace IPConnect_Testing.Testing
     {
         public List<MotionSensorSettingsTest> list { get; set; }
 
-        public MotionSensorSettingsList() { Populate(); }
+        public List<MotionSetting> seperateSettingLists { get; set; } //CHANGE TO PRIOVATE
 
-        public void Populate()
+        public MotionSensorSettingsList() { PopulateAllPossible(); }
+
+        /// <summary>
+        /// Populates the settings list will all possible combination of ranges, as defined in the 
+        /// database. This can result in many elements.
+        /// </summary>
+        public void PopulateAllPossible()
         {
             //get a list of different sensitivities to start
             list = new List<MotionSensorSettingsTest>();
+            seperateSettingLists = new List<MotionSetting>();
 
             var db = new DAL.CaptureDbTest(ConfigurationManager.ConnectionStrings["AZURE"].ConnectionString);
             Convert(db.ReturnSettingTypeRanges());
@@ -38,8 +45,11 @@ namespace IPConnect_Testing.Testing
         {
             foreach (DataRow dr in dt.Rows)
             {
+                MotionSetting singleSetting = new MotionSetting();
+                singleSetting.propertyName = dr["settingTypeName"].ToString();
+                singleSetting.list = new List<MotionSensorSettingsTest>();
 
-                if (dr["dataType"].ToString() == "decimal" && dr["settingTypeName"].ToString() == "sensitivity")
+                if (dr["dataType"].ToString() == "decimal")
                 {
                     decimal min = dr["minimum"].ToString().StringToDec();
                     decimal max = dr["maximum"].ToString().StringToDec();
@@ -48,17 +58,30 @@ namespace IPConnect_Testing.Testing
                     for (decimal i = min; i <= max; i += inc)
                     {
                         MotionSensorSettingsTest test = new MotionSensorSettingsTest();
-                        test.sensitivity = i;
-                        list.Add(test);
+                        test.UpdateProperty(singleSetting.propertyName, i);
+                        singleSetting.list.Add(test);
                     }
 
                 }
-                else if(dr["settingTypeName"].ToString() == "int")
+                else if(dr["dataType"].ToString() == "integer")
                 {
+                    int min = dr["minimum"].ToString().StringToInt();
+                    int max = dr["maximum"].ToString().StringToInt();
+                    int inc = dr["increment"].ToString().StringToInt();
+
+                    for (int i = min; i <= max; i += inc)
+                    {
+                        MotionSensorSettingsTest test = new MotionSensorSettingsTest();
+                        test.UpdateProperty(singleSetting.propertyName, i);
+                        singleSetting.list.Add(test);
+                    }
 
                 }
 
-            }
+                seperateSettingLists.Add(singleSetting);
+
+            }//each datarow
+
         }//Convert
 
     }
@@ -110,6 +133,25 @@ namespace IPConnect_Testing.Testing
 
         }
 
+        public void UpdateProperty<T>(string propertyName, T value)
+        {
+            foreach (PropertyInfo property in typeof(MotionSensorSettingsTest).GetProperties())
+            {
+                if (property.Name.Equals(propertyName)) { property.SetValue(this, value); }
+            }
+        }
+    
     }
+
+    /// <summary>
+    /// CHANGE TO INTERNAL
+    /// </summary>
+    public class MotionSetting
+    {
+        public List<MotionSensorSettingsTest> list { get; set; }
+        public string propertyName { get; set; }//the property that has changed within this object
+
+    }
+
 
 }

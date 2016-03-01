@@ -27,7 +27,7 @@ namespace IPConnect_Testing.Testing
         {
             list = new List<CaptureTesting>();
             ConnectionStringSettingsCollection connections = ConfigurationManager.ConnectionStrings;
-            captureInfo = new ImageAnalysisDAL.CaptureDb(connections["AZURE"].ConnectionString);
+            captureInfo = new ImageAnalysisDAL.CaptureDb(connections["LOCALDB"].ConnectionString);
             DataTable dt = captureInfo.ReturnAllCaptures();
 
             foreach (DataRow dr in dt.Rows)

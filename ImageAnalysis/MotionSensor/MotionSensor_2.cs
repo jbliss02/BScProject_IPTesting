@@ -53,12 +53,15 @@ namespace ImageAnalysis.MotionSensor
         /// Called when the object detects motion, creates the event
         /// </summary>
         /// <param name="image"></param>
-        protected void OnMotion(ByteWrapper image1, ByteWrapper image2)
+        protected async void OnMotionAsync(ByteWrapper image1, ByteWrapper image2)
         {
-            if (motionDetected != null)
+            await Task.Run(() =>
             {
-                motionDetected(image1, EventArgs.Empty);
-            }
+                if (motionDetected != null)
+                {
+                    motionDetected(image1, EventArgs.Empty);
+                }
+            });
         }
 
         /// <summary>
@@ -71,7 +74,7 @@ namespace ImageAnalysis.MotionSensor
         protected void OnMotion(ByteWrapper image1, ByteWrapper image2, int motionGrid)
         {
             Console.WriteLine(image2.sequenceNumber + " movement in grid " + motionGrid);
-            OnMotion(image1, image2);
+            OnMotionAsync(image1, image2);
         }
 
         public async void ImageCreatedAsync(ByteWrapper img, EventArgs e)

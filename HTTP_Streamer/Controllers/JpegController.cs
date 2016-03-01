@@ -34,19 +34,21 @@ namespace HTTP_Streamer.Controllers
                 JpegStream jpegStream = new JpegStream(cameraId, sessionKey);
                 Func<Stream, HttpContent, TransportContext, Task> func = jpegStream.WriteToStream;
 
-                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-                response.Content = new PushStreamContent(func);
-                response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
-                response.Content.Headers.Remove("Content-Type");
-                response.Content.Headers.TryAddWithoutValidation("Content-Type", "multipart/x-mixed-replace;boundary=" + jpegStream.boundary);
-                return response;
+                using (HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK))
+                {
+                    response.Content = new PushStreamContent(func);
+                    response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
+                    response.Content.Headers.Remove("Content-Type");
+                    response.Content.Headers.TryAddWithoutValidation("Content-Type", "multipart/x-mixed-replace;boundary=" + jpegStream.boundary);
+                    return response;
+                }
+
             }
             catch
             {
                 return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
         }
-
 
         /// <summary>
         /// Gets a MPeg stream from the camera and session specified
@@ -67,12 +69,15 @@ namespace HTTP_Streamer.Controllers
                 JpegStream jpegStream = new JpegStream(cameraId, sessionKey, startframe, endframe);
                 Func<Stream, HttpContent, TransportContext, Task> func = jpegStream.WriteToStream;
 
-                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-                response.Content = new PushStreamContent(func);
-                response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
-                response.Content.Headers.Remove("Content-Type");
-                response.Content.Headers.TryAddWithoutValidation("Content-Type", "multipart/x-mixed-replace;boundary=" + jpegStream.boundary);
-                return response;
+                using (HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK))
+                {
+                    response.Content = new PushStreamContent(func);
+                    response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
+                    response.Content.Headers.Remove("Content-Type");
+                    response.Content.Headers.TryAddWithoutValidation("Content-Type", "multipart/x-mixed-replace;boundary=" + jpegStream.boundary);
+                    return response;
+                }
+
             }
             catch
             {

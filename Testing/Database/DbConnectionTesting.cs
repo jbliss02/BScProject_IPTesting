@@ -18,7 +18,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Testing.Database
 {
     [TestClass]
-    public class AzureTesting
+    public class DbConnectionTesting
     {
         [TestMethod]
         [TestCategory("Database")]

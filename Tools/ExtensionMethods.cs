@@ -306,6 +306,19 @@ namespace Tools
             {
                 ret = x;
             }
+
+            //sometimes struggles with long decimal places so try splitting on the dot
+            if(value.Contains('.'))
+            {
+                String[] split = value.Split('.');
+
+                if (Int32.TryParse(split[0], out x))
+                {
+                    ret = x;
+                }
+
+            }
+
             return ret;
 
         }

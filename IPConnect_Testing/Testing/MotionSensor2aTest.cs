@@ -37,7 +37,15 @@ namespace IPConnect_Testing.Testing
 
             //create the motion sensor, and listen for images
             MotionSensor_2a motionSensor = new MotionSensor_2a();
-            motionSensor.settings = new MotionSensorSettings();
+
+            if(settings == null)
+            {
+                motionSensor.settings = new MotionSensorSettings();
+            }
+            else
+            {
+                motionSensor.settings = settings;
+            }
 
 
             motionSensor.motionDetected += new MotionSensor_2.MotionDetected(MotionDetected);

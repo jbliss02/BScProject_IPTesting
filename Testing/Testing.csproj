@@ -55,7 +55,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Database\AzureTesting.cs" />
+    <Compile Include="Database\DbConnectionTesting.cs" />
     <Compile Include="Data\DataTests.cs" />
     <Compile Include="ImageSaverTesting.cs" />
     <Compile Include="MotionSensor\MotionSensor2Testing.cs" />
@@ -64,6 +64,7 @@
     <Compile Include="BitmapAnalaysisTesting.cs" />
     <Compile Include="PixelMatrixTest.cs" />
     <Compile Include="RumtimeAnalysis\MotionSensorRunTime.cs" />
+    <Compile Include="TestHarness\SettingsTesting.cs" />
     <Compile Include="Tools\ExtensionMethods.cs" />
   </ItemGroup>
   <ItemGroup>

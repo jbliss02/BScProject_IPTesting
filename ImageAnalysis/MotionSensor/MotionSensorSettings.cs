@@ -58,7 +58,7 @@ namespace ImageAnalysis.MotionSensor
         /// </summary>
         public bool linkCompare { get; set; }
 
-        public MotionSensorSettings() { framesToSkip = 0; horizontalPixelsToSkip = 0; verticalPixelsToSkip = 0; sensitivity = 1; }
+        public MotionSensorSettings() { framesToSkip = 0; horizontalPixelsToSkip = 0; verticalPixelsToSkip = 0; sensitivity = 1; asynchronous = true; }
 
     }
 }

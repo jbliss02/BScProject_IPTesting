@@ -53,7 +53,7 @@ namespace ImageAnalysis.MotionSensor
                 //now scanning, compare the two images and see what the difference is
                 if (sumChangedPixels > pixelChangeThreshold)
                 {
-                    OnMotion(image1, image2);
+                    OnMotionAsync(image1, image2);
                 }
             }
             else if (!ThresholdSet && pixelChange.Count < ControlImageNumber)
