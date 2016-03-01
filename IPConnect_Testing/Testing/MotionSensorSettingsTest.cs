@@ -41,12 +41,12 @@ namespace IPConnect_Testing.Testing
         }//Populate
 
         /// <summary>
-        /// Populates a list of 
+        /// Populates a list of where the settingType passed in is the only value that changes, 
         /// </summary>
         /// <param name="settingType"></param>
         public void PopulateRange(MotionSensorSettingTypes settingType)
         {
-
+             
         }
 
         private void Convert(DataTable dt)

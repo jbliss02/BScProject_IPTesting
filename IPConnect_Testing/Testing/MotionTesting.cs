@@ -38,6 +38,27 @@ namespace IPConnect_Testing.Testing
             }
         }
 
+        /// <summary>
+        /// Tests all captures available, changes motionSensorSetting passed in based on the range of 
+        /// values in the database. 
+        /// </summary>
+        /// <param name="motionSensorType"></param>
+        /// <param name="motionSensorSettings"></param>
+        public void TestAllCaptures(MotionSensorTypes motionSensorType, MotionSensorSettingTypes motionSensorSetting)
+        {
+            captures = new CaptureListTesting();
+            captures.PopulateAllCaptures(true);
+
+            MotionSensorSettingsList motionSensorSettingsList = new MotionSensorSettingsList();
+            motionSensorSettingsList.PopulateRange(motionSensorSetting);
+            var settingsList = motionSensorSettingsList.list;
+
+            foreach (MotionSensorSettingsTest setting in settingsList)
+            {
+                captures.list.ForEach(x => TestMotion(x, motionSensorType, setting));
+            }
+        }
+
         public void TestMotion(CaptureTesting captureTesting, MotionSensorTypes motionSensorType, MotionSensorSettingsTest settings)
         {
             if (motionSensorType == MotionSensorTypes.Motion2a)

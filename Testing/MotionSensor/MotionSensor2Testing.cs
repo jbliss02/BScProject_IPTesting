@@ -49,7 +49,20 @@ namespace Testing.MotionSensor
         [TestCategory("Motion Sensor")]
         public void MotionSensorSettingDefaults()
         {
+            MotionSensorSettings settings = new MotionSensorSettings();
+            settings.LoadDefaults();
+            Assert.IsTrue(settings.sensitivity != 1);
 
+        }//MotionSensor_2b_threshold
+
+        /// <summary>
+        /// tests that a list of settings can be created and that contains the list
+        /// of values for the specified setting, across the range specified in the database
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Motion Sensor")]
+        public void MotionSensorSettingRange()
+        {
             MotionSensorSettings settings = new MotionSensorSettings();
             settings.LoadDefaults();
             Assert.IsTrue(settings.sensitivity != 1);
