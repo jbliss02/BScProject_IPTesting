@@ -41,5 +41,20 @@ namespace Testing.MotionSensor
             }
 
         }//MotionSensor_2b_threshold
+
+        /// <summary>
+        /// checks that defaults are added to the motion sensor settings
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Motion Sensor")]
+        public void MotionSensorSettingDefaults()
+        {
+
+            MotionSensorSettings settings = new MotionSensorSettings();
+            settings.LoadDefaults();
+            Assert.IsTrue(settings.sensitivity != 1);
+
+        }//MotionSensor_2b_threshold
+
     }
 }

@@ -28,7 +28,9 @@ namespace IPConnect_Testing.Testing
             captures = new CaptureListTesting();
             captures.PopulateAllCaptures(true);
 
-            var settingsList = new MotionSensorSettingsList().list;
+            MotionSensorSettingsList motionSensorSettingsList = new MotionSensorSettingsList();
+            motionSensorSettingsList.PopulateAllPossible();
+            var settingsList = motionSensorSettingsList.list;
 
             foreach (MotionSensorSettingsTest setting in settingsList)
             {

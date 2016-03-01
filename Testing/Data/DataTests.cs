@@ -103,6 +103,7 @@ namespace Testing.Data
         public void MotionSettingRanges()
         {
             MotionSensorSettingsList settings = new MotionSensorSettingsList();
+            settings.PopulateAllPossible();
             Assert.IsTrue(settings.list.Count > 0);
         }
 

@@ -16,7 +16,7 @@ namespace Testing.TestHarness
         public void CombinationTesting()
         {
             MotionSensorSettingsList testSettings = new MotionSensorSettingsList();
-
+            testSettings.PopulateAllPossible();
             Assert.IsTrue(testSettings.seperateSettingLists.Count > 3);
             Assert.IsTrue(testSettings.seperateSettingLists[0].list.Count > 0);
             var x = "m;d";

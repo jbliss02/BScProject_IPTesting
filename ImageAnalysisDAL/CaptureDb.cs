@@ -33,6 +33,16 @@ namespace ImageAnalysisDAL
         }
 
         /// <summary>
+        /// Returns the default setting values 
+        /// </summary>
+        /// <returns></returns>
+        public DataTable ReturnMotionSettingDefaults()
+        {
+            return DataTableFromProc("dbo.returnDetectionSettingDefaults");
+        }
+            
+
+        /// <summary>
         /// Creates a database record for a new detection session, adds the header data
         /// the detected movement frames, and the motion sensor detectors
         /// </summary>
@@ -65,6 +75,8 @@ namespace ImageAnalysisDAL
             RunProc("test.addDetectionSessionSettings", paras);
 
         }
+
+
 
     }
 }

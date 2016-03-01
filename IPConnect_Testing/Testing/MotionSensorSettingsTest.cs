@@ -24,7 +24,7 @@ namespace IPConnect_Testing.Testing
 
         public List<MotionSetting> seperateSettingLists { get; set; } //CHANGE TO PRIOVATE
 
-        public MotionSensorSettingsList() { PopulateAllPossible(); }
+        public MotionSensorSettingsList() { }
 
         /// <summary>
         /// Populates the settings list will all possible combination of ranges, as defined in the 
@@ -32,7 +32,6 @@ namespace IPConnect_Testing.Testing
         /// </summary>
         public void PopulateAllPossible()
         {
-            //get a list of different sensitivities to start
             list = new List<MotionSensorSettingsTest>();
             seperateSettingLists = new List<MotionSetting>();
 
@@ -40,6 +39,15 @@ namespace IPConnect_Testing.Testing
             Convert(db.ReturnSettingTypeRanges());
 
         }//Populate
+
+        /// <summary>
+        /// Populates a list of 
+        /// </summary>
+        /// <param name="settingType"></param>
+        public void PopulateRange(MotionSensorSettingTypes settingType)
+        {
+
+        }
 
         private void Convert(DataTable dt)
         {
