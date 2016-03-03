@@ -6,7 +6,20 @@ using System.Threading.Tasks;
 
 namespace Tools
 {
-    class Helpers
+    public static class Helpers
     {
+
+        /// <summary>
+        /// returns a string made up of the current hour, minute, second and mllisecond
+        /// </summary>
+        /// <returns></returns>
+        public static string ShortDateStamp()
+        {
+            DateTime now = DateTime.Now;
+
+            return now.Hour.ToString() + now.Minute.ToString() + now.Second.ToString() + now.Millisecond.ToString();
+
+        }
+
     }
 }

@@ -18,6 +18,7 @@ namespace ImageAnalysis.MotionSensor
         //Work queue
         public Queue<ByteWrapper> WorkQueue { get; set; } //images waiting to be processed
         object objLock = new object();
+        int numberSkipped; //the number of frames that have been skipped in the current sequence
 
         //motion detected event
         public event MotionDetected motionDetected;
@@ -81,16 +82,40 @@ namespace ImageAnalysis.MotionSensor
             await Task.Run(() =>
             {
                 logging.imagesReceived++;
-                WorkQueue.Enqueue(img);
-                SendForCompareAsync(); //need to create an async method
+                AddToWorkQueue(img);
+                SendForCompareAsync(); 
             });
         }
 
         public void ImageCreated(ByteWrapper img, EventArgs e)
         {
             logging.imagesReceived++;
-            WorkQueue.Enqueue(img);
+            AddToWorkQueue(img);
             SendForCompare();
+        }
+
+        /// <summary>
+        /// Adds to the queue, unless frame should be skipped
+        /// </summary>
+        /// <param name="img"></param>
+        private void AddToWorkQueue(ByteWrapper img)
+        {
+            if (settings.framesToSkip > 0)
+            {
+                if (numberSkipped == settings.framesToSkip)
+                {
+                    WorkQueue.Enqueue(img);
+                    numberSkipped = 0;
+                }
+                else
+                {
+                    numberSkipped++;
+                }
+            }
+            else
+            {
+                WorkQueue.Enqueue(img);
+            }
         }
 
         /// <summary>

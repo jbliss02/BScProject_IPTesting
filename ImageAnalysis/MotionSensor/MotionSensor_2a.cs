@@ -36,6 +36,9 @@ namespace ImageAnalysis.MotionSensor
             matrix.LinkCompare = settings.linkCompare;
             if (settings.searchHeight > 0) { matrix.SearchHeight = settings.searchHeight; }
             if (settings.searchWidth > 0) {  matrix.SearchWidth = settings.searchWidth; }
+            if (settings.horizontalPixelsToSkip > 0) { matrix.WidthSearchOffset = settings.horizontalPixelsToSkip + 1; }
+            if (settings.verticalPixelsToSkip > 0) { matrix.WidthSearchOffset = settings.verticalPixelsToSkip + 1; }
+
             if (settings.linkCompare && Comparison != null)
             {
                 matrix.Populate(Comparison, bm2);

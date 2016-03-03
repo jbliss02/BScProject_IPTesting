@@ -96,15 +96,16 @@ namespace IPConnect_Testing.Testing
                     captureTesting.detectedMovmentFrames = test.movementFrames;
                     captureTesting.detectionEndTime = DateTime.Now;
 
-                    WriteToDatabase(captureTesting, settings);
                 }
-                
+
+                WriteToDatabase(captureTesting, settings);
+
             }
         }
 
         private void WriteToDatabase(CaptureTesting captureTest, MotionSensorSettingsTest motionSettings)
         {
-            var db = new CaptureDb(ConfigurationManager.ConnectionStrings["AZURE"].ConnectionString);
+            var db = new CaptureDb(ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString);
             db.CreateDetectionSession(captureTest.SerialiseMe(), motionSettings.SerialiseMe());
 
         }

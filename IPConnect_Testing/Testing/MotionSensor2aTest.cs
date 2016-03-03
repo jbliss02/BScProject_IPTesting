@@ -19,6 +19,7 @@ using ImageAnalysis.Streams;
 using ImageAnalysis;
 using ImageAnalysis.MotionSensor;
 using ImageAnalysis.Data;
+using Tools;
 
 namespace IPConnect_Testing.Testing
 {
@@ -56,7 +57,7 @@ namespace IPConnect_Testing.Testing
                 imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreated); //subscribe to events from the validator (testing so sync only)
 
                 //save 
-                saveFilePath = ConfigurationManager.AppSettings["MotionSaveLocation"] + this.GetHashCode();
+                saveFilePath = ConfigurationManager.AppSettings["MotionSaveLocation"] + @"\" + this.GetHashCode() + Helpers.ShortDateStamp();
 
                 if (Directory.Exists(saveFilePath)) { throw new Exception("Motion writing directory already exists"); }
 
