@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml;
 using System.Configuration;
 using System.Threading.Tasks;
+using System.Reflection;
 using ImageAnalysis.MotionSensor;
 using ImageAnalysis.Data;
 using ImageAnalysisDAL;
@@ -59,23 +60,45 @@ namespace IPConnect_Testing.Testing
             }
         }
 
+        /// <summary>
+        /// Tests all captures in the database. Each setting is taken through its predefined range, with all captures being tested 
+        /// throughout those ranges. All other settings remain at their default value
+        /// </summary>
+        public void TestAllCaptures_SequentialSettingChanges(MotionSensorTypes motionSensorType)
+        {
+            captures = new CaptureListTesting();
+            captures.PopulateAllCaptures(true);
+
+            MotionSensorSettingsList motionSensorSettingsList = new MotionSensorSettingsList();
+            motionSensorSettingsList.PopulateSequentialChange();
+
+            foreach (MotionSensorSettingsTest setting in motionSensorSettingsList.list)
+            {
+                captures.list.ForEach(x => TestMotion(x, motionSensorType, setting));
+            }
+
+        }
+
         public void TestMotion(CaptureTesting captureTesting, MotionSensorTypes motionSensorType, MotionSensorSettingsTest settings)
         {
             if (motionSensorType == MotionSensorTypes.Motion2a)
             {
-                MotionSensor2aTest test = new MotionSensor2aTest();
-                test.settings = settings;
+                using(MotionSensor2aTest test = new MotionSensor2aTest())
+                {
+                    test.settings = settings;
 
-                captureTesting.detectionStartTime = DateTime.Now;
-                captureTesting.detectedMovmentFrames = new List<int>();
-                captureTesting.detectionMethod = "a";
+                    captureTesting.detectionStartTime = DateTime.Now;
+                    captureTesting.detectedMovmentFrames = new List<int>();
+                    captureTesting.detectionMethod = "a";
 
-                test.Run(captureTesting.captureId);
+                    test.Run(captureTesting.captureId);
 
-                captureTesting.detectedMovmentFrames = test.movementFrames;
-                captureTesting.detectionEndTime = DateTime.Now;
+                    captureTesting.detectedMovmentFrames = test.movementFrames;
+                    captureTesting.detectionEndTime = DateTime.Now;
 
-                WriteToDatabase(captureTesting, settings);
+                    WriteToDatabase(captureTesting, settings);
+                }
+                
             }
         }
 

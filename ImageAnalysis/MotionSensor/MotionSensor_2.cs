@@ -73,7 +73,6 @@ namespace ImageAnalysis.MotionSensor
         /// <param name="motionGrid"></param>
         protected void OnMotion(ByteWrapper image1, ByteWrapper image2, int motionGrid)
         {
-            Console.WriteLine(image2.sequenceNumber + " movement in grid " + motionGrid);
             OnMotionAsync(image1, image2);
         }
 

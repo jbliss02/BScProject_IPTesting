@@ -7,6 +7,7 @@ using ImageAnalysis.Analysis;
 using ImageAnalysis.Images.Bitmaps;
 using ImageAnalysis.Images.Jpeg;
 using ImageAnalysis.MotionSensor;
+using IPConnect_Testing.Testing;
 
 namespace Testing.MotionSensor
 {
@@ -67,7 +68,43 @@ namespace Testing.MotionSensor
             settings.LoadDefaults();
             Assert.IsTrue(settings.sensitivity != 1);
 
-        }//MotionSensor_2b_threshold
+        }
+
+
+        /// <summary>
+        /// Checks that we can correctly clone a MotionSensorSettingsList class
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Motion Sensor")]
+        public void MotionSensorSettingCloning()
+        {
+            MotionSensorSettingsTest a = new MotionSensorSettingsTest();
+            a.sensitivity = 199;
+            a.horizontalPixelsToSkip = 199;
+
+            MotionSensorSettingsTest b = new MotionSensorSettingsTest(a);
+            b.sensitivity = 22;
+
+            Assert.IsTrue(a.sensitivity != b.sensitivity);
+            Assert.IsTrue(a.horizontalPixelsToSkip == b.horizontalPixelsToSkip);
+
+        }
+
+
+        /// <summary>
+        /// Checks that the MotionSensorSettingsList.PopulateSequentialChange method creates a single list
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Motion Sensor")]
+        public void SequentialSettingLists()
+        {
+            MotionSensorSettingsList test = new MotionSensorSettingsList();
+            test.PopulateSequentialChange();
+            Assert.IsTrue(test.list.Count > 50);
+        }
+
+
+
 
     }
 }

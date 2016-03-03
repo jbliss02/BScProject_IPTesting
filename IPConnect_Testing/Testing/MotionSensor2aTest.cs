@@ -22,7 +22,7 @@ using ImageAnalysis.Data;
 
 namespace IPConnect_Testing.Testing
 {
-    public class MotionSensor2aTest 
+    public class MotionSensor2aTest : IDisposable
     {
         string saveFilePath;
         string captureId;
@@ -36,30 +36,34 @@ namespace IPConnect_Testing.Testing
             movementFrames = new List<int>();
 
             //create the motion sensor, and listen for images
-            MotionSensor_2a motionSensor = new MotionSensor_2a();
-
-            if(settings == null)
+            using (MotionSensor_2a motionSensor = new MotionSensor_2a())
             {
-                motionSensor.settings = new MotionSensorSettings();
-            }
-            else
-            {
-                motionSensor.settings = settings;
-            }
+                if (settings == null)
+                {
+                    motionSensor.settings = new MotionSensorSettings();
+                }
+                else
+                {
+                    motionSensor.settings = settings;
+                }
 
+                motionSensor.motionDetected += new MotionSensor_2.MotionDetected(MotionDetected);
+                motionSensor.logging.LoggingOn = true;
 
-            motionSensor.motionDetected += new MotionSensor_2.MotionDetected(MotionDetected);
-            motionSensor.logging.LoggingOn = true;
+                //create the validator 
+                ImageValidator imageValidator = new ImageValidator();
+                imageValidator.ListenForImages(imageExtractor);
+                imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreated); //subscribe to events from the validator (testing so sync only)
 
-            //create the validator 
-            ImageValidator imageValidator = new ImageValidator();
-            imageValidator.ListenForImages(imageExtractor);
-            imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreated); //subscribe to events from the validator (testing so sync only)
+                //save 
+                saveFilePath = ConfigurationManager.AppSettings["MotionSaveLocation"] + this.GetHashCode();
 
-            //saver
-            saveFilePath = ConfigurationManager.AppSettings["MotionSaveLocation"];
+                if (Directory.Exists(saveFilePath)) { throw new Exception("Motion writing directory already exists"); }
 
-            imageExtractor.Run();
+                imageExtractor.Run();
+
+            }//using MotionSensor_2a
+
         }
 
         private void Setup(string captureId)
@@ -90,6 +94,14 @@ namespace IPConnect_Testing.Testing
         private void CreateSaveDirectory()
         {
             Directory.CreateDirectory(saveDirectory);
+        }
+
+        public void Dispose()
+        {
+            imageExtractor = null;
+            movementFrames = null;
+            settings = null;
+
         }
 
     }

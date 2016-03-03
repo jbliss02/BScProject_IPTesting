@@ -22,8 +22,8 @@ namespace IPConnect_Testing.Testing
         /// Populates metadata about each capture session available
         /// allData will load additional metadata, like when movement occurs
         /// </summary>
-        /// <param name="allData"></param>
-        public new void PopulateAllCaptures(bool allData)
+        /// <param name="movementData"></param>
+        public new void PopulateAllCaptures(bool movementData)
         {
             list = new List<CaptureTesting>();
             ConnectionStringSettingsCollection connections = ConfigurationManager.ConnectionStrings;
@@ -38,7 +38,7 @@ namespace IPConnect_Testing.Testing
                 list.Add(capture);
             }
 
-            if (allData) { PopulateMovement(); }
+            if (movementData) { PopulateMovement(); }
 
         }//PopulateAllCaptures
     }

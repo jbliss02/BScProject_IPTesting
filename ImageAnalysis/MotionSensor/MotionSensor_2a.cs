@@ -18,7 +18,7 @@ namespace ImageAnalysis.MotionSensor
     /// is considered abnormal, and therefore classed as movement. 
     /// </summary>
 
-    public class MotionSensor_2a : MotionSensor_2
+    public class MotionSensor_2a : MotionSensor_2, IDisposable
     {
         private List<double> pixelChange; //holds a list of the difference between pixels of 2 images (used for setting threshold)
         public double pixelChangeThreshold;
@@ -94,6 +94,13 @@ namespace ImageAnalysis.MotionSensor
             pixelChangeThreshold = max * buffer;
             ThresholdSet = true;
             if (logging.LoggingOn) { logging.threshold = pixelChangeThreshold; }
+        }
+
+        public void Dispose()
+        {
+            pixelChange = null;
+            WorkQueue = null;
+            settings = null;
         }
     }
 }

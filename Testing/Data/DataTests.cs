@@ -94,18 +94,6 @@ namespace Testing.Data
             Assert.IsTrue(doc.OuterXml.Count() > 0);
         }
 
-        /// <summary>
-        /// Tests that the motion settings ranges are extracted from the database,
-        /// and that a colleciton of MotionSensorSettingsTest's is created
-        /// </summary>
-        [TestMethod]
-        [TestCategory("Data")]
-        public void MotionSettingRanges()
-        {
-            MotionSensorSettingsList settings = new MotionSensorSettingsList();
-            settings.PopulateAllPossible();
-            Assert.IsTrue(settings.list.Count > 0);
-        }
 
 
     }

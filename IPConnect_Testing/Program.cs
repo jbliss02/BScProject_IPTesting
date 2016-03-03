@@ -57,7 +57,7 @@ namespace IPConnect_Testing
         static void TestAllCaptures()
         {
             MotionTesting motion = new MotionTesting();
-            motion.TestAllCaptures(MotionSensorTypes.Motion2a);
+            motion.TestAllCaptures_SequentialSettingChanges(MotionSensorTypes.Motion2a);
         }
 
         static void RunMotionTests_2a()

@@ -35,7 +35,7 @@ namespace IPConnect_Testing.Testing
             list = new List<MotionSensorSettingsTest>();
             seperateSettingLists = new List<MotionSetting>();
 
-            var db = new DAL.CaptureDbTest(ConfigurationManager.ConnectionStrings["AZURE"].ConnectionString);
+            var db = new DAL.CaptureDbTest(ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString);
             Convert(db.ReturnSettingTypeRanges());
 
         }//Populate
@@ -49,8 +49,31 @@ namespace IPConnect_Testing.Testing
              
         }
 
+        /// <summary>
+        /// Creates a list where each setting is changed across its full range, whilst the other settings remain at their default level
+        /// </summary>
+        public void PopulateSequentialChange()
+        {
+            seperateSettingLists = new List<MotionSetting>();
+            list = new List<MotionSensorSettingsTest>();
+
+            var db = new DAL.CaptureDbTest(ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString);
+            Convert(db.ReturnSettingTypeRanges());
+
+            //now combine the seperate settings into the list
+            seperateSettingLists.ForEach(x => list.AddRange(x.list));
+
+
+        }//PopulateSequentialChange
+
         private void Convert(DataTable dt)
         {
+
+            //get a template object of the MotionSensorSettingsTest, and load the defaults,
+            //otherwide database is queried on every object created to load defaults
+            MotionSensorSettingsTest template = new MotionSensorSettingsTest();
+            template.LoadDefaults();
+
             foreach (DataRow dr in dt.Rows)
             {
                 MotionSetting singleSetting = new MotionSetting();
@@ -65,7 +88,7 @@ namespace IPConnect_Testing.Testing
 
                     for (decimal i = min; i <= max; i += inc)
                     {
-                        MotionSensorSettingsTest test = new MotionSensorSettingsTest();
+                        MotionSensorSettingsTest test = new MotionSensorSettingsTest(template);
                         test.UpdateProperty(singleSetting.propertyName, i);
                         singleSetting.list.Add(test);
                     }
@@ -79,7 +102,8 @@ namespace IPConnect_Testing.Testing
 
                     for (int i = min; i <= max; i += inc)
                     {
-                        MotionSensorSettingsTest test = new MotionSensorSettingsTest();
+                        MotionSensorSettingsTest test = new MotionSensorSettingsTest(template);
+                        test.LoadDefaults();
                         test.UpdateProperty(singleSetting.propertyName, i);
                         singleSetting.list.Add(test);
                     }
@@ -92,6 +116,7 @@ namespace IPConnect_Testing.Testing
 
         }//Convert
 
+
     }
 
     /// <summary>
@@ -100,6 +125,21 @@ namespace IPConnect_Testing.Testing
     /// </summary>
     public class MotionSensorSettingsTest : MotionSensorSettings
     {
+        public MotionSensorSettingsTest() { }
+
+        /// <summary>
+        /// Copies the properties of the template class parameter, allowing the values to be cloned
+        /// </summary>
+        /// <param name="template"></param>
+        public MotionSensorSettingsTest(MotionSensorSettingsTest template)
+        {
+            foreach (PropertyInfo property in typeof(MotionSensorSettingsTest).GetProperties())
+            {
+                var value = property.GetValue(template);
+                property.SetValue(this, value);
+            }
+        }
+
         public string captureId { get; set; }
 
         public XmlDocument SerialiseMe()
@@ -148,7 +188,7 @@ namespace IPConnect_Testing.Testing
                 if (property.Name.Equals(propertyName)) { property.SetValue(this, value); }
             }
         }
-    
+
     }
 
     /// <summary>

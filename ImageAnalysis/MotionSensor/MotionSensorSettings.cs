@@ -110,7 +110,19 @@ namespace ImageAnalysis.MotionSensor
             }//foreach datarow
         }
 
-
-
     }
+
+
+    public class TestSetting : System.Attribute
+    {
+        private string description;
+
+        public string Description { get { return description; } }
+
+        public TestSetting(string description)
+        {
+            this.description = description;
+        }
+    }
+
 }
