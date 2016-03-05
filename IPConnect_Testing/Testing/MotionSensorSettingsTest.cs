@@ -68,7 +68,6 @@ namespace IPConnect_Testing.Testing
 
         private void Convert(DataTable dt)
         {
-
             //get a template object of the MotionSensorSettingsTest, and load the defaults,
             //otherwide database is queried on every object created to load defaults
             MotionSensorSettingsTest template = new MotionSensorSettingsTest();
@@ -80,34 +79,27 @@ namespace IPConnect_Testing.Testing
                 singleSetting.propertyName = dr["settingTypeName"].ToString();
                 singleSetting.list = new List<MotionSensorSettingsTest>();
 
-                if (dr["dataType"].ToString() == "decimal")
-                {
-                    decimal min = dr["minimum"].ToString().StringToDec();
-                    decimal max = dr["maximum"].ToString().StringToDec();
-                    decimal inc = dr["increment"].ToString().StringToDec();
+                System.Type propertyType = ReturnPropertyType(singleSetting.propertyName);
 
-                    for (decimal i = min; i <= max; i += inc)
-                    {
-                        MotionSensorSettingsTest test = new MotionSensorSettingsTest(template);
-                        test.UpdateProperty(singleSetting.propertyName, i);
-                        singleSetting.list.Add(test);
-                    }
-
-                }
-                else if(dr["dataType"].ToString() == "integer")
+                if(propertyType.Name == "Int16" || propertyType.Name == "Int32")
                 {
                     int min = dr["minimum"].ToString().StringToInt();
                     int max = dr["maximum"].ToString().StringToInt();
                     int inc = dr["increment"].ToString().StringToInt();
 
-                    for (int i = min; i <= max; i += inc)
-                    {
-                        MotionSensorSettingsTest test = new MotionSensorSettingsTest(template);
-                        test.LoadDefaults();
-                        test.UpdateProperty(singleSetting.propertyName, i);
-                        singleSetting.list.Add(test);
-                    }
+                    singleSetting.list.AddRange(CreateMotionSensorSettingsTests(template, singleSetting.propertyName, min, max, inc));
+                }
+                else if(propertyType.Name == "Decimal")
+                {
+                    decimal min = dr["minimum"].ToString().StringToDec();
+                    decimal max = dr["maximum"].ToString().StringToDec();
+                    decimal inc = dr["increment"].ToString().StringToDec();
 
+                    singleSetting.list.AddRange(CreateMotionSensorSettingsTests(template, singleSetting.propertyName, min, max, inc));
+                }
+                else if(propertyType.Name != "boolean")
+                {
+                    throw new Exception("Unsupported property type. Int's, decimal and booleans only");
                 }
 
                 seperateSettingLists.Add(singleSetting);
@@ -115,6 +107,44 @@ namespace IPConnect_Testing.Testing
             }//each datarow
 
         }//Convert
+
+        private List<MotionSensorSettingsTest> CreateMotionSensorSettingsTests(MotionSensorSettingsTest template, string propertyName, decimal min, decimal max, decimal inc)
+        {
+            List<MotionSensorSettingsTest> result = new List<MotionSensorSettingsTest>();
+
+            for (decimal i = min; i <= max; i += inc)
+            {
+                MotionSensorSettingsTest test = new MotionSensorSettingsTest(template);
+                test.UpdateProperty(propertyName, i);
+                result.Add(test);
+            }
+
+            return result;
+        }
+
+        private List<MotionSensorSettingsTest> CreateMotionSensorSettingsTests(MotionSensorSettingsTest template, string propertyName, int min, int max, int inc)
+        {
+            List<MotionSensorSettingsTest> result = new List<MotionSensorSettingsTest>();
+
+            for (int i = min; i <= max; i += inc)
+            {
+                MotionSensorSettingsTest test = new MotionSensorSettingsTest(template);
+                test.UpdateProperty(propertyName, i);
+                result.Add(test);
+            }
+
+            return result;
+        }
+
+        private System.Type ReturnPropertyType(string propertyName)
+        {
+            foreach (PropertyInfo property in typeof(MotionSensorSettingsTest).GetProperties())
+            {
+                if (property.Name.Equals(propertyName)) { return property.PropertyType; }
+            }
+
+            throw new Exception("Property type not found");
+        }
 
 
     }
