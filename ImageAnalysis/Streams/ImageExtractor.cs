@@ -44,8 +44,7 @@ namespace ImageAnalysis.Streams
 
         bool singleImageExtraction; //whether we only want one image
 
-       
-        static int imagesReceived;
+        int imagesReceived;
 
         public ImageExtractor(string url, string username, string password)
         {

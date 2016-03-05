@@ -104,6 +104,24 @@ namespace Testing.MotionSensor
         }
 
 
+        /// <summary>
+        /// Tests that hash codes are unique across similar objects
+        /// </summary>
+        [TestMethod]
+        [TestCategory("Motion Sensor")]
+        public void HashTest()
+        {
+            MotionSensorSettingsList test = new MotionSensorSettingsList();
+            test.PopulateSequentialChange();
+            Assert.IsTrue(test.list[0].GetHashCode() != test.list[1].GetHashCode());
+        }
+
+
+
+
+
+
+
 
 
     }

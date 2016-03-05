@@ -80,8 +80,8 @@ namespace IPConnect_Testing.Testing
                 singleSetting.list = new List<MotionSensorSettingsTest>();
 
                 System.Type propertyType = ReturnPropertyType(singleSetting.propertyName);
-
-                if(propertyType.Name == "Int16" || propertyType.Name == "Int32")
+              
+                if (propertyType.Name == "Int16" || propertyType.Name == "Int32")
                 {
                     int min = dr["minimum"].ToString().StringToInt();
                     int max = dr["maximum"].ToString().StringToInt();
@@ -146,7 +146,6 @@ namespace IPConnect_Testing.Testing
             throw new Exception("Property type not found");
         }
 
-
     }
 
     /// <summary>
@@ -165,12 +164,18 @@ namespace IPConnect_Testing.Testing
         {
             foreach (PropertyInfo property in typeof(MotionSensorSettingsTest).GetProperties())
             {
+                //set the value, if the property exposes a setter
                 var value = property.GetValue(template);
-                property.SetValue(this, value);
+                if (property.GetSetMethod(true) != null){ property.SetValue(this, value);}
             }
+
+            this.HashCode = Helpers.ShortDateStamp() + this.GetHashCode(); //unique per object
+
         }
 
         public string captureId { get; set; }
+
+        public string HashCode { get; set; }//this is here so it is serialised
 
         public XmlDocument SerialiseMe()
         {
@@ -221,9 +226,8 @@ namespace IPConnect_Testing.Testing
 
     }
 
-    /// <summary>
-    /// CHANGE TO INTERNAL
-    /// </summary>
+
+    //public for testing - change to internal
     public class MotionSetting
     {
         public List<MotionSensorSettingsTest> list { get; set; }

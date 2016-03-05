@@ -30,7 +30,7 @@ namespace IPConnect_Testing.Testing
         string saveDirectory { get { return saveFilePath + @"\" + captureId; } }
         ImageExtractor imageExtractor;
         public List<Int32> movementFrames { get; private set; }
-        public MotionSensorSettings settings { get; set; }
+        public MotionSensorSettingsTest settings { get; set; }
         public void Run(string captureId)
         {
             Setup(captureId);
@@ -57,7 +57,7 @@ namespace IPConnect_Testing.Testing
                 imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreated); //subscribe to events from the validator (testing so sync only)
 
                 //save 
-                saveFilePath = ConfigurationManager.AppSettings["MotionSaveLocation"] + @"\" + this.GetHashCode() + Helpers.ShortDateStamp();
+                saveFilePath = ConfigurationManager.AppSettings["MotionSaveLocation"] + @"\" + settings.HashCode;
 
                 if (Directory.Exists(saveFilePath)) { throw new Exception("Motion writing directory already exists"); }
 
