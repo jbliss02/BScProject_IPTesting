@@ -60,7 +60,7 @@ namespace IPConnect_Testing.Testing
             var db = new DAL.CaptureDbTest(ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString);
             Convert(db.ReturnSettingTypeRanges());
 
-            //now combine the seperate settings into the list
+            //combine the seperate settings into the list
             seperateSettingLists.ForEach(x => list.AddRange(x.list));
 
 
@@ -97,9 +97,10 @@ namespace IPConnect_Testing.Testing
 
                     singleSetting.list.AddRange(CreateMotionSensorSettingsTests(template, singleSetting.propertyName, min, max, inc));
                 }
+
                 else if(propertyType.Name != "boolean")
                 {
-                    throw new Exception("Unsupported property type. Int's, decimal and booleans only");
+                    throw new Exception("Unsupported property type. Int's, decimal or booleans only");
                 }
 
                 seperateSettingLists.Add(singleSetting);
@@ -154,7 +155,7 @@ namespace IPConnect_Testing.Testing
     /// </summary>
     public class MotionSensorSettingsTest : MotionSensorSettings
     {
-        public MotionSensorSettingsTest() { }
+        public MotionSensorSettingsTest() { HashCode = Helpers.ShortDateStamp() + this.GetHashCode(); }
 
         /// <summary>
         /// Copies the properties of the template class parameter, allowing the values to be cloned
@@ -169,8 +170,7 @@ namespace IPConnect_Testing.Testing
                 if (property.GetSetMethod(true) != null){ property.SetValue(this, value);}
             }
 
-            this.HashCode = Helpers.ShortDateStamp() + this.GetHashCode(); //unique per object
-
+            HashCode = Helpers.ShortDateStamp() + this.GetHashCode(); //unique per object
         }
 
         public string captureId { get; set; }

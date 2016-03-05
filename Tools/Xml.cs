@@ -22,17 +22,16 @@ namespace Tools
         /// <returns></returns>
         public XmlDocument SerialiseObject<T>(T obj)
         {
-            XmlDocument doc = new XmlDocument();
+            XmlDocument result = new XmlDocument();
             using (MemoryStream stream = new MemoryStream())
             {
                 XmlSerializer x = new XmlSerializer(typeof(T));
                 x.Serialize(stream, obj);
                 stream.Seek(0, System.IO.SeekOrigin.Begin); //without this there is a 'missing' root element error
-                doc.Load(stream);
+                result.Load(stream);
             }
 
-            return doc;
-
+            return result;
         }
 
     }

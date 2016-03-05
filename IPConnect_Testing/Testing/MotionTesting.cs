@@ -106,7 +106,7 @@ namespace IPConnect_Testing.Testing
         private void WriteToDatabase(CaptureTesting captureTest, MotionSensorSettingsTest motionSettings)
         {
             var db = new CaptureDb(ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString);
-            db.CreateDetectionSession(captureTest.SerialiseMe(), motionSettings.SerialiseMe());
+            db.CreateDetectionSession(captureTest.SerialiseMe(), motionSettings.SerialiseMe(), captureTest.captureId);
 
         }
 

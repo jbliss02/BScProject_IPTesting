@@ -59,8 +59,6 @@ namespace IPConnect_Testing.Testing
                 //save 
                 saveFilePath = ConfigurationManager.AppSettings["MotionSaveLocation"] + @"\" + settings.HashCode;
 
-                if (Directory.Exists(saveFilePath)) { throw new Exception("Motion writing directory already exists"); }
-
                 imageExtractor.Run();
 
             }//using MotionSensor_2a

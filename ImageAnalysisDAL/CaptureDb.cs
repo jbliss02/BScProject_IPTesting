@@ -48,7 +48,7 @@ namespace ImageAnalysisDAL
         /// </summary>
         /// <param name="detecionSessionXml"></param>
         /// <returns></returns>
-        public void CreateDetectionSession(XmlDocument motionTestingXml, XmlDocument motionSettingsXml)
+        public void CreateDetectionSession(XmlDocument motionTestingXml, XmlDocument motionSettingsXml, string captureId)
         {
             //add the header data
             SqlParameter p = new SqlParameter();
@@ -70,6 +70,12 @@ namespace ImageAnalysisDAL
             p.ParameterName = "@detectionId";
             p.Value = id.StringToInt();
             p.DbType = DbType.Int16;
+            paras.Add(p);
+
+            p = new SqlParameter();
+            p.ParameterName = "@captureId";
+            p.Value = captureId;
+            p.DbType = DbType.String;
             paras.Add(p);
 
             RunProc("test.addDetectionSessionSettings", paras);
