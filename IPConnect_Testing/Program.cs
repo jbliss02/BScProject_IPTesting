@@ -20,6 +20,7 @@ using ImageAnalysis.Streams;
 using ImageAnalysis.MotionSensor;
 using ImageAnalysis.Data;
 using IPConnect_Testing.Testing;
+using Microsoft.Owin.Hosting;
 
 namespace IPConnect_Testing
 {
@@ -48,6 +49,7 @@ namespace IPConnect_Testing
             Write("IPConnect_Testing started");
             Console.Beep(1000,250);
             //TempTestFrameRate();
+            StartWebService();
             RunMotionTests_2a();
 
             Write("IPConnect_Testing finished");
@@ -55,13 +57,11 @@ namespace IPConnect_Testing
 
         }
 
-        static void TempTestFrameRate()
+        static void StartWebService()
         {
-            ImageExtractor imageExtractor = new ImageExtractor(url, username, password);
-            imageExtractor.framerateBroadcast += new ImageExtractor.FramerateBroadcastEvent(PrintRate);
-            imageExtractor.Run();
-
+            WebApp.Start<Startup>(url: "http://localhost:9001/");
         }
+
 
         static void PrintRate(double rate, EventArgs e)
         {

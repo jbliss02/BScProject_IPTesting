@@ -17,7 +17,6 @@ namespace HTTP_Streamer
             WebApp.Start<Startup>(url: "http://localhost:9000/");
             Write("HTTP WEBAPI Streamer started");
             Console.ReadLine();
-
         }
 
         private static void Write(String s)

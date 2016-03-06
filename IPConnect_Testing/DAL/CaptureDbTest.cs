@@ -24,5 +24,21 @@ namespace IPConnect_Testing.DAL
             return DataTableFromView("test.settingTypeRanges");
         }
 
+
+        /// <summary>
+        /// Returns any confusion data (TP, FN, FP) from test data
+        /// inclduing setting data. This can take up to a minite to run
+        /// </summary>
+        /// <returns></returns>
+        public DataTable ReturnTestConfusionData(int settingId)
+        {
+            SqlParameter p = new SqlParameter();
+            p.ParameterName = "@settingTypeId";
+            p.Value = settingId;
+            p.DbType = DbType.Int16;
+            return DataTableFromProc("test.ReturnTestConfusionData_byType",p);
+        }
+
+      
     }
 }
