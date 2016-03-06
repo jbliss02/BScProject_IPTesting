@@ -9,6 +9,7 @@ using ImageAnalysis.Images.Jpeg;
 using ImageAnalysis.MotionSensor;
 using IPConnect_Testing.Testing;
 
+
 namespace Testing.MotionSensor
 {
     [TestClass]
@@ -114,6 +115,14 @@ namespace Testing.MotionSensor
             MotionSensorSettingsList test = new MotionSensorSettingsList();
             test.PopulateSequentialChange();
             Assert.IsTrue(test.list[0].GetHashCode() != test.list[1].GetHashCode());
+        }
+
+        [TestMethod]
+        [TestCategory("Motion Sensor")]
+        public void WorkMonitorTest()
+        {
+            var motion = new MotionSensor2aTest();
+            motion.Run("201621411494640");
         }
 
 

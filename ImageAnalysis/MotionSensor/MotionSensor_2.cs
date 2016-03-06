@@ -17,12 +17,18 @@ namespace ImageAnalysis.MotionSensor
     {
         //Work queue
         public Queue<ByteWrapper> WorkQueue { get; set; } //images waiting to be processed
+        private DateTime lastReceived;
+        private DateTime lastProcessed;
         object objLock = new object();
         int numberSkipped; //the number of frames that have been skipped in the current sequence
 
         //motion detected event
         public event MotionDetected motionDetected;
         public delegate void MotionDetected(ByteWrapper image, EventArgs e);
+
+        ////image analysed event (used to manage workflow)
+        public event ComparisionProcessed comparisionProcessed;
+        public delegate void ComparisionProcessed(int sequenceNumber, EventArgs e);
 
         //threshold setting
         public int ControlImageNumber { get; set; } = 10; //number of changes to use as the control (half the images as done in pairs)
@@ -48,6 +54,9 @@ namespace ImageAnalysis.MotionSensor
             logging = new Logs.Logging();
             ThresholdSet = false;
             settings = new MotionSensorSettings();
+            comparisionProcessed += new ComparisionProcessed(ComparisionProcessedEvent);
+
+
         }
 
         /// <summary>
@@ -81,10 +90,12 @@ namespace ImageAnalysis.MotionSensor
         {
             await Task.Run(() =>
             {
+                Console.WriteLine("RECEIVED " + img.sequenceNumber);
                 logging.imagesReceived++;
                 AddToWorkQueue(img);
                 SendForCompareAsync(); 
             });
+
         }
 
         public void ImageCreated(ByteWrapper img, EventArgs e)
@@ -100,6 +111,7 @@ namespace ImageAnalysis.MotionSensor
         /// <param name="img"></param>
         private void AddToWorkQueue(ByteWrapper img)
         {
+            lastReceived = DateTime.Now;
             if (settings.framesToSkip > 0)
             {
                 if (numberSkipped == settings.framesToSkip)
@@ -121,26 +133,34 @@ namespace ImageAnalysis.MotionSensor
         /// <summary>
         /// Gets the next two images on the queue and sends for analysis
         /// </summary>
-        private void SendForCompareAsync()
+        private async void SendForCompareAsync()
         {
             //as there are multiple threads working the queue may have images removed by other threads
-            //move this to lock functionality, rather than losing        
+            //move this to lock functionality, rather than losing   
+            ByteWrapper image1 = null;
+            ByteWrapper image2 = null;
+
             lock (objLock)
             {
                 if (WorkQueue.Count > 1)
                 {
-                    ByteWrapper image1 = WorkQueue.Dequeue();
-                    ByteWrapper image2 = WorkQueue.Dequeue();
-
-                    if(image1 != null && image2 != null)
-                    {
-                        Console.WriteLine(image1.sequenceNumber);
-                        Compare(image1, image2);
-                    }
-
+                    image1 = WorkQueue.Dequeue();
+                    image2 = WorkQueue.Dequeue();
                 }
             }
- 
+
+            //send for comparision
+            if (image1 != null && image2 != null)
+            {
+                Compare(image1, image2);
+                Console.WriteLine("PROCESSED " + image1.sequenceNumber);
+                //lastProcessed = DateTime.Now;
+                //await Task.Run(() =>
+                //{
+                //    MonitorWork();
+                //});
+            }
+
         }//SendForCompareAsync
 
         /// <summary>
@@ -168,6 +188,31 @@ namespace ImageAnalysis.MotionSensor
         }//SendForCompare
 
         public virtual void Compare(ByteWrapper img1, ByteWrapper img2) { } //will always be implemented in the sub class
+
+        protected virtual void OnComparisionProcessed(int sequenceNumber, EventArgs e)
+        {
+            ComparisionProcessed handler = comparisionProcessed;
+            if (handler != null)
+            {
+                handler(sequenceNumber, e);
+            }
+        }
+
+        private void ComparisionProcessedEvent(int sequenceNumber, EventArgs e)
+        {
+            Console.WriteLine("Processed " + sequenceNumber);
+        }
+
+        private async void MonitorWork()
+        {
+            await Task.Run(() =>
+            {
+                TimeSpan sp = lastProcessed - lastReceived;
+                 
+                Console.WriteLine("TIMESPAN IS " + sp.TotalSeconds);
+            });
+        }
+
 
     }
 }

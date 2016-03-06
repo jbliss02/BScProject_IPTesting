@@ -31,11 +31,42 @@ namespace IPConnect_Testing.Testing
         ImageExtractor imageExtractor;
         public List<Int32> movementFrames { get; private set; }
         public MotionSensorSettingsTest settings { get; set; }
+
+        /// <summary>
+        /// Run, with a captureId will make the system stream an old capture
+        /// </summary>
+        /// <param name="captureId"></param>
         public void Run(string captureId)
         {
-            Setup(captureId);
-            movementFrames = new List<int>();
+            Setup(captureId);         
+        }
 
+        /// <summary>
+        /// Run will use a live stream
+        /// </summary>
+        public void Run(string url, string username, string password)
+        {
+            imageExtractor = new ImageExtractor(url, "root", "root");
+            movementFrames = new List<int>();
+            captureId = Tools.ExtensionMethods.DateStamp();
+            Go();
+        }
+
+
+        private void Setup(string captureId)
+        {
+            this.captureId = captureId;
+            string uri = "http://localhost:9000/api/jpeg/0/" + captureId;
+            imageExtractor = new ImageExtractor(uri, "root", "root");
+            movementFrames = new List<int>();
+            Go();
+        }
+     
+        /// <summary>
+        /// called once the Setups are complete
+        /// </summary>
+        private void Go()
+        {
             //create the motion sensor, and listen for images
             using (MotionSensor_2a motionSensor = new MotionSensor_2a())
             {
@@ -54,31 +85,38 @@ namespace IPConnect_Testing.Testing
                 //create the validator 
                 ImageValidator imageValidator = new ImageValidator();
                 imageValidator.ListenForImages(imageExtractor);
-                imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreated); //subscribe to events from the validator (testing so sync only)
+                imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreatedAsync); //subscribe to events from the validator (testing so sync only)
 
-                //save 
-                saveFilePath = ConfigurationManager.AppSettings["MotionSaveLocation"] + @"\" + settings.HashCode;
+                //save and default settings
+                if (settings == null)
+                {
+                    settings = new MotionSensorSettingsTest();
+                    settings.LoadDefaults();
+                    saveFilePath = ConfigurationManager.AppSettings["MotionSaveLocation"];
+                }
+                else
+                {
+                    saveFilePath = ConfigurationManager.AppSettings["MotionSaveLocation"] + @"\" + settings.HashCode;
+                }
+
 
                 imageExtractor.Run();
 
             }//using MotionSensor_2a
-
         }
 
-        private void Setup(string captureId)
+        private async void MotionDetected(ByteWrapper image, EventArgs e)
         {
-            this.captureId = captureId;
-            string uri = "http://localhost:9000/api/jpeg/0/" + captureId;
-            imageExtractor = new ImageExtractor(uri, "root", "root");
-        }
-     
-        private void MotionDetected(ByteWrapper image, EventArgs e)
-        {
-            SaveMotionFile(image);
-            if(movementFrames != null)
+            await Task.Run(() =>
             {
-                movementFrames.Add(image.sequenceNumber);
-            }                  
+                Console.Beep(1000, 250);
+
+                SaveMotionFile(image);
+                if (movementFrames != null)
+                {
+                    movementFrames.Add(image.sequenceNumber);
+                }
+            });              
         }
 
         private async void SaveMotionFile(ByteWrapper image)
