@@ -1,8 +1,5 @@
 ﻿//used to intialise when the doucment is loaded
 
-
-
-
 var data = {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
     datasets: [
@@ -77,3 +74,23 @@ var options = {
     legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
 
 };
+
+function drawChartData()
+{
+
+    $.ajax({
+        url: 'http://localhost:9001/api/testdata',
+        dataType: 'application/json',
+        complete: function (data) {
+            console.log(data)
+        },
+        success: function (data) {
+
+            var json = JSON.stringify(data);
+
+            var chartArea = document.getElementById("chart1").getContext("2d");
+            var myLineChart = new Chart(chartArea).Line(data);
+
+        }
+    });
+}

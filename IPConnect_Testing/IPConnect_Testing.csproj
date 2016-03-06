@@ -95,6 +95,7 @@
     <Compile Include="Testing\MotionSensor2bTest.cs" />
     <Compile Include="Testing\MotionSensorSettingsTest.cs" />
     <Compile Include="Testing\MotionTesting.cs" />
+    <Compile Include="Webpage\ChartData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

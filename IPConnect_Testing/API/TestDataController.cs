@@ -11,20 +11,23 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Converters;
 using IPConnect_Testing.DAL;
+using IPConnect_Testing;
+using IPConnect_Testing.Webpage;
 
 namespace IPConnect_Testing.API
 {
     public class TestDataController : ApiController
     {
 
-        public string Get()
+        public ChartData Get()
         {
+
             string conn = ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString;
             DataTable dt = new DAL.CaptureDbTest(conn).ReturnTestConfusionData(2);
 
-            string JSONString = string.Empty;
-            JSONString = JsonConvert.SerializeObject(dt);
-            return JSONString;
+            ChartDataList chartDataList = new ChartDataList();
+            ChartData chartData = chartDataList.ConvertMotionTestData(dt);
+            return chartData;
         }
     }
 }

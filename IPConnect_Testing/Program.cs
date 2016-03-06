@@ -50,7 +50,7 @@ namespace IPConnect_Testing
             Console.Beep(1000,250);
             //TempTestFrameRate();
             StartWebService();
-            RunMotionTests_2a();
+            //RunMotionTests_2a();
 
             Write("IPConnect_Testing finished");
             Console.ReadLine();
