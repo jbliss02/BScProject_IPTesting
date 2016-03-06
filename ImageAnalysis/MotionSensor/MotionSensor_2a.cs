@@ -79,8 +79,6 @@ namespace ImageAnalysis.MotionSensor
             bm1 = null;
             bm2 = null;
 
-            OnComparisionProcessed(image1.sequenceNumber, EventArgs.Empty);
-
         }//Compare
      
         /// <summary>

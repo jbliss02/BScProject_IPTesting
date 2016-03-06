@@ -77,12 +77,12 @@ namespace IPConnect_Testing
         static void RunMotionTests_2a()
         {
             var motion = new Testing.MotionSensor2aTest();
-            motion.settings = new MotionSensorSettingsTest();
-            motion.settings.framesToSkip = 20;
-            motion.settings.horizontalPixelsToSkip = 4;
-            motion.settings.verticalPixelsToSkip = 4;
+            //motion.settings = new MotionSensorSettingsTest();
+            //motion.settings.framesToSkip = 20;
+            //motion.settings.horizontalPixelsToSkip = 4;
+            //motion.settings.verticalPixelsToSkip = 4;
             motion.Run(url, username, password);
-           // motion.Run("2016220121715998");
+            // motion.Run("2016220121715998");
         }
 
         static void RunMotionTests_2b()

@@ -27,15 +27,11 @@ namespace ImageAnalysis.MotionSensor
         public event MotionDetected motionDetected;
         public delegate void MotionDetected(ByteWrapper image, EventArgs e);
 
-        //Work Monitor
+        //Backlog monitoring
         private int lastImageReceived;
         private List<int> backlog; //images received v images processed
         private Stopwatch backlogTimer; //times when next to check the backlog
-        private int backlogCheckMs; //check the backlog every xx milliseconds
-
-        ////image analysed event (used to manage workflow)
-        public event ComparisionProcessed comparisionProcessed;
-        public delegate void ComparisionProcessed(int sequenceNumber, EventArgs e);
+        private int backlogCheckMs; //check the backlog every so many milliseconds
 
         //threshold setting
         public int ControlImageNumber { get; set; } = 10; //number of changes to use as the control (half the images as done in pairs)
@@ -63,7 +59,7 @@ namespace ImageAnalysis.MotionSensor
             backlogCheckMs = ConfigurationManager.AppSettings["BacklogCheckMs"].ToString().StringToInt();
             backlogTimer = new Stopwatch();
             backlog = new List<int>();
-            comparisionProcessed += new ComparisionProcessed(ComparisionProcessedEvent); //used for the backlog checking
+         //   comparisionProcessed += new ComparisionProcessed(ComparisionProcessedEvent); //used for the backlog checking
         }
 
         /// <summary>
@@ -124,7 +120,6 @@ namespace ImageAnalysis.MotionSensor
                 if (numberSkipped == settings.framesToSkip)
                 {
                     WorkQueue.Enqueue(img);
-                    MonitorWork();
                     numberSkipped = 0;
                 }
                 else
@@ -135,14 +130,14 @@ namespace ImageAnalysis.MotionSensor
             else
             {
                 WorkQueue.Enqueue(img);
-                MonitorWork();
             }
         }
 
         /// <summary>
-        /// Gets the next two images on the queue and sends for analysis
+        /// Gets the next two images on the queue and sends for analysis, used when
+        /// the system is running on an async basis
         /// </summary>
-        private async void SendForCompareAsync()
+        private void SendForCompareAsync()
         {
             //as there are multiple threads working the queue may have images removed by other threads
             //move this to lock functionality, rather than losing   
@@ -162,11 +157,9 @@ namespace ImageAnalysis.MotionSensor
             if (image1 != null && image2 != null)
             {
                 Compare(image1, image2);
-                //lastProcessed = DateTime.Now;
-                //await Task.Run(() =>
-                //{
-                //    MonitorWork();
-                //});
+                logging.imagesChecked = logging.imagesChecked + 2;
+                backlog.Add(lastImageReceived - image1.sequenceNumber);
+                MonitorWork();
             }
 
         }//SendForCompareAsync
@@ -190,28 +183,18 @@ namespace ImageAnalysis.MotionSensor
                 {
                     Compare(img1, img2);
                     logging.imagesChecked = logging.imagesChecked + 2;
-      
+                    backlog.Add(lastImageReceived - img1.sequenceNumber);
+                    MonitorWork();
                 }
             }
         }//SendForCompare
 
         public virtual void Compare(ByteWrapper img1, ByteWrapper img2) { } //will always be implemented in the sub class
 
-        protected virtual void OnComparisionProcessed(int sequenceNumber, EventArgs e)
-        {
-            ComparisionProcessed handler = comparisionProcessed;
-            if (handler != null)
-            {
-                handler(sequenceNumber, e);
-            }
-        }
-
-        private void ComparisionProcessedEvent(int sequenceNumber, EventArgs e)
-        {
-            backlog.Add(lastImageReceived - sequenceNumber);
-            MonitorWork();
-        }
-
+        /// <summary>
+        /// Monitor's the backlog by comparing the number of received and processed images
+        /// Sends requests to speed up or slow dow as appropriate
+        /// </summary>
         private  void MonitorWork()
         {
             if(!backlogTimer.IsRunning)
@@ -224,14 +207,29 @@ namespace ImageAnalysis.MotionSensor
 
                 if(backlog.Count > 1)
                 {
-                    int backlogCount = backlog[backlog.Count - 1];
-                    backlog.Clear();
-                    Write("Backlog was " + backlogCount);
-                }
-  
+                    //int backlogCount = backlog[backlog.Count - 1];
+                    int backlogCount = (int)backlog.Average();
 
+                    if (backlogCount > 50) { Speedup(); }
+
+                    Write("Backlog was " + backlogCount);
+
+                    backlog.Clear();
+                    backlogTimer.Restart();
+                }
+
+               
             }
         }//MonitorWork
+
+        /// <summary>
+        /// Speeds the comparision process up by changing the settings
+        /// </summary>
+        private void Speedup()
+        {
+            Write("!!!!!!!!!!!!!!!!!!!! SPEEDING UP !!!!!!!!!!!!!!!");
+            settings.framesToSkip = 10;
+        }
 
         public void Write(string st)
         {
