@@ -38,7 +38,11 @@ namespace IPConnect_Testing.Testing
         /// <param name="captureId"></param>
         public void Run(string captureId)
         {
-            Setup(captureId);         
+            this.captureId = captureId;
+            string uri = "http://localhost:9000/api/jpeg/0/" + captureId;
+            imageExtractor = new ImageExtractor(uri, "root", "root");
+            movementFrames = new List<int>();
+            saveFilePath = ConfigurationManager.AppSettings["MotionSaveLocation"] + @"\" + settings.HashCode;     
         }
 
         /// <summary>
@@ -49,60 +53,38 @@ namespace IPConnect_Testing.Testing
             imageExtractor = new ImageExtractor(url, "root", "root");
             movementFrames = new List<int>();
             captureId = Tools.ExtensionMethods.DateStamp();
+            saveFilePath = ConfigurationManager.AppSettings["MotionSaveLocation"];
             Go();
         }
 
-
-        private void Setup(string captureId)
-        {
-            this.captureId = captureId;
-            string uri = "http://localhost:9000/api/jpeg/0/" + captureId;
-            imageExtractor = new ImageExtractor(uri, "root", "root");
-            movementFrames = new List<int>();
-            Go();
-        }
-     
         /// <summary>
         /// called once the Setups are complete
         /// </summary>
         private void Go()
         {
             //create the motion sensor, and listen for images
-            using (MotionSensor_2a motionSensor = new MotionSensor_2a())
-            {
-                if (settings == null)
-                {
-                    motionSensor.settings = new MotionSensorSettings();
-                }
-                else
-                {
-                    motionSensor.settings = settings;
-                }
+            //using (MotionSensor_2a motionSensor = new MotionSensor_2a())
+            //{
+            MotionSensor_2a motionSensor = new MotionSensor_2a();
+                motionSensor.settings = settings == null ? motionSensor.settings = new MotionSensorSettings() : motionSensor.settings = settings;
 
                 motionSensor.motionDetected += new MotionSensor_2.MotionDetected(MotionDetected);
                 motionSensor.logging.LoggingOn = true;
 
                 //create the validator 
-                ImageValidator imageValidator = new ImageValidator();
-                imageValidator.ListenForImages(imageExtractor);
-                imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreatedAsync); //subscribe to events from the validator (testing so sync only)
 
-                //save and default settings
-                if (settings == null)
-                {
-                    settings = new MotionSensorSettingsTest();
-                    settings.LoadDefaults();
-                    saveFilePath = ConfigurationManager.AppSettings["MotionSaveLocation"];
-                }
-                else
-                {
-                    saveFilePath = ConfigurationManager.AppSettings["MotionSaveLocation"] + @"\" + settings.HashCode;
-                }
+                imageExtractor.imageCreated += new ImageExtractor.ImageCreatedEvent(motionSensor.ImageCreatedAsync);
+                imageExtractor.framerateBroadcast += new ImageExtractor.FramerateBroadcastEvent(motionSensor.OnFramerateBroadcast);
+
+
+                //ImageValidator imageValidator = new ImageValidator();
+                //imageValidator.ListenForImages(imageExtractor);
+                //imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreatedAsync); //subscribe to events from the validator (testing so sync only)
 
 
                 imageExtractor.Run();
 
-            }//using MotionSensor_2a
+            //}//using MotionSensor_2a
         }
 
         private async void MotionDetected(ByteWrapper image, EventArgs e)

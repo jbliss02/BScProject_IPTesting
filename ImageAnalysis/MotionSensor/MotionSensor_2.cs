@@ -17,8 +17,6 @@ namespace ImageAnalysis.MotionSensor
     {
         //Work queue
         public Queue<ByteWrapper> WorkQueue { get; set; } //images waiting to be processed
-        private DateTime lastReceived;
-        private DateTime lastProcessed;
         object objLock = new object();
         int numberSkipped; //the number of frames that have been skipped in the current sequence
 
@@ -53,10 +51,8 @@ namespace ImageAnalysis.MotionSensor
             WorkQueue = new Queue<ByteWrapper>();
             logging = new Logs.Logging();
             ThresholdSet = false;
-            settings = new MotionSensorSettings();
+
             comparisionProcessed += new ComparisionProcessed(ComparisionProcessedEvent);
-
-
         }
 
         /// <summary>
@@ -88,14 +84,14 @@ namespace ImageAnalysis.MotionSensor
 
         public async void ImageCreatedAsync(ByteWrapper img, EventArgs e)
         {
+            AddToWorkQueue(img); //do this outside the anonymous method
+            
             await Task.Run(() =>
             {
-                Console.WriteLine("RECEIVED " + img.sequenceNumber);
-                logging.imagesReceived++;
-                AddToWorkQueue(img);
+                logging.imagesReceived++;   
                 SendForCompareAsync(); 
             });
-
+            
         }
 
         public void ImageCreated(ByteWrapper img, EventArgs e)
@@ -111,12 +107,12 @@ namespace ImageAnalysis.MotionSensor
         /// <param name="img"></param>
         private void AddToWorkQueue(ByteWrapper img)
         {
-            lastReceived = DateTime.Now;
-            if (settings.framesToSkip > 0)
+            if (this.settings.framesToSkip > 0)
             {
                 if (numberSkipped == settings.framesToSkip)
                 {
                     WorkQueue.Enqueue(img);
+                    MonitorWork();
                     numberSkipped = 0;
                 }
                 else
@@ -127,6 +123,7 @@ namespace ImageAnalysis.MotionSensor
             else
             {
                 WorkQueue.Enqueue(img);
+                MonitorWork();
             }
         }
 
@@ -153,7 +150,6 @@ namespace ImageAnalysis.MotionSensor
             if (image1 != null && image2 != null)
             {
                 Compare(image1, image2);
-                Console.WriteLine("PROCESSED " + image1.sequenceNumber);
                 //lastProcessed = DateTime.Now;
                 //await Task.Run(() =>
                 //{
@@ -203,14 +199,21 @@ namespace ImageAnalysis.MotionSensor
             Console.WriteLine("Processed " + sequenceNumber);
         }
 
-        private async void MonitorWork()
+        private  void MonitorWork()
         {
-            await Task.Run(() =>
-            {
-                TimeSpan sp = lastProcessed - lastReceived;
-                 
-                Console.WriteLine("TIMESPAN IS " + sp.TotalSeconds);
-            });
+            Write("QUEUE " + WorkQueue.Count);
+            if(WorkQueue.Count > 10) { WorkQueue.Clear(); }
+        }
+
+        public void OnFramerateBroadcast(double rate, EventArgs e)
+        {
+            Write("RATE " + rate);
+
+        }
+
+        public void Write(string st)
+        {
+            Console.WriteLine(DateTime.Now + " - " + st);
         }
 
 

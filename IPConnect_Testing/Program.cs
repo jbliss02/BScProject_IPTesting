@@ -47,11 +47,25 @@ namespace IPConnect_Testing
         {
             Write("IPConnect_Testing started");
             Console.Beep(1000,250);
+            //TempTestFrameRate();
             RunMotionTests_2a();
 
             Write("IPConnect_Testing finished");
             Console.ReadLine();
 
+        }
+
+        static void TempTestFrameRate()
+        {
+            ImageExtractor imageExtractor = new ImageExtractor(url, username, password);
+            imageExtractor.framerateBroadcast += new ImageExtractor.FramerateBroadcastEvent(PrintRate);
+            imageExtractor.Run();
+
+        }
+
+        static void PrintRate(double rate, EventArgs e)
+        {
+            Console.WriteLine(rate);
         }
 
         static void TestAllCaptures()
@@ -63,7 +77,7 @@ namespace IPConnect_Testing
         static void RunMotionTests_2a()
         {
             var motion = new Testing.MotionSensor2aTest();
-            motion.settings = new MotionSensorSettingsTest();
+            //motion.settings = new MotionSensorSettingsTest();
             //motion.settings.framesToSkip = 5;
             //motion.settings.horizontalPixelsToSkip = 2;
             //motion.settings.verticalPixelsToSkip = 2;
