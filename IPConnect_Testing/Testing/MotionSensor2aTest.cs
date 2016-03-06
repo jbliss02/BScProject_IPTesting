@@ -66,23 +66,23 @@ namespace IPConnect_Testing.Testing
             //using (MotionSensor_2a motionSensor = new MotionSensor_2a())
             //{
             MotionSensor_2a motionSensor = new MotionSensor_2a();
-                motionSensor.settings = settings == null ? motionSensor.settings = new MotionSensorSettings() : motionSensor.settings = settings;
+            motionSensor.settings = settings == null ? motionSensor.settings = new MotionSensorSettings() : motionSensor.settings = settings;
 
-                motionSensor.motionDetected += new MotionSensor_2.MotionDetected(MotionDetected);
-                motionSensor.logging.LoggingOn = true;
+            motionSensor.motionDetected += new MotionSensor_2.MotionDetected(MotionDetected);
+            motionSensor.logging.LoggingOn = true;
 
-                //create the validator 
+            //create the validator 
 
-                imageExtractor.imageCreated += new ImageExtractor.ImageCreatedEvent(motionSensor.ImageCreatedAsync);
-                imageExtractor.framerateBroadcast += new ImageExtractor.FramerateBroadcastEvent(motionSensor.OnFramerateBroadcast);
-
-
-                //ImageValidator imageValidator = new ImageValidator();
-                //imageValidator.ListenForImages(imageExtractor);
-                //imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreatedAsync); //subscribe to events from the validator (testing so sync only)
+            imageExtractor.imageCreated += new ImageExtractor.ImageCreatedEvent(motionSensor.ImageCreatedAsync);
+            //   imageExtractor.framerateBroadcast += new ImageExtractor.FramerateBroadcastEvent(motionSensor.OnFramerateBroadcast);
 
 
-                imageExtractor.Run();
+            //ImageValidator imageValidator = new ImageValidator();
+            //imageValidator.ListenForImages(imageExtractor);
+            //imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreatedAsync); //subscribe to events from the validator (testing so sync only)
+
+
+            imageExtractor.Run();
 
             //}//using MotionSensor_2a
         }

@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using ImageAnalysis.Images;
 using ImageAnalysis.Analysis;
 using ImageAnalysis.Images.Bitmaps;
 using ImageAnalysis.Images.Jpeg;
+using Tools;
 
 namespace ImageAnalysis.MotionSensor
 {
@@ -23,6 +26,12 @@ namespace ImageAnalysis.MotionSensor
         //motion detected event
         public event MotionDetected motionDetected;
         public delegate void MotionDetected(ByteWrapper image, EventArgs e);
+
+        //Work Monitor
+        private int lastImageReceived;
+        private List<int> backlog; //images received v images processed
+        private Stopwatch backlogTimer; //times when next to check the backlog
+        private int backlogCheckMs; //check the backlog every xx milliseconds
 
         ////image analysed event (used to manage workflow)
         public event ComparisionProcessed comparisionProcessed;
@@ -51,8 +60,10 @@ namespace ImageAnalysis.MotionSensor
             WorkQueue = new Queue<ByteWrapper>();
             logging = new Logs.Logging();
             ThresholdSet = false;
-
-            comparisionProcessed += new ComparisionProcessed(ComparisionProcessedEvent);
+            backlogCheckMs = ConfigurationManager.AppSettings["BacklogCheckMs"].ToString().StringToInt();
+            backlogTimer = new Stopwatch();
+            backlog = new List<int>();
+            comparisionProcessed += new ComparisionProcessed(ComparisionProcessedEvent); //used for the backlog checking
         }
 
         /// <summary>
@@ -84,6 +95,7 @@ namespace ImageAnalysis.MotionSensor
 
         public async void ImageCreatedAsync(ByteWrapper img, EventArgs e)
         {
+            lastImageReceived = img.sequenceNumber;
             AddToWorkQueue(img); //do this outside the anonymous method
             
             await Task.Run(() =>
@@ -196,20 +208,30 @@ namespace ImageAnalysis.MotionSensor
 
         private void ComparisionProcessedEvent(int sequenceNumber, EventArgs e)
         {
-            Console.WriteLine("Processed " + sequenceNumber);
+            backlog.Add(lastImageReceived - sequenceNumber);
+            MonitorWork();
         }
 
         private  void MonitorWork()
         {
-            Write("QUEUE " + WorkQueue.Count);
-            if(WorkQueue.Count > 10) { WorkQueue.Clear(); }
-        }
+            if(!backlogTimer.IsRunning)
+            {
+                backlogTimer.Start();
+            }
+            else if(backlogTimer.Elapsed.TotalMilliseconds > backlogCheckMs)
+            {
+                backlogTimer.Stop();
 
-        public void OnFramerateBroadcast(double rate, EventArgs e)
-        {
-            Write("RATE " + rate);
+                if(backlog.Count > 1)
+                {
+                    int backlogCount = backlog[backlog.Count - 1];
+                    backlog.Clear();
+                    Write("Backlog was " + backlogCount);
+                }
+  
 
-        }
+            }
+        }//MonitorWork
 
         public void Write(string st)
         {
