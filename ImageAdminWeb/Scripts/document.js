@@ -1,30 +1,11 @@
-﻿//used to intialise when the doucment is loaded
+﻿var data;
 
-var data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    datasets: [
-        {
-            label: "My First dataset",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [65, 59, 80, 81, 56, 55, 40]
-        },
-        {
-            label: "My Second dataset",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [28, 48, 40, 19, 86, 27, 90]
-        }
-    ]
-};
+var template = "<h1>{{firstName}} {{lastName}}</h1>Blog: {{blogURL}}";
+
+$(document).ready(function () {
+    getChartData();
+});
+
 
 var options = {
 
@@ -71,26 +52,38 @@ var options = {
     datasetFill: true,
 
     //String - A legend template
-    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
+
+    responsive: true,
+
+    // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+
+    maintainAspectRatio: false,
 
 };
 
-function drawChartData()
+function getChartData()
 {
+    var that = this;
 
     $.ajax({
         url: 'http://localhost:9001/api/testdata',
-        dataType: 'application/json',
+        dataType: 'application/text',
         complete: function (data) {
-            console.log(data)
+            that.data = JSON.parse(data.responseText);
+            that.drawChartData();
         },
-        success: function (data) {
 
-            var json = JSON.stringify(data);
-
-            var chartArea = document.getElementById("chart1").getContext("2d");
-            var myLineChart = new Chart(chartArea).Line(data);
-
-        }
     });
+}
+
+function drawChartData()
+{
+    for (var i = 0; i < this.data.list.length; i++) {
+        var chartArea = document.getElementById("chart" + i).getContext("2d");
+        myLineChart = new Chart(chartArea).Line(data.list[i], options);
+        document.getElementById('chart' + i +'-legend').innerHTML = myLineChart.generateLegend();
+        $('#chart' + i + '-title').text(data.list[i].chartTitle);
+    }
+
 }

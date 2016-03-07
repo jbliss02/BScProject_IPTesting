@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="analyse.aspx" />
+    <Content Include="Content\site.css" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

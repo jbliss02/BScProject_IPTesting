@@ -39,6 +39,10 @@ namespace IPConnect_Testing.DAL
             return DataTableFromProc("test.ReturnTestConfusionData_byType",p);
         }
 
+        public DataTable ReturnSettingTypes()
+        {
+            return DataTableFromView("dbo.detectionSettingTypes");
+        }
       
     }
 }

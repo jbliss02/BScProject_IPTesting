@@ -9,8 +9,11 @@ namespace IPConnect_Testing
         // parameter in the WebApp.Start method.
         public void Configuration(IAppBuilder appBuilder)
         {
+            
+
             // Configure Web API for self-host. 
             HttpConfiguration config = new HttpConfiguration();
+            config.EnableCors();
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
