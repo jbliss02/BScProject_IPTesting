@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using Tools;
 
-namespace IPConnect_Testing.Webpage
+namespace IPConnect_Testing.Testing
 {
     /// <summary>
     /// Transforms data into a form that ChartJs uses

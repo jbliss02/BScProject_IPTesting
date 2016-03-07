@@ -76,6 +76,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\Chartjs\Chart.js" />
+    <Content Include="Scripts\Chartjs\Chart.Line.js" />
+    <Content Include="Scripts\document.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +90,16 @@
       <DependentUpon>analyse.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IPConnect_Testing\IPConnect_Testing.csproj">
+      <Project>{50a76ed1-5122-446d-adf1-8caa55c6a8e3}</Project>
+      <Name>IPConnect_Testing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools\Tools.csproj">
+      <Project>{871b781a-bec7-46e8-a267-19e4e41e222c}</Project>
+      <Name>Tools</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

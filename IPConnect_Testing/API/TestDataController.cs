@@ -11,8 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Converters;
 using IPConnect_Testing.DAL;
-using IPConnect_Testing;
-using IPConnect_Testing.Webpage;
+using IPConnect_Testing.Testing;
 
 namespace IPConnect_Testing.API
 {
