@@ -50,8 +50,9 @@ namespace IPConnect_Testing
             Write("IPConnect_Testing started");
             Console.Beep(1000,250);
             //StartWebService();
-            RunMotionTests_2a();
-
+            //RunMotionTests_2a();
+            //TestAllCapturesForLag();
+            TestAllCaptures();
             Write("IPConnect_Testing finished");
             Console.ReadLine();
 
@@ -69,17 +70,25 @@ namespace IPConnect_Testing
             motion.TestAllCaptures_SequentialSettingChanges(MotionSensorTypes.Motion2a);
         }
 
+        static void TestAllCapturesForLag()
+        {
+            MotionLagTesting lagTesting = new MotionLagTesting();
+            lagTesting.TestCapture_BothSyncs(MotionSensorTypes.Motion2a, "201621317307840");
+        }
+
         static void RunMotionTests_2a()
         {
             var motion = new Testing.MotionSensor2aTest();
             motion.settings = new MotionSensorSettingsTest();
-            motion.settings.asynchronous = false;
+            motion.settings.asynchronous = true;
             //motion.settings.framesToSkip = 20;
             //motion.settings.horizontalPixelsToSkip = 4;
             //motion.settings.verticalPixelsToSkip = 4;
             motion.Run(url, username, password);
             // motion.Run("2016220121715998");
         }
+
+
 
         static void RunMotionTests_2b()
         {

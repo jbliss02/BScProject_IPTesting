@@ -195,7 +195,7 @@ namespace ImageAnalysis.MotionSensor
         /// Monitor's the backlog by comparing the number of received and processed images
         /// Sends requests to speed up or slow dow as appropriate
         /// </summary>
-        private  void MonitorWork()
+        private void MonitorWork()
         {
             if(!backlogTimer.IsRunning)
             {
@@ -216,9 +216,7 @@ namespace ImageAnalysis.MotionSensor
 
                     backlog.Clear();
                     backlogTimer.Restart();
-                }
-
-               
+                }            
             }
         }//MonitorWork
 
@@ -227,8 +225,8 @@ namespace ImageAnalysis.MotionSensor
         /// </summary>
         private void Speedup()
         {
-            Write("!!!!!!!!!!!!!!!!!!!! SPEEDING UP !!!!!!!!!!!!!!!");
-            settings.framesToSkip = 10;
+         //   Write("!!!!!!!!!!!!!!!!!!!! SPEEDING UP !!!!!!!!!!!!!!!");
+          //  settings.framesToSkip = 10;
         }
 
         public void Write(string st)

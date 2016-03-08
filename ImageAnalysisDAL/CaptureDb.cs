@@ -25,7 +25,11 @@ namespace ImageAnalysisDAL
 
         public DataTable ReturnCapture(string captureId)
         {
-            return DataTableFromProc("dbo.returnCapture");
+            SqlParameter p = new SqlParameter();
+            p.ParameterName = "@captureId";
+            p.Value = captureId;
+            p.DbType = DbType.String;
+            return DataTableFromProc("dbo.returnCapture",p);
         }
 
         public DataTable ReturnCaptureMovement(XmlDocument captureXml) 
@@ -47,45 +51,7 @@ namespace ImageAnalysisDAL
         }
             
 
-        /// <summary>
-        /// Creates a database record for a new detection session, adds the header data
-        /// the detected movement frames, and the motion sensor detectors
-        /// </summary>
-        /// <param name="detecionSessionXml"></param>
-        /// <returns></returns>
-        public void CreateDetectionSession(XmlDocument motionTestingXml, XmlDocument motionSettingsXml, string captureId)
-        {
-            //add the header data
-            SqlParameter p = new SqlParameter();
-            p.ParameterName = "@xml";
-            p.DbType = DbType.Xml;
-            p.Value = motionTestingXml.OuterXml;
 
-            string id = RunProcWithReturn("dbo.addDetectionData", p);
-
-            //add the settings
-            List<SqlParameter> paras = new List<SqlParameter>();
-            p = new SqlParameter();
-            p.ParameterName = "@xml";
-            p.DbType = DbType.Xml;
-            p.Value = motionSettingsXml.OuterXml;
-            paras.Add(p);
-
-            p = new SqlParameter();
-            p.ParameterName = "@detectionId";
-            p.Value = id.StringToInt();
-            p.DbType = DbType.Int16;
-            paras.Add(p);
-
-            p = new SqlParameter();
-            p.ParameterName = "@captureId";
-            p.Value = captureId;
-            p.DbType = DbType.String;
-            paras.Add(p);
-
-            RunProc("test.addDetectionSessionSettings", paras);
-
-        }
 
 
 

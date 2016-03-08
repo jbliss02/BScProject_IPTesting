@@ -24,6 +24,8 @@ namespace ImageAnalysis.Streams
         public delegate void ImageCreatedEvent(ByteWrapper img, EventArgs e);
         public delegate void FramerateBroadcastEvent(double framerate, EventArgs e);
 
+        public bool asyncrohous;
+
         //framebroadcast info
         int imagesAnalysed; //the number of images in the current broadcast (re-set on each broadcast)
         int framesPerBroadcast; //the number of frames to process until the rate is broadcast
@@ -41,9 +43,7 @@ namespace ImageAnalysis.Streams
         Stopwatch stopwatch;
         int minutesToRun;
         bool EndCaputre;
-
         bool singleImageExtraction; //whether we only want one image
-
         int imagesReceived;
 
         public ImageExtractor(string url, string username, string password)
@@ -108,8 +108,10 @@ namespace ImageAnalysis.Streams
                 int contentLength = GetContentLength(header);
 
                 byte[] img = reader.ReadBytes(contentLength);
-                await OnFileCreateAsync(img);
-                //OnFileCreate(img);
+
+            //    await OnFileCreateAsync(img);
+                OnFileCreate(img);
+
 
                 if ((stopwatch != null && stopwatch.Elapsed.Minutes > minutesToRun) || singleImageExtraction)
                 {

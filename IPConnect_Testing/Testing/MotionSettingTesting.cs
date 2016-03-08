@@ -9,6 +9,7 @@ using System.Reflection;
 using ImageAnalysis.MotionSensor;
 using ImageAnalysis.Data;
 using ImageAnalysisDAL;
+using IPConnect_Testing.DAL;
 using IPConnect_Testing.Testing.DataObjects;
 
 namespace IPConnect_Testing.Testing
@@ -18,7 +19,6 @@ namespace IPConnect_Testing.Testing
     /// </summary>
     public class MotionSettingTesting : MotionSensorTest
     {
-
         /// <summary>
         /// Tests all items in the captures list, against the specified motion sensor type
         /// </summary>
@@ -56,36 +56,11 @@ namespace IPConnect_Testing.Testing
 
         }
 
-        private void TestMotion(CaptureTesting captureTesting, MotionSensorTypes motionSensorType, MotionSensorSettingsTest settings)
+        internal override void WriteToDatabase(CaptureTesting captureTest, MotionSensorSettingsTest motionSettings)
         {
-            if (motionSensorType == MotionSensorTypes.Motion2a)
-            {
-                using(MotionSensor2aTest test = new MotionSensor2aTest())
-                {
-                    test.settings = settings;
-
-                    captureTesting.detectionStartTime = DateTime.Now;
-                    captureTesting.detectedMovmentFrames = new List<int>();
-                    captureTesting.detectionMethod = "a";
-
-                    test.Run(captureTesting.captureId);
-
-                    captureTesting.detectedMovmentFrames = test.movementFrames;
-                    captureTesting.detectionEndTime = DateTime.Now;
-
-                }
-
-                WriteToDatabase(captureTesting, settings);
-
-            }
-        }
-
-        private void WriteToDatabase(CaptureTesting captureTest, MotionSensorSettingsTest motionSettings)
-        {
-            var db = new CaptureDb(ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString);
+            var db = new CaptureDbTest(ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString);
             db.CreateDetectionSession(captureTest.SerialiseMe(), motionSettings.SerialiseMe(), captureTest.captureId);
 
         }
-
     }
 }

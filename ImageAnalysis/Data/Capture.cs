@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ImageAnalysisDAL;
 using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
@@ -46,6 +47,7 @@ namespace ImageAnalysis.Data
             list = new List<Capture>();
             ConnectionStringSettingsCollection connections = ConfigurationManager.ConnectionStrings;
             captureInfo = new ImageAnalysisDAL.CaptureDb(connections["LOCALDB"].ConnectionString);
+
             DataTable dt = captureInfo.ReturnCapture(captureId);
 
             foreach (DataRow dr in dt.Rows)

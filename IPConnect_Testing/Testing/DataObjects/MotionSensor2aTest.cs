@@ -43,7 +43,8 @@ namespace IPConnect_Testing.Testing
             string uri = "http://localhost:9000/api/jpeg/0/" + captureId;
             imageExtractor = new ImageExtractor(uri, "root", "root");
             movementFrames = new List<int>();
-            saveFilePath = ConfigurationManager.AppSettings["MotionSaveLocation"] + @"\" + settings.HashCode;     
+            saveFilePath = ConfigurationManager.AppSettings["MotionSaveLocation"] + @"\" + settings.HashCode;
+            Go();
         }
 
         /// <summary>

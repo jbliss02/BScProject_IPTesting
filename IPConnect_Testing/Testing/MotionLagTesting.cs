@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Reflection;
 using ImageAnalysis.MotionSensor;
 using ImageAnalysis.Data;
-using ImageAnalysisDAL;
+using IPConnect_Testing.DAL;
 using IPConnect_Testing.Testing.DataObjects;
 
 namespace IPConnect_Testing.Testing
@@ -55,8 +55,10 @@ namespace IPConnect_Testing.Testing
             captures.list.ForEach(x => TestMotion(x, motionSensorType, settings));
         }
 
-        private void TestMotion(CaptureTesting captureTesting, MotionSensorTypes motionSensorType, MotionSensorSettingsTest settings)
+        internal override void WriteToDatabase(CaptureTesting captureTest, MotionSensorSettingsTest motionSettings)
         {
+            var db = new CaptureDbTest(ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString);
+            db.CreateLagTestSession(captureTest.SerialiseMe(), motionSettings.SerialiseMe(), captureTest.captureId);
 
         }
 

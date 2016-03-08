@@ -103,7 +103,7 @@
     <Compile Include="Testing\DataObjects\MotionSensor2aTest.cs" />
     <Compile Include="Testing\DataObjects\MotionSensor2bTest.cs" />
     <Compile Include="Testing\DataObjects\MotionSensorSettingsTest.cs" />
-    <Compile Include="Testing\DataObjects\MotionSensorTest.cs" />
+    <Compile Include="Testing\MotionSensorTest.cs" />
     <Compile Include="Testing\MotionLagTesting.cs" />
     <Compile Include="Testing\MotionSettingTesting.cs" />
   </ItemGroup>
