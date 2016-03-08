@@ -21,8 +21,8 @@ namespace ImageAnalysis.Data
         /// Populates metadata about each capture session available
         /// allData will load additional metadata, like when movement occurs
         /// </summary>
-        /// <param name="allData"></param>
-        public void PopulateAllCaptures(bool allData)
+        /// <param name="movementData"></param>
+        public void PopulateAllCaptures(bool movementData)
         {
             list = new List<Capture>();
             ConnectionStringSettingsCollection connections = ConfigurationManager.ConnectionStrings;
@@ -37,9 +37,28 @@ namespace ImageAnalysis.Data
                 list.Add(capture);
             }
 
-            if (allData) { PopulateMovement(); }
+            if (movementData) { PopulateMovement(); }
 
         }//PopulateAllCaptures
+
+        public void PopulateCapture(bool movementData, string captureId)
+        {
+            list = new List<Capture>();
+            ConnectionStringSettingsCollection connections = ConfigurationManager.ConnectionStrings;
+            captureInfo = new ImageAnalysisDAL.CaptureDb(connections["LOCALDB"].ConnectionString);
+            DataTable dt = captureInfo.ReturnCapture(captureId);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                Capture capture = new Capture();
+                capture.captureId = dr.Field<String>("captureId");
+                capture.capturedOn = dr.Field<DateTime?>("capturedOn");
+                list.Add(capture);
+            }
+
+            if (movementData) { PopulateMovement(); }
+        }
+
 
         /// <summary>
         /// Extracts movement info from the items in the capture list, adds to those objects in the list

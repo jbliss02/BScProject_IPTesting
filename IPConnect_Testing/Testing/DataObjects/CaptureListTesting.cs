@@ -12,35 +12,11 @@ using System.IO;
 using ImageAnalysis.Data;
 using Tools;
 
-namespace IPConnect_Testing.Testing
+namespace IPConnect_Testing.Testing.DataObjects
 {
     public class CaptureListTesting : CaptureList, ICaptureList
     {
         public new List<CaptureTesting> list { get; set; }
-
-        /// <summary>
-        /// Populates metadata about each capture session available
-        /// allData will load additional metadata, like when movement occurs
-        /// </summary>
-        /// <param name="movementData"></param>
-        public new void PopulateAllCaptures(bool movementData)
-        {
-            list = new List<CaptureTesting>();
-            ConnectionStringSettingsCollection connections = ConfigurationManager.ConnectionStrings;
-            captureInfo = new ImageAnalysisDAL.CaptureDb(connections["LOCALDB"].ConnectionString);
-            DataTable dt = captureInfo.ReturnAllCaptures();
-
-            foreach (DataRow dr in dt.Rows)
-            {
-                CaptureTesting capture = new CaptureTesting();
-                capture.captureId = dr.Field<String>("captureId");
-                capture.capturedOn = dr.Field<DateTime?>("capturedOn");
-                list.Add(capture);
-            }
-
-            if (movementData) { PopulateMovement(); }
-
-        }//PopulateAllCaptures
     }
 
     /// <summary>

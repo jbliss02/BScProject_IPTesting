@@ -98,12 +98,14 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Testing\CaptureTesting.cs" />
+    <Compile Include="Testing\DataObjects\CaptureListTesting.cs" />
     <Compile Include="Testing\ChartData.cs" />
-    <Compile Include="Testing\MotionSensor2aTest.cs" />
-    <Compile Include="Testing\MotionSensor2bTest.cs" />
-    <Compile Include="Testing\MotionSensorSettingsTest.cs" />
-    <Compile Include="Testing\MotionTesting.cs" />
+    <Compile Include="Testing\DataObjects\MotionSensor2aTest.cs" />
+    <Compile Include="Testing\DataObjects\MotionSensor2bTest.cs" />
+    <Compile Include="Testing\DataObjects\MotionSensorSettingsTest.cs" />
+    <Compile Include="Testing\DataObjects\MotionSensorTest.cs" />
+    <Compile Include="Testing\MotionLagTesting.cs" />
+    <Compile Include="Testing\MotionSettingTesting.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

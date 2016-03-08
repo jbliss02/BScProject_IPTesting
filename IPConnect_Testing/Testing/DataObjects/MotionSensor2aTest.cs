@@ -20,6 +20,7 @@ using ImageAnalysis;
 using ImageAnalysis.MotionSensor;
 using ImageAnalysis.Data;
 using Tools;
+using IPConnect_Testing.Testing.DataObjects;
 
 namespace IPConnect_Testing.Testing
 {
@@ -63,28 +64,27 @@ namespace IPConnect_Testing.Testing
         private void Go()
         {
             //create the motion sensor, and listen for images
-            //using (MotionSensor_2a motionSensor = new MotionSensor_2a())
-            //{
             MotionSensor_2a motionSensor = new MotionSensor_2a();
             motionSensor.settings = settings == null ? motionSensor.settings = new MotionSensorSettings() : motionSensor.settings = settings;
 
-            motionSensor.motionDetected += new MotionSensor_2.MotionDetected(MotionDetected);
+            motionSensor.motionDetected += new MotionSensor_2.MotionDetected(MotionDetected); //set up the motion detector hook
             motionSensor.logging.LoggingOn = true;
 
             //create the validator 
+            ImageValidator imageValidator = new ImageValidator();
+            imageValidator.ListenForImages(imageExtractor);
 
-            imageExtractor.imageCreated += new ImageExtractor.ImageCreatedEvent(motionSensor.ImageCreatedAsync);
-            //   imageExtractor.framerateBroadcast += new ImageExtractor.FramerateBroadcastEvent(motionSensor.OnFramerateBroadcast);
-
-
-            //ImageValidator imageValidator = new ImageValidator();
-            //imageValidator.ListenForImages(imageExtractor);
-            //imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreatedAsync); //subscribe to events from the validator (testing so sync only)
-
+            if(settings.asynchronous)
+            {
+                imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreatedAsync); //subscribe to events from the validator
+            }
+            else
+            {
+                imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreated); //subscribe to events from the validator
+            }
 
             imageExtractor.Run();
 
-            //}//using MotionSensor_2a
         }
 
         private async void MotionDetected(ByteWrapper image, EventArgs e)

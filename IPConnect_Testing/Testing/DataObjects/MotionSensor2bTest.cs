@@ -18,7 +18,7 @@ using ImageAnalysis.Streams;
 using ImageAnalysis;
 using ImageAnalysis.MotionSensor;
 
-namespace IPConnect_Testing.Testing
+namespace IPConnect_Testing.Testing.DataObjects
 {
     public class MotionSensor2bTest
     {

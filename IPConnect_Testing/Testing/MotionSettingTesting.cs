@@ -9,16 +9,15 @@ using System.Reflection;
 using ImageAnalysis.MotionSensor;
 using ImageAnalysis.Data;
 using ImageAnalysisDAL;
+using IPConnect_Testing.Testing.DataObjects;
 
 namespace IPConnect_Testing.Testing
 {
     /// <summary>
-    /// Used for testing existing captures against various motion detectors,
-    /// with various settings and recording that information
+    /// Used for testing captures with various settings, and recording that information
     /// </summary>
-    public class MotionTesting
+    public class MotionSettingTesting : MotionSensorTest
     {
-        public CaptureListTesting captures { get; set; }
 
         /// <summary>
         /// Tests all items in the captures list, against the specified motion sensor type
@@ -26,32 +25,10 @@ namespace IPConnect_Testing.Testing
         /// <param name="motionSensorType"></param>
         public void TestAllCaptures(MotionSensorTypes motionSensorType)
         {
-            captures = new CaptureListTesting();
-            captures.PopulateAllCaptures(true);
+            PopulateAllCaptures();
 
             MotionSensorSettingsList motionSensorSettingsList = new MotionSensorSettingsList();
             motionSensorSettingsList.PopulateAllPossible();
-            var settingsList = motionSensorSettingsList.list;
-
-            foreach (MotionSensorSettingsTest setting in settingsList)
-            {
-                captures.list.ForEach(x => TestMotion(x, motionSensorType, setting));
-            }
-        }
-
-        /// <summary>
-        /// Tests all captures available, changes motionSensorSetting passed in based on the range of 
-        /// values in the database. 
-        /// </summary>
-        /// <param name="motionSensorType"></param>
-        /// <param name="motionSensorSettings"></param>
-        public void TestAllCaptures(MotionSensorTypes motionSensorType, MotionSensorSettingTypes motionSensorSetting)
-        {
-            captures = new CaptureListTesting();
-            captures.PopulateAllCaptures(true);
-
-            MotionSensorSettingsList motionSensorSettingsList = new MotionSensorSettingsList();
-            motionSensorSettingsList.PopulateRange(motionSensorSetting);
             var settingsList = motionSensorSettingsList.list;
 
             foreach (MotionSensorSettingsTest setting in settingsList)
@@ -79,7 +56,7 @@ namespace IPConnect_Testing.Testing
 
         }
 
-        public void TestMotion(CaptureTesting captureTesting, MotionSensorTypes motionSensorType, MotionSensorSettingsTest settings)
+        private void TestMotion(CaptureTesting captureTesting, MotionSensorTypes motionSensorType, MotionSensorSettingsTest settings)
         {
             if (motionSensorType == MotionSensorTypes.Motion2a)
             {

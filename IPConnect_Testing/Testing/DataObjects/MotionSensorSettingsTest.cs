@@ -13,7 +13,7 @@ using ImageAnalysis.Data;
 using ImageAnalysisDAL;
 using Tools;
 
-namespace IPConnect_Testing.Testing
+namespace IPConnect_Testing.Testing.DataObjects
 {
     /// <summary>
     /// Collection of various motion sensor settings. Contains methods to extract and populate those settings

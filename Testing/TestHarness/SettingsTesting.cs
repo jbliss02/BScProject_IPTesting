@@ -1,6 +1,7 @@
 ﻿using System;
 using IPConnect_Testing.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using IPConnect_Testing.Testing.DataObjects;
 
 namespace Testing.TestHarness
 {
@@ -19,7 +20,6 @@ namespace Testing.TestHarness
             testSettings.PopulateAllPossible();
             Assert.IsTrue(testSettings.seperateSettingLists.Count > 3);
             Assert.IsTrue(testSettings.seperateSettingLists[0].list.Count > 0);
-            var x = "m;d";
         }
     }
 }

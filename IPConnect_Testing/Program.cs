@@ -20,6 +20,7 @@ using ImageAnalysis.Streams;
 using ImageAnalysis.MotionSensor;
 using ImageAnalysis.Data;
 using IPConnect_Testing.Testing;
+using IPConnect_Testing.Testing.DataObjects;
 using Microsoft.Owin.Hosting;
 
 namespace IPConnect_Testing
@@ -48,9 +49,8 @@ namespace IPConnect_Testing
         {
             Write("IPConnect_Testing started");
             Console.Beep(1000,250);
-            //TempTestFrameRate();
-            StartWebService();
-            //RunMotionTests_2a();
+            //StartWebService();
+            RunMotionTests_2a();
 
             Write("IPConnect_Testing finished");
             Console.ReadLine();
@@ -63,21 +63,17 @@ namespace IPConnect_Testing
         }
 
 
-        static void PrintRate(double rate, EventArgs e)
-        {
-            Console.WriteLine(rate);
-        }
-
         static void TestAllCaptures()
         {
-            MotionTesting motion = new MotionTesting();
+            MotionSettingTesting motion = new MotionSettingTesting();
             motion.TestAllCaptures_SequentialSettingChanges(MotionSensorTypes.Motion2a);
         }
 
         static void RunMotionTests_2a()
         {
             var motion = new Testing.MotionSensor2aTest();
-            //motion.settings = new MotionSensorSettingsTest();
+            motion.settings = new MotionSensorSettingsTest();
+            motion.settings.asynchronous = false;
             //motion.settings.framesToSkip = 20;
             //motion.settings.horizontalPixelsToSkip = 4;
             //motion.settings.verticalPixelsToSkip = 4;

@@ -23,6 +23,11 @@ namespace ImageAnalysisDAL
             return DataTableFromView("dbo.allCaptures");
         }
 
+        public DataTable ReturnCapture(string captureId)
+        {
+            return DataTableFromProc("dbo.returnCapture");
+        }
+
         public DataTable ReturnCaptureMovement(XmlDocument captureXml) 
         {
             SqlParameter p = new SqlParameter();

@@ -25,7 +25,7 @@
                     <div id="chart0-legend" class="chart-legend"></div>
                 </div>
                 <div class="col-md-4" >
-                    <h4 id="chart0-title" class="chartTitle"></h4>
+                    <h3 id="chart0-title" class="chartTitle"></h3>
                 </div>
 
                  <!--Graph 2 header -->
@@ -33,7 +33,7 @@
                     <div id="chart1-legend" class="chart-legend"></div>
                 </div>
                 <div class="col-md-4" >
-                    <h4 id="chart1-title" class="chartTitle"></h4>
+                    <h3 id="chart1-title" class="chartTitle"></h3>
                 </div>
             </div>
             <div class="row">
@@ -53,7 +53,7 @@
                     <div id="chart2-legend" class="chart-legend"></div>
                 </div>
                 <div class="col-md-4" >
-                    <h4 id="chart2-title" class="chartTitle"></h4>
+                    <h3 id="chart2-title" class="chartTitle"></h3>
                 </div>
 
                  <!--Graph 2 header -->
@@ -61,7 +61,7 @@
                     <div id="chart3-legend" class="chart-legend"></div>
                 </div>
                 <div class="col-md-4" >
-                    <h4 id="chart3-title" class="chartTitle"></h4>
+                    <h3 id="chart3-title" class="chartTitle"></h3>
                 </div>
             </div>
             <div class="row">

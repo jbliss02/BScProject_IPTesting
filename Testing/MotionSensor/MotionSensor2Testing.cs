@@ -8,7 +8,7 @@ using ImageAnalysis.Images.Bitmaps;
 using ImageAnalysis.Images.Jpeg;
 using ImageAnalysis.MotionSensor;
 using IPConnect_Testing.Testing;
-
+using IPConnect_Testing.Testing.DataObjects;
 
 namespace Testing.MotionSensor
 {
