@@ -52,6 +52,7 @@ namespace IPConnect_Testing.Testing
                     captureTesting.detectedMovmentFrames = new List<int>();
                     captureTesting.detectionMethod = "a";
 
+                    test.expectedFrames = captureTesting.numberFrames;
                     test.Run(captureTesting.captureId);
 
                     captureTesting.detectedMovmentFrames = test.movementFrames;

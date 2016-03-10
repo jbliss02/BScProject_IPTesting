@@ -51,12 +51,12 @@ namespace IPConnect_Testing.Testing
             MotionSensorSettingsTest settings = new MotionSensorSettingsTest();
 
             //sync tests
-            settings.asynchronous = false;
-            captures.list.ForEach(x => TestMotion(x, motionSensorType, settings));
+            //settings.asynchronous = false;
+            //captures.list.ForEach(x => TestMotion(x, motionSensorType, settings));
 
             //async tests
             settings.asynchronous = true;
-            captures.list.ForEach(x => { TestMotion(x, motionSensorType, settings); OnFinishedBroadcast(captureId, EventArgs.Empty); } );
+            captures.list.ForEach(x => { TestMotion(x, motionSensorType, settings); OnFinishedBroadcast(captureId, EventArgs.Empty); });
         }
 
         internal override void WriteToDatabase(CaptureTesting captureTest, MotionSensorSettingsTest motionSettings)

@@ -10,6 +10,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 using ImageAnalysis.Data;
+using IPConnect_Testing.DAL;
 using Tools;
 
 namespace IPConnect_Testing.Testing.DataObjects
@@ -24,7 +25,7 @@ namespace IPConnect_Testing.Testing.DataObjects
         {
             list = new List<CaptureTesting>();
             ConnectionStringSettingsCollection connections = ConfigurationManager.ConnectionStrings;
-            captureInfo = new ImageAnalysisDAL.CaptureDb(connections["LOCALDB"].ConnectionString);
+            captureInfo = new CaptureDbTest(connections["LOCALDB"].ConnectionString);
 
             DataTable dt = captureInfo.ReturnCapture(captureId);
 
@@ -45,7 +46,7 @@ namespace IPConnect_Testing.Testing.DataObjects
         {
             list = new List<CaptureTesting>();
             ConnectionStringSettingsCollection connections = ConfigurationManager.ConnectionStrings;
-            captureInfo = new ImageAnalysisDAL.CaptureDb(connections["LOCALDB"].ConnectionString);
+            captureInfo = new CaptureDbTest(connections["LOCALDB"].ConnectionString);
             DataTable dt = captureInfo.ReturnAllCaptures();
 
             foreach (DataRow dr in dt.Rows)
@@ -57,11 +58,12 @@ namespace IPConnect_Testing.Testing.DataObjects
 
         }//PopulateAllCaptures
 
-       private void AddCapture(DataRow dr)
+        private void AddCapture(DataRow dr)
        {
             CaptureTesting capture = new CaptureTesting();
             capture.captureId = dr.Field<String>("captureId");
             capture.capturedOn = dr.Field<DateTime?>("capturedOn");
+            capture.numberFrames = dr.Field<Int32>("numberFrames");
 
             list.Add(capture);
         }

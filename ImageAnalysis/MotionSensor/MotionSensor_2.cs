@@ -92,18 +92,19 @@ namespace ImageAnalysis.MotionSensor
         public async void ImageCreatedAsync(ByteWrapper img, EventArgs e)
         {
             lastImageReceived = img.sequenceNumber;
+            logging.imagesReceived++;
+
             AddToWorkQueue(img); //do this outside the anonymous method
             
             await Task.Run(() =>
-            {
-                logging.imagesReceived++;   
+            {                
                 SendForCompareAsync(); 
-            });
-            
+            });         
         }
 
         public void ImageCreated(ByteWrapper img, EventArgs e)
         {
+            lastImageReceived = img.sequenceNumber;
             logging.imagesReceived++;
             AddToWorkQueue(img);
             SendForCompare();
@@ -233,7 +234,6 @@ namespace ImageAnalysis.MotionSensor
         {
             Console.WriteLine(DateTime.Now + " - " + st);
         }
-
 
     }
 }

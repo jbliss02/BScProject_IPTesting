@@ -32,6 +32,8 @@ namespace IPConnect_Testing.Testing
         ImageExtractor imageExtractor;
         public List<Int32> movementFrames { get; private set; }
         public MotionSensorSettingsTest settings { get; set; }
+        public int expectedFrames { get; set; }//the number of frames expected in capture passed in
+        public DateTime imageExtractionEnd { get; set; }//recordsthe time that the ImgaeExtractor says broadcast is finisged
 
         /// <summary>
         /// Run, with a captureId will make the system stream an old capture
@@ -84,11 +86,26 @@ namespace IPConnect_Testing.Testing
                 imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreated); //subscribe to events from the validator
             }
 
-            imageExtractor.finishedBroadcastEvent += new ImageExtractor.FinishedBroadcastEvent(OnBroadcastFinish);
+            
             imageExtractor.Run();
 
-            //if here the extraction has finished?
-            
+            //if here and async then the motion detector is likely still going        
+            if (settings.asynchronous)
+            {
+                imageExtractionEnd = DateTime.Now;
+                while (motionSensor.logging.imagesReceived < expectedFrames)
+                {
+                    System.Threading.Thread.Sleep(250);
+                }
+
+                DateTime motionFinished = DateTime.Now;
+                TimeSpan span = motionFinished - imageExtractionEnd;
+                Console.WriteLine(span.Seconds);
+
+                var d = "jkld";
+            }
+
+
         }
 
         private async void MotionDetected(ByteWrapper image, EventArgs e)
@@ -125,16 +142,6 @@ namespace IPConnect_Testing.Testing
             movementFrames = null;
             settings = null;
 
-        }
-
-        /// <summary>
-        /// Hooks into the ImageExtractor FinishedBroadcast event, says when broadcast is finisged
-        /// </summary>
-        /// <param name="o"></param>
-        /// <param name="e"></param>
-        public void OnBroadcastFinish(object o, EventArgs e)
-        {
-            Console.WriteLine("Broadcast finished");
         }
 
     }

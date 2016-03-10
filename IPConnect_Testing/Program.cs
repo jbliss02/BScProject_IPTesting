@@ -50,8 +50,8 @@ namespace IPConnect_Testing
             Write("IPConnect_Testing started");
             Console.Beep(1000,250);
             //StartWebService();
-            RunMotionTests_2a();
-            //TestAllCapturesForLag();
+            //RunMotionTests_2a();
+            TestAllCapturesForLag();
             //TestAllCaptures();
             Write("IPConnect_Testing finished");
             Console.ReadLine();
@@ -73,7 +73,7 @@ namespace IPConnect_Testing
         static void TestAllCapturesForLag()
         {
             MotionLagTesting lagTesting = new MotionLagTesting();
-            lagTesting.TestCapture_BothSyncs(MotionSensorTypes.Motion2a, "201621317307840");
+            lagTesting.TestCapture_BothSyncs(MotionSensorTypes.Motion2a, "201613113444883");
         }
 
         static void RunMotionTests_2a()

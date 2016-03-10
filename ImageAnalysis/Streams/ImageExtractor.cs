@@ -30,10 +30,6 @@ namespace ImageAnalysis.Streams
         int framesPerBroadcast; //the number of frames to process until the rate is broadcast
         Stopwatch frameStopwatch; //used to calculate the frame rate
 
-        //Event fired when extraction is complete (i.e. no more JPEG's are in stream) sends an 'empty' event
-        public event FinishedBroadcastEvent finishedBroadcastEvent;
-        public delegate void FinishedBroadcastEvent(object o, EventArgs e);
-
         public bool asyncrohous; //whether the events are raised async
 
         //ip camera logon info
@@ -323,11 +319,6 @@ namespace ImageAnalysis.Streams
             await Task.Run(() => {
                 framerateBroadcast(framerate, EventArgs.Empty);
             });            
-        }
-
-        private void OnFinishedBroadcast()
-        {
-            if (finishedBroadcastEvent != null) { finishedBroadcastEvent(new object(), EventArgs.Empty); }
         }
 
     }//ImageExtractor.cs
