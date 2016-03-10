@@ -18,8 +18,12 @@ namespace IPConnect_Testing.Testing
     /// </summary>
     public class MotionLagTesting : MotionSensorTest
     {
-        MotionSensorTypes motionSensorType;
+        //Event fired when extraction is complete (i.e. no more JPEG's are in stream)
+        public event FinishedBroadcastEvent finishedBroadcastEvent;
+        public delegate void FinishedBroadcastEvent(string captureId, EventArgs e);
 
+        MotionSensorTypes motionSensorType;
+        
         /// <summary>
         /// Tests all the captures for lag time, with sync and async settings
         /// </summary>
@@ -52,7 +56,7 @@ namespace IPConnect_Testing.Testing
 
             //async tests
             settings.asynchronous = true;
-            captures.list.ForEach(x => TestMotion(x, motionSensorType, settings));
+            captures.list.ForEach(x => { TestMotion(x, motionSensorType, settings); OnFinishedBroadcast(captureId, EventArgs.Empty); } );
         }
 
         internal override void WriteToDatabase(CaptureTesting captureTest, MotionSensorSettingsTest motionSettings)
@@ -60,6 +64,11 @@ namespace IPConnect_Testing.Testing
             var db = new CaptureDbTest(ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString);
             db.CreateLagTestSession(captureTest.SerialiseMe(), motionSettings.SerialiseMe(), captureTest.captureId);
 
+        }
+
+        private void OnFinishedBroadcast(string captureId, EventArgs e)
+        {
+            if (finishedBroadcastEvent != null) { finishedBroadcastEvent(captureId, e); }
         }
 
     }

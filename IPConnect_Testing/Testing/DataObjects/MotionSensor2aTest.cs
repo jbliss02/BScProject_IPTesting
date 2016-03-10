@@ -84,8 +84,11 @@ namespace IPConnect_Testing.Testing
                 imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreated); //subscribe to events from the validator
             }
 
+            imageExtractor.finishedBroadcastEvent += new ImageExtractor.FinishedBroadcastEvent(OnBroadcastFinish);
             imageExtractor.Run();
 
+            //if here the extraction has finished?
+            
         }
 
         private async void MotionDetected(ByteWrapper image, EventArgs e)
@@ -122,6 +125,16 @@ namespace IPConnect_Testing.Testing
             movementFrames = null;
             settings = null;
 
+        }
+
+        /// <summary>
+        /// Hooks into the ImageExtractor FinishedBroadcast event, says when broadcast is finisged
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="e"></param>
+        public void OnBroadcastFinish(object o, EventArgs e)
+        {
+            Console.WriteLine("Broadcast finished");
         }
 
     }

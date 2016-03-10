@@ -19,7 +19,9 @@ namespace IPConnect_Testing.Testing
     /// </summary>
     public abstract class MotionSensorTest
     {
-        public CaptureListTesting captures { get; set; }
+        protected string captureId;
+
+        protected CaptureListTesting captures { get; set; }
 
         /// <summary>
         /// Populates the captures List with all captures in the database
@@ -38,6 +40,8 @@ namespace IPConnect_Testing.Testing
 
         protected void TestMotion(CaptureTesting captureTesting, MotionSensorTypes motionSensorType, MotionSensorSettingsTest settings)
         {
+            captureId = captureTesting.captureId;
+
             if (motionSensorType == MotionSensorTypes.Motion2a)
             {
                 using (MotionSensor2aTest test = new MotionSensor2aTest())

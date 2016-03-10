@@ -33,8 +33,8 @@ namespace IPConnect_Testing
     class Program
     {
         //static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi?date=1&clock=1&resolution=135x180";
-        static string url = "http://192.168.0.8/axis-cgi/mjpg/video.cgi?resolution=480x360";
-        //static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi";
+        //static string url = "http://192.168.0.8/axis-cgi/mjpg/video.cgi?resolution=480x360";
+        static string url = "http://192.168.0.8/axis-cgi/mjpg/video.cgi";
         //static string url = "http://localhost:8080/api/Mpeg/stream";
         // static string url = "http://192.168.0.2/axis-cgi/mjpg/video.cgi?date=1&clock=1";
         //static string url = "http://localhost:9000/api/Mpeg/Stream?id=1";
@@ -50,9 +50,9 @@ namespace IPConnect_Testing
             Write("IPConnect_Testing started");
             Console.Beep(1000,250);
             //StartWebService();
-            //RunMotionTests_2a();
+            RunMotionTests_2a();
             //TestAllCapturesForLag();
-            TestAllCaptures();
+            //TestAllCaptures();
             Write("IPConnect_Testing finished");
             Console.ReadLine();
 

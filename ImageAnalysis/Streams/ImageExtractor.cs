@@ -19,22 +19,29 @@ namespace ImageAnalysis.Streams
     /// </summary>
     public class ImageExtractor
     {
+        //ImageCreated event, called each time an image is extracted
         public event ImageCreatedEvent imageCreated;
-        public event FramerateBroadcastEvent framerateBroadcast;
         public delegate void ImageCreatedEvent(ByteWrapper img, EventArgs e);
+
+        //Sends the current framerate based on the framesPerBroadcast
+        public event FramerateBroadcastEvent framerateBroadcast;       
         public delegate void FramerateBroadcastEvent(double framerate, EventArgs e);
-
-        public bool asyncrohous;
-
-        //framebroadcast info
         int imagesAnalysed; //the number of images in the current broadcast (re-set on each broadcast)
         int framesPerBroadcast; //the number of frames to process until the rate is broadcast
         Stopwatch frameStopwatch; //used to calculate the frame rate
 
+        //Event fired when extraction is complete (i.e. no more JPEG's are in stream) sends an 'empty' event
+        public event FinishedBroadcastEvent finishedBroadcastEvent;
+        public delegate void FinishedBroadcastEvent(object o, EventArgs e);
+
+        public bool asyncrohous; //whether the events are raised async
+
+        //ip camera logon info
         string url;
         string username;
         string password;
 
+        //JPEG header extraction
         Regex contentLengthRegex = new Regex("Content-Length: (?<length>[0-9]+)\r\n\r\n", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         string boundaryString = @"--myboundary";
         byte[] boundaryBytes; //a byte version of the boundary
@@ -109,8 +116,8 @@ namespace ImageAnalysis.Streams
 
                 byte[] img = reader.ReadBytes(contentLength);
 
-            //    await OnFileCreateAsync(img);
-                OnFileCreate(img);
+                await OnFileCreateAsync(img);
+                //OnFileCreate(img);
 
 
                 if ((stopwatch != null && stopwatch.Elapsed.Minutes > minutesToRun) || singleImageExtraction)
@@ -151,7 +158,7 @@ namespace ImageAnalysis.Streams
                 headerBuffer.AddRange(headBuff); 
 
                 int boundaryStart = FindBoundary(headerBuffer);
-                if (EndCaputre) { return String.Empty; }
+                if (EndCaputre) {  return String.Empty; }
 
                 if (boundaryStart > -1)
                 {
@@ -200,6 +207,7 @@ namespace ImageAnalysis.Streams
                 EndCaputre = true;} //no more images
 
             return -1;
+
         }//FindBoundary
 
         private byte[] SplitByteArray(List<byte> bytes, int start, int end)
@@ -253,7 +261,6 @@ namespace ImageAnalysis.Streams
 
         protected void OnFileCreate(byte[] img)
         {
-
             if (imageCreated != null)
             {
                 imagesReceived++;
@@ -316,6 +323,11 @@ namespace ImageAnalysis.Streams
             await Task.Run(() => {
                 framerateBroadcast(framerate, EventArgs.Empty);
             });            
+        }
+
+        private void OnFinishedBroadcast()
+        {
+            if (finishedBroadcastEvent != null) { finishedBroadcastEvent(new object(), EventArgs.Empty); }
         }
 
     }//ImageExtractor.cs

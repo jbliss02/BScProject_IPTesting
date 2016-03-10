@@ -30,10 +30,7 @@ namespace IPConnect_Testing.Testing.DataObjects
 
             foreach (DataRow dr in dt.Rows)
             {
-                CaptureTesting capture = new CaptureTesting();
-                capture.captureId = dr.Field<String>("captureId");
-                capture.capturedOn = dr.Field<DateTime?>("capturedOn");
-                list.Add(capture);
+                AddCapture(dr);
             }
 
             if (movementData) { PopulateMovement(); }
@@ -53,15 +50,21 @@ namespace IPConnect_Testing.Testing.DataObjects
 
             foreach (DataRow dr in dt.Rows)
             {
-                CaptureTesting capture = new CaptureTesting();
-                capture.captureId = dr.Field<String>("captureId");
-                capture.capturedOn = dr.Field<DateTime?>("capturedOn");
-                list.Add(capture);
+                AddCapture(dr);
             }
 
             if (movementData) { PopulateMovement(); }
 
         }//PopulateAllCaptures
+
+       private void AddCapture(DataRow dr)
+       {
+            CaptureTesting capture = new CaptureTesting();
+            capture.captureId = dr.Field<String>("captureId");
+            capture.capturedOn = dr.Field<DateTime?>("capturedOn");
+
+            list.Add(capture);
+        }
 
         /// <summary>
         /// Extracts movement info from the items in the capture list, adds to those objects in the list
@@ -103,6 +106,8 @@ namespace IPConnect_Testing.Testing.DataObjects
         public DateTime detectionEndTime { get; set; }
 
         public String detectionMethod { get; set; }
+
+        public int numberFrames { get; set; }
 
         /// <summary>
         /// What frame numbers have been identified as having movement
