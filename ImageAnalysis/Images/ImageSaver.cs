@@ -22,7 +22,8 @@ namespace ImageAnalysis.Images
         public int framesPerSection { get; set; } = 1000; //the number of frames per section
         public int initialFrameDetection { get; set; } = 200; //number of frames after which to write initial framerate
 
-        public string ParentDirectory { get; set; } 
+        public string ParentDirectory { get; set; }
+        public string captureId { get; set; }
         public string CaptureDirectory { get; set; }  //the parent directory, in which all section directories will be stored
         public string SaveDirectory { get; set; } //some images (like motion) saved outside of captures
 
@@ -72,7 +73,8 @@ namespace ImageAnalysis.Images
             if (!Directory.Exists(cameraDirectory)) { CreateDirectory(cameraDirectory); }
 
             //define, and create, this session's directory
-            CaptureDirectory = cameraDirectory + @"\" + Tools.ExtensionMethods.DateStamp();
+            captureId = Tools.ExtensionMethods.DateStamp();
+            CaptureDirectory = cameraDirectory + @"\" + captureId;
             CreateDirectory(CaptureDirectory);
 
             //set up the initial save directory
