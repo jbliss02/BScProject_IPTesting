@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -21,6 +22,7 @@ using ImageAnalysis.MotionSensor;
 using ImageAnalysis.Data;
 using IPConnect_Testing.Testing;
 using IPConnect_Testing.Testing.DataObjects;
+using IPConnect_Testing.DAL;
 using Microsoft.Owin.Hosting;
 
 namespace IPConnect_Testing
@@ -51,8 +53,9 @@ namespace IPConnect_Testing
             Console.Beep(1000,250);
             //StartWebService();
             //RunMotionTests_2a();
-            TestAllCapturesForLag();
+            //TestAllCapturesForLag();
             //TestAllCaptures();
+            CreateTimedTests();
             Write("IPConnect_Testing finished");
             Console.ReadLine();
 
@@ -62,7 +65,6 @@ namespace IPConnect_Testing
         {
             WebApp.Start<Startup>(url: "http://localhost:9001/");
         }
-
 
         static void TestAllCaptures()
         {
@@ -82,7 +84,25 @@ namespace IPConnect_Testing
         /// </summary>
         static void CreateTimedTests()
         {
+            //1 to 20 minutes
+            for(int i = 1; i < 21; i++)
+            {
+                Write("Setting up " + i + " minute test");
+                //set up the extractor
+                ImageExtractor imageExtractor = new ImageExtractor(url, username, password);
 
+                //set up the save file object
+                imageSaver = new ImageSaver(0, 1);
+                imageExtractor.imageCreated += new ImageExtractor.ImageCreatedEvent(imageSaver.ImageCreatedAsync);
+                imageExtractor.framerateBroadcast += new ImageExtractor.FramerateBroadcastEvent(FramerateBroadcastEventHandler);
+
+                imageExtractor.Run(i);
+
+                CaptureDbTest db = new CaptureDbTest(ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString);
+                db.AddTimedCapture(imageSaver.captureId, i);
+            
+            }
+            
         }
 
         static void RunMotionTests_2a()
@@ -102,7 +122,6 @@ namespace IPConnect_Testing
             var motion = new Testing.MotionSensor2aTest();
             motion.Run("2016220121312251");
         }
-
 
         static void ExtractImages()
         {

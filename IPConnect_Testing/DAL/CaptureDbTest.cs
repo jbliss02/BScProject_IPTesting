@@ -118,5 +118,20 @@ namespace IPConnect_Testing.DAL
 
         }
 
+        public void AddTimedCapture(string captureId, int minutes)
+        {
+            List<SqlParameter> paras = new List<SqlParameter>();
+
+            SqlParameter p = new SqlParameter("@captureId", DbType.String);
+            p.Value = captureId;
+            paras.Add(p);
+
+            p = new SqlParameter("@minutes", DbType.Int16);
+            p.Value = minutes;
+            paras.Add(p);
+
+            RunProc("dbo.AddTimedCapture", paras);
+        }
+
     }
 }

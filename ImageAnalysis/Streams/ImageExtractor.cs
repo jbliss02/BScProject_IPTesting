@@ -100,7 +100,7 @@ namespace ImageAnalysis.Streams
 
             if(resp.StatusCode != HttpStatusCode.OK) { throw new Exception("HTTP Request returned a " + resp.StatusCode + " status code"); }
 
-            Console.WriteLine(resp.Headers.ToString());
+          //  Console.WriteLine(resp.Headers.ToString());
 
             BinaryReader reader = new BinaryReader(resp.GetResponseStream());
 
@@ -112,8 +112,8 @@ namespace ImageAnalysis.Streams
 
                 byte[] img = reader.ReadBytes(contentLength);
 
-                await OnFileCreateAsync(img);
-                //OnFileCreate(img);
+               // await OnFileCreateAsync(img);
+                OnFileCreate(img);
 
 
                 if ((stopwatch != null && stopwatch.Elapsed.Minutes > minutesToRun) || singleImageExtraction)
