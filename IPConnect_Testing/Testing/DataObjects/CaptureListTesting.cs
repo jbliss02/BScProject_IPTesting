@@ -58,6 +58,23 @@ namespace IPConnect_Testing.Testing.DataObjects
 
         }//PopulateAllCaptures
 
+        /// <summary>
+        /// Populates all captures with a defined length (numberMinutes)
+        /// </summary>
+        public void PopulateTimedCaptures()
+        {
+            list = new List<CaptureTesting>();
+            ConnectionStringSettingsCollection connections = ConfigurationManager.ConnectionStrings;
+            CaptureDbTest captureInfo = new CaptureDbTest(connections["LOCALDB"].ConnectionString);
+            DataTable dt = captureInfo.ReturnTimedCaptures();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                AddCapture(dr);
+            }
+
+        }
+
         private void AddCapture(DataRow dr)
        {
             CaptureTesting capture = new CaptureTesting();

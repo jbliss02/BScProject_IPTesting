@@ -112,11 +112,16 @@ namespace ImageAnalysis.Streams
 
                 byte[] img = reader.ReadBytes(contentLength);
 
-               // await OnFileCreateAsync(img);
-                OnFileCreate(img);
+                if (asyncrohous)
+                {
+                    await OnFileCreateAsync(img);
+                }
+                else
+                {
+                    OnFileCreate(img);
+                }
 
-
-                if ((stopwatch != null && stopwatch.Elapsed.Minutes > minutesToRun) || singleImageExtraction)
+                if ((stopwatch != null && stopwatch.Elapsed.Minutes == minutesToRun) || singleImageExtraction)
                 {
                     resp.Dispose();
                     reader.Dispose();

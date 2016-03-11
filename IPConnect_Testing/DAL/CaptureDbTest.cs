@@ -133,5 +133,14 @@ namespace IPConnect_Testing.DAL
             RunProc("dbo.AddTimedCapture", paras);
         }
 
+        /// <summary>
+        /// Returns all captures with defined lengths (numberMinutes)
+        /// </summary>
+        /// <returns></returns>
+        public DataTable ReturnTimedCaptures()
+        {
+            return DataTableFromProc("@dbo.returnTimedCaptures");
+        }
+
     }
 }

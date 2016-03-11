@@ -169,30 +169,34 @@ namespace ImageAnalysis.Images
         {
             await Task.Run(() => {
 
-                double framerate = framerates.Average();
-                framerates.Clear(); //start again
-
-                //replace the FR in the log file, or write as new
-                string logfile = CaptureDirectory + @"\" + sessionNumber + @"\logfile.txt";
-
-                if(File.Exists(logfile))
+                if(framerates.Count > 0)
                 {
-                    string txt = File.ReadAllText(logfile);
+                    double framerate = framerates.Average();
+                    framerates.Clear(); //start again
 
-                    Regex regex = new Regex("FR:(?<length>[0-9]+).(?<length>[0-9]+)\r\n");
-                    if(regex.IsMatch(txt))
+                    //replace the FR in the log file, or write as new
+                    string logfile = CaptureDirectory + @"\" + sessionNumber + @"\logfile.txt";
+
+                    if(File.Exists(logfile))
                     {
-                        txt = regex.Replace(txt, "FR:" + framerate);
-                        File.WriteAllText(logfile, txt);
+                        string txt = File.ReadAllText(logfile);
+
+                        Regex regex = new Regex("FR:(?<length>[0-9]+).(?<length>[0-9]+)\r\n");
+                        if(regex.IsMatch(txt))
+                        {
+                            txt = regex.Replace(txt, "FR:" + framerate);
+                            File.WriteAllText(logfile, txt);
+                        }
+                    }
+                    else
+                    {
+                        using (System.IO.StreamWriter file = new System.IO.StreamWriter(logfile, true))
+                        {
+                            file.WriteLine("FR:" + framerate);
+                        }
                     }
                 }
-                else
-                {
-                    using (System.IO.StreamWriter file = new System.IO.StreamWriter(logfile, true))
-                    {
-                        file.WriteLine("FR:" + framerate);
-                    }
-                }
+
 
             });
 

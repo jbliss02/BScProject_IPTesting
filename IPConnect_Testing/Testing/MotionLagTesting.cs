@@ -46,29 +46,44 @@ namespace IPConnect_Testing.Testing
             RunTests();
         }
 
+        /// <summary>
+        /// Tests all defined length captures and tests for lag time, with sync and asyc settings
+        /// </summary>
+        /// <param name="motionSensorType"></param>
+        public void TestCapture_BothSyncs(MotionSensorTypes motionSensorType)
+        {
+            this.motionSensorType = motionSensorType;
+            captures = new CaptureListTesting();
+            captures.PopulateTimedCaptures();
+            RunTests();
+        }
+
+
         private void RunTests()
         {
             MotionSensorSettingsTest settings = new MotionSensorSettingsTest();
 
+            timedTest = true;
+
             //sync tests
-            //settings.asynchronous = false;
-            //captures.list.ForEach(x => TestMotion(x, motionSensorType, settings));
+            settings.asynchronous = false;
+            captures.list.ForEach(x => TestMotion(x, motionSensorType, settings));
 
             //async tests
             settings.asynchronous = true;
-            captures.list.ForEach(x => { TestMotion(x, motionSensorType, settings); OnFinishedBroadcast(captureId, EventArgs.Empty); });
+            captures.list.ForEach(x => { TestMotion(x, motionSensorType, settings); });
         }
 
         internal override void WriteToDatabase(CaptureTesting captureTest, MotionSensorSettingsTest motionSettings)
         {
+
+            var el = elapsedMilliseconds;
+
+            var x = "WSS";
+
             var db = new CaptureDbTest(ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString);
             db.CreateLagTestSession(captureTest.SerialiseMe(), motionSettings.SerialiseMe(), captureTest.captureId);
 
-        }
-
-        private void OnFinishedBroadcast(string captureId, EventArgs e)
-        {
-            if (finishedBroadcastEvent != null) { finishedBroadcastEvent(captureId, e); }
         }
 
     }

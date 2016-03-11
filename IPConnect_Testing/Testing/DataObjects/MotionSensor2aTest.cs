@@ -35,6 +35,11 @@ namespace IPConnect_Testing.Testing
         public int expectedFrames { get; set; }//the number of frames expected in capture passed in
         public DateTime imageExtractionEnd { get; set; }//recordsthe time that the ImgaeExtractor says broadcast is finisged
 
+        //test and lag timinig
+        public Boolean timedTest { get; set; }// whether the runtime needs to be recorded in this test
+        public Stopwatch testTimer { get; set; }
+
+
         /// <summary>
         /// Run, with a captureId will make the system stream an old capture
         /// </summary>
@@ -86,11 +91,12 @@ namespace IPConnect_Testing.Testing
                 imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreated); //subscribe to events from the validator
             }
 
-            
+            if (timedTest) { testTimer = new Stopwatch(); testTimer.Start(); }
+
             imageExtractor.Run();
 
             //if here and async then the motion detector is likely still going        
-            if (settings.asynchronous)
+            if (settings.asynchronous && timedTest)
             {
                 imageExtractionEnd = DateTime.Now;
                 while (motionSensor.logging.imagesReceived < expectedFrames)
@@ -98,11 +104,14 @@ namespace IPConnect_Testing.Testing
                     System.Threading.Thread.Sleep(250);
                 }
 
-                DateTime motionFinished = DateTime.Now;
-                TimeSpan span = motionFinished - imageExtractionEnd;
-                Console.WriteLine(span.Seconds);
-
-                var d = "jkld";
+                testTimer.Stop();
+                //DateTime motionFinished = DateTime.Now;
+                //TimeSpan span = motionFinished - imageExtractionEnd;
+                //Console.WriteLine(span.Seconds);
+            }
+            else
+            {
+                testTimer.Stop();
             }
 
 

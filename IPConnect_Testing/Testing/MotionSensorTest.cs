@@ -10,6 +10,7 @@ using ImageAnalysis.MotionSensor;
 using ImageAnalysis.Data;
 using ImageAnalysisDAL;
 using IPConnect_Testing.Testing.DataObjects;
+using System.Diagnostics;
 
 namespace IPConnect_Testing.Testing
 {
@@ -22,6 +23,11 @@ namespace IPConnect_Testing.Testing
         protected string captureId;
 
         protected CaptureListTesting captures { get; set; }
+
+        //test and lag timinig
+        protected Boolean timedTest { get; set; }// whether the runtime needs to be recorded in this test
+        protected int elapsedMilliseconds { get; set; }
+
 
         /// <summary>
         /// Populates the captures List with all captures in the database
@@ -53,14 +59,17 @@ namespace IPConnect_Testing.Testing
                     captureTesting.detectionMethod = "a";
 
                     test.expectedFrames = captureTesting.numberFrames;
+                    test.timedTest = timedTest;
                     test.Run(captureTesting.captureId);
 
                     captureTesting.detectedMovmentFrames = test.movementFrames;
                     captureTesting.detectionEndTime = DateTime.Now;
 
+                    if(timedTest){ elapsedMilliseconds = test.testTimer.Elapsed.Milliseconds; }
+
                 }
 
-                WriteToDatabase(captureTesting, settings);
+                WriteToDatabase(captureTesting, settings); //calls the subclass method
 
             }
         }
