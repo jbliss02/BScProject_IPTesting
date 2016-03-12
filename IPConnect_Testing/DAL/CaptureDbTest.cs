@@ -139,7 +139,7 @@ namespace IPConnect_Testing.DAL
         /// <returns></returns>
         public DataTable ReturnTimedCaptures()
         {
-            return DataTableFromProc("@dbo.returnTimedCaptures");
+            return DataTableFromProc("dbo.returnTimedCaptures");
         }
 
     }

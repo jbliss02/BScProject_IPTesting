@@ -82,7 +82,9 @@ namespace IPConnect_Testing.Testing
             ImageValidator imageValidator = new ImageValidator();
             imageValidator.ListenForImages(imageExtractor);
 
-            if(settings.asynchronous)
+            imageExtractor.asyncrohous = settings.asynchronous;
+
+            if (settings.asynchronous)
             {
                 imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreatedAsync); //subscribe to events from the validator
             }

@@ -18,10 +18,6 @@ namespace IPConnect_Testing.Testing
     /// </summary>
     public class MotionLagTesting : MotionSensorTest
     {
-        //Event fired when extraction is complete (i.e. no more JPEG's are in stream)
-        public event FinishedBroadcastEvent finishedBroadcastEvent;
-        public delegate void FinishedBroadcastEvent(string captureId, EventArgs e);
-
         MotionSensorTypes motionSensorType;
         
         /// <summary>
@@ -66,8 +62,8 @@ namespace IPConnect_Testing.Testing
             timedTest = true;
 
             //sync tests
-            settings.asynchronous = false;
-            captures.list.ForEach(x => TestMotion(x, motionSensorType, settings));
+            //settings.asynchronous = false;
+            //captures.list.ForEach(x => TestMotion(x, motionSensorType, settings));
 
             //async tests
             settings.asynchronous = true;

@@ -26,7 +26,7 @@ namespace IPConnect_Testing.Testing
 
         //test and lag timinig
         protected Boolean timedTest { get; set; }// whether the runtime needs to be recorded in this test
-        protected int elapsedMilliseconds { get; set; }
+        protected double elapsedMilliseconds { get; set; }
 
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace IPConnect_Testing.Testing
                     captureTesting.detectedMovmentFrames = test.movementFrames;
                     captureTesting.detectionEndTime = DateTime.Now;
 
-                    if(timedTest){ elapsedMilliseconds = test.testTimer.Elapsed.Milliseconds; }
+                    if(timedTest){ elapsedMilliseconds = test.testTimer.Elapsed.TotalMilliseconds; }
 
                 }
 
