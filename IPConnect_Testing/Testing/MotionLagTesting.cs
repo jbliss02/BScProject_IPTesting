@@ -62,8 +62,8 @@ namespace IPConnect_Testing.Testing
             timedTest = true;
 
             //sync tests
-            //settings.asynchronous = false;
-            //captures.list.ForEach(x => TestMotion(x, motionSensorType, settings));
+            settings.asynchronous = false;
+            captures.list.ForEach(x => TestMotion(x, motionSensorType, settings));
 
             //async tests
             settings.asynchronous = true;
@@ -72,14 +72,8 @@ namespace IPConnect_Testing.Testing
 
         internal override void WriteToDatabase(CaptureTesting captureTest, MotionSensorSettingsTest motionSettings)
         {
-
-            var el = elapsedMilliseconds;
-
-            var x = "WSS";
-
             var db = new CaptureDbTest(ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString);
-            db.CreateLagTestSession(captureTest.SerialiseMe(), motionSettings.SerialiseMe(), captureTest.captureId);
-
+            db.CreateLagTestSession(captureTest.captureId, motionSettings.asynchronous, elapsedMilliseconds);
         }
 
     }

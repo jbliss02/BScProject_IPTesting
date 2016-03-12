@@ -84,37 +84,30 @@ namespace IPConnect_Testing.DAL
             RunProc("test.addDetectionSessionSettings", paras);
         }
 
-        public void CreateLagTestSession(XmlDocument motionTestingXml, XmlDocument motionSettingsXml, string captureId)
+        /// <summary>
+        /// Adds the results of a lag test into the database
+        /// </summary>
+        /// <param name="motionTestingXml"></param>
+        /// <param name="motionSettingsXml"></param>
+        /// <param name="captureId"></param>
+        public void CreateLagTestSession(string captureId, Boolean asynchronous, double detectionMs)
         {
-            //add the header data
-            SqlParameter p = new SqlParameter();
-            p.ParameterName = "@xml";
-            p.DbType = DbType.Xml;
-            p.Value = motionTestingXml.OuterXml;
 
-            string id = RunProcWithReturn("dbo.addDetectionData", p);
-
-            //add the settings
             List<SqlParameter> paras = new List<SqlParameter>();
-            p = new SqlParameter();
-            p.ParameterName = "@xml";
-            p.DbType = DbType.Xml;
-            p.Value = motionSettingsXml.OuterXml;
-            paras.Add(p);
-
-            p = new SqlParameter();
-            p.ParameterName = "@detectionId";
-            p.Value = id.StringToInt();
-            p.DbType = DbType.Int16;
-            paras.Add(p);
-
-            p = new SqlParameter();
-            p.ParameterName = "@captureId";
+            SqlParameter p = new SqlParameter("@captureId", SqlDbType.Text);
             p.Value = captureId;
-            p.DbType = DbType.String;
             paras.Add(p);
 
-            RunProc("test.addDetectionSessionSettings", paras);
+            p = new SqlParameter("@asynchronous", SqlDbType.Bit);
+            p.Value = asynchronous;
+            paras.Add(p);
+
+
+            p = new SqlParameter("@detectionMs", SqlDbType.Decimal);
+            p.Value = detectionMs;
+            paras.Add(p);
+
+            RunProc("test.adddetectionLagSession", paras);
 
         }
 

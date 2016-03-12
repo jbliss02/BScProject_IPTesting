@@ -97,19 +97,17 @@ namespace IPConnect_Testing.Testing
 
             imageExtractor.Run();
 
-            //if here and async then the motion detector is likely still going        
+            //if here and async then the motion detector is likely still going     
+            //wait for i to finish and record the lag   
             if (settings.asynchronous && timedTest)
             {
-                    imageExtractionEnd = DateTime.Now;
-                while (motionSensor.logging.imagesReceived < expectedFrames)
+                imageExtractionEnd = DateTime.Now;
+                while (motionSensor.logging.imagesReceived + 3 < expectedFrames)
                 {
                     System.Threading.Thread.Sleep(250);
                 }
 
                 testTimer.Stop();
-                //DateTime motionFinished = DateTime.Now;
-                //TimeSpan span = motionFinished - imageExtractionEnd;
-                //Console.WriteLine(span.Seconds);
             }
             else
             {
