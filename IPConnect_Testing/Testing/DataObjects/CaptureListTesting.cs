@@ -104,6 +104,45 @@ namespace IPConnect_Testing.Testing.DataObjects
         }
 
         /// <summary>
+        /// Scans through the captures directory of the passed in cameraId and counts the number
+        /// of frames within that capture. Adds to the database
+        /// </summary>
+        public void UpdateNumberFrames(int cameraId)
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlElement root = doc.CreateElement("IPUPDATE");
+            doc.AppendChild(root);
+
+            string rootDir = ConfigurationManager.AppSettings["saveLocation"] + @"\" + cameraId;
+
+            foreach (String captureDir in Directory.GetDirectories(rootDir))
+            {
+                string _captureId = System.Text.RegularExpressions.Regex.Split(captureDir, "\\\\")[3];
+                int nFrames = 0;
+
+                foreach(String sectionDir in Directory.GetDirectories(captureDir))
+                {
+                    nFrames += Directory.GetFiles(sectionDir).Count() - 1; //remove one for the logfile which is in every directory
+                }
+
+                XmlElement node = doc.CreateElement("capture");
+                root.AppendChild(node);
+
+                XmlElement capture = doc.CreateElement("captureId");
+                capture.InnerXml = _captureId;
+                node.AppendChild(capture);
+
+                XmlElement numberFrames = doc.CreateElement("numberFrames");
+                numberFrames.InnerXml = nFrames.ToString();
+                node.AppendChild(numberFrames);
+            }
+
+            //add to the database
+            new DAL.CaptureDbTest(ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString).AddFrameNumbersToCaptures(doc);
+
+        }//UpdateNumberFrames
+
+        /// <summary>
         /// XML representation of the captures in the list
         /// </summary>
         public new XmlDocument SerialiseMe()

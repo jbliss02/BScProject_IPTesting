@@ -100,7 +100,7 @@ namespace IPConnect_Testing.Testing
             //if here and async then the motion detector is likely still going        
             if (settings.asynchronous && timedTest)
             {
-                imageExtractionEnd = DateTime.Now;
+                    imageExtractionEnd = DateTime.Now;
                 while (motionSensor.logging.imagesReceived < expectedFrames)
                 {
                     System.Threading.Thread.Sleep(250);

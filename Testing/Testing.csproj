@@ -65,6 +65,7 @@
     <Compile Include="PixelMatrixTest.cs" />
     <Compile Include="RumtimeAnalysis\MotionSensorRunTime.cs" />
     <Compile Include="TestHarness\SettingsTesting.cs" />
+    <Compile Include="TestHarness\CaptureListTest.cs" />
     <Compile Include="Tools\ExtensionMethods.cs" />
   </ItemGroup>
   <ItemGroup>

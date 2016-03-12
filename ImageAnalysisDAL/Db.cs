@@ -117,6 +117,13 @@ namespace ImageAnalysisDAL
             return st;
         }
 
+        protected void RunProc(string procName, SqlParameter p)
+        {
+            List<SqlParameter> paras = new List<SqlParameter>();
+            paras.Add(p);
+            RunProc(procName, paras);
+        }
+
         protected void RunProc(string procName, List<SqlParameter> paras)
         {
             using (SqlConnection con = new SqlConnection(connectionString))

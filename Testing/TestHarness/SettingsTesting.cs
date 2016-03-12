@@ -14,6 +14,7 @@ namespace Testing.TestHarness
         /// requires testing
         /// </summary>
         [TestMethod]
+        [TestCategory("Test harness")]
         public void CombinationTesting()
         {
             MotionSensorSettingsList testSettings = new MotionSensorSettingsList();

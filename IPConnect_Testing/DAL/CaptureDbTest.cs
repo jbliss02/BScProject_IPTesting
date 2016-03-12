@@ -142,5 +142,17 @@ namespace IPConnect_Testing.DAL
             return DataTableFromProc("dbo.returnTimedCaptures");
         }
 
+        /// <summary>
+        /// Updates the captures already in the database with the number of frames
+        /// </summary>
+        /// <param name="doc"></param>
+        public void AddFrameNumbersToCaptures(XmlDocument doc)
+        {
+            SqlParameter p = new SqlParameter("@xml", SqlDbType.Xml);
+            p.Value = doc;
+
+            RunProc(@"test.addNumberFrames", p);
+        }
+
     }
 }
