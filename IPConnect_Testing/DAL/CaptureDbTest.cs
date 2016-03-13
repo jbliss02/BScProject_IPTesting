@@ -142,7 +142,7 @@ namespace IPConnect_Testing.DAL
         public void AddFrameNumbersToCaptures(XmlDocument doc)
         {
             SqlParameter p = new SqlParameter("@xml", SqlDbType.Xml);
-            p.Value = doc;
+            p.Value = doc.InnerXml;
 
             RunProc(@"test.addNumberFrames", p);
         }

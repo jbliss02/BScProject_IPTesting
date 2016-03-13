@@ -9,16 +9,16 @@ namespace Testing.TestHarness
     [TestClass]
     public class CaptureListTest
     {
-        //[TestMethod]
-        //[TestCategory("Test harness")]
-        //public void UpdateNumberFrames()
-        //{
-        //    CaptureListTesting captureListTesting = new CaptureListTesting();
+        [TestMethod]
+        [TestCategory("Test harness")]
+        public void UpdateNumberFrames()
+        {
+            CaptureListTesting captureListTesting = new CaptureListTesting();
 
-        //    XmlDocument doc = captureListTesting.UpdateNumberFrames(0);
+            captureListTesting.UpdateNumberFrames(0);
 
-        //    Assert.IsTrue(doc.InnerXml.Length > 20);
+            //Assert.IsTrue(doc.InnerXml.Length > 20);
 
-        //}
+        }
     }
 }

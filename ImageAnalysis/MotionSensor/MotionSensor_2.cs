@@ -30,6 +30,7 @@ namespace ImageAnalysis.MotionSensor
         //Backlog monitoring
         private int lastImageReceived;
         private List<int> backlog; //images received v images processed
+        object backlogLock = new object(); //locks the backlog list so two processes cannot change at the same time
         private Stopwatch backlogTimer; //times when next to check the backlog
         private int backlogCheckMs; //check the backlog every so many milliseconds
 
@@ -159,7 +160,10 @@ namespace ImageAnalysis.MotionSensor
             {
                 Compare(image1, image2);
                 logging.imagesChecked = logging.imagesChecked + 2;
-                backlog.Add(lastImageReceived - image1.sequenceNumber);
+                lock (backlogLock)
+                {
+                    backlog.Add(lastImageReceived - image1.sequenceNumber);
+                }
                 MonitorWork();
             }
 
@@ -184,7 +188,10 @@ namespace ImageAnalysis.MotionSensor
                 {
                     Compare(img1, img2);
                     logging.imagesChecked = logging.imagesChecked + 2;
-                    backlog.Add(lastImageReceived - img1.sequenceNumber);
+                    lock (backlogLock)
+                    {
+                        backlog.Add(lastImageReceived - img1.sequenceNumber);
+                    }
                     MonitorWork();
                 }
             }
@@ -206,18 +213,24 @@ namespace ImageAnalysis.MotionSensor
             {
                 backlogTimer.Stop();
 
-                if(backlog.Count > 1)
+                int backlogCount = 0;
+
+                //lock the backlog collection whilst amending
+                lock(backlogLock)
                 {
-                    //int backlogCount = backlog[backlog.Count - 1];
-                    int backlogCount = (int)backlog.Average();
+                    if (backlog.Count > 1)
+                    {
+                        var backlogCopy = backlog;
+                        backlogCount = (int)backlogCopy.Average();
+                        backlog.Clear();
 
-                    if (backlogCount > 50) { Speedup(); }
+                    }
+                }
 
-                    Write("Backlog was " + backlogCount);
-
-                    backlog.Clear();
-                    backlogTimer.Restart();
-                }            
+                if (backlogCount > 50) { Speedup(); }
+                Write("Backlog was " + backlogCount);      
+                backlogTimer.Restart();
+           
             }
         }//MonitorWork
 
