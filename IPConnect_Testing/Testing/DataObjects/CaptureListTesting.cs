@@ -147,7 +147,7 @@ namespace IPConnect_Testing.Testing.DataObjects
         /// </summary>
         public new XmlDocument SerialiseMe()
         {
-            return new Tools.Xml().SerialiseObject(list);
+            return new Tools.Data().SerialiseObject(list);
         }
 
     }
@@ -178,7 +178,7 @@ namespace IPConnect_Testing.Testing.DataObjects
         /// <returns></returns>
         public XmlDocument SerialiseMe()
         {
-            return new Tools.Xml().SerialiseObject(this);
+            return new Tools.Data().SerialiseObject(this);
         }
 
     }

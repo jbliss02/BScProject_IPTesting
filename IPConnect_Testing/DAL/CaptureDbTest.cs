@@ -40,6 +40,16 @@ namespace IPConnect_Testing.DAL
             return DataTableFromProc("test.ReturnTestConfusionData_byType", p);
         }
 
+        /// <summary>
+        /// Returns the data about lag testing
+        /// </summary>
+        /// <returns></returns>
+        public DataTable ReturnLagTestData()
+        {
+            return DataTableFromProc("test.returnLagTestData");
+           
+        }
+
         public DataTable ReturnSettingTypes()
         {
             return DataTableFromView("dbo.detectionSettingTypes");

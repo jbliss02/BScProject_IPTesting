@@ -94,12 +94,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\TestDataController.cs" />
+    <Compile Include="API\TestLagController.cs" />
     <Compile Include="DAL\CaptureDbTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Testing\DataObjects\CaptureListTesting.cs" />
     <Compile Include="Testing\ChartData.cs" />
+    <Compile Include="Testing\DataObjects\LagTestData.cs" />
     <Compile Include="Testing\DataObjects\MotionSensor2aTest.cs" />
     <Compile Include="Testing\DataObjects\MotionSensor2bTest.cs" />
     <Compile Include="Testing\DataObjects\MotionSensorSettingsTest.cs" />

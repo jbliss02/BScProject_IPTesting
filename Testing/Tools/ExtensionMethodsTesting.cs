@@ -16,7 +16,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Testing.Tools
 {
     [TestClass]
-    public class ExtensionMethods
+    public class ExtensionMethodsTesting
     {
         /// <summary>
         /// checks a hex to int comparision

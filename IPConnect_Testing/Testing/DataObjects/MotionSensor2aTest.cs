@@ -121,7 +121,7 @@ namespace IPConnect_Testing.Testing
         {
             await Task.Run(() =>
             {
-                Console.Beep(1000, 250);
+            //    Console.Beep(1000, 250);
 
                 SaveMotionFile(image);
                 if (movementFrames != null)

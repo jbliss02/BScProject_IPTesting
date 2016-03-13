@@ -286,36 +286,37 @@ namespace ImageAnalysis.Streams
 
         }//OnFileCreate
 
-        private async Task OnFileCreateAsync(byte[] img)
+private async Task OnFileCreateAsync(byte[] img)
+{
+    await Task.Run(() =>
+    {
+
+        if (imageCreated != null)
         {
-            await Task.Run(() =>
+            imagesReceived++;
+            imageCreated(new ByteWrapper(img, imagesReceived), EventArgs.Empty);
+        }
+
+        if (framerateBroadcast != null)
+        {
+            if (!frameStopwatch.IsRunning) { frameStopwatch.Start(); } //only start once the images start to come through
+
+            imagesAnalysed++;
+
+            if (imagesAnalysed % framesPerBroadcast == 0)
             {
+                frameStopwatch.Stop();
+                BroadcastFramerate(frameStopwatch.Elapsed.TotalMilliseconds, imagesAnalysed);
 
-                if (imageCreated != null)
-                {
-                    imagesReceived++;
-                    imageCreated(new ByteWrapper(img, imagesReceived), EventArgs.Empty);
-                }
+                imagesAnalysed = 0;
+                frameStopwatch.Restart();
 
-                if (framerateBroadcast != null)
-                {
-                    if (!frameStopwatch.IsRunning) { frameStopwatch.Start(); } //only start once the images start to come through
+            }
+        }
 
-                    imagesAnalysed++;
+    });
 
-                    if (imagesAnalysed % framesPerBroadcast == 0)
-                    {
-                        frameStopwatch.Stop();
-                        BroadcastFramerate(frameStopwatch.Elapsed.TotalMilliseconds, imagesAnalysed);
-
-                        imagesAnalysed = 0;
-                        frameStopwatch.Restart();
-
-                    }
-                }
-
-            });
-        }//OnFileCreateAsync
+}//OnFileCreateAsync
 
         private async void BroadcastFramerate(double ms, int imagesAnalysed)
         {

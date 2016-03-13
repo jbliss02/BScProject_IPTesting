@@ -17,33 +17,20 @@ using Tools;
 
 namespace IPConnect_Testing.API
 {
-    public class TestDataController : ApiController
+    public class TestLagController : ApiController
     {
-
-        //Enable CORS allows this web service to send to a localhost dev box
-        //stops the cross-origin errors
         [EnableCors(origins: "http://localhost:3328", headers: "*", methods: "*")]
         public ChartDataList Get()
         {
             string conn = ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString;
             var db = new DAL.CaptureDbTest(conn);
-            DataTable settingTypes = db.ReturnSettingTypes();
+            DataTable dt = db.ReturnLagTestData();
 
             ChartDataList chartDataList = new ChartDataList();
-
-            foreach(DataRow dr in settingTypes.Rows)
-            {
-                DataTable dt = db.ReturnTestConfusionData(dr.Field<int>("settingTypeId"));
-                if(dt.Rows.Count > 0)
-                {
-                chartDataList.AddMotionTestData(dt, dr["settingTypeName"].ToString().ToTitleString());
-                }
-            }
+            chartDataList.AddLagTestData(dt, "Lag Tests");
 
             return chartDataList;
         }
-
-
 
     }
 }

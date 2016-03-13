@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using Tools;
+using IPConnect_Testing.Testing.DataObjects;
 
 namespace IPConnect_Testing.Testing
 {
@@ -19,17 +20,17 @@ namespace IPConnect_Testing.Testing
         {
             ChartData chartData = new ChartData();
             chartData.chartTitle = chartTitle;
-            chartData.datasets = new List<ChartDataSets>();
+            chartData.datasets = new List<ChartDataSet>();
             
-            ChartDataSets tp = new ChartDataSets();
+            ChartDataSet tp = new ChartDataSet();
             tp.label = "TP";
             tp.AssignColours(0);
 
-            ChartDataSets fn = new ChartDataSets();
+            ChartDataSet fn = new ChartDataSet();
             fn.label = "FN";
             fn.AssignColours(1);
 
-            ChartDataSets fp = new ChartDataSets();
+            ChartDataSet fp = new ChartDataSet();
             fp.label = "FP";
             fp.AssignColours(2);
 
@@ -48,6 +49,53 @@ namespace IPConnect_Testing.Testing
             list.Add(chartData);
         }
 
+        public void AddLagTestData(DataTable dt, string chartTitle)
+        {
+            ChartData chartData = new ChartData();
+            chartData.chartTitle = chartTitle;
+            chartData.datasets = new List<ChartDataSet>();
+
+            //get the data
+            LagTestDataList lagData = new LagTestDataList();
+            lagData.Populate();
+
+            //split the labels out
+            var labels = lagData.list.GroupBy(x => x.numberMinutes).Select(y => y.First()).ToList();
+            labels.ForEach(x => chartData.labels.Add(x.numberMinutes.ToString()));
+
+            //one set of data each for sync/async and memory combinations
+            var syncList = lagData.list.Where(x => !x.asynchronous).ToList();
+            var asyncList = lagData.list.Where(x => x.asynchronous).ToList();
+
+            var memoryList = lagData.list.GroupBy(x => x.memoryGb).Select(y => y.First().memoryGb.ToString()).ToList();
+
+            //get the different data types
+            foreach(String memory in memoryList)
+            {
+                var sync = syncList.Where(x => x.memoryGb.ToString().Equals(memory));
+                var async = asyncList.Where(x => x.memoryGb.ToString().Equals(memory));
+
+                var syncDataSet = new ChartDataSet();
+                syncDataSet.label = "Sync " + memory + "GB";
+                var asyncDataSet = new ChartDataSet();
+                asyncDataSet.label = "ASync " + memory + "GB";
+
+                foreach (LagTestData data in sync)
+                {
+                    syncDataSet.data.Add(data.detectionSeconds);
+                }
+
+                foreach (LagTestData data in async)
+                {
+                    asyncDataSet.data.Add(data.detectionSeconds);
+                }
+
+                chartData.datasets.Add(syncDataSet);
+                chartData.datasets.Add(asyncDataSet);
+            }
+
+        }//AddLagTestData
+
 
     }//ChartDataList
 
@@ -56,10 +104,10 @@ namespace IPConnect_Testing.Testing
     {
         public string chartTitle { get; set; }
         public List<String> labels = new List<string>();
-        public List<ChartDataSets> datasets;
+        public List<ChartDataSet> datasets;
     }
 
-    public class ChartDataSets
+    public class ChartDataSet
     {
         
         public string label { get; set; }
@@ -73,7 +121,7 @@ namespace IPConnect_Testing.Testing
 
         public List<decimal> data; 
 
-        public ChartDataSets()
+        public ChartDataSet()
         {
             pointStrokeColor = "#fff";
             pointHighlightStroke = "#fff";

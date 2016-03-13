@@ -85,7 +85,7 @@ namespace ImageAnalysis.Data
         /// </summary>
         public XmlDocument SerialiseMe()
         {
-            return new Tools.Xml().SerialiseObject(list);
+            return new Tools.Data().SerialiseObject(list);
         }
 
     }

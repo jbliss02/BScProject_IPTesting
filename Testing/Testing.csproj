@@ -66,7 +66,8 @@
     <Compile Include="RumtimeAnalysis\MotionSensorRunTime.cs" />
     <Compile Include="TestHarness\SettingsTesting.cs" />
     <Compile Include="TestHarness\CaptureListTest.cs" />
-    <Compile Include="Tools\ExtensionMethods.cs" />
+    <Compile Include="Tools\ExtensionMethodsTesting.cs" />
+    <Compile Include="Tools\DataToolsTesting.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HTTP_Streamer\HTTP_Streamer.csproj">
