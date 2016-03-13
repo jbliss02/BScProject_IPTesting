@@ -188,11 +188,6 @@ namespace ImageAnalysis.MotionSensor
                 {
                     Compare(img1, img2);
                     logging.imagesChecked = logging.imagesChecked + 2;
-                    lock (backlogLock)
-                    {
-                        backlog.Add(lastImageReceived - img1.sequenceNumber);
-                    }
-                    MonitorWork();
                 }
             }
         }//SendForCompare
@@ -228,7 +223,7 @@ namespace ImageAnalysis.MotionSensor
                 }
 
                 if (backlogCount > 50) { Speedup(); }
-                Write("Backlog was " + backlogCount);      
+               // Write("Backlog was " + backlogCount);      
                 backlogTimer.Restart();
            
             }

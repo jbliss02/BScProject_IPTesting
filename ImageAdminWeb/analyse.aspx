@@ -13,137 +13,152 @@
     <script src="Scripts/document.js"></script>
     <link type="text/css" rel="stylesheet" href="Content/site.css" />
 </head>
-<body>
-    <div class="container-fluid">
-        <h2>Confusion matrix results based on setting changes</h2>
+    <body>
+        <div class="container-fluid">
+            <h2>Confusion matrix results based on setting changes</h2>
 
-        <div class="graphWrapper">
-            <div class="row headRow">
-                <!--Graph 1 header -->
-                <div class="col-md-2">
-                    <div id="chart0-legend" class="chart-legend"></div>
-                </div>
-                <div class="col-md-4" >
-                    <h3 id="chart0-title" class="chartTitle"></h3>
-                </div>
+            <div class="graphWrapper">
+                <div class="row headRow">
+                    <!--Graph 1 header -->
+                    <div class="col-md-2">
+                        <div id="chart0-legend" class="chart-legend"></div>
+                    </div>
+                    <div class="col-md-4" >
+                        <h3 id="chart0-title" class="chartTitle"></h3>
+                    </div>
 
-                 <!--Graph 2 header -->
-                <div class="col-md-2">
-                    <div id="chart1-legend" class="chart-legend"></div>
+                     <!--Graph 2 header -->
+                    <div class="col-md-2">
+                        <div id="chart1-legend" class="chart-legend"></div>
+                    </div>
+                    <div class="col-md-4" >
+                        <h3 id="chart1-title" class="chartTitle"></h3>
+                    </div>
                 </div>
-                <div class="col-md-4" >
-                    <h3 id="chart1-title" class="chartTitle"></h3>
-                </div>
-            </div>
-            <div class="row">
-                <!--Graph 1  -->
-                <div  class="col-md-6">
-                    <canvas id="chart0" width="400" height="400"></canvas>
-                </div>
-                 <!--Graph 2  -->
-                <div  class="col-md-6">
-                    <canvas id="chart1" width="400" height="400"></canvas>
-                </div>
-            </div>
-
-            <div class="row headRow">
-                <!--Graph 1 header -->
-                <div class="col-md-2">
-                    <div id="chart2-legend" class="chart-legend"></div>
-                </div>
-                <div class="col-md-4" >
-                    <h3 id="chart2-title" class="chartTitle"></h3>
+                <div class="row">
+                    <!--Graph 1  -->
+                    <div  class="col-md-6">
+                        <canvas id="chart0" width="400" height="400"></canvas>
+                    </div>
+                     <!--Graph 2  -->
+                    <div  class="col-md-6">
+                        <canvas id="chart1" width="400" height="400"></canvas>
+                    </div>
                 </div>
 
-                 <!--Graph 2 header -->
-                <div class="col-md-2">
-                    <div id="chart3-legend" class="chart-legend"></div>
-                </div>
-                <div class="col-md-4" >
-                    <h3 id="chart3-title" class="chartTitle"></h3>
-                </div>
-            </div>
-            <div class="row">
-                <!--Graph 1  -->
-                <div  class="col-md-6">
-                    <canvas id="chart2" width="400" height="400"></canvas>
-                </div>
-                 <!--Graph 2  -->
-                <div  class="col-md-6">
-                    <canvas id="chart3" width="400" height="400"></canvas>
-                </div>
-            </div>
+                <div class="row headRow">
+                    <!--Graph 1 header -->
+                    <div class="col-md-2">
+                        <div id="chart2-legend" class="chart-legend"></div>
+                    </div>
+                    <div class="col-md-4" >
+                        <h3 id="chart2-title" class="chartTitle"></h3>
+                    </div>
 
-        </div><!-- Graph wrapper -->
-
-    </div><!--Container fluid-->
-
-     <div class="container-fluid">
-        <h2>Processing v received time lag testing</h2>
-
-        <div class="graphWrapper">
-            <div class="row headRow">
-                <!--Graph 1 header -->
-                <div class="col-md-2">
-                    <div id="chart0b-legend" class="chart-legend"></div>
+                     <!--Graph 2 header -->
+                    <div class="col-md-2">
+                        <div id="chart3-legend" class="chart-legend"></div>
+                    </div>
+                    <div class="col-md-4" >
+                        <h3 id="chart3-title" class="chartTitle"></h3>
+                    </div>
                 </div>
-                <div class="col-md-4" >
-                    <h3 id="chart0b-title" class="chartTitle"></h3>
+                <div class="row">
+                    <!--Graph 1  -->
+                    <div  class="col-md-6">
+                        <canvas id="chart2" width="400" height="400"></canvas>
+                    </div>
+                     <!--Graph 2  -->
+                    <div  class="col-md-6">
+                        <canvas id="chart3" width="400" height="400"></canvas>
+                    </div>
                 </div>
 
-                 <!--Graph 2 header -->
-                <div class="col-md-2">
-                    <div id="chart1b-legend" class="chart-legend"></div>
-                </div>
-                <div class="col-md-4" >
-                    <h3 id="chart1b-title" class="chartTitle"></h3>
-                </div>
-            </div>
-            <div class="row">
-                <!--Graph 1  -->
-                <div  class="col-md-6">
-                    <canvas id="chart0b" width="400" height="400"></canvas>
-                </div>
-                 <!--Graph 2  -->
-                <div  class="col-md-6">
-                    <canvas id="chart1b" width="400" height="400"></canvas>
-                </div>
-            </div>
+            </div><!-- Graph wrapper -->
 
-            <div class="row headRow">
-                <!--Graph 1 header -->
-                <div class="col-md-2">
-                    <div id="chart2b-legend" class="chart-legend"></div>
+        </div><!--Container fluid-->
+
+         <div class="container-fluid">
+            <h2>Processing v received time lag testing</h2>
+
+            <div class="graphWrapper">
+                <div class="row headRow">
+                    <!--Graph 1 header -->
+                    <div class="col-md-2">
+                        <div id="chart0b-legend" class="chart-legend"></div>
+                    </div>
+                    <div class="col-md-4" >
+                        <h3 id="chart0b-title" class="chartTitle"></h3>
+                    </div>
+
+                     <!--Graph 2 header -->
+                    <div class="col-md-2">
+                        <div id="chart1b-legend" class="chart-legend"></div>
+                    </div>
+                    <div class="col-md-4" >
+                        <h3 id="chart1b-title" class="chartTitle"></h3>
+                    </div>
                 </div>
-                <div class="col-md-4" >
-                    <h3 id="chart2b-title" class="chartTitle"></h3>
+                <div class="row">
+                    <!--Graph 1  -->
+                    <div  class="col-md-6">
+                        <canvas id="chart0b" width="400" height="400"></canvas>
+                    </div>
+                     <!--Graph 2  -->
+                    <div  class="col-md-6">
+                        <canvas id="chart1b" width="400" height="400"></canvas>
+                    </div>
                 </div>
 
-                 <!--Graph 2 header -->
-                <div class="col-md-2">
-                    <div id="chart3b-legend" class="chart-legend"></div>
-                </div>
-                <div class="col-md-4" >
-                    <h3 id="chart3b-title" class="chartTitle"></h3>
-                </div>
-            </div>
-            <div class="row">
-                <!--Graph 1  -->
-                <div  class="col-md-6">
-                    <canvas id="chart2b" width="400" height="400"></canvas>
-                </div>
-                 <!--Graph 2  -->
-                <div  class="col-md-6">
-                    <canvas id="chart3b" width="400" height="400"></canvas>
-                </div>
-            </div>
+                <div class="row headRow">
+                    <!--Graph 1 header -->
+                    <div class="col-md-2">
+                        <div id="chart2b-legend" class="chart-legend"></div>
+                    </div>
+                    <div class="col-md-4" >
+                        <h3 id="chart2b-title" class="chartTitle"></h3>
+                    </div>
 
-        </div><!-- Graph wrapper -->
+                     <!--Graph 2 header -->
+                    <div class="col-md-2">
+                        <div id="chart3b-legend" class="chart-legend"></div>
+                    </div>
+                    <div class="col-md-4" >
+                        <h3 id="chart3b-title" class="chartTitle"></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--Graph 1  -->
+                    <div  class="col-md-6">
+                        <canvas id="chart2b" width="400" height="400"></canvas>
+                    </div>
+                     <!--Graph 2  -->
+                    <div  class="col-md-6">
+                        <canvas id="chart3b" width="400" height="400"></canvas>
+                    </div>
+                </div>
 
-    </div><!--Container fluid-->
+            </div><!-- Graph wrapper -->
+
+        </div><!--Container fluid-->
+        
+            <script type="text/template" id="chart">        
+                <div class="row headRow">
+                    <div class="col-md-2">
+                        <div id="{{chartLegend}}" class="chart-legend"></div>
+                    </div>
+                    <div class="col-md-4" >
+                        <h3 id="{{chartTitle}}" class="chartTitle"></h3>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div  class="col-md-6">
+                        <canvas id="{{chartDiv}}" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </script>
         
         
-        
-        
-</body>
+    </body>
 </html>

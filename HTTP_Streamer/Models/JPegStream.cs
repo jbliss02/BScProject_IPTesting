@@ -196,13 +196,11 @@ public async Task RegulateFramerate()
                 double desiredMsPerFrame = (1 / requiredFramerate) * 1000;
                 double requiredMsDelayPerFrame = desiredMsPerFrame - actualMsPerFrame;
 
+                //the receiver may not be able to receive many packets, in which case the desired delay would be
+                //zero, in those cases ignore
                 if(requiredMsDelayPerFrame > 0)
                 {
                     currentDelayMs = Convert.ToInt16(requiredMsDelayPerFrame); 
-                }
-                else
-                {
-                    Console.WriteLine("Less than 0 delay??");
                 }
 
                 //reset counters

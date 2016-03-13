@@ -103,7 +103,7 @@ namespace IPConnect_Testing.Testing
             //add the base line (processing same as minutes to play) for comparision purposes on the graph
             var controlSet = new ChartDataSet();
             controlSet.label = "Realtime";
-            controlSet.AssignColours(count);
+            controlSet.AssignColours("control");
             chartData.labels.ForEach(x => controlSet.data.Add(x.StringToDec()));
             chartData.datasets.Add(controlSet);
 
@@ -178,7 +178,18 @@ namespace IPConnect_Testing.Testing
                 pointHighlightStroke = "rgba(255,145,0,225)";
             }
 
+            //add some auto-colours here
 
+        }
+
+        public void AssignColours(string dataName)
+        {
+            if(dataName.ToLower() == "control")
+            {
+                strokeColor = "rgba(255,145,0,225)";
+                pointColor = "rgba(255,145,0,225)";
+                pointHighlightStroke = "rgba(255,145,0,225)";
+            }
         }
 
     }

@@ -54,7 +54,6 @@ namespace IPConnect_Testing.Testing
             RunTests();
         }
 
-
         private void RunTests()
         {
             MotionSensorSettingsTest settings = new MotionSensorSettingsTest();
@@ -62,12 +61,12 @@ namespace IPConnect_Testing.Testing
             timedTest = true;
 
             //sync tests
-            //settings.asynchronous = false;
-            //captures.list.ForEach(x => TestMotion(x, motionSensorType, settings));
+            settings.asynchronous = false;
+            captures.list.ForEach(x => { TestMotion(x, motionSensorType, settings); Console.WriteLine(x.captureId + " complete"); });
 
             //async tests
-            settings.asynchronous = true;
-            captures.list.ForEach(x => { TestMotion(x, motionSensorType, settings); });
+            //settings.asynchronous = true;
+            //captures.list.ForEach(x => { TestMotion(x, motionSensorType, settings); });
         }
 
         internal override void WriteToDatabase(CaptureTesting captureTest, MotionSensorSettingsTest motionSettings)

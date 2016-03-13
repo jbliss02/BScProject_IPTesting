@@ -19,7 +19,8 @@ namespace IPConnect_Testing.API
 {
     public class TestLagController : ApiController
     {
-        [EnableCors(origins: "http://localhost:3328", headers: "*", methods: "*")]
+        //[EnableCors(origins: "http://localhost:3328", headers: "*", methods: "*")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public ChartDataList Get()
         {
             string conn = ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString;
