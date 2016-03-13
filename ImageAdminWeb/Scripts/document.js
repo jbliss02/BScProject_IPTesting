@@ -3,7 +3,8 @@
 var template = "<h1>{{firstName}} {{lastName}}</h1>Blog: {{blogURL}}";
 
 $(document).ready(function () {
-    getChartData();
+    drawSettingData();
+    drawLagData();
 });
 
 
@@ -62,8 +63,9 @@ var options = {
 
 };
 
-function getChartData()
-{
+
+
+function drawSettingData(){
     var that = this;
 
     $.ajax({
@@ -71,19 +73,44 @@ function getChartData()
         dataType: 'application/text',
         complete: function (data) {
             that.data = JSON.parse(data.responseText);
-            that.drawChartData();
+            that.doDrawSettingChart();
         },
 
     });
 }
 
-function drawChartData()
-{
+function doDrawSettingChart() {
+
     for (var i = 0; i < this.data.list.length; i++) {
         var chartArea = document.getElementById("chart" + i).getContext("2d");
         myLineChart = new Chart(chartArea).Line(data.list[i], options);
         document.getElementById('chart' + i +'-legend').innerHTML = myLineChart.generateLegend();
         $('#chart' + i + '-title').text(data.list[i].chartTitle);
     }
-
 }
+
+
+function drawLagData() {
+    var that = this;
+
+    $.ajax({
+        url: 'http://localhost:9001/api/testlag',
+        dataType: 'application/text',
+        complete: function (data) {
+            that.data = JSON.parse(data.responseText);
+            that.doDrawLagChart();
+        },
+
+    });
+}
+
+function doDrawLagChart() {
+
+    for (var i = 0; i < this.data.list.length; i++) {
+        var chartArea = document.getElementById("chart" + i + "b").getContext("2d");
+        myLineChart = new Chart(chartArea).Line(data.list[i], options);
+        document.getElementById('chart' + i + 'b-legend').innerHTML = myLineChart.generateLegend();
+        $('#chart' + i + '-title').text(data.list[i].chartTitle);
+    }
+}
+

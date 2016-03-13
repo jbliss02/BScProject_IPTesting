@@ -51,9 +51,9 @@ namespace IPConnect_Testing
         {
             Write("IPConnect_Testing started");
             Console.Beep(1000,250);
-            //StartWebService();
+            StartWebService();
             //RunMotionTests_2a();
-            TestAllCapturesForLag();
+           // TestAllCapturesForLag();
             //TestAllCaptures();
             //CreateTimedTests();
             Write("IPConnect_Testing finished");

@@ -20,7 +20,7 @@ namespace IPConnect_Testing.Testing.DataObjects
             var db = new DAL.CaptureDbTest(conn);
             DataTable dt = db.ReturnLagTestData();
 
-            foreach(DataRow dr in dt.Rows)
+            foreach (DataRow dr in dt.Rows)
             {
                 list.Add(new LagTestData(dr));
             }
@@ -35,9 +35,9 @@ namespace IPConnect_Testing.Testing.DataObjects
         public decimal detectionMs { get; set; }
         public Boolean asynchronous { get; set; }
         public int memoryGb { get; set; }
-        public int detectionSeconds { get
+        public decimal detectionSeconds { get
             {
-                return (detectionMs / 1000).ToString().StringToInt();
+                return (detectionMs / 1000) / 60;
             }
         }
         public LagTestData() { }

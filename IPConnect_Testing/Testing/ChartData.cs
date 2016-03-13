@@ -70,6 +70,7 @@ namespace IPConnect_Testing.Testing
             var memoryList = lagData.list.GroupBy(x => x.memoryGb).Select(y => y.First().memoryGb.ToString()).ToList();
 
             //get the different data types
+            int count = 0;
             foreach(String memory in memoryList)
             {
                 var sync = syncList.Where(x => x.memoryGb.ToString().Equals(memory));
@@ -77,8 +78,13 @@ namespace IPConnect_Testing.Testing
 
                 var syncDataSet = new ChartDataSet();
                 syncDataSet.label = "Sync " + memory + "GB";
+                syncDataSet.AssignColours(count);
+                count++;
+
                 var asyncDataSet = new ChartDataSet();
                 asyncDataSet.label = "ASync " + memory + "GB";
+                asyncDataSet.AssignColours(count);
+                count++;
 
                 foreach (LagTestData data in sync)
                 {
@@ -90,12 +96,20 @@ namespace IPConnect_Testing.Testing
                     asyncDataSet.data.Add(data.detectionSeconds);
                 }
 
-                chartData.datasets.Add(syncDataSet);
+               // chartData.datasets.Add(syncDataSet);
                 chartData.datasets.Add(asyncDataSet);
             }
 
-        }//AddLagTestData
+            //add the base line (processing same as minutes to play) for comparision purposes on the graph
+            var controlSet = new ChartDataSet();
+            controlSet.label = "Realtime";
+            controlSet.AssignColours(count);
+            chartData.labels.ForEach(x => controlSet.data.Add(x.StringToDec()));
+            chartData.datasets.Add(controlSet);
 
+            list.Add(chartData);
+
+        }//AddLagTestData
 
     }//ChartDataList
 
@@ -131,28 +145,39 @@ namespace IPConnect_Testing.Testing
 
         public void AssignColours(int number)
         {
-            if(number == 0)
+            if (number == 0)
             {
                 strokeColor = "rgba(39,208,67,225)";
                 pointColor = "rgba(39,208,67,225)";
                 pointHighlightStroke = "rgba(39,208,67,225)";
 
             }
-            else if(number == 1)
+            else if (number == 1)
             {
-                strokeColor= "rgba(151,187,205,1)";
-                pointColor= "rgba(151,187,205,1)";
-                pointHighlightStroke= "rgba(151,187,205,1)";
+                strokeColor = "rgba(151,187,205,1)";
+                pointColor = "rgba(151,187,205,1)";
+                pointHighlightStroke = "rgba(151,187,205,1)";
 
             }
-            else if(number == 2)
+            else if (number == 2)
             {
                 strokeColor = "rgba(232,46,46,225)";
                 pointColor = "rgba(232,46,46,225)";
                 pointHighlightStroke = "rgba(232,46,46,225)";
-
             }
-                
+            else if (number == 3)
+            {
+                strokeColor = "rgba(255,100,100,225)";
+                pointColor = "rgba(240,100,100,225)";
+                pointHighlightStroke = "rgba(240,100,100,225)";
+            }
+            else if (number == 4)
+            {
+                strokeColor = "rgba(255,145,0,225)";
+                pointColor = "rgba(255,145,0,225)";
+                pointHighlightStroke = "rgba(255,145,0,225)";
+            }
+
 
         }
 
