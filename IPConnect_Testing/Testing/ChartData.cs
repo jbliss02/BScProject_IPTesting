@@ -96,7 +96,7 @@ namespace IPConnect_Testing.Testing
                     asyncDataSet.data.Add(data.detectionSeconds);
                 }
 
-               // chartData.datasets.Add(syncDataSet);
+                if (memory == "16") { chartData.datasets.Add(syncDataSet); }
                 chartData.datasets.Add(asyncDataSet);
             }
 
