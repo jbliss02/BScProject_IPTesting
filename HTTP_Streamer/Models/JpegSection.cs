@@ -105,10 +105,10 @@ namespace HTTP_Streamer.Models
             }
             else
             {
-                var files = (from file in Directory.EnumerateFiles(directory).ToList()
-                             where new FileInfo(file).Extension == ".jpg"
-                             orderby file.Split('_')[1].Split('.')[0].ToString().StringToInt() ascending
-                             select file).ToList();
+var files = (from file in Directory.EnumerateFiles(directory).ToList()
+                where new FileInfo(file).Extension == ".jpg"
+                orderby file.Split('_')[1].Split('.')[0].ToString().StringToInt() ascending
+                select file).ToList();
 
                 imageFiles.AddRange(files);
             }

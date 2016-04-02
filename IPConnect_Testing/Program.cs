@@ -167,5 +167,15 @@ namespace IPConnect_Testing
             Console.WriteLine(DateTime.Now + " - " + s);
         }
 
+        private static void ThrowAway()
+        {
+
+using (var motionSensor = new MotionSensor_2a())
+{
+
+}
+
+        }
+
     }
 }

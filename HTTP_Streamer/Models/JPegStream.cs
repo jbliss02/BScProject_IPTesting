@@ -170,49 +170,49 @@ namespace HTTP_Streamer.Models
             return new TimeSpan(0, 0, 0, 0, currentDelayMs);
         }
 
-public async Task RegulateFramerate()
-{
-    await Task.Run(() =>
-    {                             
-        if(!regulatorClock.IsRunning)
+        public async Task RegulateFramerate()
         {
-            regulatorClock.Start(); //start the stopwatch on the initial image creation
-        }
-        else
-        {
-            frameCount++;
-
-            if(frameCount % framesPerRegulationCheck == 0)
-            {
-                //calculate the natural speed
-                regulatorClock.Stop();
-
-                double transmissionMs = regulatorClock.Elapsed.TotalMilliseconds;
-                double delayMs = (currentDelayMs * framesPerRegulationCheck);
-                double naturalTransmissionMs = transmissionMs - delayMs;
-
-                //calculate the actual, required and delta milliseconds per frame 
-                double actualMsPerFrame = naturalTransmissionMs / framesPerRegulationCheck;
-                double desiredMsPerFrame = (1 / requiredFramerate) * 1000;
-                double requiredMsDelayPerFrame = desiredMsPerFrame - actualMsPerFrame;
-
-                //the receiver may not be able to receive many packets, in which case the desired delay would be
-                //zero, in those cases ignore
-                if(requiredMsDelayPerFrame > 0)
+            await Task.Run(() =>
+            {                             
+                if(!regulatorClock.IsRunning)
                 {
-                    currentDelayMs = Convert.ToInt16(requiredMsDelayPerFrame); 
+                    regulatorClock.Start(); //start the stopwatch on the initial image creation
+                }
+                else
+                {
+                    frameCount++;
+
+                    if(frameCount % framesPerRegulationCheck == 0)
+                    {
+                        //calculate the natural speed
+                        regulatorClock.Stop();
+
+                        double transmissionMs = regulatorClock.Elapsed.TotalMilliseconds;
+                        double delayMs = (currentDelayMs * framesPerRegulationCheck);
+                        double naturalTransmissionMs = transmissionMs - delayMs;
+
+                        //calculate the actual, required and delta milliseconds per frame 
+                        double actualMsPerFrame = naturalTransmissionMs / framesPerRegulationCheck;
+                        double desiredMsPerFrame = (1 / requiredFramerate) * 1000;
+                        double requiredMsDelayPerFrame = desiredMsPerFrame - actualMsPerFrame;
+
+                        //the receiver may not be able to receive many packets, in which case the desired delay would be
+                        //zero, in those cases ignore
+                        if(requiredMsDelayPerFrame > 0)
+                        {
+                            currentDelayMs = Convert.ToInt16(requiredMsDelayPerFrame); 
+                        }
+
+                        //reset counters
+                        frameCount = 0;
+                        regulatorClock.Restart();
+                    }
                 }
 
-                //reset counters
-                frameCount = 0;
-                regulatorClock.Restart();
-            }
-        }
+            });
 
-    });
+        }//RegulateFramerate
 
-}//RegulateFramerate
 
-          
     }
 }

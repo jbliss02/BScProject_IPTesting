@@ -97,10 +97,7 @@ namespace ImageAnalysis.Streams
             if (boundaryBytes == null) { throw new Exception("boundaryBytes was null"); }
 
             HttpWebResponse resp = ReturnHttpResponse(url);
-
             if(resp.StatusCode != HttpStatusCode.OK) { throw new Exception("HTTP Request returned a " + resp.StatusCode + " status code"); }
-
-          //  Console.WriteLine(resp.Headers.ToString());
 
             BinaryReader reader = new BinaryReader(resp.GetResponseStream());
 
@@ -286,37 +283,37 @@ namespace ImageAnalysis.Streams
 
         }//OnFileCreate
 
-private async Task OnFileCreateAsync(byte[] img)
-{
-    await Task.Run(() =>
-    {
-
-        if (imageCreated != null)
+        private async Task OnFileCreateAsync(byte[] img)
         {
-            imagesReceived++;
-            imageCreated(new ByteWrapper(img, imagesReceived), EventArgs.Empty);
-        }
-
-        if (framerateBroadcast != null)
-        {
-            if (!frameStopwatch.IsRunning) { frameStopwatch.Start(); } //only start once the images start to come through
-
-            imagesAnalysed++;
-
-            if (imagesAnalysed % framesPerBroadcast == 0)
+            await Task.Run(() =>
             {
-                frameStopwatch.Stop();
-                BroadcastFramerate(frameStopwatch.Elapsed.TotalMilliseconds, imagesAnalysed);
 
-                imagesAnalysed = 0;
-                frameStopwatch.Restart();
+                if (imageCreated != null)
+                {
+                    imagesReceived++;
+                    imageCreated(new ByteWrapper(img, imagesReceived), EventArgs.Empty);
+                }
 
-            }
-        }
+                if (framerateBroadcast != null)
+                {
+                    if (!frameStopwatch.IsRunning) { frameStopwatch.Start(); } //only start once the images start to come through
 
-    });
+                    imagesAnalysed++;
 
-}//OnFileCreateAsync
+                    if (imagesAnalysed % framesPerBroadcast == 0)
+                    {
+                        frameStopwatch.Stop();
+                        BroadcastFramerate(frameStopwatch.Elapsed.TotalMilliseconds, imagesAnalysed);
+
+                        imagesAnalysed = 0;
+                        frameStopwatch.Restart();
+
+                    }
+                }
+
+            });
+
+        }//OnFileCreateAsync
 
         private async void BroadcastFramerate(double ms, int imagesAnalysed)
         {

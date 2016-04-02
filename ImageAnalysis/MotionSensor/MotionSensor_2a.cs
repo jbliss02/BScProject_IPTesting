@@ -92,7 +92,6 @@ namespace ImageAnalysis.MotionSensor
             double min = pixelChange.Min();
 
             double range = ((max - min) / min) * 100; //percentage change
-            // double buffer = (100 + (range * 1.5 * (double)settings.sensitivity)) / 100; //this is a percentage
             double buffer = (100 + (range * (double)settings.sensitivity)) / 100; //this is a percentage
             pixelChangeThreshold = max * buffer;
             ThresholdSet = true;

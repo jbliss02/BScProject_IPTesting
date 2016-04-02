@@ -30,8 +30,6 @@ namespace ImageAnalysis.Images
         {
             if(img.bytes[0] == JPEG_start[0] && img.bytes[1] == JPEG_start[1] && img.bytes[img.bytes.Length -2] == JPEG_end[0] && img.bytes[img.bytes.Length -1] == JPEG_end[1])
             {
-
-               // Console.WriteLine("Image Validated");
                 OnImageValidated(img); //raise the event
             }
             else
