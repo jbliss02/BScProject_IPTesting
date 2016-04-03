@@ -16,7 +16,7 @@ using System.Configuration;
 
 namespace HTTP_Streamer.Controllers
 {
-    public class JpegController : ApiController
+    public class Jpeg_delController : ApiController
     {
         public const string boundary = "myboundary";
 

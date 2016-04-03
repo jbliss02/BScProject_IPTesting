@@ -6,18 +6,18 @@ namespace HTTP_Streamer
     public class Startup
     {
 
-public void Configuration(IAppBuilder appBuilder)
-{
-    HttpConfiguration config = new HttpConfiguration();
+    public void Configuration(IAppBuilder appBuilder)
+    {
+        HttpConfiguration config = new HttpConfiguration();
 
-    config.MapHttpAttributeRoutes();
-    config.Routes.MapHttpRoute(
-        name: "DefaultApi",
-        routeTemplate: "api/{controller}/{id}",
-        defaults: new { id = RouteParameter.Optional }
-    );
+        config.MapHttpAttributeRoutes();
+        config.Routes.MapHttpRoute(
+            name: "DefaultApi",
+            routeTemplate: "api/{controller}/{id}",
+            defaults: new { id = RouteParameter.Optional }
+        );
 
-    appBuilder.UseWebApi(config);
-}
+        appBuilder.UseWebApi(config);
+    }
     }
 }

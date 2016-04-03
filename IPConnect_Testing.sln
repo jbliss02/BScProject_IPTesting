@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPConnect_Testing", "IPConnect_Testing\IPConnect_Testing.csproj", "{50A76ED1-5122-446D-ADF1-8CAA55C6A8E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HTTP_Streamer", "HTTP_Streamer\HTTP_Streamer.csproj", "{333D7319-2F86-4971-B189-72882C85D80F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools", "Tools\Tools.csproj", "{871B781A-BEC7-46E8-A267-19E4E41E222C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{75E76375-E6B2-4E93-BE6A-F5AA4D53027F}"
@@ -16,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageAdminWeb", "ImageAdminWeb\ImageAdminWeb.csproj", "{8FE77733-DD54-4A8A-9C42-A4B38EE06815}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageAnalysisDAL", "ImageAnalysisDAL\ImageAnalysisDAL.csproj", "{291D7591-ED18-45B3-A2F4-F1DD7860C881}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotionManager", "MotionManager\MotionManager.csproj", "{F632B6C8-B3B4-45E0-8FD3-256BA70971D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +27,6 @@ Global
 		{50A76ED1-5122-446D-ADF1-8CAA55C6A8E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50A76ED1-5122-446D-ADF1-8CAA55C6A8E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50A76ED1-5122-446D-ADF1-8CAA55C6A8E3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{333D7319-2F86-4971-B189-72882C85D80F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{333D7319-2F86-4971-B189-72882C85D80F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{333D7319-2F86-4971-B189-72882C85D80F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{333D7319-2F86-4971-B189-72882C85D80F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{871B781A-BEC7-46E8-A267-19E4E41E222C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{871B781A-BEC7-46E8-A267-19E4E41E222C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{871B781A-BEC7-46E8-A267-19E4E41E222C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +47,10 @@ Global
 		{291D7591-ED18-45B3-A2F4-F1DD7860C881}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{291D7591-ED18-45B3-A2F4-F1DD7860C881}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{291D7591-ED18-45B3-A2F4-F1DD7860C881}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F632B6C8-B3B4-45E0-8FD3-256BA70971D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F632B6C8-B3B4-45E0-8FD3-256BA70971D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F632B6C8-B3B4-45E0-8FD3-256BA70971D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F632B6C8-B3B4-45E0-8FD3-256BA70971D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

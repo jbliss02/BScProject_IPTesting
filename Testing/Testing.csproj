@@ -70,10 +70,6 @@
     <Compile Include="Tools\DataToolsTesting.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HTTP_Streamer\HTTP_Streamer.csproj">
-      <Project>{333d7319-2f86-4971-b189-72882c85d80f}</Project>
-      <Name>HTTP_Streamer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ImageAnalysisDAL\ImageAnalysisDAL.csproj">
       <Project>{291d7591-ed18-45b3-a2f4-f1dd7860c881}</Project>
       <Name>ImageAnalysisDAL</Name>

@@ -17,28 +17,36 @@ namespace ImageAnalysis.Camera
         IPAddress ipAddress;
 
         public bool ConnectSuccess { get; set; }
-        public byte[] CameraImage { get; set; }
+        public byte[] ImageBytes { get; set; }
         private string cameraUrl { get; set; }
 
         public CameraFinder(string ipAddress)
         {
            // ipAddress = ip;
-            cameraUrl = ipAddress + @"/axis-cgi/mjpg/video.cgi";
+            cameraUrl = @"http://" + ipAddress + @"/axis-cgi/mjpg/video.cgi";
         }
 
         public void GetImage()
         {
-
+            try
+            {
                 ImageExtractor imageExtractor = new ImageExtractor(cameraUrl, "root", "root");
                 imageExtractor.asyncrohous = false; //need to wait for a success or fail
                 imageExtractor.imageCreated += new ImageExtractor.ImageCreatedEvent(ImageExtracted);
                 imageExtractor.Run(true);
+                ConnectSuccess = true;
+            }
+            catch
+            {
+                ConnectSuccess = false;
+            }
+
 
         }
 
         private void ImageExtracted(ByteWrapper img, EventArgs e)
         {
-            CameraImage = img.bytes;
+            ImageBytes = img.bytes;
             ConnectSuccess = true;
         }
 

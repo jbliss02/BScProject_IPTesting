@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tools;
 
-namespace HTTP_Streamer.Models
+namespace MotionManager.Models
 {
     /// <summary>
     /// Represents a set of JEPG files used to form part of a MPEG stream
