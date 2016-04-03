@@ -15,7 +15,10 @@ namespace MotionManager.Controllers
 
         public HttpResponseMessage Get()
         {
-            CameraFinder finder = new CameraFinder("192.168.0.8");
+            CameraModel camera = new CameraModel();
+            camera.cameraIpAddress = "192.168.0.8";
+
+            CameraFinder finder = new CameraFinder(camera);
             finder.GetImage();
 
             var result = new HttpResponseMessage(HttpStatusCode.OK);

@@ -49,6 +49,7 @@
     <Compile Include="Analysis\JpegComparision.cs" />
     <Compile Include="Analysis\PixelMatrix.cs" />
     <Compile Include="Camera\CameraFinder.cs" />
+    <Compile Include="Camera\CameraModel.cs" />
     <Compile Include="Data\Capture.cs" />
     <Compile Include="Data\ICapture.cs" />
     <Compile Include="Data\ICaptureList.cs" />

@@ -14,23 +14,21 @@ namespace ImageAnalysis.Camera
     /// </summary>
     public class CameraFinder
     {
-        IPAddress ipAddress;
-
         public bool ConnectSuccess { get; set; }
         public byte[] ImageBytes { get; set; }
-        private string cameraUrl { get; set; }
+        CameraModel cameraInfo;
 
-        public CameraFinder(string ipAddress)
+
+        public CameraFinder(CameraModel cameraInfo)
         {
-           // ipAddress = ip;
-            cameraUrl = @"http://" + ipAddress + @"/axis-cgi/mjpg/video.cgi";
+            this.cameraInfo = cameraInfo;
         }
 
         public void GetImage()
         {
             try
             {
-                ImageExtractor imageExtractor = new ImageExtractor(cameraUrl, "root", "root");
+                ImageExtractor imageExtractor = new ImageExtractor(cameraInfo.mpegUrl, "root", "root");
                 imageExtractor.asyncrohous = false; //need to wait for a success or fail
                 imageExtractor.imageCreated += new ImageExtractor.ImageCreatedEvent(ImageExtracted);
                 imageExtractor.Run(true);
@@ -41,7 +39,21 @@ namespace ImageAnalysis.Camera
                 ConnectSuccess = false;
             }
 
+        }
 
+        public void AttemptConnection()
+        {
+            try
+            {
+                ImageExtractor imageExtractor = new ImageExtractor(cameraInfo.mpegUrl, "root", "root");
+                imageExtractor.asyncrohous = false; //need to wait for a success or fail
+                imageExtractor.Run(true);
+                ConnectSuccess = true;
+            }
+            catch
+            {
+                ConnectSuccess = false;
+            }
         }
 
         private void ImageExtracted(ByteWrapper img, EventArgs e)

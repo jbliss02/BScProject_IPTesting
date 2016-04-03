@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HTTP_Streamer.Controllers;
-using HTTP_Streamer.Models;
+using MotionManager.Controllers;
+using MotionManager.Models;
 using System.Collections.Generic;
 
 namespace Testing

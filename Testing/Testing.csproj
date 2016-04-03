@@ -82,6 +82,10 @@
       <Project>{50a76ed1-5122-446d-adf1-8caa55c6a8e3}</Project>
       <Name>IPConnect_Testing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MotionManager\MotionManager.csproj">
+      <Project>{f632b6c8-b3b4-45e0-8fd3-256ba70971d4}</Project>
+      <Name>MotionManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Tools\Tools.csproj">
       <Project>{871b781a-bec7-46e8-a267-19e4e41e222c}</Project>
       <Name>Tools</Name>
