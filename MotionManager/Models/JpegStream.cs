@@ -102,7 +102,7 @@ namespace MotionManager.Models
             }
             catch
             {
-                return;
+                return; //client probably disconnected
             }
             finally
             {
