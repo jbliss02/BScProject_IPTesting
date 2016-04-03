@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageAdminWeb", "ImageAdmin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageAnalysisDAL", "ImageAnalysisDAL\ImageAnalysisDAL.csproj", "{291D7591-ED18-45B3-A2F4-F1DD7860C881}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MotionManager", "MotionManager\MotionManager.xproj", "{F151A197-F77B-48BE-B7B7-DAE6DD3E9663}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +51,6 @@ Global
 		{291D7591-ED18-45B3-A2F4-F1DD7860C881}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{291D7591-ED18-45B3-A2F4-F1DD7860C881}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{291D7591-ED18-45B3-A2F4-F1DD7860C881}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F151A197-F77B-48BE-B7B7-DAE6DD3E9663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F151A197-F77B-48BE-B7B7-DAE6DD3E9663}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F151A197-F77B-48BE-B7B7-DAE6DD3E9663}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F151A197-F77B-48BE-B7B7-DAE6DD3E9663}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
