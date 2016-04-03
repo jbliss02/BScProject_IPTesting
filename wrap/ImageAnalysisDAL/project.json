@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "dnx451": {
+      "bin": {
+        "assembly": "../../ImageAnalysis/bin/Release/ImageAnalysisDAL.dll",
+        "pdb": "../../ImageAnalysis/bin/Release/ImageAnalysisDAL.pdb"
+      }
+    }
+  }
+}
