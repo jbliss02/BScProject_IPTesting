@@ -39,9 +39,10 @@ namespace MotionManager.Controllers
                 response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg");
                 response.Content.Headers.Remove("Content-Type");
                 response.Content.Headers.TryAddWithoutValidation("Content-Type", "multipart/x-mixed-replace;boundary=" + jpegStream.boundary);
+
+                //ADD THE LENGTH HERE?
+
                 return response;
-
-
             }
             catch
             {

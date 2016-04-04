@@ -9,6 +9,12 @@ namespace ImageAnalysis.Camera
     public class CameraModel
     {
         /// <summary>
+        /// At the moment always set to 0, but made available for future development to support
+        /// multiple cameras
+        /// </summary>
+        public int cameraId { get { return 0; } }
+
+        /// <summary>
         /// The IP address which the camera can be found at
         /// </summary>
         public string cameraIpAddress { get; set; }
@@ -65,5 +71,46 @@ namespace ImageAnalysis.Camera
         }
 
         private string _mpegUrl;
+
+        private string _username;
+        public string username
+        {
+            get
+            {
+                if (this._username == null || this._username == String.Empty)
+                {
+                    return "root";
+                }
+                else
+                {
+                    return this._username;
+                }
+            }
+            set
+            {
+                this._username = value;
+            }
+        }
+
+        private string _password;
+        public string password
+        {
+            get
+            {
+                if (this._password == null || this._password == String.Empty)
+                {
+                    return "root";
+                }
+                else
+                {
+                    return this._password;
+                }
+            }
+            set
+            {
+                this._password = value;
+            }
+        }
+
     }
 }

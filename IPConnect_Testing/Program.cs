@@ -51,7 +51,8 @@ namespace IPConnect_Testing
         {
             Write("IPConnect_Testing started");
             Console.Beep(1000,250);
-            StartWebService();
+            TestStartup();
+            //StartWebService();
             //RunMotionTests_2a();
            // TestAllCapturesForLag();
             //TestAllCaptures();
@@ -123,6 +124,21 @@ namespace IPConnect_Testing
             motion.Run("2016220121312251");
         }
 
+        /// <summary>
+        /// Tests the MotionSensorStartup wrapper which is used to fire a motion
+        /// detection session
+        /// </summary>
+        static void TestStartup()
+        {
+            MotionSensorSetup setup = new MotionSensorSetup();
+            setup.camera = new ImageAnalysis.Camera.CameraModel();
+            setup.camera.cameraIpAddress = "192.168.0.8";
+
+            MotionSensorStartup motionSensor = new MotionSensorStartup(setup);
+
+
+        }
+
         static void ExtractImages()
         {
             //set up the extractor
@@ -167,15 +183,6 @@ namespace IPConnect_Testing
             Console.WriteLine(DateTime.Now + " - " + s);
         }
 
-        private static void ThrowAway()
-        {
-
-using (var motionSensor = new MotionSensor_2a())
-{
-
-}
-
-        }
 
     }
 }

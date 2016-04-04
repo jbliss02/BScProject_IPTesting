@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Tools;
 using ImageAnalysis.Images.Jpeg;
+using ImageAnalysis.Camera;
 
 namespace ImageAnalysis.Streams
 {
@@ -49,15 +50,18 @@ namespace ImageAnalysis.Streams
         bool singleImageExtraction; //whether we only want one image
         int imagesReceived;
 
+        public ImageExtractor(CameraModel camera)
+        {
+            this.username = camera.username;
+            this.password = camera.password;
+            this.url = camera.mpegUrl;
+        }
+
         public ImageExtractor(string url, string username, string password)
         {
             this.username = username;
             this.password = password;
             this.url = url;
-
-            this.framesPerBroadcast = ConfigurationManager.AppSettings["FramesPerBroadcast"].ToString().StringToInt();
-
-            boundaryBytes = Encoding.ASCII.GetBytes(boundaryString); //set the boundary bytes from the boundaryString
         }
 
         private HttpWebResponse ReturnHttpResponse(string URI)
@@ -134,7 +138,9 @@ namespace ImageAnalysis.Streams
 
         private void Setup()
         {
-            if(framerateBroadcast != null) { frameStopwatch = new Stopwatch(); } //records the framerate
+            this.framesPerBroadcast = ConfigurationManager.AppSettings["FramesPerBroadcast"].ToString().StringToInt();
+            boundaryBytes = Encoding.ASCII.GetBytes(boundaryString); //set the boundary bytes from the boundaryString
+            if (framerateBroadcast != null) { frameStopwatch = new Stopwatch(); } //records the framerate
         }
 
         /// <summary>
