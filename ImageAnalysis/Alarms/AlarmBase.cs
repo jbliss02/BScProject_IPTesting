@@ -11,14 +11,16 @@ namespace ImageAnalysis.Alarms
     /// Base Alarm service that holds the logic common to any alarm 
     /// Receives the incoming messages, decides how many alarms to send etc.
     /// </summary>
-    public class AlarmBase : IAlarm
+    public abstract class AlarmBase : IAlarm
     {
         public List<ByteWrapper> images = new List<ByteWrapper>(); //saved moment images
 
         public void ImageExtracted(ByteWrapper img, EventArgs e)
         {
-
+            images.Add(img);
+            OnImageExtracted();
         }
 
+        public abstract void OnImageExtracted();
     }
 }

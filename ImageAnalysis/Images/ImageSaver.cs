@@ -60,11 +60,25 @@ namespace ImageAnalysis.Images
             SetUp();
         }
 
-        public ImageSaver(string saveDirectory, string fileStartName) { this.SaveDirectory = saveDirectory; this.fileStartName = fileStartName; }
+        /// <summary>
+        /// Defines the parent directory to which files will be saved (a session directory will be automatically
+        /// created and added to this directory). Also defines the start of the file name
+        /// </summary>
+        public ImageSaver(string saveDirectory, string fileStartName, int cameraId)
+        {
+            if (!System.IO.Directory.Exists(saveDirectory))
+            {
+                throw new Exception("saveDirectory " + saveDirectory + " could not be accessed");
+            }
+
+            this.SaveDirectory = saveDirectory + @"\" + cameraId + @"\" + Tools.ExtensionMethods.DateStamp();
+            CreateDirectory(this.SaveDirectory);
+            this.fileStartName = fileStartName;
+        }
 
         private void SetUp()
         {
-            fileStartName = "test";
+            if (fileStartName == String.Empty) { fileStartName = "image"; }
 
             ParentDirectory = ConfigurationManager.AppSettings["SaveLocation"].ToString();
 

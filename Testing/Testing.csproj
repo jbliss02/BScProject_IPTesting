@@ -55,6 +55,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Alarms\EmailAlarmTest.cs" />
     <Compile Include="Database\DbConnectionTesting.cs" />
     <Compile Include="Data\DataTests.cs" />
     <Compile Include="ImageSaverTesting.cs" />
@@ -96,6 +97,9 @@
     <None Include="App.config" />
     <None Include="connections.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="smtp.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <Choose>

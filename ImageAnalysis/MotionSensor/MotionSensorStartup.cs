@@ -25,27 +25,27 @@ namespace ImageAnalysis.MotionSensor
         public MotionSensorStartup(MotionSensorSetup setup)
         {
             //setup the extractor
-            ImageExtractor imageExtractor = new ImageExtractor(setup.camera);
+            imageExtractor = new ImageExtractor(setup.camera);
             imageExtractor.framerateBroadcast += new ImageExtractor.FramerateBroadcastEvent(FramerateBroadcastEventHandler);
             imageExtractor.asyncrohous = true;
 
             //set up the save file object
-            imageSaver = new ImageSaver(setup.imageSaveLocation, "movement");
+            imageSaver = new ImageSaver(setup.imageSaveLocation, "movement", setup.camera.cameraId);
 
             //setup the motion sensor
             motionSensor = new MotionSensor_2a();
             motionSensor.settings = new MotionSensorSettings();
             motionSensor.settings.LoadDefaults();
+
             motionSensor.motionDetected += new MotionSensor_2.MotionDetected(imageSaver.ImageCreatedAsync);
 
             //create the validator 
-            ImageValidator imageValidator = new ImageValidator();
+            imageValidator = new ImageValidator();
             imageValidator.ListenForImages(imageExtractor);
             imageValidator.imageValidated += new ImageValidator.ImageValidatedEvent(motionSensor.ImageCreatedAsync);//subscribe to events from the validator
 
             //setup the alarms
             alarms = new List<IAlarm>();
-
 
             imageExtractor.Run();
 
