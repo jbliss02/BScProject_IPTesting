@@ -20,7 +20,7 @@ namespace ImageAnalysis.Alarms
 
         public override void OnImageExtracted()
         {
-            ///
+
         }
 
         /// <summary>
