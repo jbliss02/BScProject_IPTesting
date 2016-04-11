@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ImageAnalysis.Images.Jpeg;
+using System.Configuration;
+using Tools;
 
 namespace ImageAnalysis.Alarms
 {
@@ -13,14 +15,37 @@ namespace ImageAnalysis.Alarms
     /// </summary>
     public abstract class AlarmBase : IAlarm
     {
-        public List<ByteWrapper> images = new List<ByteWrapper>(); //saved moment images
+        public List<String> images = new List<String>(); //saved moment images, needs to be cleared regularly
+        object objLock = new object(); //locks images collection as may be called async
 
-        public void ImageExtracted(ByteWrapper img, EventArgs e)
+        private DateTime? lastAlarm; //when the last alarm was sounded
+        private int secondsBetweenAlarms; //what delay should be added so continuous alarms are not raised
+        private int minimumMovementsForAlarm; //only sounds the alarm after this many movements
+
+        public AlarmBase()
         {
-            images.Add(img);
-            OnImageExtracted();
+            //may throw a casting exception, can be caught upstream
+            secondsBetweenAlarms = ConfigurationManager.AppSettings["secondsBetweenAlarms"].ToString().StringToInt();
+            minimumMovementsForAlarm = ConfigurationManager.AppSettings["minimumMovementsForAlarm"].ToString().StringToInt();
+            lastAlarm = null;
         }
 
-        public abstract void OnImageExtracted();
+        public void ImageExtracted(String imagePath, EventArgs e)
+        {
+            lock(objLock){images.Add(imagePath);}
+
+            if (lastAlarm == null || (DateTime.Now - lastAlarm.Value).Seconds > secondsBetweenAlarms)
+            {
+                if(images.Count >= minimumMovementsForAlarm)
+                {
+                    lastAlarm = DateTime.Now;
+                    RaiseAlarm(imagePath);
+                    lock (objLock) { images.Clear(); } //start again                  
+                }
+            }
+
+        }//ImageExtracted
+
+        public abstract void RaiseAlarm();
     }
 }

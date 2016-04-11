@@ -17,7 +17,7 @@ namespace ImageAnalysis.MotionSensor
     {
         public CameraModel camera { get; set; }
 
-        public IAlarm emailAlarm { get; set; }
+        public EmailAlarm emailAlarm { get; set; }
 
         public IAlarm smtpAlarm { get; set; }
 

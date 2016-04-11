@@ -46,6 +46,11 @@ namespace ImageAnalysis.MotionSensor
 
             //setup the alarms
             alarms = new List<IAlarm>();
+            if (setup.emailAlarm != null)
+            {
+                alarms.Add(setup.emailAlarm as EmailAlarm);
+                imageSaver.imageCreated += new ImageSaver.ImageSavedEvent(setup.emailAlarm.ImageExtracted);
+            }
 
             imageExtractor.Run();
 

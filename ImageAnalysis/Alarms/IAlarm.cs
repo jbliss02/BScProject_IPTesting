@@ -12,6 +12,6 @@ namespace ImageAnalysis.Alarms
     /// </summary>
     public interface IAlarm
     {
-        void ImageExtracted(ByteWrapper img, EventArgs e);
+        void ImageExtracted(String imagePath, EventArgs e);
     }
 }

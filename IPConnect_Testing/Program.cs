@@ -134,6 +134,9 @@ namespace IPConnect_Testing
             setup.camera = new ImageAnalysis.Camera.CameraModel();
             setup.camera.cameraIpAddress = "192.168.0.8";
 
+            setup.emailAlarm = new ImageAnalysis.Alarms.EmailAlarm();
+            setup.emailAlarm.emailAddress = "james.bliss@outlook.com";
+
             MotionSensorStartup motionSensor = new MotionSensorStartup(setup);
 
 

@@ -178,7 +178,6 @@ namespace ImageAnalysis.MotionSensor
         {
             if (WorkQueue.Count > 1)
             {
-                //take images out of the queue, as this is async other methods may dequeue between the calls so be defensive
                 ByteWrapper img1 = null;
                 if (WorkQueue.Count > 0) { img1 = WorkQueue.Dequeue(); }
                 ByteWrapper img2 = null;

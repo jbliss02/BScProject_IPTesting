@@ -34,7 +34,8 @@ namespace ImageAnalysis.Images
             }
             else
             {
-                throw new Exception("JPEG image is not well formed");
+                //throw new Exception("JPEG image is not well formed");
+                Console.WriteLine("Badly formed image");
             }
 
         }//FileCreated

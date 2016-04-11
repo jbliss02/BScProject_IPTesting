@@ -16,7 +16,7 @@ namespace Testing.Alarms
             {
                 EmailAlarm alarm = new EmailAlarm();
                 alarm.emailAddress = "james.bliss@outlook.com";
-                alarm.SendEmail();
+                alarm.SendAlarmEmail();
                 success = true;
             }
             catch(Exception ex)

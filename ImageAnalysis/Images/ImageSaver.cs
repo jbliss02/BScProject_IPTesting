@@ -19,6 +19,9 @@ namespace ImageAnalysis.Images
     /// </summary>
     public class ImageSaver
     {
+        public event ImageSavedEvent imageCreated;
+        public delegate void ImageSavedEvent(String imagePath, EventArgs e);
+
         public int framesPerSection { get; set; } = 1000; //the number of frames per section
         public int initialFrameDetection { get; set; } = 200; //number of frames after which to write initial framerate
 
@@ -220,10 +223,12 @@ namespace ImageAnalysis.Images
         {
             try
             {
-                using (FileStream fs = new FileStream(GenerateFileName(), FileMode.Create))
+                string fileName = GenerateFileName();
+                using (FileStream fs = new FileStream(fileName, FileMode.Create))
                 {
                     fs.Write(img.bytes, 0, img.bytes.Length);
                 }
+                if (imageCreated != null) { imageCreated(fileName, EventArgs.Empty); }
 
             }
             catch(Exception ex)
