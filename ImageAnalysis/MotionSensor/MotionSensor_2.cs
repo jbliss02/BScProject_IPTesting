@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using ImageAnalysis.Images;
@@ -33,9 +33,12 @@ namespace ImageAnalysis.MotionSensor
         object backlogLock = new object(); //locks the backlog list so two processes cannot change at the same time
         private Stopwatch backlogTimer; //times when next to check the backlog
         private int backlogCheckMs; //check the backlog every so many milliseconds
+        private int pixelJumpPerFrameJump; //set from the regulation formula. pixels jumped up to this value, then a frame is jumped
+        private int backlogSpeedup; //when this number is exceeded everything is sped up, to decrease the backlog
+        private int backlogSlowdown; //when this number is higher than backlog everything is slowed down, increasing accuracy
 
         //threshold setting
-        public int ControlImageNumber { get; set; } = 10; //number of changes to use as the control (half the images as done in pairs)
+        public int ControlImageNumber { get; set; } //number of changes to use as the control (half the images as done in pairs)
         public bool ThresholdSet { get; set; }
 
         public MotionSensorSettings settings { get; set; }
@@ -57,11 +60,52 @@ namespace ImageAnalysis.MotionSensor
             WorkQueue = new Queue<ByteWrapper>();
             logging = new Logs.Logging();
             ThresholdSet = false;
-            backlogCheckMs = ConfigurationManager.AppSettings["BacklogCheckMs"].ToString().StringToInt();
+            ControlImageNumber = ConfigurationManager.AppSettings["imagesInThreshold"].StringToInt() / 2;
+
+            //backlog monitoring
+            backlogCheckMs = ConfigurationManager.AppSettings["backlogCheckMs"].ToString().StringToInt();
+            backlogSpeedup = ConfigurationManager.AppSettings["backlogSpeedup"].ToString().StringToInt();
+            backlogSlowdown = ConfigurationManager.AppSettings["backlogSlowdown"].ToString().StringToInt();
             backlogTimer = new Stopwatch();
             backlog = new List<int>();
-         //   comparisionProcessed += new ComparisionProcessed(ComparisionProcessedEvent); //used for the backlog checking
+            SetRegulationParameters();
         }
+
+        /// <summary>
+        /// Extracts the regulation formula from config files and sets the pixelJumpPerFrameJump variable
+        /// this drives the logic on what metric to increase / decrease when changing speed
+        /// </summary>
+        private void SetRegulationParameters()
+        {
+            string[] split = Regex.Split(ConfigurationManager.AppSettings["regulationFormula"], ":");
+
+            if(split.Length != 2)
+            {
+                throw new Exception("regulationFormula was not in expected format");
+            }
+
+            int framesToSkip;
+            int pixelsToSkip;
+
+            if(split[0].Substring(split[0].Length - 2).ToUpper() == "P")
+            {
+                pixelsToSkip = split[0].Substring(0, split[0].Length - 2).StringToInt();
+                framesToSkip = split[1].Substring(0, split[1].Length - 2).StringToInt();
+            }
+            else
+            {
+                framesToSkip = split[0].Substring(0, split[0].Length - 1).StringToInt();
+                pixelsToSkip = split[1].Substring(0, split[1].Length - 1).StringToInt();
+            }
+
+            if(framesToSkip <= 0 || pixelsToSkip <= 0)
+            {
+                throw new Exception("regulationFormula was not in expected format");
+            }
+
+            pixelJumpPerFrameJump =  framesToSkip / pixelsToSkip;
+
+        }//SetRegulationParameters
 
         /// <summary>
         /// Called when the object detects motion, creates the event
@@ -221,11 +265,14 @@ namespace ImageAnalysis.MotionSensor
                     }
                 }
 
-                if (backlogCount > 50) { Speedup(); }
-               // Write("Backlog was " + backlogCount);      
+                LogRegulationSettings(backlogCount);
+
+                if (backlogCount > backlogSpeedup) { Speedup(); }
+                else if(backlogCount < backlogSlowdown) { Slowdown(); }  
                 backlogTimer.Restart();
-           
+
             }
+
         }//MonitorWork
 
         /// <summary>
@@ -233,8 +280,63 @@ namespace ImageAnalysis.MotionSensor
         /// </summary>
         private void Speedup()
         {
-         //   Write("!!!!!!!!!!!!!!!!!!!! SPEEDING UP !!!!!!!!!!!!!!!");
-          //  settings.framesToSkip = 10;
+            //if horizontal and vertical pixel jumps are not the same then increase the lower value
+            if(settings.horizontalPixelsToSkip != settings.verticalPixelsToSkip)
+            {
+                if(settings.horizontalPixelsToSkip > settings.verticalPixelsToSkip) { settings.verticalPixelsToSkip = settings.horizontalPixelsToSkip; }
+                else { settings.horizontalPixelsToSkip = settings.verticalPixelsToSkip; }
+            }
+            //decide whether to increase pixel jumps, or frames to skip
+            else
+            {
+                if(settings.horizontalPixelsToSkip > 0 && settings.horizontalPixelsToSkip % pixelJumpPerFrameJump == 0)
+                {
+                    settings.framesToSkip++;
+                }
+                else
+                {
+                    settings.horizontalPixelsToSkip++;
+                }
+            }
+
+        }//Speedup
+
+        /// <summary>
+        /// Slows down the comparision by amending the settings, makes the comparisions take longer, but are more accurate
+        /// </summary>
+        private void Slowdown()
+        {
+            //if horizontal and vertical pixel jumps are not the same then increase the lower value
+            if (settings.horizontalPixelsToSkip != settings.verticalPixelsToSkip)
+            {
+                if (settings.horizontalPixelsToSkip < settings.verticalPixelsToSkip) { settings.verticalPixelsToSkip = settings.horizontalPixelsToSkip; }
+                else { settings.horizontalPixelsToSkip = settings.verticalPixelsToSkip; }
+            }
+            //decide whether to decrease pixel jumps, or frames to skip
+            else
+            {
+                if (settings.horizontalPixelsToSkip > 0 && settings.horizontalPixelsToSkip % pixelJumpPerFrameJump == 0)
+                {
+                    settings.framesToSkip--;
+                }
+                else
+                {
+                    settings.horizontalPixelsToSkip--;
+                }
+            }
+
+        }//Speedup
+
+        /// <summary>
+        /// Writes the regulation settings to a file, for later analysis
+        /// </summary>
+        /// <param name="backlogCount"></param>
+        private void LogRegulationSettings(int backlogCount)
+        {
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(ConfigurationManager.AppSettings["regulationLogFile"], true))
+            {
+                file.WriteLine(backlogCount + "¬" + settings.framesToSkip + "¬" + settings.horizontalPixelsToSkip + "¬" + settings.verticalPixelsToSkip);
+            }
         }
 
         public void Write(string st)

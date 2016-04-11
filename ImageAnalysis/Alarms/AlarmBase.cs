@@ -39,7 +39,7 @@ namespace ImageAnalysis.Alarms
                 if(images.Count >= minimumMovementsForAlarm)
                 {
                     lastAlarm = DateTime.Now;
-                    RaiseAlarm(imagePath);
+                    RaiseAlarm();
                     lock (objLock) { images.Clear(); } //start again                  
                 }
             }
