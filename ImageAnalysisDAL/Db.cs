@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 namespace ImageAnalysisDAL
 {
-    public abstract class Db
+    public abstract class Db 
     {
         protected Db(string connectionString) { this.connectionString = connectionString; }
 

@@ -16,7 +16,7 @@ namespace ImageAnalysis.MotionSensor
     /// <summary>
     /// Base class that provides basic functionality to serve Motion Sensor approaches in category 2 (pixel analysis)
     /// </summary>
-    public class MotionSensor_2
+    public class MotionSensor_2 : IMotionSensor
     {
         //Work queue
         public Queue<ByteWrapper> WorkQueue { get; set; } //images waiting to be processed

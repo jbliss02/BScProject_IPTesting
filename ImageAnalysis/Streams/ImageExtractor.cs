@@ -18,7 +18,7 @@ namespace ImageAnalysis.Streams
     /// <summary>
     /// Attachs to an MJPEG HTTP stream and extracts individual JPEG's
     /// </summary>
-    public class ImageExtractor
+    public class ImageExtractor : IImageExtractor
     {
         //ImageCreated event, called each time an image is extracted
         public event ImageCreatedEvent imageCreated;
@@ -31,7 +31,7 @@ namespace ImageAnalysis.Streams
         int framesPerBroadcast; //the number of frames to process until the rate is broadcast
         Stopwatch frameStopwatch; //used to calculate the frame rate
 
-        public bool asyncrohous; //whether the events are raised async
+        public bool asyncrohous { get; set; } //whether the events are raised async
 
         //ip camera logon info
         string url;
@@ -320,7 +320,6 @@ namespace ImageAnalysis.Streams
             });
 
         }//OnFileCreateAsync
-
         private async void BroadcastFramerate(double ms, int imagesAnalysed)
         {
             var framerate = ms / imagesAnalysed;

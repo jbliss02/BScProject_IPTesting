@@ -57,6 +57,8 @@
     <Compile Include="Data\ICapture.cs" />
     <Compile Include="Data\ICaptureList.cs" />
     <Compile Include="Data\Movement.cs" />
+    <Compile Include="Images\IImageSaver.cs" />
+    <Compile Include="Images\IImageValidator.cs" />
     <Compile Include="Images\ImageSaver.cs" />
     <Compile Include="Images\Bitmaps\BitmapWrappers.cs" />
     <Compile Include="Images\Bitmaps\PixelAnalysis.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="Images\Jpeg\ByteWrapper.cs" />
     <Compile Include="Images\Jpeg\JPEG.cs" />
     <Compile Include="Images\ImageValidator.cs" />
+    <Compile Include="MotionSensor\IMotionSensor_2.cs" />
     <Compile Include="MotionSensor\Logs\Logging.cs" />
     <Compile Include="MotionSensor\MotionSensorSettings.cs" />
     <Compile Include="MotionSensor\MotionSensorSetup.cs" />
@@ -73,6 +76,7 @@
     <Compile Include="MotionSensor\MotionSensor_2b.cs" />
     <Compile Include="MotionSensor\Statics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Streams\IImageExtractor.cs" />
     <Compile Include="Streams\StreamAnalyser.cs" />
     <Compile Include="Streams\ImageExtractor.cs" />
   </ItemGroup>

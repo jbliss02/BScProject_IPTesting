@@ -17,7 +17,7 @@ namespace ImageAnalysis.Images
     /// Saves bytes as JPEG images
     /// Defines the folder structure, file allocation and file naming convention
     /// </summary>
-    public class ImageSaver
+    public class ImageSaver : IImageSaver
     {
         public event ImageSavedEvent imageCreated;
         public delegate void ImageSavedEvent(String imagePath, EventArgs e);

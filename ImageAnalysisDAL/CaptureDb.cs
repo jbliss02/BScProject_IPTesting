@@ -14,7 +14,7 @@ namespace ImageAnalysisDAL
     /// <summary>
     /// Writes, and returns, information on IP camera capture sessions
     /// </summary>
-    public class CaptureDb : Db
+    public class CaptureDb : Db, ICaptureDb
     {
         public CaptureDb(string connectionString) :base(connectionString) {  }
 
@@ -50,10 +50,5 @@ namespace ImageAnalysisDAL
             return DataTableFromProc("dbo.returnDetectionSettingDefaults");
         }
             
-
-
-
-
-
     }
 }

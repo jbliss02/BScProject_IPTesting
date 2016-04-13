@@ -16,7 +16,7 @@ namespace ImageAnalysis.Data
     public class CaptureList : ICaptureList
     {
         public List<Capture> list { get; set; }
-        public CaptureDb captureInfo { get; set; }
+        public ICaptureDb captureInfo { get; set; }
 
         /// <summary>
         /// Populates metadata about each capture session available

@@ -16,10 +16,10 @@ namespace ImageAnalysis.MotionSensor
     /// </summary>
     public class MotionSensorStartup
     {
-        private ImageSaver imageSaver;
-        private ImageValidator imageValidator;
-        private ImageExtractor imageExtractor;
-        private MotionSensor_2a motionSensor;
+        private IImageSaver imageSaver;
+        private IImageValidator imageValidator;
+        private IImageExtractor imageExtractor;
+        private IMotionSensor motionSensor;
         private List<IAlarm> alarms; //all the alarms to sound if movement is detected
 
         public MotionSensorStartup(MotionSensorSetup setup)

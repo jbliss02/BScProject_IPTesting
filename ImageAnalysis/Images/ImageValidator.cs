@@ -13,7 +13,7 @@ namespace ImageAnalysis.Images
     /// Initially only covers JPEG's - does this by checking the magic numbers
     /// JPegs start with ff d8 and end with ff d9 (or bytes - 255 216 ends with 255 217)
     /// </summary>
-    public class ImageValidator
+    public class ImageValidator : IImageValidator
     {
         public event ImageValidatedEvent imageValidated;
         public delegate void ImageValidatedEvent(ByteWrapper img, EventArgs e);
@@ -21,7 +21,7 @@ namespace ImageAnalysis.Images
         public byte[] JPEG_start = new byte[2] {255, 216};
         public byte[] JPEG_end = new byte[2] { 255, 217 };
 
-        public void ListenForImages(ImageExtractor imgClass)
+        public void ListenForImages(IImageExtractor imgClass)
         {
             imgClass.imageCreated += new ImageExtractor.ImageCreatedEvent(FileCreated);
         }
