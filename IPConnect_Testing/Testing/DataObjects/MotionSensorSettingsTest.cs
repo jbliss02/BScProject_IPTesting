@@ -226,7 +226,6 @@ namespace IPConnect_Testing.Testing.DataObjects
 
     }
 
-
     //public for testing - change to internal
     public class MotionSetting
     {
