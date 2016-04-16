@@ -343,10 +343,5 @@ namespace ImageAnalysis.MotionSensor
             }
         }
 
-        public void Write(string st)
-        {
-            Console.WriteLine(DateTime.Now + " - " + st);
-        }
-
     }
 }

@@ -40,7 +40,7 @@ namespace ImageAnalysis.Images.Bitmaps
             return list[0].pixelAnalysis.totalPixelColors;
         }   }
 
-         public double lowestPixelTotal{ get {
+        public double lowestPixelTotal{ get {
                 if (!pixelListSorted) { SortByPixelTotal(); }
                 return list[list.Count - 1].pixelAnalysis.totalPixelColors;
          }   }
