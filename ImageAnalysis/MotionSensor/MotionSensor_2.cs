@@ -28,14 +28,16 @@ namespace ImageAnalysis.MotionSensor
         public delegate void MotionDetected(ByteWrapper image, EventArgs e);
 
         //Backlog monitoring
-        private int lastImageReceived;
-        private List<int> backlog; //images received v images processed
-        object backlogLock = new object(); //locks the backlog list so two processes cannot change at the same time
-        private Stopwatch backlogTimer; //times when next to check the backlog
-        private int backlogCheckMs; //check the backlog every so many milliseconds
-        private int pixelJumpPerFrameJump; //set from the regulation formula. pixels jumped up to this value, then a frame is jumped
-        private int backlogSpeedup; //when this number is exceeded everything is sped up, to decrease the backlog
-        private int backlogSlowdown; //when this number is higher than backlog everything is slowed down, increasing accuracy
+        //private int lastImageReceived;
+        //private List<int> backlog; //images received v images processed
+        //object backlogLock = new object(); //locks the backlog list so two processes cannot change at the same time
+        //private Stopwatch backlogTimer; //times when next to check the backlog
+        //private int backlogCheckMs; //check the backlog every so many milliseconds
+        //private int pixelJumpPerFrameJump; //set from the regulation formula. pixels jumped up to this value, then a frame is jumped
+        //private int backlogSpeedup; //when this number is exceeded everything is sped up, to decrease the backlog
+        //private int backlogSlowdown; //when this number is higher than backlog everything is slowed down, increasing accuracy
+
+        MotionSensorBacklog backlog;
 
         //threshold setting
         public int ControlImageNumber { get; set; } //number of changes to use as the control (half the images as done in pairs)
@@ -63,49 +65,50 @@ namespace ImageAnalysis.MotionSensor
             ControlImageNumber = ConfigurationManager.AppSettings["imagesInThreshold"].StringToInt() / 2;
 
             //backlog monitoring
-            backlogCheckMs = ConfigurationManager.AppSettings["backlogCheckMs"].ToString().StringToInt();
-            backlogSpeedup = ConfigurationManager.AppSettings["backlogSpeedup"].ToString().StringToInt();
-            backlogSlowdown = ConfigurationManager.AppSettings["backlogSlowdown"].ToString().StringToInt();
-            backlogTimer = new Stopwatch();
-            backlog = new List<int>();
-            SetRegulationParameters();
+            backlog = new MotionSensorBacklog();
+            //backlogCheckMs = ConfigurationManager.AppSettings["backlogCheckMs"].ToString().StringToInt();
+            //backlogSpeedup = ConfigurationManager.AppSettings["backlogSpeedup"].ToString().StringToInt();
+            //backlogSlowdown = ConfigurationManager.AppSettings["backlogSlowdown"].ToString().StringToInt();
+            //backlogTimer = new Stopwatch();
+            //backlog = new List<int>();
+            //SetRegulationParameters();
         }
 
         /// <summary>
         /// Extracts the regulation formula from config files and sets the pixelJumpPerFrameJump variable
         /// this drives the logic on what metric to increase / decrease when changing speed
         /// </summary>
-        private void SetRegulationParameters()
-        {
-            string[] split = Regex.Split(ConfigurationManager.AppSettings["regulationFormula"], ":");
+        //private void SetRegulationParameters()
+        //{
+        //    string[] split = Regex.Split(ConfigurationManager.AppSettings["regulationFormula"], ":");
 
-            if(split.Length != 2)
-            {
-                throw new Exception("regulationFormula was not in expected format");
-            }
+        //    if(split.Length != 2)
+        //    {
+        //        throw new Exception("regulationFormula was not in expected format");
+        //    }
 
-            int framesToSkip;
-            int pixelsToSkip;
+        //    int framesToSkip;
+        //    int pixelsToSkip;
 
-            if(split[0].Substring(split[0].Length - 2).ToUpper() == "P")
-            {
-                pixelsToSkip = split[0].Substring(0, split[0].Length - 2).StringToInt();
-                framesToSkip = split[1].Substring(0, split[1].Length - 2).StringToInt();
-            }
-            else
-            {
-                framesToSkip = split[0].Substring(0, split[0].Length - 1).StringToInt();
-                pixelsToSkip = split[1].Substring(0, split[1].Length - 1).StringToInt();
-            }
+        //    if(split[0].Substring(split[0].Length - 2).ToUpper() == "P")
+        //    {
+        //        pixelsToSkip = split[0].Substring(0, split[0].Length - 2).StringToInt();
+        //        framesToSkip = split[1].Substring(0, split[1].Length - 2).StringToInt();
+        //    }
+        //    else
+        //    {
+        //        framesToSkip = split[0].Substring(0, split[0].Length - 1).StringToInt();
+        //        pixelsToSkip = split[1].Substring(0, split[1].Length - 1).StringToInt();
+        //    }
 
-            if(framesToSkip <= 0 || pixelsToSkip <= 0)
-            {
-                throw new Exception("regulationFormula was not in expected format");
-            }
+        //    if(framesToSkip <= 0 || pixelsToSkip <= 0)
+        //    {
+        //        throw new Exception("regulationFormula was not in expected format");
+        //    }
 
-            pixelJumpPerFrameJump =  framesToSkip / pixelsToSkip;
+        //    pixelJumpPerFrameJump =  framesToSkip / pixelsToSkip;
 
-        }//SetRegulationParameters
+        //}//SetRegulationParameters
 
         /// <summary>
         /// Called when the object detects motion, creates the event
@@ -136,7 +139,7 @@ namespace ImageAnalysis.MotionSensor
 
         public async void ImageCreatedAsync(ByteWrapper img, EventArgs e)
         {
-            lastImageReceived = img.sequenceNumber;
+            backlog.lastImageReceived = img.sequenceNumber;
             logging.imagesReceived++;
 
             AddToWorkQueue(img); //do this outside the anonymous method
@@ -149,7 +152,7 @@ namespace ImageAnalysis.MotionSensor
 
         public void ImageCreated(ByteWrapper img, EventArgs e)
         {
-            lastImageReceived = img.sequenceNumber;
+            backlog.lastImageReceived = img.sequenceNumber;
             logging.imagesReceived++;
             AddToWorkQueue(img);
             SendForCompare();
@@ -204,10 +207,11 @@ namespace ImageAnalysis.MotionSensor
             {
                 Compare(image1, image2);
                 logging.imagesChecked = logging.imagesChecked + 2;
-                lock (backlogLock)
+                lock (backlog.backlogLock)
                 {
-                    backlog.Add(lastImageReceived - image1.sequenceNumber);
+                    backlog.backlog.Add(backlog.lastImageReceived - image1.sequenceNumber);
                 }
+
                 MonitorWork();
             }
 
@@ -241,35 +245,35 @@ namespace ImageAnalysis.MotionSensor
         /// Monitor's the backlog by comparing the number of received and processed images
         /// Sends requests to speed up or slow dow as appropriate
         /// </summary>
-        private void MonitorWork()
+        internal void MonitorWork()
         {
-            if(!backlogTimer.IsRunning)
+            if (!backlog.backlogTimer.IsRunning)
             {
-                backlogTimer.Start();
+                backlog.backlogTimer.Start();
             }
-            else if(backlogTimer.Elapsed.TotalMilliseconds > backlogCheckMs)
+            else if (backlog.backlogTimer.Elapsed.TotalMilliseconds > backlog.backlogCheckMs)
             {
-                backlogTimer.Stop();
+                backlog.backlogTimer.Stop();
 
                 int backlogCount = 0;
 
                 //lock the backlog collection whilst amending
-                lock(backlogLock)
+                lock (backlog.backlogLock)
                 {
-                    if (backlog.Count > 1)
+                    if (backlog.backlog.Count > 1)
                     {
-                        var backlogCopy = backlog;
+                        var backlogCopy = backlog.backlog;
                         backlogCount = (int)backlogCopy.Average();
-                        backlog.Clear();
+                        backlog.backlog.Clear();
 
                     }
                 }
 
                 LogRegulationSettings(backlogCount);
 
-                if (backlogCount > backlogSpeedup) { Speedup(); }
-                else if(backlogCount < backlogSlowdown) { Slowdown(); }  
-                backlogTimer.Restart();
+                if (backlogCount > backlog.backlogSpeedup) { Speedup(); }
+                else if (backlogCount < backlog.backlogSlowdown) { Slowdown(); }
+                backlog.backlogTimer.Restart();
 
             }
 
@@ -289,7 +293,7 @@ namespace ImageAnalysis.MotionSensor
             //decide whether to increase pixel jumps, or frames to skip
             else
             {
-                if(settings.horizontalPixelsToSkip > 0 && settings.horizontalPixelsToSkip % pixelJumpPerFrameJump == 0)
+                if(settings.horizontalPixelsToSkip > 0 && settings.horizontalPixelsToSkip % backlog.pixelJumpPerFrameJump == 0)
                 {
                     settings.framesToSkip++;
                 }
@@ -315,7 +319,7 @@ namespace ImageAnalysis.MotionSensor
             //decide whether to decrease pixel jumps, or frames to skip
             else
             {
-                if (settings.horizontalPixelsToSkip > 0 && settings.horizontalPixelsToSkip % pixelJumpPerFrameJump == 0)
+                if (settings.horizontalPixelsToSkip > 0 && settings.horizontalPixelsToSkip % backlog.pixelJumpPerFrameJump == 0)
                 {
                     settings.framesToSkip--;
                 }
@@ -331,7 +335,7 @@ namespace ImageAnalysis.MotionSensor
         /// Writes the regulation settings to a file, for later analysis
         /// </summary>
         /// <param name="backlogCount"></param>
-        private void LogRegulationSettings(int backlogCount)
+        internal void LogRegulationSettings(int backlogCount)
         {
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(ConfigurationManager.AppSettings["regulationLogFile"], true))
             {

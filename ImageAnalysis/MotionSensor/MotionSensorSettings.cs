@@ -74,11 +74,6 @@ namespace ImageAnalysis.MotionSensor
         /// </summary>
         public bool linkCompare { get; set; }
 
-        /// <summary>
-        /// Whether the settings should be amended at run time to ensure the image processing keeps up with the number of images sent in
-        /// </summary>
-        public bool autoAdjustSettings { get; set; }
-
         public MotionSensorSettings() { framesToSkip = 0; horizontalPixelsToSkip = 0; verticalPixelsToSkip = 0; sensitivity = 1; asynchronous = true; }
 
         /// <summary>
