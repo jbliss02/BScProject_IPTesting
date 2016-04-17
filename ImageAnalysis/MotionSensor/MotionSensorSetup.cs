@@ -21,6 +21,9 @@ namespace ImageAnalysis.MotionSensor
 
         public IAlarm smtpAlarm { get; set; }
 
+        public bool saveImagesToFileServer { get; set; }
+        public bool saveImagesToDatabase { get; set; }
+
         public string imageSaveLocation
         {
             get {

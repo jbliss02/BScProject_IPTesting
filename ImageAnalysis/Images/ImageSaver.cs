@@ -30,6 +30,11 @@ namespace ImageAnalysis.Images
         public string CaptureDirectory { get; set; }  //the parent directory, in which all section directories will be stored
         public string SaveDirectory { get; set; } //some images (like motion) saved outside of captures
 
+        public int detectionId { get; set; }
+
+        public bool saveToFileServer { get; set; }
+        public bool saveToDatabase { get; set; }
+
         int sessionCount = 0;
         Int64 fileNumber = 0;
         int cameraId;
@@ -74,7 +79,8 @@ namespace ImageAnalysis.Images
                 throw new Exception("saveDirectory " + saveDirectory + " could not be accessed");
             }
 
-            this.SaveDirectory = saveDirectory + @"\" + cameraId + @"\" + Tools.ExtensionMethods.DateStamp();
+            captureId = Tools.ExtensionMethods.DateStamp();
+            this.SaveDirectory = saveDirectory + @"\" + cameraId + @"\" + captureId;
             CreateDirectory(this.SaveDirectory);
             this.fileStartName = fileStartName;
         }
@@ -141,7 +147,9 @@ namespace ImageAnalysis.Images
         public async void ImageCreatedAsync(ByteWrapper img, EventArgs e)
         {
             await Task.Run(() => {
-                WriteBytesToFile(img);
+                // WriteBytesToFile(img);
+                if (saveToFileServer) { WriteBytesToFile(img); }
+                if (saveToDatabase) { WriteBytesToDatabaseAsync(img); }
                 SetSection();
             });
         }
@@ -219,6 +227,16 @@ namespace ImageAnalysis.Images
 
         }//WriteDatafileSummary
 
+        private async void WriteBytesToDatabaseAsync(ByteWrapper image)
+        {
+            await Task.Run(() => {
+
+                var db = new ImageAnalysisDAL.CaptureDb(ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString);
+                db.SaveDetectionImage(captureId, detectionId, image.bytes, image.sequenceNumber);
+
+            });
+        }
+
         private void WriteBytesToFile(ByteWrapper img)
         {
             try
@@ -262,10 +280,12 @@ namespace ImageAnalysis.Images
         public async void WriteBytesToFileAsync(ByteWrapper image, EventArgs e)
         {
             await Task.Run(() => {
+                string fileName = GenerateFileName();
                 using (FileStream fs = new FileStream(GenerateFileName(image.sequenceNumber), FileMode.Create))
                 {
                     fs.Write(image.bytes, 0, image.bytes.Length);
                 }
+                if (imageCreated != null) { imageCreated(fileName, EventArgs.Empty); }
             });
 
         }

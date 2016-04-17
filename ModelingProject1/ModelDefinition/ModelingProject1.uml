@@ -637,6 +637,47 @@
               LastKnownLocation="ModelingProject1.uml" />
           </interfaceRealization>
         </suppliersInternal>
+        <targetEnds>
+          <association
+            Id="7bb7fe35-ccdd-4129-abd3-151ef70faaf6"
+            isDerived="false"
+            sourceEndRoleName="EmailAlarm"
+            targetEndRoleName="ImageSaver"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="fcf97fba-f1f2-4977-9042-8fd44825626f"
+              LastKnownName="ImageSaver"
+              LastKnownLocation="ModelingProject1.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="78c33ee0-fd7a-4b98-88d5-6a8cc705445f"
+                  name="EmailAlarm"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="7cb8a057-c034-4e10-ad6e-9d1217217bd2"
+                  name="ImageSaver"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
       </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -1756,6 +1797,47 @@
               LastKnownLocation="ModelingProject1.uml" />
           </interfaceRealization>
         </suppliersInternal>
+        <targetEnds>
+          <association
+            Id="2e91d25a-eb06-41b3-96de-019f4cd7064b"
+            isDerived="false"
+            sourceEndRoleName="ImageSaver"
+            targetEndRoleName="MotionSensor_2"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="c63500a1-2f76-41e8-aa49-ad909f3343ce"
+              LastKnownName="MotionSensor_2"
+              LastKnownLocation="ModelingProject1.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="90f19e1c-ce4f-46a9-ab69-9586ac43ad07"
+                  name="ImageSaver"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="50b5220b-775f-4c60-a39c-b2be7f86f5f0"
+                  name="MotionSensor_2"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
         <ownedAttributesInternal>
           <property
             Id="8a0027b1-d787-4502-bad6-840e38e75111"
@@ -1948,6 +2030,47 @@
               LastKnownLocation="ModelingProject1.uml" />
           </interfaceRealization>
         </suppliersInternal>
+        <targetEnds>
+          <association
+            Id="1596c0cd-d8d7-4310-84f6-d461b8292a41"
+            isDerived="false"
+            sourceEndRoleName="ImageValidator"
+            targetEndRoleName="MotionSensor_2"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="c63500a1-2f76-41e8-aa49-ad909f3343ce"
+              LastKnownName="MotionSensor_2"
+              LastKnownLocation="ModelingProject1.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1eaa2859-30ba-4146-aa07-63d1402255bb"
+                  name="ImageValidator"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="686dd7c4-9a01-40ac-b490-13581aa43fd6"
+                  name="MotionSensor_2"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
         <ownedAttributesInternal>
           <property
             Id="602af584-5f9e-468a-8692-8df1bd12fed3"

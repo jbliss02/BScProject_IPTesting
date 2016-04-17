@@ -137,7 +137,16 @@ namespace ImageAnalysisDAL
 
                 foreach (SqlParameter p in paras)
                 {
-                    cmd.Parameters.AddWithValue(p.ParameterName, p.Value);
+
+                    if(p.SqlDbType == SqlDbType.VarBinary)
+                    {
+                        byte[] bytes = (byte[]) p.Value;
+                        cmd.Parameters.Add(p.ParameterName, SqlDbType.VarBinary, -1).Value = bytes;
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue(p.ParameterName, p.Value);
+                    }
                 }
 
                 cmd.ExecuteNonQuery();

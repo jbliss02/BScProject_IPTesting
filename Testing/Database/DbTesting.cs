@@ -14,12 +14,16 @@ using IPConnect_Testing;
 using IPConnect_Testing.Testing;
 using ImageAnalysis.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ImageAnalysisDAL;
+using System.Configuration;
 
 namespace Testing.Database
 {
     [TestClass]
-    public class DbConnectionTesting
+    public class DbTesting
     {
+       // public object ConfigurationManager { get; private set; }
+
         [TestMethod]
         [TestCategory("Database")]
         public void TestConnection()
@@ -43,5 +47,31 @@ namespace Testing.Database
             Assert.IsTrue(nMovements > 0);
 
         }
+
+        [TestMethod]
+        [TestCategory("Database")]
+        public void TestAddCapture()
+        {
+            ImageSaver imageSaver = new ImageSaver(@"f:\motion", "movement", 0);
+
+            ICaptureDb db = new CaptureDb(ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString);
+            db.CreateCaptureSession(imageSaver.captureId, imageSaver.SaveDirectory);
+            Assert.IsTrue(db.CaptureIdExists(imageSaver.captureId));
+
+            Exception ex = null;
+            try
+            {
+                db.CreateCaptureSession(imageSaver.captureId, imageSaver.SaveDirectory);
+            }
+            catch(Exception exc)
+            {
+                ex = exc;
+            }
+
+            Assert.IsNotNull(ex);
+
+        }
+
+
     }
 }

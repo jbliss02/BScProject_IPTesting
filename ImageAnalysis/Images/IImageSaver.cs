@@ -9,13 +9,15 @@ namespace ImageAnalysis.Images
     {
         string CaptureDirectory { get; set; }
         string captureId { get; set; }
+        int detectionId { get; set; }
         string fileStartName { get; set; }
         List<double> framerates { get; set; }
         int framesPerSection { get; set; }
         int initialFrameDetection { get; set; }
         string ParentDirectory { get; set; }
         string SaveDirectory { get; set; }
-
+        bool saveToFileServer { get; set; }
+        bool saveToDatabase { get; set; }
         event ImageSaver.ImageSavedEvent imageCreated;
 
         Task ImageCreatedAsync(ByteWrapper img);

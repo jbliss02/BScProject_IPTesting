@@ -7,6 +7,8 @@ using ImageAnalysis.Images.Jpeg;
 using ImageAnalysis.Images;
 using ImageAnalysis.Streams;
 using ImageAnalysis.Alarms;
+using ImageAnalysisDAL;
+using System.Configuration;
 
 namespace ImageAnalysis.MotionSensor
 {
@@ -21,6 +23,9 @@ namespace ImageAnalysis.MotionSensor
         private IImageExtractor imageExtractor;
         private IMotionSensor motionSensor;
         private List<IAlarm> alarms; //all the alarms to sound if movement is detected
+        private ICaptureDb database;
+        private string captureId;
+        private int detectionId;
 
         public MotionSensorStartup(MotionSensorSetup setup)
         {
@@ -31,6 +36,18 @@ namespace ImageAnalysis.MotionSensor
 
             //set up the save file object
             imageSaver = new ImageSaver(setup.imageSaveLocation, "movement", setup.camera.cameraId);
+            imageSaver.saveToFileServer = setup.saveImagesToFileServer;
+            imageSaver.saveToDatabase = setup.saveImagesToDatabase;
+            captureId = imageSaver.captureId;
+
+            //set up the database object
+            if(setup.saveImagesToDatabase)
+            {
+                database = new CaptureDb(ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString);
+                database.CreateCaptureSession(captureId, imageSaver.SaveDirectory);
+                detectionId = database.CreateDetectionSession(captureId);
+                imageSaver.detectionId = detectionId;
+            }
 
             //setup the motion sensor
             motionSensor = new MotionSensor_2a();
