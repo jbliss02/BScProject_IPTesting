@@ -26,18 +26,8 @@ namespace ImageAnalysis.MotionSensor
         //motion detected event
         public event MotionDetected motionDetected;
         public delegate void MotionDetected(ByteWrapper image, EventArgs e);
-
-        //Backlog monitoring
-        //private int lastImageReceived;
-        //private List<int> backlog; //images received v images processed
-        //object backlogLock = new object(); //locks the backlog list so two processes cannot change at the same time
-        //private Stopwatch backlogTimer; //times when next to check the backlog
-        //private int backlogCheckMs; //check the backlog every so many milliseconds
-        //private int pixelJumpPerFrameJump; //set from the regulation formula. pixels jumped up to this value, then a frame is jumped
-        //private int backlogSpeedup; //when this number is exceeded everything is sped up, to decrease the backlog
-        //private int backlogSlowdown; //when this number is higher than backlog everything is slowed down, increasing accuracy
-
-        MotionSensorBacklog backlog;
+       
+        MotionSensorBacklog backlog; //Backlog monitoring
 
         //threshold setting
         public int ControlImageNumber { get; set; } //number of changes to use as the control (half the images as done in pairs)

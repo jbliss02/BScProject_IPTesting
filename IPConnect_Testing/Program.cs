@@ -121,7 +121,7 @@ namespace IPConnect_Testing
             MotionSensorSetup setup = new MotionSensorSetup();
             setup.camera = new ImageAnalysis.Camera.CameraModel();
             setup.camera.cameraIpAddress = "192.168.0.8";
-            setup.imageSaveLocation = @"f:\motion";
+            setup.imageSaveLocation = @"d:\motion";
             setup.saveImagesToFileServer = true;
 
             setup.emailAlarm = new ImageAnalysis.Alarms.EmailAlarm();

@@ -136,8 +136,8 @@ namespace MotionManager.Models
         /// <returns></returns>
         public List<JpegSection> MpegSections()
         {
-            // string mainLocation = ConfigurationManager.AppSettings["SaveLocation"].ToString() + @"\" + cameraId + @"\" + sessionKey;
-            string mainLocation = @"f:\captures\" + cameraId + @"\" + sessionKey;
+            string mainLocation = ConfigurationManager.AppSettings["SaveLocation"].ToString() + @"\" + cameraId + @"\" + sessionKey;
+            //string mainLocation = @"f:\captures\" + cameraId + @"\" + sessionKey;
             List<JpegSection> ret = new List<JpegSection>(); //the return collection
 
             //get all the section directories

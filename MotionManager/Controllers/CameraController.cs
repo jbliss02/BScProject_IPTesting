@@ -12,11 +12,12 @@ namespace MotionManager.Controllers
 {
     public class CameraController : ApiController
     {
-
-        public HttpResponseMessage Get()
+        [Route("api/camera/{ipAddress}")]
+        [HttpGet]
+        public HttpResponseMessage Get(string ipAddress)
         {
             CameraModel camera = new CameraModel();
-            camera.cameraIpAddress = "192.168.0.8";
+            camera.cameraIpAddress = ipAddress;
 
             CameraFinder finder = new CameraFinder(camera);
             finder.GetImage();
@@ -27,24 +28,7 @@ namespace MotionManager.Controllers
 
             return result;
 
-
         }
 
-        public string Get(string ipAddress)
-        {
-            return String.Empty;
-        }
-
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
-
-
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
     }
 }

@@ -29,6 +29,13 @@
       <SubType>Content</SubType>
       <DependentUpon>ImageAnalysis.classdiagram</DependentUpon>
     </Content>
+    <Content Include="web services.sequencediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="web services.sequencediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>web services.sequencediagram</DependentUpon>
+    </Content>
     <Folder Include="ModelDefinition\" />
     <Content Include="ModelDefinition\ModelingProject1.uml">
       <SubType>Content</SubType>
