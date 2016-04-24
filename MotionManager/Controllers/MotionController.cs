@@ -25,7 +25,17 @@ namespace MotionManager.Controllers
         // POST: api/Motion
         public void Post(MotionSensorSetup setup)
         {
-            var x = "jkd";
+            setup = new MotionSensorSetup();
+            setup.camera = new ImageAnalysis.Camera.CameraModel();
+            setup.camera.cameraIpAddress = "192.168.0.8";
+            setup.imageSaveLocation = @"d:\motion";
+            setup.saveImagesToFileServer = true;
+
+            setup.emailAlarm = new ImageAnalysis.Alarms.EmailAlarm();
+            setup.emailAlarm.emailAddress = "james.bliss@outlook.com";
+
+            MotionSensorStartup motionSensor = new MotionSensorStartup(setup);
+
         }
 
     }

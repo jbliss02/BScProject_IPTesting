@@ -9,6 +9,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Net.Configuration;
 using System.Configuration;
+using System.Web;
 using Tools;
 
 namespace ImageAnalysis.Alarms
@@ -49,7 +50,20 @@ namespace ImageAnalysis.Alarms
 
         private void SendEmail(string emailBody)
         {
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            //Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+            //config file may in in standalone exe app.config, or web site web.config
+            Configuration config = null;
+            try
+            {
+                config = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("~");
+            }
+            catch
+            {
+                config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            }
+
+
             MailSettingsSectionGroup settings = (MailSettingsSectionGroup)config.GetSectionGroup("system.net/mailSettings");
 
             MailMessage mail = new MailMessage();
