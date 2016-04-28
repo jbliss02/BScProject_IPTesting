@@ -63,7 +63,7 @@ function drawSettingData() {
     var that = this;
 
     $.ajax({
-        url: 'http://localhost:9000/api/testdata',
+        url: 'http://localhost:9001/api/testdata',
         dataType: 'application/text',
         complete: function (data) {
 
@@ -79,7 +79,7 @@ function drawLagData() {
     var that = this;
 
     $.ajax({
-        url: 'http://localhost:9000/api/testlag',
+        url: 'http://localhost:9001/api/testlag',
         dataType: 'application/text',
         complete: function (data) {
             var lagData = JSON.parse(data.responseText);
@@ -114,7 +114,7 @@ function doDrawChart(mainAnchorString, chartData) {
         //draw the titles and legends
         drawLegends(legendDivIds, charts);
         drawTitle(titleDivIds[0], chartData.list[i].chartTitle);
-        if (secondColumn) { drawTitle(titleDivIds[1], chartData.list[i].chartTitle); }
+        if (secondColumn) { drawTitle(titleDivIds[1], chartData.list[i + 1].chartTitle); }
 
     }//for each chart in the list
 

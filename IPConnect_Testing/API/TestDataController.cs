@@ -23,6 +23,7 @@ namespace IPConnect_Testing.API
         //Enable CORS allows this web service to send to a localhost dev box
         //stops the cross-origin errors
         [EnableCors(origins: "*", headers: "*", methods: "*")]
+       // [EnableCors(origins: "http://localhost:3328", headers: "*", methods: "*")]
         public ChartDataList Get()
         {
             string conn = ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString;

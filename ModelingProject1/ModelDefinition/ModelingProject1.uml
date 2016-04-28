@@ -1,8 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm11="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" xmlns:dm12="http://schemas.microsoft.com/dsltools/UseCaseModel"
   dslVersion="1.0.0.0"
   Id="0b733217-d670-40cf-bffd-3600d0762abe"
   name="ModelingProject1" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <ownedCommentsInternal>
+    <comment
+      Id="e3f8538c-1a20-44b3-8b94-4dffb3348657">
+      <body>An image, and camera object are returned</body>
+    </comment>
+  </ownedCommentsInternal>
   <profileInstances>
     <packageHasProfileInstances
       Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b">
@@ -3958,6 +3964,638 @@
       <executionEvent
         Id="94dfc0cf-e553-47b6-97dd-a240b789be50"
         name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="1a67b678-4574-4b24-b2e5-c210acd3cffc"
+        name="User"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="c86177f6-d148-4465-9e03-27e6b44fd7ce"
+            isDerived="false"
+            sourceEndRoleName="Actor1"
+            targetEndRoleName="Search for camera"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="67abd709-62fd-40fb-9f7c-824e09b07cc7"
+              LastKnownName="Search for camera request"
+              LastKnownLocation="ModelingProject1.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="9eedc688-9b36-41f8-8c83-377f8dc0c602"
+                  name="Actor1"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="cbf9b7f4-c612-473e-bb69-038fdc767334"
+                  name="Search for camera"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="95724ebc-297c-4810-bb1b-740edaaa2606"
+            isDerived="false"
+            sourceEndRoleName="User"
+            targetEndRoleName="Start motion detection"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="e068dc17-a060-4f68-bd16-cd82c4a0269c"
+              LastKnownName="Start motion detection request"
+              LastKnownLocation="ModelingProject1.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="819ebb57-9cc9-44ec-a247-fe619870c959"
+                  name="User"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="9184068c-a4f1-451d-b495-17f212bbceff"
+                  name="Start motion detection"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="fc33f494-07b6-4848-9ada-c8e4a82c855b"
+            isDerived="false"
+            sourceEndRoleName="User"
+            targetEndRoleName="User"
+            isLeaf="false"
+            isAbstract="false">
+            <actorMoniker
+              Id="1a67b678-4574-4b24-b2e5-c210acd3cffc"
+              LastKnownName="User"
+              LastKnownLocation="ModelingProject1.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="96bd9961-a255-41b9-a5ec-3d7c253c48bc"
+                  name="User"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="42e0ac4a-d6d5-462f-8275-79f07a49ed04"
+                  name="User"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="90631840-afd1-4a41-afa4-fc1e98ae0d4c"
+            isDerived="false"
+            sourceEndRoleName="User"
+            targetEndRoleName="Stop motion detection"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="50217f75-c8f1-445a-8a04-8f7ce0a02f32"
+              LastKnownName="Stop motion detection"
+              LastKnownLocation="ModelingProject1.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f8256555-8dbc-4203-8a39-48080602c430"
+                  name="User"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="9914bad2-d447-450f-a456-2de6efdb67c6"
+                  name="Stop motion detection"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="d3cc17ea-a908-4e4a-a58a-ca82fba7bf4f"
+            isDerived="false"
+            sourceEndRoleName="User"
+            targetEndRoleName="See motion images"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="bb7a07cc-9427-42b7-a27d-51cff9478f9e"
+              LastKnownName="See motion images"
+              LastKnownLocation="ModelingProject1.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="92d9a589-01f8-488b-8cc3-e2cae9aabc81"
+                  name="User"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d9e14019-bf82-4d90-b502-db5e7d9fd385"
+                  name="See motion images"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="67abd709-62fd-40fb-9f7c-824e09b07cc7"
+        name="Search for camera request"
+        isAbstract="false"
+        isLeaf="false">
+        <additions>
+          <include
+            Id="c8b2548f-1918-4424-ae2a-09e8484265c0">
+            <useCaseMoniker
+              Id="5f588dbb-ece7-45e8-970d-6aadc55a1281"
+              LastKnownName="CameraFinder"
+              LastKnownLocation="ModelingProject1.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="9f6667d1-a0cd-47bd-b98d-4d82c9f89364"
+            LastKnownName="ImageAnalysis"
+            LastKnownLocation="ModelingProject1.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="e068dc17-a060-4f68-bd16-cd82c4a0269c"
+        name="Start motion detection request"
+        isAbstract="false"
+        isLeaf="false">
+        <additions>
+          <include
+            Id="c087c9a5-d4a7-44d2-9f24-2384d049caaf">
+            <useCaseMoniker
+              Id="5f588dbb-ece7-45e8-970d-6aadc55a1281"
+              LastKnownName="CameraFinder"
+              LastKnownLocation="ModelingProject1.uml" />
+          </include>
+          <include
+            Id="6df1ca83-c6c1-4df6-bd2d-562402c30771">
+            <useCaseMoniker
+              Id="a5579911-b37a-4d19-8659-d55aeacda847"
+              LastKnownName="Set Motion Settings"
+              LastKnownLocation="ModelingProject1.uml" />
+          </include>
+          <include
+            Id="9392810f-37db-4fdb-bf45-a3f65fd95bd7">
+            <useCaseMoniker
+              Id="88c8f3e9-0337-4b9e-8df1-5255731b3638"
+              LastKnownName="Initiate motion sensor"
+              LastKnownLocation="ModelingProject1.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="9f6667d1-a0cd-47bd-b98d-4d82c9f89364"
+            LastKnownName="ImageAnalysis"
+            LastKnownLocation="ModelingProject1.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="50217f75-c8f1-445a-8a04-8f7ce0a02f32"
+        name="Stop motion detection"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="9f6667d1-a0cd-47bd-b98d-4d82c9f89364"
+            LastKnownName="ImageAnalysis"
+            LastKnownLocation="ModelingProject1.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="bb7a07cc-9427-42b7-a27d-51cff9478f9e"
+        name="See motion images"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="9f6667d1-a0cd-47bd-b98d-4d82c9f89364"
+            LastKnownName="ImageAnalysis"
+            LastKnownLocation="ModelingProject1.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <artifact
+        Id="f5960d21-fc10-4024-85f1-11a926053d31"
+        name="Artifact1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="9f6667d1-a0cd-47bd-b98d-4d82c9f89364"
+        name="ImageAnalysis"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="5f588dbb-ece7-45e8-970d-6aadc55a1281"
+        name="CameraFinder"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="9f6667d1-a0cd-47bd-b98d-4d82c9f89364"
+            LastKnownName="ImageAnalysis"
+            LastKnownLocation="ModelingProject1.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="a5579911-b37a-4d19-8659-d55aeacda847"
+        name="Set Motion Settings"
+        isAbstract="false"
+        isLeaf="false">
+        <suppliersInternal>
+          <dependency
+            Id="fffcde2f-7eb0-489f-a792-8f91d9c6a88b">
+            <useCaseMoniker
+              Id="88c8f3e9-0337-4b9e-8df1-5255731b3638"
+              LastKnownName="Initiate motion sensor"
+              LastKnownLocation="ModelingProject1.uml" />
+          </dependency>
+        </suppliersInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9f6667d1-a0cd-47bd-b98d-4d82c9f89364"
+            LastKnownName="ImageAnalysis"
+            LastKnownLocation="ModelingProject1.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="88c8f3e9-0337-4b9e-8df1-5255731b3638"
+        name="Initiate motion sensor"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="9f6667d1-a0cd-47bd-b98d-4d82c9f89364"
+            LastKnownName="ImageAnalysis"
+            LastKnownLocation="ModelingProject1.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="29fc38c9-e8ba-4edc-84d8-b880bf76006f"
+        name="Developer"
+        isAbstract="false"
+        isLeaf="false">
+        <generalsInternal>
+          <generalization
+            Id="635b4f3e-482d-4eac-9b42-b29f52e3606d"
+            isSubstitutable="false">
+            <actorMoniker
+              Id="1a67b678-4574-4b24-b2e5-c210acd3cffc"
+              LastKnownName="User"
+              LastKnownLocation="ModelingProject1.uml" />
+          </generalization>
+        </generalsInternal>
+        <targetEnds>
+          <association
+            Id="39bb179d-147d-495d-bb1f-d33a4552e3e9"
+            isDerived="false"
+            sourceEndRoleName="Developer"
+            targetEndRoleName="Stream previous captures"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="e63334d6-56fa-472a-9443-d778ebf3cc05"
+              LastKnownName="Stream previous captures"
+              LastKnownLocation="ModelingProject1.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d8412c41-f22a-4480-b750-aef567a41690"
+                  name="Developer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="602352a2-9856-4612-a08c-f03fcbdad2b9"
+                  name="Stream previous captures"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="9ff7b369-8edc-4e9e-b2b7-e9aab2210085"
+            isDerived="false"
+            sourceEndRoleName="Developer"
+            targetEndRoleName="View test results"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="577810ea-fbb5-4a14-88f3-1c0c1314c793"
+              LastKnownName="View test results"
+              LastKnownLocation="ModelingProject1.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="5372af88-9b34-4524-acd3-04e710c614a0"
+                  name="Developer"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="c52e0565-390c-4a17-9110-875519b18ecf"
+                  name="View test results"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="e63334d6-56fa-472a-9443-d778ebf3cc05"
+        name="Stream previous captures"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="9f6667d1-a0cd-47bd-b98d-4d82c9f89364"
+            LastKnownName="ImageAnalysis"
+            LastKnownLocation="ModelingProject1.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="577810ea-fbb5-4a14-88f3-1c0c1314c793"
+        name="View test results"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="9f6667d1-a0cd-47bd-b98d-4d82c9f89364"
+            LastKnownName="ImageAnalysis"
+            LastKnownLocation="ModelingProject1.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <activity
+        Id="7baf33bc-204f-4bc6-95f9-7e5f977a7d46"
+        name="frontend"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false"
+        isReentrant="false"
+        isReadOnly="false"
+        isSingleExecution="false">
+        <nodes>
+          <initialNode
+            Id="0d781471-600b-419f-8039-ada842b1813c"
+            name="Initial1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="117ddc71-6e34-4ba2-a686-4555be1721e7"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="4803111e-49f2-4042-b7fa-8239cd22855f"
+                  LastKnownName="User supplies IP address for camera"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <opaqueAction
+            Id="4803111e-49f2-4042-b7fa-8239cd22855f"
+            name="User supplies IP address for camera"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="0c459f3d-a85b-4239-97ef-293e10d0d700"
+                isLeaf="false">
+                <decisionNodeMoniker
+                  Id="7ac3d5af-9f2a-4d99-8a10-af33eaf1b941"
+                  LastKnownName="Decision1"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode
+            Id="7ac3d5af-9f2a-4d99-8a10-af33eaf1b941"
+            name="Decision1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="948d20f3-ab89-452c-9d96-afc925f948de"
+                guard="Not found"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="c89d9c70-d08b-4297-9e63-21e17dc5e862"
+                  LastKnownName="Error message"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="5845c865-57ac-4f4c-aca6-8f9bfead163d"
+                guard="Found"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="07690c27-c571-47f1-be4a-28e03b318def"
+                  LastKnownName="Display image from camera"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction
+            Id="c89d9c70-d08b-4297-9e63-21e17dc5e862"
+            name="Error message"
+            isLeaf="false" />
+          <opaqueAction
+            Id="07690c27-c571-47f1-be4a-28e03b318def"
+            name="Display image from camera"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="fe613e99-762b-48fb-9591-b9b897f59adf"
+                isLeaf="false">
+                <decisionNodeMoniker
+                  Id="5debc8cc-3ead-4762-809e-74fbe539259e"
+                  LastKnownName="Decision2"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="fb907cc8-c00b-4436-8db0-9761e34eaad1"
+            name="User supplies motion detection settings"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="1781f120-72e9-4e58-bc53-a99da8b1805e"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="75c28f83-4196-4d2d-9f46-addf404daf1e"
+                  LastKnownName="User starts motion detection session"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode
+            Id="5debc8cc-3ead-4762-809e-74fbe539259e"
+            name="Decision2"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="939cb591-3c91-4731-a8c6-8330204b6688"
+                guard="Incorrect camera"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="4803111e-49f2-4042-b7fa-8239cd22855f"
+                  LastKnownName="User supplies IP address for camera"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="a370e108-e17e-4f75-8f34-57805e9dc02c"
+                guard="Correct Camera"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="fb907cc8-c00b-4436-8db0-9761e34eaad1"
+                  LastKnownName="User supplies motion detection settings"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction
+            Id="75c28f83-4196-4d2d-9f46-addf404daf1e"
+            name="User starts motion detection session"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="1330ed73-d4e8-44bb-afb5-7bbf1e5bddd2"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="946c15af-6982-4e7c-9e72-c7b5b1670819"
+                  LastKnownName="Motion Detection started"
+                  LastKnownLocation="ModelingProject1.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="946c15af-6982-4e7c-9e72-c7b5b1670819"
+            name="Motion Detection started"
+            isLeaf="false" />
+        </nodes>
+      </activity>
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType

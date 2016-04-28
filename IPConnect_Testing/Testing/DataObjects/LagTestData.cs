@@ -43,7 +43,12 @@ namespace IPConnect_Testing.Testing.DataObjects
         public LagTestData() { }
         public LagTestData(DataRow dr)
         {     
-            new Tools.Data().ConvertDataRow<LagTestData>(dr, this);
+            captureId = dr["captureId"] as string;
+            numberMinutes = dr["numberMinutes"].ToString().StringToInt();
+            detectionMs = dr["detectionMs"].ToString().StringToDec();
+            asynchronous = dr["asynchronous"].ToString().StringToBool();
+            memoryGb = dr["memoryGb"].ToString().StringToInt();
+
         }
 
     }

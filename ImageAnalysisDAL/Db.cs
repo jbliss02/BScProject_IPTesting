@@ -51,6 +51,7 @@ namespace ImageAnalysisDAL
                 cmd.Connection = con;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = procName;
+                cmd.CommandTimeout = 60;
 
                 foreach (SqlParameter p in paras)
                 {

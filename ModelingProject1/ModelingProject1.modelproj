@@ -22,6 +22,20 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets" Condition="'$(VSToolsPath)' != ''" />
   <ItemGroup>
+    <Content Include="frontend.activitydiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="frontend.activitydiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>frontend.activitydiagram</DependentUpon>
+    </Content>
+    <Content Include="frontend.usecasediagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="frontend.usecasediagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>frontend.usecasediagram</DependentUpon>
+    </Content>
     <Content Include="ImageAnalysis.classdiagram">
       <SubType>Content</SubType>
     </Content>

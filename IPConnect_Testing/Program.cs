@@ -47,7 +47,8 @@ namespace IPConnect_Testing
         {
             Write("IPConnect_Testing started");
             Console.Beep(1000,250);
-            TestStartup();
+            StartWebService();
+      //      TestStartup();
             Console.ReadLine();
         }
 

@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm11="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm12="http://schemas.microsoft.com/dsltools/UseCaseModel" dslVersion="1.0.0.0" Id="d9e0b723-8ee6-4323-a759-7cb4e740df54" name="frontend" linkedPackageId="f8d84044-e12c-4469-a892-c1710b2e8082" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <ownedCommentsInternal>
+    <comment Id="ada482ef-a625-440d-8bd6-fa6f1d1bd6fb">
+      <elementDefinition Id="e3f8538c-1a20-44b3-8b94-4dffb3348657" />
+      <body>An image, and camera object are returned</body>
+    </comment>
+  </ownedCommentsInternal>
+  <profileInstances>
+    <packageHasProfileInstances Id="ad46c044-2df9-4b25-a589-ae52ba534c3f">
+      <profileInstance Id="02e38ed0-23bc-429e-a944-6d0a6ce5bd20" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="5f894ba0-bc56-4d54-9482-c3046141f8d5">
+      <profileInstance Id="3890f71b-a4a9-470a-96ef-53fa683268d1" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="7aef436c-5a93-4875-806a-1a1c0184371e" name="frontend" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="7baf33bc-204f-4bc6-95f9-7e5f977a7d46" />
+        <nodes>
+          <initialNode Id="3859f6d0-2aef-469c-bcb1-40b61f210362" name="Initial1" isLeaf="false">
+            <elementDefinition Id="0d781471-600b-419f-8039-ada842b1813c" />
+            <flowNodeTargets>
+              <controlFlow Id="1920d29f-05c8-4047-8a67-704d0889b902" isLeaf="false">
+                <opaqueActionMoniker Id="77b6d4bd-0d8d-4804-9dd5-cd48df879c4b" LastKnownName="User supplies IP address for camera" />
+                <elementDefinition Id="117ddc71-6e34-4ba2-a686-4555be1721e7" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <opaqueAction Id="77b6d4bd-0d8d-4804-9dd5-cd48df879c4b" name="User supplies IP address for camera" isLeaf="false">
+            <elementDefinition Id="4803111e-49f2-4042-b7fa-8239cd22855f" />
+            <flowNodeTargets>
+              <controlFlow Id="10b388e4-a90e-4b61-a9d9-cc17dab9c95c" isLeaf="false">
+                <decisionNodeMoniker Id="c441afc1-c6b3-417f-8d91-0c34ecb8e7c2" LastKnownName="Decision1" />
+                <elementDefinition Id="0c459f3d-a85b-4239-97ef-293e10d0d700" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode Id="c441afc1-c6b3-417f-8d91-0c34ecb8e7c2" name="Decision1" isLeaf="false">
+            <elementDefinition Id="7ac3d5af-9f2a-4d99-8a10-af33eaf1b941" />
+            <flowNodeTargets>
+              <controlFlow Id="150d8226-92df-4956-8b18-46b7745015e4" guard="Not found" isLeaf="false">
+                <opaqueActionMoniker Id="24e9e005-60da-4378-b04f-30815e2ad571" LastKnownName="Error message" />
+                <elementDefinition Id="948d20f3-ab89-452c-9d96-afc925f948de" />
+              </controlFlow>
+              <controlFlow Id="58fd41c8-0fd4-49e1-b9e7-abfcf99636ed" guard="Found" isLeaf="false">
+                <opaqueActionMoniker Id="8af133ec-cf08-438a-bdf7-2cffe985addc" LastKnownName="Display image from camera" />
+                <elementDefinition Id="5845c865-57ac-4f4c-aca6-8f9bfead163d" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction Id="24e9e005-60da-4378-b04f-30815e2ad571" name="Error message" isLeaf="false">
+            <elementDefinition Id="c89d9c70-d08b-4297-9e63-21e17dc5e862" />
+          </opaqueAction>
+          <opaqueAction Id="8af133ec-cf08-438a-bdf7-2cffe985addc" name="Display image from camera" isLeaf="false">
+            <elementDefinition Id="07690c27-c571-47f1-be4a-28e03b318def" />
+            <flowNodeTargets>
+              <controlFlow Id="8b1e2195-f870-476a-a00c-8c862337b3eb" isLeaf="false">
+                <decisionNodeMoniker Id="0ad84c58-ca06-411a-89d2-a7f21020046f" LastKnownName="Decision2" />
+                <elementDefinition Id="fe613e99-762b-48fb-9591-b9b897f59adf" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="f1017305-880b-46a5-a644-43ff1d5274d7" name="User supplies motion detection settings" isLeaf="false">
+            <elementDefinition Id="fb907cc8-c00b-4436-8db0-9761e34eaad1" />
+            <flowNodeTargets>
+              <controlFlow Id="f39cc18b-5b4a-4758-b293-a197a6d9f8c5" isLeaf="false">
+                <opaqueActionMoniker Id="f0a57052-a757-43b7-8196-82499f9d80f0" LastKnownName="User starts motion detection session" />
+                <elementDefinition Id="1781f120-72e9-4e58-bc53-a99da8b1805e" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode Id="0ad84c58-ca06-411a-89d2-a7f21020046f" name="Decision2" isLeaf="false">
+            <elementDefinition Id="5debc8cc-3ead-4762-809e-74fbe539259e" />
+            <flowNodeTargets>
+              <controlFlow Id="5832fe0a-1500-4b02-9315-775ddc05ee04" guard="Incorrect camera" isLeaf="false">
+                <opaqueActionMoniker Id="77b6d4bd-0d8d-4804-9dd5-cd48df879c4b" LastKnownName="User supplies IP address for camera" />
+                <elementDefinition Id="939cb591-3c91-4731-a8c6-8330204b6688" />
+              </controlFlow>
+              <controlFlow Id="4f01eb41-dfcc-48a4-865d-e99d06029739" guard="Correct Camera" isLeaf="false">
+                <opaqueActionMoniker Id="f1017305-880b-46a5-a644-43ff1d5274d7" LastKnownName="User supplies motion detection settings" />
+                <elementDefinition Id="a370e108-e17e-4f75-8f34-57805e9dc02c" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction Id="f0a57052-a757-43b7-8196-82499f9d80f0" name="User starts motion detection session" isLeaf="false">
+            <elementDefinition Id="75c28f83-4196-4d2d-9f46-addf404daf1e" />
+            <flowNodeTargets>
+              <controlFlow Id="b9450653-86d0-4b3d-90fe-827897602107" isLeaf="false">
+                <opaqueActionMoniker Id="e0580964-64ac-46a2-aa33-a2de60a2013c" LastKnownName="Motion Detection started" />
+                <elementDefinition Id="1330ed73-d4e8-44bb-afb5-7bbf1e5bddd2" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="e0580964-64ac-46a2-aa33-a2de60a2013c" name="Motion Detection started" isLeaf="false">
+            <elementDefinition Id="946c15af-6982-4e7c-9e72-c7b5b1670819" />
+          </opaqueAction>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="f8d84044-e12c-4469-a892-c1710b2e8082" name="ModelingProject1">
+    <elementDefinition Id="0b733217-d670-40cf-bffd-3600d0762abe" />
+  </package>
+</activityRootModel>
