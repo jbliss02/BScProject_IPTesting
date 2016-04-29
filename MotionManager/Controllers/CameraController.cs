@@ -16,17 +16,24 @@ namespace MotionManager.Controllers
         [HttpGet]
         public HttpResponseMessage Get(string ipAddress)
         {
-            CameraModel camera = new CameraModel();
-            camera.cameraIpAddress = ipAddress;
+            try
+            {
+                CameraModel camera = new CameraModel();
+                camera.cameraIpAddress = ipAddress;
 
-            CameraFinder finder = new CameraFinder(camera);
-            finder.GetImage();
+                CameraFinder finder = new CameraFinder(camera);
+                finder.GetImage();
 
-            var result = new HttpResponseMessage(HttpStatusCode.OK);
-            result.Content = new ByteArrayContent(finder.ImageBytes);
-            result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+                var result = new HttpResponseMessage(HttpStatusCode.OK);
+                result.Content = new ByteArrayContent(finder.ImageBytes);
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
 
-            return result;
+                return result;
+            }
+            catch
+            {
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            }
 
         }
 

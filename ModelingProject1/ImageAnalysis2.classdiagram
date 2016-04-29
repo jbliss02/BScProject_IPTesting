@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm11="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" xmlns:dm12="http://schemas.microsoft.com/dsltools/UseCaseModel" dslVersion="1.0.0.0" Id="d4b45b97-603e-418a-8d84-319d265345b8" name="ImageAnalysis2" linkedPackageId="354fdadb-9cbd-4a9f-b742-e375f40afc83" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="a9866802-b264-4f09-8208-42aba905e5a2">
+      <profileInstance Id="0cd2842f-518e-4b6c-8b3b-e02a55dbca44" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="04b64bce-0aa9-4da4-82b4-ce4992f57009">
+      <profileInstance Id="00e0edc1-cf4b-4bc3-bdf5-cdbc243361d4" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="f631f934-8e4e-496e-a269-ad412a2b748c" name="MotionSensor_2" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="c63500a1-2f76-41e8-aa49-ad909f3343ce" />
+        <ownedAttributesInternal>
+          <property Id="f477f73b-898e-495b-a5c5-c65c535c1c84" name="numberSkipped" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="1e47fd6a-bb50-4586-b42e-265087aafc64" />
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="5292dec7-a3de-432a-a159-dbccca85b464" name="Setup" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="5df6586c-2bdf-4714-809d-f2e06e3e0f1f" />
+          </operation>
+          <operation Id="65ea3302-7847-4fe5-be24-d8d75f4ec9ef" name="OnMotion" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="a6d2ea1e-5a29-477f-a5ee-66bcb28f2219" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="1cb602bd-dba5-417b-b3f9-6ca55c9bf73a" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="0be60399-d65a-4eed-b1bb-a12fcf16c878" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="f24685ab-d35a-44e8-b370-385f05b048cf" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="7bde8bba-dd4b-4343-9b06-686c7c846c6f" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="c99cfb5c-56ee-4f3b-8500-39d450250454" name="motionGrid" direction="In" isUnique="false">
+                  <elementDefinition Id="620d3f6c-2da1-4483-a5ae-8cb5a47c9590" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="c858e383-00db-4b80-ad75-07b7aef2e53a" name="SendForCompareAsync" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="e37fe93a-4e22-4ca2-b3ea-ad7d1e4a1974" />
+          </operation>
+          <operation Id="b153f427-b131-4170-836b-4c56d94ed516" name="SendForCompare" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="39b72c47-a10d-4062-ab09-fd9bad408566" />
+          </operation>
+          <operation Id="6deb300e-942c-454f-b5f7-ba534f5d706a" name="Compare" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="9c9acd52-cf43-4951-b552-68c27b0e3ab5" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="62d1f488-c808-4e36-88ec-3fe67f387046" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="0daa7d9c-4604-4455-b847-8a13817f2902" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="969b87a2-8160-446b-94df-a3c38497c8d7" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="1fd128b1-f2ed-436a-8ac4-c22eb97b547b" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="895fd38a-09b7-46b9-9731-78064696537e" name="MonitorWork" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="ceeba73a-8e74-4d60-a1b8-5a9f2f55079c" />
+          </operation>
+          <operation Id="1fead1d4-5ac8-4e1d-9179-28969c492fde" name="Speedup" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="98936841-ffa3-49bd-970e-61cebc4f031f" />
+          </operation>
+          <operation Id="7a9329e5-1020-4af0-b6dc-a81991f9dbda" name="SlowDown" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="dbe18776-3917-4e85-9d79-52df086dc890" />
+          </operation>
+          <operation Id="b371ed62-a3c1-49d9-aca0-1fd002443efd" name="LogRegulationSettings" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="a5d8a932-b07e-46f3-91f2-3f4b0bf074e2" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="a3e44c6e-e7b8-4ccf-946a-8e2e8a3fa0cc" name="backlogCount" direction="In" isUnique="false">
+                  <elementDefinition Id="5174dc36-0abb-49b6-904b-04a253d70706" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="354fdadb-9cbd-4a9f-b742-e375f40afc83" name="ModelingProject1">
+    <elementDefinition Id="0b733217-d670-40cf-bffd-3600d0762abe" />
+  </package>
+</logicalClassDesignerModel>
