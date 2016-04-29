@@ -36,19 +36,19 @@
       <SubType>Content</SubType>
       <DependentUpon>frontend.usecasediagram</DependentUpon>
     </Content>
+    <Content Include="ImageAnalysis_old.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ImageAnalysis_old.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>ImageAnalysis_old.classdiagram</DependentUpon>
+    </Content>
     <Content Include="ImageAnalysis.classdiagram">
       <SubType>Content</SubType>
     </Content>
     <Content Include="ImageAnalysis.classdiagram.layout">
       <SubType>Content</SubType>
       <DependentUpon>ImageAnalysis.classdiagram</DependentUpon>
-    </Content>
-    <Content Include="ImageAnalysis2.classdiagram">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="ImageAnalysis2.classdiagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>ImageAnalysis2.classdiagram</DependentUpon>
     </Content>
     <Content Include="web services.sequencediagram">
       <SubType>Content</SubType>

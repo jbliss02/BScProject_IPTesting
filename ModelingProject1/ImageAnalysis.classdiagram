@@ -1,326 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="e348664a-0b5b-461d-8523-e94b89af5947" name="ImageAnalysis ClassDiagram" linkedPackageId="b635976e-b08b-4de1-8ced-ebfe14b09313" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
-  <profileInstances>
-    <packageHasProfileInstances Id="063dab40-c41b-4bf1-b98b-77b1d43b8b99">
-      <profileInstance Id="9c519d20-8583-40a0-bc91-3db12755141a" name="StandardProfileL2">
-        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
-      </profileInstance>
-      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="3ff642bb-5f07-40fd-ba6b-c82e5bd7e653">
-      <profileInstance Id="a389eb98-d7dc-4c56-bdb1-ec612f332f33" name="StandardProfileL3">
-        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
-      </profileInstance>
-      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
-    </packageHasProfileInstances>
-  </profileInstances>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm11="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" xmlns:dm12="http://schemas.microsoft.com/dsltools/UseCaseModel" dslVersion="1.0.0.0" Id="d4b45b97-603e-418a-8d84-319d265345b8" name="ImageAnalysis" linkedPackageId="354fdadb-9cbd-4a9f-b742-e375f40afc83" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <packagedElements>
     <logicalClassDesignerModelHasTypes>
-      <class Id="d1eff2b2-f485-402b-8f0a-7427a691f146" name="MotionSensor_2" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="c63500a1-2f76-41e8-aa49-ad909f3343ce" />
+      <class Id="03896a71-db8a-4638-89ed-3d1ef6313524" name="AlarmBase" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="04e2f948-3013-44ea-8021-138982e03890" />
         <generalsInternal>
-          <generalization Id="8ef7e0fa-4e1d-4482-a053-2ae46a5a3cbe" isSubstitutable="false">
-            <classMoniker Id="740d7508-076e-4716-8edd-54ada768c143" LastKnownName="MotionSensor_2a" />
-            <elementDefinition Id="79727004-8fd1-4278-8e54-83afdcc4abd6" />
+          <generalization Id="af2f65e0-3666-44b0-98f0-6031f2cd46fd" isSubstitutable="false">
+            <classMoniker Id="399db032-d9b7-4495-9d6d-defc78ca4a9c" LastKnownName="EmailAlarm" />
+            <elementDefinition Id="93133214-8f78-415f-a686-0e7038435ae1" />
           </generalization>
         </generalsInternal>
-        <ownedAttributesInternal>
-          <property Id="1a331d44-a0da-456d-aa65-05e824c9f53e" name="numberSkipped" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="1e47fd6a-bb50-4586-b42e-265087aafc64" />
-          </property>
-        </ownedAttributesInternal>
-        <ownedOperationsInternal>
-          <operation Id="c294441a-ea06-4ca6-80dc-d423bd8c6c68" name="Setup" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="5df6586c-2bdf-4714-809d-f2e06e3e0f1f" />
-          </operation>
-          <operation Id="ee572aa7-a048-44c0-ae18-2ea9797d7ec8" name="OnMotion" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="a6d2ea1e-5a29-477f-a5ee-66bcb28f2219" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="dc1640b9-885c-4f0f-a53e-5b755c438f4c" name="ByteWrapper" direction="In" isUnique="false">
-                  <elementDefinition Id="0be60399-d65a-4eed-b1bb-a12fcf16c878" />
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="c2802f33-feab-40a4-9e14-a7e55b65399a" name="ByteWrapper" direction="In" isUnique="false">
-                  <elementDefinition Id="7bde8bba-dd4b-4343-9b06-686c7c846c6f" />
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="02a71bca-c62d-4e39-8e7e-d2fb8c86ec54" name="motionGrid" direction="In" isUnique="false">
-                  <elementDefinition Id="620d3f6c-2da1-4483-a5ae-8cb5a47c9590" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="022b45a4-4d27-45c9-abee-3d58de0808f3" name="SendForCompareAsync" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="e37fe93a-4e22-4ca2-b3ea-ad7d1e4a1974" />
-          </operation>
-          <operation Id="0e14d645-cdda-4d20-bc90-1033ac614391" name="SendForCompare" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="39b72c47-a10d-4062-ab09-fd9bad408566" />
-          </operation>
-          <operation Id="e7985ab8-5eab-4406-9935-ccc63c81ca85" name="Compare" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="9c9acd52-cf43-4951-b552-68c27b0e3ab5" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="feec2a25-e6b1-49f6-80f7-cb448d3e77c6" name="ByteWrapper" direction="In" isUnique="false">
-                  <elementDefinition Id="0daa7d9c-4604-4455-b847-8a13817f2902" />
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="9b411864-a815-472e-a5a5-7f80a0150b11" name="ByteWrapper" direction="In" isUnique="false">
-                  <elementDefinition Id="1fd128b1-f2ed-436a-8ac4-c22eb97b547b" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="f9983ce9-d754-4ade-bbe1-c05542b5fd98" name="MonitorWork" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="ceeba73a-8e74-4d60-a1b8-5a9f2f55079c" />
-          </operation>
-          <operation Id="491ddda5-63ab-4fbb-b749-637b7894d2d0" name="Speedup" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="98936841-ffa3-49bd-970e-61cebc4f031f" />
-          </operation>
-          <operation Id="6bc0ab27-0a04-4786-87fe-64632f8fac22" name="SlowDown" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="dbe18776-3917-4e85-9d79-52df086dc890" />
-          </operation>
-          <operation Id="326623a9-9af4-46da-ae16-112f8b6ed253" name="LogRegulationSettings" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="a5d8a932-b07e-46f3-91f2-3f4b0bf074e2" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="08e38201-43bb-4ec4-87b3-e95403eaa9b8" name="backlogCount" direction="In" isUnique="false">
-                  <elementDefinition Id="5174dc36-0abb-49b6-904b-04a253d70706" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperationsInternal>
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <class Id="740d7508-076e-4716-8edd-54ada768c143" name="MotionSensor_2a" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="ec532b2b-bcd1-4e34-aaf0-b70310a9f158" />
-        <suppliersInternal>
-          <interfaceRealization Id="f7be4070-eb96-499e-98b1-1a8d7f652365">
-            <interfaceMoniker Id="06073942-7853-4969-9472-1d43a16e04ca" LastKnownName="IMotionSensor_2" />
-            <elementDefinition Id="4402cbc1-09fb-4050-bf8b-dce4f1cc5f3a" />
-          </interfaceRealization>
-        </suppliersInternal>
-        <ownedAttributesInternal>
-          <property Id="c1e9b6c7-8aca-4da3-843b-ac781d221a45" name="pixelChange" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="96172e64-4e63-4f56-aeaf-5ba59d1640df" />
-          </property>
-          <property Id="8a6557fa-b7ef-4452-abcf-9feea358bb34" name="pixelChangeThreshold" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="6e0b7140-b530-4cd2-9406-fa01134ec7e9" />
-          </property>
-        </ownedAttributesInternal>
-        <ownedOperationsInternal>
-          <operation Id="a0b4616c-812a-4a9c-bb31-6d515b6e840a" name="Compare" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="cc2d4d83-8913-4fd1-afcf-02c00e25fb5e" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="07b156b6-f669-45ed-a053-bcb6c73ad1db" name="ByteWrapper" direction="In" isUnique="false">
-                  <elementDefinition Id="d14ddeca-996d-45aa-860a-eb8f63dcbc8f" />
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="d40c1a36-b5c8-4bab-9ce4-b1a37103624c" name="EventArgs" direction="In" isUnique="false">
-                  <elementDefinition Id="162d38d4-b53f-496e-b934-6692059021bc" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="409cfabc-bc48-4d53-85f7-4944e4ec2bb7" name="ImageCreated" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="f1502c33-fc76-415e-99b4-e2b879288eff" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="25d28fe0-1cb3-4e4f-ad59-f15904a2d84b" name="ByteWrapper" direction="In" isUnique="false">
-                  <elementDefinition Id="f09b66ce-8bd5-45fb-92b2-02ae2591941b" />
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="9f77ed98-9be2-4a90-b592-28a5d4863ae9" name="EventArgs" direction="In" isUnique="false">
-                  <elementDefinition Id="88d794ad-848b-4952-bf7e-f91d503d2223" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="0ea6d399-6a2f-4b0a-81f0-ed53f5298568" name="ImageCreatedAsync" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="3029203d-8f6a-42ba-ad91-fe202330b751" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="5108229b-0660-458f-9cb6-2459b22a1867" name="ByteWrapper" direction="In" isUnique="false">
-                  <elementDefinition Id="db1ca361-b463-4bc1-8394-a7eddc6aa9c2" />
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="7f6c3fc1-5264-40e2-ae01-d1564701f64d" name="EventArgs" direction="In" isUnique="false">
-                  <elementDefinition Id="25958aa3-4ab1-4f37-b984-b731d6ae7929" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="bdc9d178-879a-4a6c-b0c7-0c2c28740996" name="SetThreshold" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="1bf0e090-8d8f-4acd-8f33-e153c72bd49a" />
-          </operation>
-          <operation Id="a5191944-c369-4965-b6b2-7a99b53546ad" name="Dispose" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="e9f81efc-d4bd-491d-a93e-23666ba3492c" />
-          </operation>
-        </ownedOperationsInternal>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <Interface Id="06073942-7853-4969-9472-1d43a16e04ca" name="IMotionSensor_2" isAbstract="false" isLeaf="false">
-        <elementDefinition Id="b6d21b8d-0091-462f-a032-458dd910572b" />
-        <ownedAttributes>
-          <property Id="9c517a00-e53d-4b5e-8d34-49905fe4f7df" name="controlImageNumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="b25904c7-fcf2-4c7b-9f76-cc5ed7d2f0d1" />
-          </property>
-          <property Id="52679eea-ac91-4061-b9b6-a8852b406665" name="motionDetectedEvent" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="6c37a522-3a3e-4d7a-8cac-6394f63905c5" />
-          </property>
-          <property Id="9a0c9873-fb7d-41bf-bbbd-a75843115441" name="thresholdSet" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="90f9c864-4f8e-4fd8-9720-40492aca59a6" />
-          </property>
-          <property Id="cae86cc8-66e3-4a40-8d60-b58ec700ea20" name="workQueue" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="f112a811-c0d2-4b2a-bc2a-b49bef927eb0" />
-          </property>
-        </ownedAttributes>
-        <ownedOperations>
-          <operation Id="f80f4ab1-00ae-4bdf-96c2-ac15bc626be7" name="Compare" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="1c4743c9-63aa-49ff-9693-2b7093806228" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="e952267d-dbc8-4de5-a3b5-710ab5f14ca7" name="ByteWrapper" direction="In" isUnique="false">
-                  <elementDefinition Id="326aadbf-3bb7-4940-9bf7-1bb30070fb11" />
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="40f5ba2d-809d-4225-8b69-45836ced7310" name="EventArgs" direction="In" isUnique="false">
-                  <elementDefinition Id="09460c0f-09d9-4fc0-8802-b609aa54e78b" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="2f95cd0a-94bc-4ad5-ae97-d163fb8ff588" name="ImageCreated" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="2a0f612e-478d-41b8-a758-33c2810dbf42" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="4aa95136-c701-4ff7-ab7b-136b503ce974" name="ByteWrapper" direction="In" isUnique="false">
-                  <elementDefinition Id="764d4518-884d-4ecd-8135-fac1a031ef95" />
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="9e39a81c-ec6a-4d3f-8ffd-3edd488f5da2" name="EventArgs" direction="In" isUnique="false">
-                  <elementDefinition Id="4bdbcf32-8f0f-4a5f-b6d8-ed0a96853e15" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="eaa754f9-4a05-4f9a-976a-526ddc214aed" name="ImageCreatedAsync" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="dabf5659-2d52-417f-87fa-8deefec95530" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="dc48a4d3-fa8b-4829-90b9-a02da851adab" name="ByteWrapper" direction="In" isUnique="false">
-                  <elementDefinition Id="588b9d98-4f4c-4de0-9225-7dc8343a477d" />
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="957c69c8-65b6-4c39-9be3-ddd7ebe66365" name="EventArgs" direction="In" isUnique="false">
-                  <elementDefinition Id="58e0c8b7-ba89-4acc-8614-ea8ec4d075fb" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperations>
-      </Interface>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="1d59ab19-4fd9-4409-98cd-4a26528ae4ec" name="MotionSensorSetup" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="d7d05f71-2ac9-4993-851a-2ba20786e877" />
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="89c618f6-0a58-42ef-af88-077f95344061" name="MotionSensorStartup" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="18fd73e7-ba24-41c1-a179-704dbf53a5f4" />
-        <suppliersInternal>
-          <dependency Id="d32b8d3d-d518-48ca-8bf0-25205dae150d">
-            <classMoniker Id="1d59ab19-4fd9-4409-98cd-4a26528ae4ec" LastKnownName="MotionSensorSetup" />
-            <elementDefinition Id="e11c00e7-d1ab-4143-9502-c684768458ac" />
-          </dependency>
-        </suppliersInternal>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="037e8608-d037-430d-9b6f-5492a5326f0d" name="MotionSensorSettings" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="eafedca9-e50b-46be-bcd4-7ed419e3392b" />
-        <targetEnds>
-          <association Id="2d3f824c-a445-4b80-85b4-dcd11a6061b7" isDerived="false" sourceEndRoleName="MotionSensorSettings" targetEndRoleName="MotionSensor_2" isLeaf="false" isAbstract="false">
-            <classMoniker Id="d1eff2b2-f485-402b-8f0a-7427a691f146" LastKnownName="MotionSensor_2" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="3c9531d3-af13-4e45-a9f4-c8462ff12543" name="MotionSensorSettings" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="922fe5db-123e-47f1-9835-e6ff77322c02" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="c69ed4b4-9926-45a1-9fbb-bece6e46b82f" name="MotionSensor_2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="85fcbd9e-132e-4591-85c5-2d3b54eca4ea" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="40a80299-cb72-4e1a-b359-db0ddea6c8ef" />
-          </association>
-        </targetEnds>
-        <ownedAttributesInternal>
-          <property Id="077cafb3-972d-4bf7-9761-e43a9017b86c" name="asynchronous" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="e1cecdf9-5141-496f-ad8b-976f5067d3cd" />
-          </property>
-          <property Id="3f4718d0-792c-4a2f-abd1-a6bb925ec74b" name="framesToSkip" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="1aafc0ff-26e6-4d1f-b482-37539494465c" />
-          </property>
-          <property Id="eadb73f9-91ce-4108-a981-3efb1994177a" name="horizontalPixelsToSkip" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="2abfcdde-763b-47bf-93c7-3fbdd71d35f0" />
-          </property>
-          <property Id="f427e694-a21c-4208-90e5-90f0335e3b0a" name="verticalPixelsToSkip" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="d490926f-c01c-496d-a1d4-9bdfd14f0912" />
-          </property>
-          <property Id="abf3fc0c-527e-400f-aa1b-bdb8a996c90f" name="sensitivity" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="be06f377-84f4-4e71-877e-a8dff9d444fa" />
-          </property>
-          <property Id="66804ef6-b416-4424-a544-a005611c4acc" name="searchHeight" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="9bb775e5-b404-4b8c-b41d-f64a65dd0be1" />
-          </property>
-          <property Id="217c7e41-9346-46d9-b686-2560d68da6cb" name="searchWidth" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="e128b9a9-9e20-4ac8-82bb-4c25c3661516" />
-          </property>
-        </ownedAttributesInternal>
-        <ownedOperationsInternal>
-          <operation Id="6ee3658e-97c9-479e-ad83-944da971d313" name="LoadDefaults" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="a31caa8d-4eb9-4c47-8956-41d04827dc9a" />
-          </operation>
-        </ownedOperationsInternal>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="eadcb022-cb14-4226-a955-4cd9eba432af" name="EmailAlarm" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <class Id="399db032-d9b7-4495-9d6d-defc78ca4a9c" name="EmailAlarm" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="20ad30e8-c920-4017-bd1c-820cb3c784f6" />
         <suppliersInternal>
-          <interfaceRealization Id="c5fe8f60-4dfb-43cf-971e-93f2b64fda32">
-            <interfaceMoniker Id="73503ca2-63e1-4497-8d29-03acd797d48a" LastKnownName="IAlarm" />
+          <interfaceRealization Id="0b713c44-b04a-4e22-a075-486ad30a25e7">
+            <interfaceMoniker Id="9ad56551-05a7-40b6-9068-a9d18d688bc3" LastKnownName="IAlarm" />
             <elementDefinition Id="20bc55ff-b851-4c89-9bd5-41edfba91edb" />
           </interfaceRealization>
         </suppliersInternal>
         <targetEnds>
-          <association Id="cbd2cae4-b5e6-4be0-9716-db35225f6c0d" isDerived="false" sourceEndRoleName="EmailAlarm" targetEndRoleName="ImageSaver" isLeaf="false" isAbstract="false">
-            <classMoniker Id="36112666-737e-41cc-b436-a547d1034732" LastKnownName="ImageSaver" />
+          <association Id="34522b73-145f-4e80-9872-73934794419d" isDerived="false" sourceEndRoleName="EmailAlarm" targetEndRoleName="ImageSaver" isLeaf="false" isAbstract="false">
+            <classMoniker Id="45af2c3b-9c91-4f4a-9c77-6cdf65c227bf" LastKnownName="ImageSaver" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
-                <memberEnd Id="47064590-9ff3-473b-8040-2f1c9b69c30b" name="EmailAlarm" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                <memberEnd Id="a8c61070-c14d-45b8-acb0-8424758733f3" name="EmailAlarm" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
                   <elementDefinition Id="78c33ee0-fd7a-4b98-88d5-6a8cc705445f" />
                 </memberEnd>
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
-                <memberEnd Id="5944165c-37a2-4152-8898-f1b709fc2c3e" name="ImageSaver" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                <memberEnd Id="a97338ba-ccd4-437c-88b2-7653e9965bea" name="ImageSaver" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <elementDefinition Id="7cb8a057-c034-4e10-ad6e-9d1217217bd2" />
                 </memberEnd>
               </associationHasOwnedEnds>
@@ -331,66 +42,125 @@
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <Interface Id="73503ca2-63e1-4497-8d29-03acd797d48a" name="IAlarm" isAbstract="false" isLeaf="false">
+      <Interface Id="9ad56551-05a7-40b6-9068-a9d18d688bc3" name="IAlarm" isAbstract="false" isLeaf="false">
         <elementDefinition Id="71ac842f-7715-4043-a528-a650d98ed3c3" />
       </Interface>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <class Id="e1cfc57b-75cb-4d8b-94e5-83157104ccb5" name="AlarmBase" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="04e2f948-3013-44ea-8021-138982e03890" />
-        <generalsInternal>
-          <generalization Id="5d25ab33-4d09-45b6-ad9c-fcaf3afeab3a" isSubstitutable="false">
-            <classMoniker Id="eadcb022-cb14-4226-a955-4cd9eba432af" LastKnownName="EmailAlarm" />
-            <elementDefinition Id="93133214-8f78-415f-a686-0e7038435ae1" />
-          </generalization>
-        </generalsInternal>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="958d984c-fb3b-4b6b-ac39-921764d29895" name="Logging" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="cf7e154e-cc6a-4cb5-b0ee-396593e3a66a" />
+      <class Id="7b234378-9518-45d9-9eb0-bdca2ca12515" name="PixelMatrix" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="6649ec6c-239e-4f2b-ab12-4ea8fffc0458" />
         <targetEnds>
-          <association Id="51eb572a-cb18-4e84-9c93-6feb9de98d1a" isDerived="false" sourceEndRoleName="Logging" targetEndRoleName="MotionSensor_2" isLeaf="false" isAbstract="false">
-            <classMoniker Id="d1eff2b2-f485-402b-8f0a-7427a691f146" LastKnownName="MotionSensor_2" />
+          <association Id="96c3d57b-83f3-49e2-8ad4-c71107e3ee0b" isDerived="false" sourceEndRoleName="PixelMatrix" targetEndRoleName="MotionSensor_2a" isLeaf="false" isAbstract="false">
+            <classMoniker Id="da308e6c-2a8f-4cc3-ad47-92364446eb6b" LastKnownName="MotionSensor_2a" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
-                <memberEnd Id="09f195d9-4793-49a2-97b2-1ab15bc5cf28" name="Logging" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="14e83814-6765-4209-ae1e-7d500c55ba16" />
+                <memberEnd Id="cdd355ae-8de0-4622-9b67-5950584a70f5" name="PixelMatrix" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="9d4d31ef-1074-453f-8075-0b702dc98066" />
                 </memberEnd>
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
-                <memberEnd Id="564f6847-4264-4d3f-9ffc-5895b1cc0a3f" name="MotionSensor_2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="fbf039bd-cffb-4cee-abfe-d69fc4c3752e" />
+                <memberEnd Id="0fc97504-4535-4abe-99e6-bd4feed56ef6" name="MotionSensor_2a" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="d1df072d-6d78-4dc1-8baa-02b152de1fe6" />
                 </memberEnd>
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
-            <elementDefinition Id="c3deee9c-e21b-4d7f-9d4b-36aa1261bca6" />
+            <elementDefinition Id="50245ec7-8704-4736-a1d3-cc69878cb750" />
+          </association>
+          <association Id="fd45685e-5769-466d-8fd7-f02f3f75dfee" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+            <classMoniker Id="069ac5ee-bad1-42b4-8298-8de91af74bc3" LastKnownName="ByteWrapper" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="4462e08b-408e-4f23-9ee0-bdc7d3024870" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="d3bf320c-5d9b-40eb-bfe9-d8efa15b9379" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="fde8ed5d-7f0b-4169-a6df-57b3567ebcad" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="3d8d730e-e375-4e3c-b324-b87d62f7b9bf" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="046290a4-28cf-414b-9f57-9e07fb6b9e43" />
           </association>
         </targetEnds>
         <ownedAttributesInternal>
-          <property Id="ac6a6879-eaaa-4391-90ec-789338bad865" name="loggingOn" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="52134c8d-88f3-4b6b-9ca0-aa6e5415d97b" />
+          <property Id="b4590ff7-ff1b-41a0-8ad2-c64d96e914db" name="SearchWidth" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="064cf4aa-173b-47f8-8f48-b09956ddaa24" />
           </property>
-          <property Id="5e994592-8378-4a24-b84b-45618381edb2" name="imagesReceived" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="efb27b69-c143-4d71-806a-52a4c008ef0a" />
+          <property Id="7cbc6c7c-c167-4563-866c-370c42ebbee0" name="SearchHeight" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="56ba87a5-54bd-4edd-803b-7c0e03111c6f" />
           </property>
-          <property Id="3583fd3f-5c0a-42f5-b929-5dc4abf3196f" name="imagesChecked" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="8bb02a0f-f5ba-4a83-ab18-455665eec73a" />
+          <property Id="24debded-4e2b-4993-b7d5-e4bd1f4d8ee6" name="WidthSearchOffset" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="d7346e36-1940-4b6c-a3b1-511a11fe02ae" />
           </property>
-          <property Id="6a371120-0c84-4c43-bade-ffe6e5d99399" name="numberMotionFiles" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="4667d4cf-b381-4ef8-bbee-9e115cadc30a" />
+          <property Id="fabd49ae-20b8-4645-86d5-6698b9aca58a" name="HeightSearchOffset" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="312b469d-0046-481c-ae1f-a0e0a79e6b29" />
           </property>
-          <property Id="c9b984b3-543b-44f0-9f56-bdd481e046f1" name="threshold" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="9ff3f6ab-e066-444e-9288-a44d9f7c5e0a" />
+          <property Id="2c793e94-6b78-4c28-80d5-d72496e7c4a0" name="SumChangedPixels" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="838c6e07-3d96-4b53-b290-97cc784bde6f" />
+          </property>
+          <property Id="0f919e6d-ac74-4116-a3a5-576607f970ab" name="SumChangedPixelsPositive" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="ca96a2dd-9f9d-4f02-a1b1-1ea604fecafb" />
+          </property>
+          <property Id="1f340c92-eaa4-41fd-b729-5b4f0cb92012" name="MaxChanged" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="00a80716-7bfe-47d7-a827-8247587998b2" />
+          </property>
+          <property Id="3759258e-192c-48ab-a18d-48687a8603a0" name="MinChanged" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e3c9a8cd-4845-4f41-82fc-2fad6b01fef5" />
+          </property>
+          <property Id="68c25c4d-5618-43b9-a27a-9e027353c95e" name="MaxChangedPositive" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="9b9d018e-4d1d-4b07-8091-31b47351d6c2" />
+          </property>
+          <property Id="d8fd6571-bb82-44dc-945f-8d1e44c16de7" name="MinChangedPositive" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="6fbc4614-b33a-44e2-a1fc-b7d344e7ea22" />
+          </property>
+          <property Id="40edc6db-4586-4636-89fe-397889b86d2b" name="LinkCompare" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="5d93e923-a164-4b1b-963d-30a2433af697" />
           </property>
         </ownedAttributesInternal>
         <ownedOperationsInternal>
-          <operation Id="1ffdacd8-0d3f-4800-8555-821047009ef9" name="WriteToLog" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="849e2ae0-a354-484c-805b-755427d7850b" />
+          <operation Id="dfce057c-6583-4e31-a898-c9e2d8be548a" name="Populate" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="68c65cdd-ed79-41a4-914a-d871158c682b" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="31391cc2-1134-4726-ad84-2cb5361874af" name="string" direction="In" isUnique="false">
-                  <elementDefinition Id="5f7fffac-7430-434b-adf9-369c858418c4" />
+                <parameter Id="3c75fe98-0df7-48c0-9947-4f982b049a31" name="image1Path" direction="In" isUnique="false">
+                  <elementDefinition Id="3bb7d344-e7f0-4c07-8252-acd3e683ee50" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="16841806-98a4-4d46-9b40-e97e0113ce9c" name="image2Path" direction="In" isUnique="false">
+                  <elementDefinition Id="3e7ec80d-2c9b-43c1-a869-d8f60de0ae58" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="0558da8d-d5ec-4b5a-9c6c-28ca027cc05d" name="Populate" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="83913d2c-c400-4bc4-b53c-00978af92546" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="e480f1dd-0057-44dd-b66c-20f0a1ea127c" name="BitmapWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="990ff1d9-b1f1-46c6-8928-91abcfbfb778" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="fb53cb7d-29bb-4110-b752-7ab9d66b380d" name="BitmapWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="01d5733c-c20e-4797-bee2-c0c9c2905129" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="ece8ddc3-b1ef-4233-a2ed-3a51b619fd40" name="DrawPixelChange" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="055d68a6-4b4c-4b32-882d-40d0dfb5d86a" />
+          </operation>
+          <operation Id="b90f1de7-bf80-4427-8c36-803a3dfaf5fa" name="SetReducedColumns" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="221c07e9-8560-4915-87d0-e46e56e9373e" />
+          </operation>
+          <operation Id="4441d5d9-0b25-493f-8232-de6ab6e8af42" name="DumpToText" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="995db632-6a77-4dda-a00d-6adc7c8a9a71" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="e2c5c19f-5318-4bc1-851b-baf0be16a511" name="string" direction="In" isUnique="false">
+                  <elementDefinition Id="6566c761-2f29-47fe-bb79-57077696bc88" />
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
@@ -399,81 +169,21 @@
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <class Id="8714c57a-f759-41e2-b11d-0d473e502324" name="MotionSensorBacklog" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="8cfc4abe-f4ba-4326-81f7-678ebf0fca9f" />
-        <targetEnds>
-          <association Id="0b4dd9e7-46b8-4ace-ba0d-2cb72b48d67f" isDerived="false" sourceEndRoleName="MotionSensorBacklog" targetEndRoleName="MotionSensor_2" isLeaf="false" isAbstract="false">
-            <classMoniker Id="d1eff2b2-f485-402b-8f0a-7427a691f146" LastKnownName="MotionSensor_2" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="0bad8eef-ec2f-46af-a8c3-f37d85fed7d4" name="MotionSensorBacklog" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="94b60cd4-8cdb-4534-a887-7c659cb6ae92" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="b5f8abfc-27c0-4078-ba14-0116512d01d3" name="MotionSensor_2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="11575c54-7095-4709-9f35-52837cccf58e" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="399f10f4-aac2-4d7a-ab2f-e13a24366086" />
-          </association>
-        </targetEnds>
-        <ownedAttributesInternal>
-          <property Id="8914c3bf-b7f6-49b7-a842-e8b35641acfd" name="backLog" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="2f165fa0-ddd5-4f4f-882d-1aa246beb5da" />
-          </property>
-          <property Id="5de6362d-0efe-4740-9929-e623a888812c" name="backLogLock" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="2efb89b8-b609-474d-963e-f436cda991ef" />
-          </property>
-          <property Id="7f68bfe2-fd99-47ee-b956-e6a3fd1f7a9a" name="backlogTimer" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="a0492ac0-19c1-48f0-8661-f63aca53c832" />
-          </property>
-          <property Id="923a3414-3f27-4632-af2a-647644cbf3ed" name="lastImageReceived" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="d3e940d0-fce8-4559-94eb-f77d62b09e33" />
-          </property>
-          <property Id="b579b0ab-183a-4bd0-9f6d-557f9917c23d" name="numberSkipped" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="6aa4d85e-ae16-450a-97fa-daba47f9d49b" />
-          </property>
-          <property Id="c2859f63-b11d-4e75-bd87-4f26e9d98ee7" name="objLock" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="28ff9c91-52ad-4904-9b12-6ad06b609da2" />
-          </property>
-          <property Id="c64e2db4-83fc-42e7-bf1e-ed8fff5ece57" name="backlogCheckMs" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="7f6b4f4c-f042-439b-adad-d62f8c6b5815" />
-          </property>
-          <property Id="4582e35c-8b7e-4eef-817a-8c8b02941764" name="pixelJumpPerFrameJump" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="855feea2-9cfa-4751-8fb1-19da779a0bec" />
-          </property>
-          <property Id="703f43c4-bd9e-4aad-81b0-aa76a5909d36" name="backlogSpeedup" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="ee23c63e-73fc-4ace-ad5c-7f006184517d" />
-          </property>
-          <property Id="b36ad71c-8d02-4e6d-9a7e-92b1e52e168c" name="backlogSlowdown" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="e1fc825b-4b5a-4a1c-af5d-6c3999446c64" />
-          </property>
-        </ownedAttributesInternal>
-        <ownedOperationsInternal>
-          <operation Id="cda264dd-3856-4e86-913b-0835d80f177b" name="SetRegulationParameters" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="9566d3da-8db6-41be-854b-516a0566a8e9" />
-          </operation>
-        </ownedOperationsInternal>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="45ec46fb-8cc2-467d-b72f-227bb06501ff" name="PixelColumn" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <class Id="5e9323e9-134e-40a2-b084-2ea3a4cd92e3" name="PixelColumn" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="4bf24fdf-2d6c-4fe4-9d1d-8840e13cad85" />
         <targetEnds>
-          <association Id="6bae0a2c-db7e-499d-a7d7-43905d3fd0db" isDerived="false" sourceEndRoleName="PixelColumn" targetEndRoleName="MotionSensor_2" isLeaf="false" isAbstract="false">
-            <classMoniker Id="d1eff2b2-f485-402b-8f0a-7427a691f146" LastKnownName="MotionSensor_2" />
+          <association Id="49ec405f-e1a5-49d3-baab-cce40c1b9a11" isDerived="false" sourceEndRoleName="PixelColumn" targetEndRoleName="MotionSensor_2" isLeaf="false" isAbstract="false">
+            <classMoniker Id="c669f1f5-b4c7-4127-9f60-6ea5e2ff39ce" LastKnownName="MotionSensor_2" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
-                <memberEnd Id="119ee933-b8a5-43b1-8b97-ab3fba674fb1" name="PixelColumn" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                <memberEnd Id="2e15a625-df5d-4737-b51a-85f4d4d1bb3c" name="PixelColumn" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
                   <lowerValueInternal>
-                    <literalString Id="825d0b1a-d1c9-4841-a974-dd27fe4103b3" name="Lower" value="*">
+                    <literalString Id="6412a21f-1ebd-4be3-b768-97b102ee23db" name="Lower" value="*">
                       <elementDefinition Id="f51dbda4-dd86-4a7e-b24a-dac10de19eb9" />
                     </literalString>
                   </lowerValueInternal>
                   <upperValueInternal>
-                    <literalString Id="dc177ee6-1146-48ff-8e9e-29202bd43377" name="Upper" value="*">
+                    <literalString Id="24b7ed35-a2e8-4982-9478-e36541f62f9f" name="Upper" value="*">
                       <elementDefinition Id="62e6aef8-cf93-4b58-88be-d0cb35958a55" />
                     </literalString>
                   </upperValueInternal>
@@ -481,25 +191,25 @@
                 </memberEnd>
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
-                <memberEnd Id="e663da81-6ca8-40eb-80d2-9ca24ca17d0d" name="MotionSensor_2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                <memberEnd Id="444ab11b-d314-41d2-96bb-9c41279183e4" name="MotionSensor_2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <elementDefinition Id="aa08540e-b2a9-4177-9e15-151ee06ca5ac" />
                 </memberEnd>
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
             <elementDefinition Id="ea4a0911-0ca8-4c49-8b90-07f57d478d5c" />
           </association>
-          <association Id="87675e6e-8305-4602-a69b-a3edfdc486ab" isDerived="false" sourceEndRoleName="PixelColumn" targetEndRoleName="PixelMatrix" isLeaf="false" isAbstract="false">
-            <classMoniker Id="831c6a08-0898-4323-9cef-1fc4271c5a36" LastKnownName="PixelMatrix" />
+          <association Id="f4ed03d8-81eb-4bd6-b3fb-ebbb5d0f9bf3" isDerived="false" sourceEndRoleName="PixelColumn" targetEndRoleName="PixelMatrix" isLeaf="false" isAbstract="false">
+            <classMoniker Id="7b234378-9518-45d9-9eb0-bdca2ca12515" LastKnownName="PixelMatrix" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
-                <memberEnd Id="45e5febe-47ec-4e20-8231-d1be1f046380" name="PixelColumn" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                <memberEnd Id="b2b3dc60-0a9f-450c-9fe4-f9c3cc36b68f" name="PixelColumn" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
                   <lowerValueInternal>
-                    <literalString Id="8aa6381a-ade3-4e4e-a480-2a209516333f" name="Lower" value="*">
+                    <literalString Id="6d2f513a-4cb6-48e9-a223-66737d37616d" name="Lower" value="*">
                       <elementDefinition Id="fd5b782e-c9ca-4af0-bcee-502279c03ea8" />
                     </literalString>
                   </lowerValueInternal>
                   <upperValueInternal>
-                    <literalString Id="f8c22f86-cd7d-4e7c-b655-ac6712ae8af8" name="Upper" value="*">
+                    <literalString Id="c8c448aa-bb4c-4354-8e24-ae2a63116844" name="Upper" value="*">
                       <elementDefinition Id="37f51324-f9ed-4c07-b2da-e3b266188e18" />
                     </literalString>
                   </upperValueInternal>
@@ -507,7 +217,7 @@
                 </memberEnd>
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
-                <memberEnd Id="46e49395-871c-4ba9-a739-63dfd429b73e" name="PixelMatrix" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                <memberEnd Id="083dfc13-c4b7-4d93-9931-1499312017ac" name="PixelMatrix" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <elementDefinition Id="1b49845f-1deb-466b-af3e-07e60012a446" />
                 </memberEnd>
               </associationHasOwnedEnds>
@@ -518,120 +228,50 @@
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <class Id="831c6a08-0898-4323-9cef-1fc4271c5a36" name="PixelMatrix" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="6649ec6c-239e-4f2b-ab12-4ea8fffc0458" />
+      <class Id="30c44bbe-a078-4b6a-813e-6ec76e501192" name="Logging" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="cf7e154e-cc6a-4cb5-b0ee-396593e3a66a" />
         <targetEnds>
-          <association Id="f63788b3-234d-449c-a1c5-66ad7fc8e66c" isDerived="false" sourceEndRoleName="PixelMatrix" targetEndRoleName="MotionSensor_2a" isLeaf="false" isAbstract="false">
-            <classMoniker Id="740d7508-076e-4716-8edd-54ada768c143" LastKnownName="MotionSensor_2a" />
+          <association Id="ff417c59-d2fb-4f61-8d32-46318e24a3ab" isDerived="false" sourceEndRoleName="Logging" targetEndRoleName="MotionSensor_2" isLeaf="false" isAbstract="false">
+            <classMoniker Id="c669f1f5-b4c7-4127-9f60-6ea5e2ff39ce" LastKnownName="MotionSensor_2" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
-                <memberEnd Id="7f4b3192-ebef-4497-8a0f-2df8fc712207" name="PixelMatrix" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="9d4d31ef-1074-453f-8075-0b702dc98066" />
+                <memberEnd Id="8d26fa3b-853e-4dd4-b6a5-04b9d9a2d401" name="Logging" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="14e83814-6765-4209-ae1e-7d500c55ba16" />
                 </memberEnd>
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
-                <memberEnd Id="f5827c2c-f181-4fc2-bf59-91ff006295e9" name="MotionSensor_2a" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="d1df072d-6d78-4dc1-8baa-02b152de1fe6" />
+                <memberEnd Id="6428402e-a02c-4455-b9b6-c3a54abccd92" name="MotionSensor_2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="fbf039bd-cffb-4cee-abfe-d69fc4c3752e" />
                 </memberEnd>
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
-            <elementDefinition Id="50245ec7-8704-4736-a1d3-cc69878cb750" />
-          </association>
-          <association Id="4b43324e-a999-47f1-8b38-e48a310f6d22" isDerived="false" sourceEndRoleName="PixelMatrix" targetEndRoleName="ByteWrapper" isLeaf="false" isAbstract="false">
-            <classMoniker Id="00bd0dcc-23f5-4411-b24c-1f0b9f511b8c" LastKnownName="ByteWrapper" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="5b22d58f-2c69-4b78-8570-94786a6a43d4" name="PixelMatrix" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="d3bf320c-5d9b-40eb-bfe9-d8efa15b9379" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="c4cb42e7-91b4-416e-8f10-035ffeacd115" name="ByteWrapper" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="3d8d730e-e375-4e3c-b324-b87d62f7b9bf" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="046290a4-28cf-414b-9f57-9e07fb6b9e43" />
+            <elementDefinition Id="c3deee9c-e21b-4d7f-9d4b-36aa1261bca6" />
           </association>
         </targetEnds>
         <ownedAttributesInternal>
-          <property Id="d3cfb5c4-249b-4772-b86e-a38ceb48f5f3" name="SearchWidth" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="064cf4aa-173b-47f8-8f48-b09956ddaa24" />
+          <property Id="b2b1004a-546f-45a1-b682-34f999e6f6e5" name="loggingOn" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="52134c8d-88f3-4b6b-9ca0-aa6e5415d97b" />
           </property>
-          <property Id="801f02c1-f141-4c7f-9f69-ef6ed26df509" name="SearchHeight" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="56ba87a5-54bd-4edd-803b-7c0e03111c6f" />
+          <property Id="610a35c8-5ca7-437b-8202-0d04eda5b082" name="imagesReceived" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="efb27b69-c143-4d71-806a-52a4c008ef0a" />
           </property>
-          <property Id="a5082898-7f3e-466c-b2fb-332908ec9d62" name="WidthSearchOffset" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="d7346e36-1940-4b6c-a3b1-511a11fe02ae" />
+          <property Id="9428cf6a-755c-4abd-97f2-cc728901d138" name="imagesChecked" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="8bb02a0f-f5ba-4a83-ab18-455665eec73a" />
           </property>
-          <property Id="d44f8892-7437-4319-9d16-c4c7bd4aeb45" name="HeightSearchOffset" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="312b469d-0046-481c-ae1f-a0e0a79e6b29" />
+          <property Id="94e5b606-017f-4ad1-9d7b-8c9822902f61" name="numberMotionFiles" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="4667d4cf-b381-4ef8-bbee-9e115cadc30a" />
           </property>
-          <property Id="11035ca2-44f6-4572-9a7b-c49cb8c5be1c" name="SumChangedPixels" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="838c6e07-3d96-4b53-b290-97cc784bde6f" />
-          </property>
-          <property Id="286f8770-e505-418b-a2f7-94329da70ead" name="SumChangedPixelsPositive" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="ca96a2dd-9f9d-4f02-a1b1-1ea604fecafb" />
-          </property>
-          <property Id="bf684fff-01e8-48b3-b59f-08e658df28be" name="MaxChanged" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="00a80716-7bfe-47d7-a827-8247587998b2" />
-          </property>
-          <property Id="fc4cb9c2-47ba-4ced-beb6-494285ecdd6e" name="MinChanged" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="e3c9a8cd-4845-4f41-82fc-2fad6b01fef5" />
-          </property>
-          <property Id="50129386-ce4f-4d27-a790-97744b016161" name="MaxChangedPositive" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="9b9d018e-4d1d-4b07-8091-31b47351d6c2" />
-          </property>
-          <property Id="51eba979-602a-4ffd-bd50-3e45a27e0e3e" name="MinChangedPositive" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="6fbc4614-b33a-44e2-a1fc-b7d344e7ea22" />
-          </property>
-          <property Id="dfa87504-8d68-4c00-9400-382a746b4b29" name="LinkCompare" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="5d93e923-a164-4b1b-963d-30a2433af697" />
+          <property Id="e1b857ae-b303-4e11-bda3-67ed9de5762a" name="threshold" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="9ff3f6ab-e066-444e-9288-a44d9f7c5e0a" />
           </property>
         </ownedAttributesInternal>
         <ownedOperationsInternal>
-          <operation Id="5e25824d-a6d1-43f5-a9f6-fdeade2cba09" name="Populate" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="68c65cdd-ed79-41a4-914a-d871158c682b" />
+          <operation Id="60d25f0c-0ffd-4d88-8152-1287f40acafe" name="WriteToLog" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="849e2ae0-a354-484c-805b-755427d7850b" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="ecba3f1b-777e-4b0b-a277-a5c321092e7d" name="image1Path" direction="In" isUnique="false">
-                  <elementDefinition Id="3bb7d344-e7f0-4c07-8252-acd3e683ee50" />
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="b3269a72-92c0-4f5d-b980-ef3d5b2118ff" name="image2Path" direction="In" isUnique="false">
-                  <elementDefinition Id="3e7ec80d-2c9b-43c1-a869-d8f60de0ae58" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="e3266ae6-cda9-4767-a5ca-286b57a08c71" name="Populate" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="83913d2c-c400-4bc4-b53c-00978af92546" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="bd2faf13-f93e-454f-bf26-244b2f8ace48" name="BitmapWrapper" direction="In" isUnique="false">
-                  <elementDefinition Id="990ff1d9-b1f1-46c6-8928-91abcfbfb778" />
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="e53097f5-6c42-4d78-bd5e-a0708f2e43ff" name="BitmapWrapper" direction="In" isUnique="false">
-                  <elementDefinition Id="01d5733c-c20e-4797-bee2-c0c9c2905129" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="0d0b8e42-0364-41af-84d5-8d5803203e0f" name="DrawPixelChange" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="055d68a6-4b4c-4b32-882d-40d0dfb5d86a" />
-          </operation>
-          <operation Id="becbb77f-3352-48c7-80ba-33cd81b4a4cb" name="SetReducedColumns" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="221c07e9-8560-4915-87d0-e46e56e9373e" />
-          </operation>
-          <operation Id="daee3b28-55f2-4e82-9fd9-c97239f7c179" name="DumpToText" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="995db632-6a77-4dda-a00d-6adc7c8a9a71" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="924ce8c9-fc1d-4e81-944d-4a11b1300175" name="string" direction="In" isUnique="false">
-                  <elementDefinition Id="6566c761-2f29-47fe-bb79-57077696bc88" />
+                <parameter Id="5f841e7b-d858-4ffc-b10d-9636959b852c" name="string" direction="In" isUnique="false">
+                  <elementDefinition Id="5f7fffac-7430-434b-adf9-369c858418c4" />
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
@@ -640,274 +280,25 @@
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <class Id="0f2e66f3-c0be-4d61-afb2-bfca16d9c21c" name="BitmapWrapperList" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="7569a77d-de82-498f-9c82-562694905000" />
-        <ownedAttributesInternal>
-          <property Id="0c805de8-e32b-497a-9a73-4a64d491a285" name="highestPixelTotal" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="512861f1-624c-49c5-8b01-9ff4e92c0780" />
-          </property>
-          <property Id="82027ce7-fce1-47b3-911d-5811da0d62a2" name="lowestPixelTotal" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="2b880648-437d-44de-ad34-efc6972b1662" />
-          </property>
-        </ownedAttributesInternal>
-        <ownedOperationsInternal>
-          <operation Id="f3f875c6-dd46-4799-a83f-70d6791af047" name="SortByPixelTotal" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="789fffb9-db42-4804-a914-469562da81a9" />
-          </operation>
-        </ownedOperationsInternal>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="d0ea29e5-2fdf-4739-a59b-3fc2f14b2cc9" name="BitmapWrapper" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="d13faae7-1691-4469-b242-5715712c40f3" />
-        <targetEnds>
-          <association Id="872bc3e8-86d6-4e6c-b633-062785e4b4f8" isDerived="false" sourceEndRoleName="BitmapWrapper" targetEndRoleName="BitmapWrapperList" isLeaf="false" isAbstract="false">
-            <classMoniker Id="0f2e66f3-c0be-4d61-afb2-bfca16d9c21c" LastKnownName="BitmapWrapperList" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="06412922-a934-449a-8703-621f84802f3b" name="BitmapWrapper" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString Id="1f3f542b-1911-4292-b14a-cea7fb1cb6fe" name="Lower" value="*">
-                      <elementDefinition Id="af2c2372-e916-4852-9ae6-636277215c6b" />
-                    </literalString>
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString Id="6546e659-0853-44f6-8d7c-0ae87b3f5b2d" name="Upper" value="*">
-                      <elementDefinition Id="f1868b89-4d02-4af8-a68e-e552430b325b" />
-                    </literalString>
-                  </upperValueInternal>
-                  <elementDefinition Id="80be3359-2d4f-4343-a5c8-31c024f7745b" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="f3df5699-d34e-4312-857b-a9355f08ecdf" name="BitmapWrapperList" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="47476b28-0bdc-471e-809e-3365396de0f3" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="5c92d7c4-5148-4352-9ea2-4990567b59c2" />
-          </association>
-          <association Id="a0fb3cf5-530d-435b-8df8-d136fa91fc13" isDerived="false" sourceEndRoleName="BitmapWrapper" targetEndRoleName="PixelMatrix" isLeaf="false" isAbstract="false">
-            <classMoniker Id="831c6a08-0898-4323-9cef-1fc4271c5a36" LastKnownName="PixelMatrix" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="9bf4ffbf-22bb-4891-9651-83ed1cb06387" name="BitmapWrapper" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString Id="a318d2ac-5bb1-4653-9626-a0e32aa0312d" name="Lower" value="2">
-                      <elementDefinition Id="9923c6bf-5f1f-4609-96f1-decb0682b290" />
-                    </literalString>
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString Id="f141075f-644d-4324-ba88-2995cfe663fb" name="Upper" value="2">
-                      <elementDefinition Id="f1d7f782-3821-4260-90d4-223fb47c1df0" />
-                    </literalString>
-                  </upperValueInternal>
-                  <elementDefinition Id="02173aa6-3e74-41f2-b747-78b433ccdc12" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="000cf411-9320-4fd2-b972-55c325f8d8af" name="PixelMatrix" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="4a7415c4-1477-4b47-8ff4-532fcaf0f617" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="da24747e-9e17-47ff-aee0-ed1e7577dc91" />
-          </association>
-        </targetEnds>
-        <ownedAttributesInternal>
-          <property Id="d86146e2-18d3-4e2f-93a0-91532f064055" name="bitmap" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="14086074-c2be-4849-9583-a311771c78f9" />
-          </property>
-          <property Id="ffc4d3c6-c2f0-42a5-87e7-09727503894c" name="sequenceNumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="e60880d5-c70a-4f5c-b5d6-39a285e40368" />
-          </property>
-        </ownedAttributesInternal>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="15af0be6-17ab-4b61-ac28-2d7a8211132d" name="PixelAnalysis" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="5225abd6-de61-4d2d-a110-902040c15a29" />
-        <targetEnds>
-          <association Id="096ecc2e-07a9-422a-a393-a40fded1413c" isDerived="false" sourceEndRoleName="PixelAnalysis" targetEndRoleName="BitmapWrapper" isLeaf="false" isAbstract="false">
-            <classMoniker Id="d0ea29e5-2fdf-4739-a59b-3fc2f14b2cc9" LastKnownName="BitmapWrapper" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="a64485ae-ac5e-4a7f-9c2f-fe63f1c5df85" name="PixelAnalysis" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="7502ab8d-522d-485a-ae27-35d93f78847e" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="348011af-5323-43ad-bf97-93582b1acee8" name="BitmapWrapper" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="b6010ae4-0429-4473-94de-00de06a49cc0" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="5ceb0624-d582-4d61-b7ec-ccc320502438" />
-          </association>
-        </targetEnds>
-        <ownedAttributesInternal>
-          <property Id="b37bf056-6b70-4027-a98b-3f1f8c3de280" name="totalPixelColors" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="8b54080e-f21b-4510-8e3f-a0d0ca272ca4" />
-          </property>
-          <property Id="cdc043ea-8d43-482d-adba-01a96fe4a48f" name="sumPixelHex" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="4bb216f5-f598-4ac2-a959-697a6c371b9f" />
-          </property>
-        </ownedAttributesInternal>
-        <ownedOperationsInternal>
-          <operation Id="ce09ecb5-5917-4ad1-83c3-d64ddc4a6836" name="SumRGB" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="0387a586-018e-48d5-b648-b0b0b3150519" />
-          </operation>
-        </ownedOperationsInternal>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="00bd0dcc-23f5-4411-b24c-1f0b9f511b8c" name="ByteWrapper" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="e141cba8-1917-46d0-a0e5-609fa226e162" />
-        <ownedAttributesInternal>
-          <property Id="f3031851-329d-4221-a735-dbe128074134" name="bytes" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="6ab69889-b3ad-4d45-a320-25d9e3d8f072" />
-          </property>
-          <property Id="882c7d7b-24e0-459b-aaf2-99f91b6b0597" name="created" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="a76f0a97-20d3-4733-a5ce-5b82e4397795" />
-          </property>
-          <property Id="03e5c310-2e31-4e95-b584-21b87649ec96" name="sequenceNumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="dce4cdd4-19b7-48d0-a9d7-8bc48240071b" />
-          </property>
-          <property Id="57ba1d07-16bb-4436-a713-1f19d424394e" name="saveFilePath" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="cdeca169-0e67-4db3-81a5-0765567563ba" />
-          </property>
-        </ownedAttributesInternal>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="36112666-737e-41cc-b436-a547d1034732" name="ImageSaver" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="fcf97fba-f1f2-4977-9042-8fd44825626f" />
-        <suppliersInternal>
-          <interfaceRealization Id="ec91004d-b576-4f42-a147-f95fdcd897be">
-            <interfaceMoniker Id="f88bf95b-4b0a-4809-9c97-6defdb03e05d" LastKnownName="IImageSaver" />
-            <elementDefinition Id="a59c4c59-2eea-4403-bb6b-36a2c7ad4317" />
-          </interfaceRealization>
-        </suppliersInternal>
-        <targetEnds>
-          <association Id="ab2614ac-dcc7-49be-a93f-524b60b32064" isDerived="false" sourceEndRoleName="ImageSaver" targetEndRoleName="MotionSensor_2" isLeaf="false" isAbstract="false">
-            <classMoniker Id="d1eff2b2-f485-402b-8f0a-7427a691f146" LastKnownName="MotionSensor_2" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="02c9b62b-d072-423f-a8ac-3747b4d2ad1a" name="ImageSaver" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="90f19e1c-ce4f-46a9-ab69-9586ac43ad07" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="d7eaed40-fc40-434f-abf6-73a5229c8b4a" name="MotionSensor_2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="50b5220b-775f-4c60-a39c-b2be7f86f5f0" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="2e91d25a-eb06-41b3-96de-019f4cd7064b" />
-          </association>
-        </targetEnds>
-        <ownedAttributesInternal>
-          <property Id="1e66abd4-3a8f-4465-a11a-138189c9d4be" name="sessionCount" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="8a0027b1-d787-4502-bad6-840e38e75111" />
-          </property>
-          <property Id="b25a3232-f598-4dc5-8abd-e52ed6524cc4" name="fileNumber" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="226f041a-02cc-4249-9913-e8e9c93c24b9" />
-          </property>
-          <property Id="30d2f2f7-ed00-4ae6-940d-73fdc188961c" name="cameraId" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="4de92fab-7b1e-4573-bf27-96e4340da27c" />
-          </property>
-        </ownedAttributesInternal>
-        <ownedOperationsInternal>
-          <operation Id="c7f9ee94-c0d5-4053-bed7-2ae7142d5424" name="Setup" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="5815615e-2ecc-46c1-a8c5-6adfc5517d38" />
-          </operation>
-          <operation Id="aade61c8-57d1-4b85-8a74-bd51769b0eeb" name="CreateNewSaveDirectory" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="e99de045-f808-49d7-a9e0-6ca04219efdf" />
-          </operation>
-          <operation Id="db64df0d-0b9b-47b2-8e13-a3340f002023" name="CreateDirectory" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="9495fd97-7bb9-428b-9686-be313106b7e3" />
-          </operation>
-          <operation Id="ec7bcdf5-d79f-481a-b4c0-f72b0447bbde" name="GenerateFileName" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="c91e7fcd-aa8d-420f-84f4-8eab23fbac6d" />
-          </operation>
-          <operation Id="8ad4f6ad-bbeb-4aeb-8514-ea727f793f50" name="GenerateFileNumber" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="d660d4bc-c0e9-4041-a62c-2572ebd202ea" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="037d2eef-cc48-40f8-826f-89d3c8ddaf17" name="sequenceNumber" direction="In" isUnique="false">
-                  <elementDefinition Id="964db294-2ad9-4229-86bb-cd32b1e28f12" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="1bc429e3-4bb6-42ee-be60-22fb48577b18" name="ImageCreatedAsync" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="aedfd9bd-eafb-4fef-8881-25b7a28629eb" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="db95351a-09b7-422e-8681-bc1b20bd122b" name="ByteWrapper" direction="In" isUnique="false">
-                  <elementDefinition Id="03b3595d-1168-4662-8d36-f836a565e0ad" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="2a1f1926-9261-4681-85d3-b693729aa2e5" name="ImageCreatedAync" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="78dd4ac2-ce15-4afc-a5a9-63de00629f17" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="74c740ca-8666-4bdf-8bf5-eb3a36b041f8" name="ByteWrapper" direction="In" isUnique="false">
-                  <elementDefinition Id="c1d2dd2c-518c-4bd4-8313-bbef91b479f9" />
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="346a2852-3c9a-40f1-a9b9-a7478499c79c" name="EventArgs" direction="In" isUnique="false">
-                  <elementDefinition Id="0b7b3607-cd7c-46b3-898d-78a3ca1dc3ec" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="5021ed15-9852-49de-ae65-4f64fa8f86ff" name="SaveFiles" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="b776c25b-95e0-4e90-9935-f528ba532d62" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="f095fdb2-5f4d-4bbd-95e5-a0e7e49085ac" name="List&lt;ByteWrapper&gt;" direction="In" isUnique="false">
-                  <elementDefinition Id="2cfb5922-725f-4c3b-a5a2-51dbb25df92d" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="ac3623d7-22ad-419f-82a4-78610eff3acf" name="WriteBytesToFileAsync" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="bf6c2149-c404-4308-b77f-4004ac6fa790" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="f808734f-6302-4b24-9c92-531f8f1abad3" name="ByteWrapper" direction="In" isUnique="false">
-                  <elementDefinition Id="a94d76e0-ec94-4f4e-8d7d-43333e2b3b8f" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperationsInternal>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="9b4e5bd1-c4f2-4950-8425-de95ed999585" name="ImageValidator" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <class Id="1acd3de9-3cfa-457b-9b45-b177364e151a" name="ImageValidator" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="786f0813-465d-4ac4-82c3-6edaed5b195f" />
         <suppliersInternal>
-          <interfaceRealization Id="dc3be5a2-58d7-4dd1-b390-f4291e0f366d">
-            <interfaceMoniker Id="f83194d1-5efb-4068-a171-3f3e0a0f2588" LastKnownName="IImageValidator" />
+          <interfaceRealization Id="d005f87e-0807-42a1-b2f2-0d091b4b657a">
+            <interfaceMoniker Id="77a47314-5296-46aa-b8e4-088ce0d7d889" LastKnownName="IImageValidator" />
             <elementDefinition Id="634b4b1c-f3d9-4bae-a11f-27a9fd1cc3e9" />
           </interfaceRealization>
         </suppliersInternal>
         <targetEnds>
-          <association Id="013c8064-9fa1-4b40-b6b0-c28f984fa0c5" isDerived="false" sourceEndRoleName="ImageValidator" targetEndRoleName="MotionSensor_2" isLeaf="false" isAbstract="false">
-            <classMoniker Id="d1eff2b2-f485-402b-8f0a-7427a691f146" LastKnownName="MotionSensor_2" />
+          <association Id="45c25091-0852-4338-b46a-1ccf3ca69089" isDerived="false" sourceEndRoleName="ImageValidator" targetEndRoleName="MotionSensor_2" isLeaf="false" isAbstract="false">
+            <classMoniker Id="c669f1f5-b4c7-4127-9f60-6ea5e2ff39ce" LastKnownName="MotionSensor_2" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
-                <memberEnd Id="46a3dc9a-fb95-4801-a6bc-f0d8acbdfe5d" name="ImageValidator" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                <memberEnd Id="d8200b50-126c-441c-afb0-1ddaf2966391" name="ImageValidator" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
                   <elementDefinition Id="1eaa2859-30ba-4146-aa07-63d1402255bb" />
                 </memberEnd>
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
-                <memberEnd Id="429cd3e4-bf82-4934-a392-7100f864c127" name="MotionSensor_2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                <memberEnd Id="b87ad309-5d03-4e3b-9647-c5fe203dccd1" name="MotionSensor_2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <elementDefinition Id="686dd7c4-9a01-40ac-b490-13581aa43fd6" />
                 </memberEnd>
               </associationHasOwnedEnds>
@@ -916,34 +307,34 @@
           </association>
         </targetEnds>
         <ownedAttributesInternal>
-          <property Id="8565296a-9141-457c-b413-59130e255235" name="JPEG_start" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+          <property Id="8ffdfcf6-8876-41b0-83e7-1991adcf0cce" name="JPEG_start" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="602af584-5f9e-468a-8692-8df1bd12fed3" />
           </property>
-          <property Id="42b08d6a-3457-4fbf-a421-066eb8a791b7" name="JPEG_end" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+          <property Id="31005ad0-8e91-4972-ba1a-1d5608a380ab" name="JPEG_end" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="09ad7344-9b83-4fc9-9f14-e390a879f76f" />
           </property>
         </ownedAttributesInternal>
         <ownedOperationsInternal>
-          <operation Id="fd5fde2a-a29d-4f3b-a19a-a23f42aedbb1" name="FileCreated" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+          <operation Id="16d90cbd-6e30-4b8a-a217-1e573d4806f7" name="FileCreated" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
             <elementDefinition Id="9aa9a43f-3cc2-4130-8ffd-9e014b12a93c" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="d1b11fa4-a68d-4c59-a45f-af875d897984" name="ByteWrapper" direction="In" isUnique="false">
+                <parameter Id="ac40995b-c5ea-4c81-ac11-b72f2dd8ed60" name="ByteWrapper" direction="In" isUnique="false">
                   <elementDefinition Id="b8ff9766-5bba-46ce-8ace-3f84e3d6be65" />
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="987691bc-c29b-43d8-b567-8fc8d8dea5d5" name="EventArgs" direction="In" isUnique="false">
+                <parameter Id="31e0075b-4610-42ab-a810-32f9fb7b5cc2" name="EventArgs" direction="In" isUnique="false">
                   <elementDefinition Id="505544f6-f4ab-4528-9e9c-d054be748d0e" />
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
-          <operation Id="a5d812e6-3987-4663-a43d-f7f2733fc06e" name="ListenForIamges" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+          <operation Id="f136c1c8-5d0b-4157-b00a-8e82e345cff0" name="ListenForIamges" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
             <elementDefinition Id="c0ea5d7a-9703-4a50-bfb8-b7869a78603b" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="d25bf155-1bba-4c1a-a842-acbbec31f862" name="IIMageExtractor" direction="In" isUnique="false">
+                <parameter Id="09202796-e263-4fdc-b13d-d3bda644bea7" name="IIMageExtractor" direction="In" isUnique="false">
                   <elementDefinition Id="652b7ed7-8071-4a5a-960f-acd53a190892" />
                 </parameter>
               </operationHasOwnedParameters>
@@ -953,286 +344,162 @@
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <Interface Id="f88bf95b-4b0a-4809-9c97-6defdb03e05d" name="IImageSaver" isAbstract="false" isLeaf="false">
-        <elementDefinition Id="c55ea73d-8baf-4c93-b405-d7841a571f27" />
-        <ownedAttributes>
-          <property Id="076f5fa6-c499-4396-afc0-3fd52e82b5d8" name="captureDirectory" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="dcad933c-47a6-4334-a2ab-6a787abc98ea" />
-          </property>
-          <property Id="da85518d-c1d4-4092-9511-4089c2f85d27" name="captureId" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="c381f46d-71c1-4a4b-9956-fc72fd11e71a" />
-          </property>
-          <property Id="95615c14-433d-4676-8d70-c396dfa062c9" name="fileStartName" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="dc1d6d8d-d0f2-425a-9b77-63e6ec876d8f" />
-          </property>
-          <property Id="79197a3c-cebd-4c45-9366-1d7be23bddb5" name="frameRates" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="19ed81e3-d9e8-4a12-8ee7-8a50c2562b0b" />
-          </property>
-          <property Id="6c411a76-4259-405e-95e0-219b6455ff09" name="framesPerSection" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="47b4c894-c7bb-46bd-93bc-f8d3070102b8" />
-          </property>
-          <property Id="cbd40750-de89-40b9-bcd8-0e930605f93f" name="initialFrameDetection" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="3f77eaa0-3ca6-475e-a9c3-17daec054912" />
-          </property>
-          <property Id="5f86672e-eef8-4056-9690-530f30dfb7e2" name="parentDirectory" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="f4f5408f-f623-4fa9-9c28-aa312bd3cfeb" />
-          </property>
-          <property Id="abc83483-52c5-4905-8f08-289df4bb6b92" name="saveDirectory" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="7caee728-450d-49bb-bfd5-2a7735cf1fa4" />
-          </property>
-          <property Id="04007ccd-5bff-4b84-a073-4c0c6c1b55ce" name="imageCreatedEvent" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="5c1e5174-271e-404e-92d3-0b8cbe2de90d" />
-          </property>
-        </ownedAttributes>
-        <ownedOperations>
-          <operation Id="49971a6e-99ce-4ba9-aafa-1b476b22b98e" name="ImageCreatedAsync" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="6a836ce3-71d1-42c5-99c3-34e5af633fdd" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="6fa4e185-5203-4582-a1aa-93be2d2eaf18" name="ByteWrapper" direction="In" isUnique="false">
-                  <elementDefinition Id="db060fdc-4d4d-4a59-95fe-34b4fa901c6c" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="8992c211-830e-41cc-bc74-65e40c21b9cf" name="ImageCreatedAync" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="4374847b-d1e1-4633-9951-75c30a617f18" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="50afc608-d5ee-4a61-8ede-5a20331f82f5" name="ByteWrapper" direction="In" isUnique="false">
-                  <elementDefinition Id="79d0bf29-7f2f-421a-8ace-09a4508739db" />
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="afbde724-eb7c-47bc-885f-5e3311a71d1f" name="EventArgs" direction="In" isUnique="false">
-                  <elementDefinition Id="a817ddda-431d-40dc-b6a2-0f3eb902d8f4" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="60289e4e-e3b9-4bb0-b29a-89bf3717b796" name="SaveFiles" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="cb01efb9-b95a-46a8-a765-ee5109f30737" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="1145ae1e-0893-4d42-bb99-c1765b58091a" name="List&lt;ByteWrapper&gt;" direction="In" isUnique="false">
-                  <elementDefinition Id="45f39aff-d8b2-4f51-b085-2d5a342b698d" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="bb990cfc-e133-40f8-9a83-c4e04cf2d4e5" name="WriteBytesToFileAsync" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="5bf35292-e095-491f-a67a-006de95c097c" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="d925fa04-70e8-4f5a-aa00-ce0895862c55" name="ByteWrapper" direction="In" isUnique="false">
-                  <elementDefinition Id="d00af8d7-b7dc-44f2-b95f-37a947b5f130" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperations>
-      </Interface>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <Interface Id="f83194d1-5efb-4068-a171-3f3e0a0f2588" name="IImageValidator" isAbstract="false" isLeaf="false">
-        <elementDefinition Id="ba9ee0eb-a5d9-4aee-b49c-53515953b704" />
-        <ownedAttributes>
-          <property Id="27c8299e-0932-41cb-ae6f-0eac0ab8b2a7" name="ImageValidatedEvent" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="97b38def-7d1d-41f4-8bcf-ad5b7b2d9e84" />
-          </property>
-        </ownedAttributes>
-        <ownedOperations>
-          <operation Id="6515e8c4-6c83-44d9-99e0-184a7926742d" name="FileCreated" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="47a5ad97-f6e2-4f46-8268-4e432166e65b" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="a2ebb8d8-6cae-434c-9999-8c47c31e4a1b" name="ByteWrapper" direction="In" isUnique="false">
-                  <elementDefinition Id="c310040b-e859-4f85-ac25-d85951c81205" />
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="98e3d9be-8b89-4f27-b9c8-94910d71841e" name="EventArgs" direction="In" isUnique="false">
-                  <elementDefinition Id="21dba5bd-9344-4eb7-af10-cd11f3762e9a" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation Id="2ff306f4-d0e6-405d-9c88-cbc5f45cab9c" name="ListenForIamges" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="6d178a57-70bf-4d35-9e6a-1c6ae394cddd" />
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter Id="1ea860a5-f4f4-4079-a31e-e7bdddfa1d9e" name="IIMageExtractor" direction="In" isUnique="false">
-                  <elementDefinition Id="6f8e89dc-fc1c-42d6-ac02-4cde19710ff3" />
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperations>
-      </Interface>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="647f43a1-9a66-48e5-a6c4-c30aeeb2d3ca" name="ImageExtractor" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <class Id="bf486ef1-8b57-494b-860d-202f590413aa" name="ImageExtractor" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="0a58fece-474c-413a-8745-4f283b161340" />
-        <suppliersInternal>
-          <interfaceRealization Id="055266cb-5591-4b7b-9e0c-68674707e4ae">
-            <interfaceMoniker Id="1109ec99-baf8-414d-8a81-427311c7d07e" LastKnownName="IImageExtractor" />
-            <elementDefinition Id="ad533da4-a51f-488a-9583-e78d8696a33b" />
-          </interfaceRealization>
-        </suppliersInternal>
         <ownedAttributesInternal>
-          <property Id="7ad535b1-b8bf-4e03-9343-11b8f33e1bbb" name="imagesAnalysed" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+          <property Id="0abaa93b-c612-4948-8ab3-2ef92eb835ed" name="imagesAnalysed" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="9cfbeb7e-d31d-4617-8f78-3ae5d6732d35" />
           </property>
-          <property Id="abc71822-9248-465c-839f-48fe4be655d2" name="framesPerBroadcast" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+          <property Id="470973c5-4015-4eb1-8054-33905a0c6ea0" name="framesPerBroadcast" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="1d275ccb-1915-40fc-a1c9-7d1eb0162f19" />
           </property>
-          <property Id="24bf8afc-5034-4609-a784-281d5781657d" name="frameStopwatch" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+          <property Id="14046f92-70cf-46f6-a2cd-aace5fc0ddcd" name="frameStopwatch" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="c7788349-11fe-4aea-a2ac-3c96fdf41c26" />
           </property>
-          <property Id="d8a434c4-01bd-49bc-886c-0beb21799cba" name="url" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+          <property Id="ae72e9d2-7c24-4fde-beb5-682fac4af889" name="url" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="f435536b-6f78-4621-97f4-b3cb187f0f60" />
           </property>
-          <property Id="268c4c58-45bc-4450-bbf2-749155f51a45" name="username" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+          <property Id="ea0cdf40-dfbb-4e2d-b167-4e511eb51ca7" name="username" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="31975aec-fefd-4c26-ba1e-9cd2bbb0c00f" />
           </property>
-          <property Id="9e63f678-c4ed-4d80-be63-b73df6141770" name="password" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+          <property Id="0caca603-5607-4c51-a34f-fff1a5b09e5d" name="password" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="be69c788-cf2a-4e2a-8670-065ca1d74fd9" />
           </property>
-          <property Id="f68731a1-db95-46e6-95a3-7af12b6eeb95" name="contentLengthRegex" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+          <property Id="4e65bf3c-9f08-44e3-b30d-8c91ab60b983" name="contentLengthRegex" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="e6b45570-6846-46d1-bf17-ec406fab5aab" />
           </property>
-          <property Id="ce18d5af-c89b-40ef-896f-235872c32f7c" name="boundaryString" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+          <property Id="0124d1e5-732e-4750-a0e0-5a2369d2aa93" name="boundaryString" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="0abe2b00-2c3c-4f7e-8ff5-db0fcf7c93cd" />
           </property>
-          <property Id="01a5e390-9282-48a9-a75d-9af9a1dcd29f" name="boundaryBytes" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+          <property Id="5ea5abac-e152-454d-bed6-8b1a06f03fbf" name="boundaryBytes" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="580d95ca-12d2-4d39-a764-3d3a6cde248c" />
           </property>
-          <property Id="8d97997f-0416-457f-854e-6343d6847e1c" name="stopWatch" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+          <property Id="26564d5f-f922-48a2-98bf-2a07a1287e0a" name="stopWatch" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="b325f348-187b-4268-a320-71a32e977860" />
           </property>
-          <property Id="1cdb4f14-55f6-4c64-8b45-a10babca8769" name="minutesToRun" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+          <property Id="39947ea2-3242-4818-8916-87f1a6de8cc4" name="minutesToRun" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="6ee52738-ea12-4ec6-b16a-38e7b0ecc2f4" />
           </property>
-          <property Id="56a8d564-06b2-48d1-8917-0c0f6c8c2422" name="endCapture" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+          <property Id="2c6fdaec-1630-4fb6-acc5-533caa3211df" name="endCapture" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="439c044b-499c-419c-b839-72875ad83b3a" />
           </property>
-          <property Id="085d157a-4f23-446e-94a6-bb487df0eb26" name="singleImageExtraction" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+          <property Id="09d0013b-55f7-4012-a68d-226ef92e6ba3" name="singleImageExtraction" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="cd7c4573-f70b-48d1-8645-c2a98dae97c3" />
           </property>
-          <property Id="d869247d-bce9-4f32-a999-3f350c0eb3ef" name="imagesReceived" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+          <property Id="376a4f51-2488-42f8-9ef9-7bc125b5e0ec" name="imagesReceived" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="538c8803-2500-4be2-83d0-0e83647fd12b" />
           </property>
         </ownedAttributesInternal>
         <ownedOperationsInternal>
-          <operation Id="7baf6b3d-fc77-487c-8a56-181ccbc8e485" name="Run" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+          <operation Id="37d93d7e-8f72-4dc7-bf3e-b3a646ced7a5" name="Run" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
             <elementDefinition Id="be06865d-6bb7-460c-ad8a-981ccab38cf8" />
           </operation>
-          <operation Id="24583640-c553-48cc-9f12-c28a754e2fe9" name="Run" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+          <operation Id="7e2445c6-ac6f-4d35-8fd3-78e7d78346f4" name="Run" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
             <elementDefinition Id="ad6b76d6-0206-4dfb-8301-6274f64e7a29" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="0ccd7c78-4a21-43b9-ad5b-c127131c4c98" name="minutes" direction="In" isUnique="false">
+                <parameter Id="bcec4e36-8a56-4da5-a690-cd48769b0446" name="minutes" direction="In" isUnique="false">
                   <elementDefinition Id="de16d5a0-546b-4f6c-9ca8-df0f1f585b9f" />
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
-          <operation Id="2c41d8d6-ac1c-4ec1-b246-f99fc2627b2d" name="ReturnHttpResponse" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+          <operation Id="1acf6210-bd61-4d65-9680-3c22dfe3e6d7" name="ReturnHttpResponse" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
             <elementDefinition Id="bf3dd8f9-254e-46f7-9ebb-21c0c16cec19" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="083df41c-b787-4b3e-b748-b06c45bc1536" name="string" direction="In" isUnique="false">
+                <parameter Id="48d80f6a-bb76-4813-b01f-710344e7d161" name="string" direction="In" isUnique="false">
                   <elementDefinition Id="b6932448-a07a-4b56-adf5-5e92e3f5f7f5" />
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
-          <operation Id="413b899d-7a7c-4335-9a2f-c772f752046b" name="Setup" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+          <operation Id="5c91f170-b0aa-4d62-a9e8-70a13b206950" name="Setup" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
             <elementDefinition Id="aaaa7da4-cc29-4806-acf2-070da3517cfb" />
           </operation>
-          <operation Id="a440cafa-f8c1-48a9-aefa-9a3801fb95f8" name="ReadHeader" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+          <operation Id="2eaf5bf5-34ea-43c1-801f-6db47007841e" name="ReadHeader" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
             <elementDefinition Id="3881f829-dda3-4faa-8b7b-9e4ddcc66122" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="995b5e70-7565-4df4-b7ed-a0f958240793" name="BinaryReader" direction="In" isUnique="false">
+                <parameter Id="ed1c1aee-9033-4a3d-9eef-87f42d63c18e" name="BinaryReader" direction="In" isUnique="false">
                   <elementDefinition Id="daa46f38-1551-45ab-a548-184eac6e1eb5" />
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
-          <operation Id="4194f7f9-185e-4284-8ec5-2cb34025c22c" name="FindBoundary" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+          <operation Id="2594c61b-f99e-4b6e-94e8-a5f8e3c932a4" name="FindBoundary" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
             <elementDefinition Id="60f3fbe7-6e2c-4421-8114-b58d9aab3379" />
           </operation>
-          <operation Id="bfa092fb-a891-4a34-b259-9b1b7f48a90d" name="SplitByteArray" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+          <operation Id="d08cd0a8-f5db-4e25-8fee-86424e582e1a" name="SplitByteArray" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
             <elementDefinition Id="b245f05f-1908-438c-911d-8394bab6cfea" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="7f03a819-670b-482c-923e-130e12383fae" name="List&lt;byte&gt;" direction="In" isUnique="false">
+                <parameter Id="3086fedc-8ace-4377-b959-6c4493ee4bf2" name="List&lt;byte&gt;" direction="In" isUnique="false">
                   <elementDefinition Id="ec40c4e7-b734-4577-bd16-f1269e0ad7dc" />
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="181d21c5-39c2-46f1-841a-1c9d08e1b34d" name="int" direction="In" isUnique="false">
+                <parameter Id="04d96822-dec9-46df-be1b-bcb82ad00cba" name="int" direction="In" isUnique="false">
                   <elementDefinition Id="95c00349-6362-4a12-9da2-43124bcc7c8f" />
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
-          <operation Id="783623a1-3596-4da5-bbba-6dca7336081a" name="BytesEqual" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+          <operation Id="8d028540-71b4-425e-97a7-a22dd86b83c1" name="BytesEqual" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
             <elementDefinition Id="dfe57048-1792-42e0-8332-346060ece03f" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="614b5ffd-46ce-44aa-8b90-81642de22f07" name="byte[]" direction="In" isUnique="false">
+                <parameter Id="486f7d06-70a4-4e5c-a572-9bde628c81c9" name="byte[]" direction="In" isUnique="false">
                   <elementDefinition Id="77dae8ac-0fba-4399-813f-fd8beacb1aa6" />
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="d2bb7771-4e41-4e7e-b070-a2cd8931e4c8" name="byte[]" direction="In" isUnique="false">
+                <parameter Id="34962613-83d3-4290-98de-54e5dbe2e809" name="byte[]" direction="In" isUnique="false">
                   <elementDefinition Id="72ac0f3a-77ff-4a6a-a6b2-ca381459fd95" />
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
-          <operation Id="1da472a8-e0f2-4817-b6fa-b1de5f21177a" name="GetContentLength" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+          <operation Id="c464116a-e732-4c05-b161-ba615379c822" name="GetContentLength" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
             <elementDefinition Id="1ea45947-4d71-4d0c-a74b-ee54b2a74216" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="3bba610d-fd2f-43f4-b011-cd373a68b63b" name="string" direction="In" isUnique="false">
+                <parameter Id="38e0e41d-7eb4-4018-837e-50913b853d6e" name="string" direction="In" isUnique="false">
                   <elementDefinition Id="0ac09dad-0308-4eb3-92d6-302131049e94" />
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
-          <operation Id="4cfe74bc-72ba-4a74-baf1-e71d7b7f7e30" name="OnFileCreate" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+          <operation Id="f367c7ce-6bfd-48dd-b658-f64fb0d4a2f2" name="OnFileCreate" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
             <elementDefinition Id="e02fd514-daaa-4bf8-8ff7-65751964543a" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="c3706fcf-382f-4ddf-bb6a-66c8866f218d" name="byte[]" direction="In" isUnique="false">
+                <parameter Id="e344d5a9-ae2d-489c-8daf-566da447f3f1" name="byte[]" direction="In" isUnique="false">
                   <elementDefinition Id="1cf93454-f351-4bec-b9e9-5960d1ae0b85" />
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
-          <operation Id="916878ee-3a63-4ca0-b20b-40cb752dcfa1" name="OnFileCreateAsync" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+          <operation Id="accd8fdf-8c77-4cdd-ad81-9526d5b773fd" name="OnFileCreateAsync" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
             <elementDefinition Id="8d02cf8f-be03-4d96-a033-f785ea232a62" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="f4da54a6-cb1c-48dc-ab0a-4c5639d47ef6" name="byte[]" direction="In" isUnique="false">
+                <parameter Id="5493ac2d-53cb-49db-980c-e59fcd6fb73e" name="byte[]" direction="In" isUnique="false">
                   <elementDefinition Id="4e76712f-7b89-43b1-928f-83c685ef5f94" />
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
-          <operation Id="d4bbdd11-196a-4933-a771-10614420ce09" name="BroadcastFramerate" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+          <operation Id="057abf0c-8249-4056-9028-92e5d39a2804" name="BroadcastFramerate" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
             <elementDefinition Id="c1affc26-166e-468b-a69e-fdfa0dc638e3" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="bbe5ea11-af0d-4803-b5ff-1bf2df3a28b8" name="double" direction="In" isUnique="false">
+                <parameter Id="db93aad9-d0bd-4d27-9de0-e9771764b6ae" name="double" direction="In" isUnique="false">
                   <elementDefinition Id="6ad840c2-8ba5-40d4-8fba-110d48648d93" />
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="d02a54e3-d70e-4c2e-9094-2ccbf69adc3b" name="int" direction="In" isUnique="false">
+                <parameter Id="68a2c926-6f85-44b8-a771-7482c4ed9acf" name="int" direction="In" isUnique="false">
                   <elementDefinition Id="69ca0f56-ba6e-4d10-ad62-c76b1f7987a1" />
                 </parameter>
               </operationHasOwnedParameters>
@@ -1242,57 +509,217 @@
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <Interface Id="1109ec99-baf8-414d-8a81-427311c7d07e" name="IImageExtractor" isAbstract="false" isLeaf="false">
-        <elementDefinition Id="bd714e70-0d3d-4847-84a7-dc3a5946f1c4" />
-        <targetEnds>
-          <association Id="81b57842-f8b5-49b5-8bf8-a8be0f69cfff" isDerived="false" sourceEndRoleName="IImageExtractor" targetEndRoleName="ImageValidator" isLeaf="false" isAbstract="false">
-            <classMoniker Id="9b4e5bd1-c4f2-4950-8425-de95ed999585" LastKnownName="ImageValidator" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="e74d8f84-35c9-47bb-9b65-14910800630f" name="IImageExtractor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="f0bc1d50-3c0a-4dec-ae92-731a5c7d3a8e" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="34d959a6-e192-45e6-a117-efad8041ccb9" name="ImageValidator" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="65f407ac-07e0-430c-93e7-025c1944ad1b" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="82953044-2ff4-456d-bb86-ee96c89f8db5" />
-          </association>
-        </targetEnds>
-        <ownedAttributes>
-          <property Id="204214d2-ac02-495b-a3f8-d15cb96fdf30" name="FramerateBroadcastEvent" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="0cd1eab5-3bef-494b-bfe8-0c9e4dd8834d" />
+      <class Id="c669f1f5-b4c7-4127-9f60-6ea5e2ff39ce" name="MotionSensor_2" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="c63500a1-2f76-41e8-aa49-ad909f3343ce" />
+        <generalsInternal>
+          <generalization Id="4e2b0831-75a7-44b8-90bf-4685881558ed" isSubstitutable="false">
+            <classMoniker Id="da308e6c-2a8f-4cc3-ad47-92364446eb6b" LastKnownName="MotionSensor_2a" />
+            <elementDefinition Id="79727004-8fd1-4278-8e54-83afdcc4abd6" />
+          </generalization>
+        </generalsInternal>
+        <ownedAttributesInternal>
+          <property Id="54fec691-34a1-45e4-b9c3-bee488c9cd78" name="numberSkipped" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="1e47fd6a-bb50-4586-b42e-265087aafc64" />
           </property>
-          <property Id="1f7636a9-8ffa-488d-bcf3-e8ea7471b556" name="ImageCreatedEvent" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="b3a213c7-c544-45cf-93e2-af0aa2272864" />
-          </property>
-          <property Id="3aa3bce4-69f3-45b9-83ca-e4e3870668f0" name="asyncrohous" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="548eb919-fa57-414e-9057-fb3d89d2b26c" />
-          </property>
-        </ownedAttributes>
-        <ownedOperations>
-          <operation Id="3d6664f3-9dc6-4935-ac32-50b01254fd20" name="Run" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="612dd485-e414-4825-99b3-53ff59e684cd" />
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="1c95a479-c92c-453a-89b6-612e3a14ca80" name="Setup" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="5df6586c-2bdf-4714-809d-f2e06e3e0f1f" />
           </operation>
-          <operation Id="9270e42d-4de7-4800-add0-ac0fed336e40" name="Run" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="374c0ffc-ec5d-4010-9e30-1f93dd03fa77" />
+          <operation Id="a7b2c05f-c56e-4ff7-902f-437c543b2043" name="OnMotion" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="a6d2ea1e-5a29-477f-a5ee-66bcb28f2219" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="a99e0bc6-27c4-4abc-85f5-51b55aa80c98" name="minutes" direction="In" isUnique="false">
-                  <elementDefinition Id="6de6c1d1-8b3d-4ea9-8f44-1ef9d6e998e4" />
+                <parameter Id="fa3e8cd0-3d41-4768-9e7e-b5aac4d4fc4e" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="0be60399-d65a-4eed-b1bb-a12fcf16c878" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="1f7c766a-3c4d-4099-8b71-2cf1dcb42b14" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="7bde8bba-dd4b-4343-9b06-686c7c846c6f" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="76f42d0b-60e5-49bb-b24b-6d5d4dbcc7be" name="motionGrid" direction="In" isUnique="false">
+                  <elementDefinition Id="620d3f6c-2da1-4483-a5ae-8cb5a47c9590" />
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
-          <operation Id="fd389da4-a257-46fe-9c8e-7cb3965222d4" name="Run" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
-            <elementDefinition Id="638ffa46-35d6-4664-bef9-4bfe068c299e" />
+          <operation Id="9e1b50c1-9808-4f29-9bb0-4b9f3303cfe5" name="SendForCompareAsync" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="e37fe93a-4e22-4ca2-b3ea-ad7d1e4a1974" />
+          </operation>
+          <operation Id="78627161-0ff7-41c3-adb4-0c3196b03ab7" name="SendForCompare" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="39b72c47-a10d-4062-ab09-fd9bad408566" />
+          </operation>
+          <operation Id="558a616b-5f68-425f-a0fb-285da8780cb4" name="Compare" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="9c9acd52-cf43-4951-b552-68c27b0e3ab5" />
             <ownedParameters>
               <operationHasOwnedParameters>
-                <parameter Id="d316cd7a-8868-4240-911a-7f62127f4539" name="singleImage" direction="In" isUnique="false">
-                  <elementDefinition Id="db116a65-c2a9-40d5-9e7f-0c14111caa5b" />
+                <parameter Id="dd0a41e9-a6fc-4bb9-b233-a6dfdb4643a3" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="0daa7d9c-4604-4455-b847-8a13817f2902" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="1501bc80-dbbb-4fb9-b579-9648e05a18d9" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="1fd128b1-f2ed-436a-8ac4-c22eb97b547b" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="777ad8c2-2e73-4c6d-bbb1-f3c9aa46bfe7" name="MonitorWork" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="ceeba73a-8e74-4d60-a1b8-5a9f2f55079c" />
+          </operation>
+          <operation Id="c9d63e61-2f15-48f4-970f-6faee8dcb2b1" name="Speedup" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="98936841-ffa3-49bd-970e-61cebc4f031f" />
+          </operation>
+          <operation Id="f4406b2c-d413-4626-bfd4-34a4dbbc7529" name="SlowDown" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="dbe18776-3917-4e85-9d79-52df086dc890" />
+          </operation>
+          <operation Id="16d462e0-396e-45c8-a75c-71e5af12fe3f" name="LogRegulationSettings" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="a5d8a932-b07e-46f3-91f2-3f4b0bf074e2" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="fd8926cb-c7d3-4a83-9cea-7336259851df" name="backlogCount" direction="In" isUnique="false">
+                  <elementDefinition Id="5174dc36-0abb-49b6-904b-04a253d70706" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="da308e6c-2a8f-4cc3-ad47-92364446eb6b" name="MotionSensor_2a" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="ec532b2b-bcd1-4e34-aaf0-b70310a9f158" />
+        <suppliersInternal>
+          <interfaceRealization Id="945424d8-1f57-404e-9f58-a3930e636254">
+            <interfaceMoniker Id="a6e3ef51-bdd0-4050-b588-1d9d2acac9bb" LastKnownName="IMotionSensor_2" />
+            <elementDefinition Id="4402cbc1-09fb-4050-bf8b-dce4f1cc5f3a" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedAttributesInternal>
+          <property Id="d5b0ab1d-7d22-45e6-b7c6-d8a6ce07aa55" name="pixelChange" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="96172e64-4e63-4f56-aeaf-5ba59d1640df" />
+          </property>
+          <property Id="c6288f9c-914a-404b-a5f0-570987ec48a0" name="pixelChangeThreshold" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="6e0b7140-b530-4cd2-9406-fa01134ec7e9" />
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="a8e7a59a-6b1b-4ce1-bb1d-00bd17e5d613" name="Compare" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="cc2d4d83-8913-4fd1-afcf-02c00e25fb5e" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="88814335-7fe9-47e0-b0f4-e2442cea5223" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="d14ddeca-996d-45aa-860a-eb8f63dcbc8f" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="eedebfe2-40f9-4a54-a0f5-672b195967ee" name="EventArgs" direction="In" isUnique="false">
+                  <elementDefinition Id="162d38d4-b53f-496e-b934-6692059021bc" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="43da93af-e81b-49b4-a085-e360218a27aa" name="ImageCreated" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="f1502c33-fc76-415e-99b4-e2b879288eff" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="5021a7ea-6838-4701-9528-f02fc968b9ef" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="f09b66ce-8bd5-45fb-92b2-02ae2591941b" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="09081bb7-f7c0-4395-9623-3fed93c98699" name="EventArgs" direction="In" isUnique="false">
+                  <elementDefinition Id="88d794ad-848b-4952-bf7e-f91d503d2223" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="e185f1bc-13af-47ce-b1f2-e59ea43e6590" name="ImageCreatedAsync" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="3029203d-8f6a-42ba-ad91-fe202330b751" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="78e74bf9-fb54-48c1-b3dc-0c8f33cc3759" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="db1ca361-b463-4bc1-8394-a7eddc6aa9c2" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="5863dedb-c6a2-481d-a9ad-21f2c626ef0f" name="EventArgs" direction="In" isUnique="false">
+                  <elementDefinition Id="25958aa3-4ab1-4f37-b984-b731d6ae7929" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="24410cc8-d95e-4203-a62c-a19402e7f059" name="SetThreshold" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="1bf0e090-8d8f-4acd-8f33-e153c72bd49a" />
+          </operation>
+          <operation Id="22fb63fc-7f32-4583-9847-4774e4924313" name="Dispose" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="e9f81efc-d4bd-491d-a93e-23666ba3492c" />
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="a6e3ef51-bdd0-4050-b588-1d9d2acac9bb" name="IMotionSensor_2" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="b6d21b8d-0091-462f-a032-458dd910572b" />
+        <ownedAttributes>
+          <property Id="1849776b-f0e2-4c94-96dc-4d4face1501a" name="controlImageNumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="b25904c7-fcf2-4c7b-9f76-cc5ed7d2f0d1" />
+          </property>
+          <property Id="2d9a0e50-72e8-4e52-830f-bae407088365" name="motionDetectedEvent" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="6c37a522-3a3e-4d7a-8cac-6394f63905c5" />
+          </property>
+          <property Id="3431f740-aa90-46ec-a29a-9cbd7c556118" name="thresholdSet" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="90f9c864-4f8e-4fd8-9720-40492aca59a6" />
+          </property>
+          <property Id="309ead37-2d66-4935-b74c-f5a0d83960cb" name="workQueue" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="f112a811-c0d2-4b2a-bc2a-b49bef927eb0" />
+          </property>
+        </ownedAttributes>
+        <ownedOperations>
+          <operation Id="1ff85131-3635-4c77-83a3-870cc57aa932" name="Compare" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="1c4743c9-63aa-49ff-9693-2b7093806228" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="affa8d84-3520-4a74-92ef-f6aee401d8cc" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="326aadbf-3bb7-4940-9bf7-1bb30070fb11" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="8f9b540b-38ab-4b68-9eb1-92d69193dd5a" name="EventArgs" direction="In" isUnique="false">
+                  <elementDefinition Id="09460c0f-09d9-4fc0-8802-b609aa54e78b" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="18e27e1e-f806-4e47-9f2c-21c16423e2fc" name="ImageCreated" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="2a0f612e-478d-41b8-a758-33c2810dbf42" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="dd0082ba-6e7a-4cd6-b037-a4b46a6d17c9" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="764d4518-884d-4ecd-8135-fac1a031ef95" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="28363df8-23a9-4944-b9da-36e0a557ac72" name="EventArgs" direction="In" isUnique="false">
+                  <elementDefinition Id="4bdbcf32-8f0f-4a5f-b6d8-ed0a96853e15" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="4b6bde2c-59f0-430f-8c86-187ebec5a1a1" name="ImageCreatedAsync" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="dabf5659-2d52-417f-87fa-8deefec95530" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="0cd91b3a-c67a-464a-af4b-f829e2da4ad2" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="588b9d98-4f4c-4de0-9225-7dc8343a477d" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="614df963-d09f-4dce-b3fe-6eca82ee5173" name="EventArgs" direction="In" isUnique="false">
+                  <elementDefinition Id="58e0c8b7-ba89-4acc-8614-ea8ec4d075fb" />
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
@@ -1300,8 +727,360 @@
         </ownedOperations>
       </Interface>
     </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="45af2c3b-9c91-4f4a-9c77-6cdf65c227bf" name="ImageSaver" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="fcf97fba-f1f2-4977-9042-8fd44825626f" />
+        <suppliersInternal>
+          <interfaceRealization Id="1189e445-5d4d-4011-8349-9cfc480a1d8e">
+            <interfaceMoniker Id="c4ce50cc-e824-41bd-bb32-986123bcc202" LastKnownName="IImageSaver" />
+            <elementDefinition Id="a59c4c59-2eea-4403-bb6b-36a2c7ad4317" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <targetEnds>
+          <association Id="18dd068a-4e4d-4745-b24e-b9c3d616837d" isDerived="false" sourceEndRoleName="ImageSaver" targetEndRoleName="MotionSensor_2" isLeaf="false" isAbstract="false">
+            <classMoniker Id="c669f1f5-b4c7-4127-9f60-6ea5e2ff39ce" LastKnownName="MotionSensor_2" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="fe471e45-b4a5-480e-882d-25bb8ca4e857" name="ImageSaver" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="90f19e1c-ce4f-46a9-ab69-9586ac43ad07" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="dda8de0a-e078-485c-bd0f-9bceb0a9b3de" name="MotionSensor_2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="50b5220b-775f-4c60-a39c-b2be7f86f5f0" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="2e91d25a-eb06-41b3-96de-019f4cd7064b" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="af845d1b-bc6c-4fbe-a864-4e62c8baaa59" name="sessionCount" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="8a0027b1-d787-4502-bad6-840e38e75111" />
+          </property>
+          <property Id="8122a723-133a-47a6-8ef8-64270a85355b" name="fileNumber" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="226f041a-02cc-4249-9913-e8e9c93c24b9" />
+          </property>
+          <property Id="de993e38-5507-4054-8259-5f26ff274602" name="cameraId" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="4de92fab-7b1e-4573-bf27-96e4340da27c" />
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="e790d9f7-4706-40fc-b90b-6ae147382976" name="Setup" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="5815615e-2ecc-46c1-a8c5-6adfc5517d38" />
+          </operation>
+          <operation Id="765e907b-11be-451b-a436-44c5a8a12265" name="CreateNewSaveDirectory" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="e99de045-f808-49d7-a9e0-6ca04219efdf" />
+          </operation>
+          <operation Id="4a83b0b0-4658-43af-ad32-6856d44252e9" name="CreateDirectory" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="9495fd97-7bb9-428b-9686-be313106b7e3" />
+          </operation>
+          <operation Id="34e9937e-c4f2-4724-ac48-6f76e30addaf" name="GenerateFileName" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="c91e7fcd-aa8d-420f-84f4-8eab23fbac6d" />
+          </operation>
+          <operation Id="04a024ff-e571-493e-aa12-4fb0bc91d1a9" name="GenerateFileNumber" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="d660d4bc-c0e9-4041-a62c-2572ebd202ea" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="d2067b49-ad1a-4a2a-ae80-ac307293e96c" name="sequenceNumber" direction="In" isUnique="false">
+                  <elementDefinition Id="964db294-2ad9-4229-86bb-cd32b1e28f12" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="89fbec96-1d4e-4b29-925d-68f460d55cd4" name="ImageCreatedAsync" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="aedfd9bd-eafb-4fef-8881-25b7a28629eb" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="771ac44a-36ab-47bb-acc0-b12ea654a156" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="03b3595d-1168-4662-8d36-f836a565e0ad" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="833af187-652d-4ddb-a0f6-1f1bb7d88481" name="ImageCreatedAync" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="78dd4ac2-ce15-4afc-a5a9-63de00629f17" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="40c16178-aba3-4c21-a767-e9dde79655f9" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="c1d2dd2c-518c-4bd4-8313-bbef91b479f9" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="758646b0-db8e-49b0-a9a2-16f2f150501d" name="EventArgs" direction="In" isUnique="false">
+                  <elementDefinition Id="0b7b3607-cd7c-46b3-898d-78a3ca1dc3ec" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="edd24f82-3237-40d2-8f56-21eabd73a622" name="SaveFiles" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="b776c25b-95e0-4e90-9935-f528ba532d62" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="b5984081-4a84-4983-9542-d65e1a4594d8" name="List&lt;ByteWrapper&gt;" direction="In" isUnique="false">
+                  <elementDefinition Id="2cfb5922-725f-4c3b-a5a2-51dbb25df92d" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="198ab0d4-fdff-4fdf-8f1e-7231dfad98cb" name="WriteBytesToFileAsync" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="bf6c2149-c404-4308-b77f-4004ac6fa790" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="d34ac40b-e29e-457d-8e4b-4b6078f368db" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="a94d76e0-ec94-4f4e-8d7d-43333e2b3b8f" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="62ffdfb5-2a6d-4b76-b2c1-554a4c92fa60" name="MotionSensorSettings" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="eafedca9-e50b-46be-bcd4-7ed419e3392b" />
+        <targetEnds>
+          <association Id="b059f333-c2cb-4e34-80af-de6aee8af451" isDerived="false" sourceEndRoleName="MotionSensorSettings" targetEndRoleName="MotionSensor_2" isLeaf="false" isAbstract="false">
+            <classMoniker Id="c669f1f5-b4c7-4127-9f60-6ea5e2ff39ce" LastKnownName="MotionSensor_2" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="8586b7ed-0050-4326-95b2-d9d77a05ee4d" name="MotionSensorSettings" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="922fe5db-123e-47f1-9835-e6ff77322c02" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e897dcbe-72d2-46c2-b64d-3d33eb9d7967" name="MotionSensor_2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="85fcbd9e-132e-4591-85c5-2d3b54eca4ea" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="40a80299-cb72-4e1a-b359-db0ddea6c8ef" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="3ca0044f-f326-4908-92b9-cd95c720c781" name="asynchronous" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e1cecdf9-5141-496f-ad8b-976f5067d3cd" />
+          </property>
+          <property Id="f93f34fc-d068-43c7-9778-71ca63ac13d1" name="framesToSkip" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="1aafc0ff-26e6-4d1f-b482-37539494465c" />
+          </property>
+          <property Id="7f40b044-df39-47d7-a669-3d09e7a60948" name="horizontalPixelsToSkip" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="2abfcdde-763b-47bf-93c7-3fbdd71d35f0" />
+          </property>
+          <property Id="70b69c3a-cab2-459b-9f51-10eca5f94828" name="verticalPixelsToSkip" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="d490926f-c01c-496d-a1d4-9bdfd14f0912" />
+          </property>
+          <property Id="47126b62-98a3-4a42-81e1-0aa28c3d590d" name="sensitivity" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="be06f377-84f4-4e71-877e-a8dff9d444fa" />
+          </property>
+          <property Id="8512a699-0f15-4f6e-9362-4131f96e4729" name="searchHeight" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="9bb775e5-b404-4b8c-b41d-f64a65dd0be1" />
+          </property>
+          <property Id="1dc00038-284d-41fc-a240-43b3c18ea3f3" name="searchWidth" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e128b9a9-9e20-4ac8-82bb-4c25c3661516" />
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="d410bce2-b311-4ff6-91d5-2ddaef887267" name="LoadDefaults" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="a31caa8d-4eb9-4c47-8956-41d04827dc9a" />
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="77a47314-5296-46aa-b8e4-088ce0d7d889" name="IImageValidator" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="ba9ee0eb-a5d9-4aee-b49c-53515953b704" />
+        <ownedAttributes>
+          <property Id="9766dc7e-09b8-4006-b5ee-710990f4cec8" name="ImageValidatedEvent" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="97b38def-7d1d-41f4-8bcf-ad5b7b2d9e84" />
+          </property>
+        </ownedAttributes>
+        <ownedOperations>
+          <operation Id="63d9e1cf-c856-4943-a89a-db44219724fb" name="FileCreated" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="47a5ad97-f6e2-4f46-8268-4e432166e65b" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="bcb32626-a4df-4fbc-8bb4-1524d462ea11" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="c310040b-e859-4f85-ac25-d85951c81205" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="ccdb5ee6-2405-43a6-9c14-6af1335f88cc" name="EventArgs" direction="In" isUnique="false">
+                  <elementDefinition Id="21dba5bd-9344-4eb7-af10-cd11f3762e9a" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="a6b2cc38-f44f-45c7-9cf5-adb4ea2e4e0c" name="ListenForIamges" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="6d178a57-70bf-4d35-9e6a-1c6ae394cddd" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="89051f17-8ecb-4529-b823-2201aa68f1da" name="IIMageExtractor" direction="In" isUnique="false">
+                  <elementDefinition Id="6f8e89dc-fc1c-42d6-ac02-4cde19710ff3" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="c4ce50cc-e824-41bd-bb32-986123bcc202" name="IImageSaver" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="c55ea73d-8baf-4c93-b405-d7841a571f27" />
+        <ownedAttributes>
+          <property Id="d9faaa13-547c-4e0b-8fdc-20a57219c764" name="captureDirectory" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="dcad933c-47a6-4334-a2ab-6a787abc98ea" />
+          </property>
+          <property Id="c40a9831-2b7c-4fe3-91ee-370ad8cef998" name="captureId" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="c381f46d-71c1-4a4b-9956-fc72fd11e71a" />
+          </property>
+          <property Id="d9fabc98-f06a-4815-a388-58813c6bd36d" name="fileStartName" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="dc1d6d8d-d0f2-425a-9b77-63e6ec876d8f" />
+          </property>
+          <property Id="a1dec0f7-6fa3-4926-80e8-3a8a1a9270b7" name="frameRates" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="19ed81e3-d9e8-4a12-8ee7-8a50c2562b0b" />
+          </property>
+          <property Id="57f016f0-f218-451e-a673-b7289825f174" name="framesPerSection" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="47b4c894-c7bb-46bd-93bc-f8d3070102b8" />
+          </property>
+          <property Id="010bfbad-ac05-4b3d-8af6-714fd198042f" name="initialFrameDetection" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="3f77eaa0-3ca6-475e-a9c3-17daec054912" />
+          </property>
+          <property Id="f8a48b1d-4a9f-4dc3-95cf-bc40614fac7e" name="parentDirectory" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="f4f5408f-f623-4fa9-9c28-aa312bd3cfeb" />
+          </property>
+          <property Id="9bdb64fe-660e-458c-bc19-75e81667b565" name="saveDirectory" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="7caee728-450d-49bb-bfd5-2a7735cf1fa4" />
+          </property>
+          <property Id="313ee46c-bd17-4878-a6b3-847057480ada" name="imageCreatedEvent" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="5c1e5174-271e-404e-92d3-0b8cbe2de90d" />
+          </property>
+        </ownedAttributes>
+        <ownedOperations>
+          <operation Id="39e18f69-2bdc-46a9-807c-e29735b26536" name="ImageCreatedAsync" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="6a836ce3-71d1-42c5-99c3-34e5af633fdd" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="1179e392-8558-44d7-9595-9b9c5faf8284" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="db060fdc-4d4d-4a59-95fe-34b4fa901c6c" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="b426d590-4d58-42af-90c4-ca484f855255" name="ImageCreatedAync" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="4374847b-d1e1-4633-9951-75c30a617f18" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="be687403-0959-4ece-bcab-870edd750a71" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="79d0bf29-7f2f-421a-8ace-09a4508739db" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="60681138-1ee4-4446-9f94-4aade674c3f5" name="EventArgs" direction="In" isUnique="false">
+                  <elementDefinition Id="a817ddda-431d-40dc-b6a2-0f3eb902d8f4" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="7bcc77d3-eb99-498d-bafe-dc624598d696" name="SaveFiles" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="cb01efb9-b95a-46a8-a765-ee5109f30737" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="197e71b3-0a06-4fd3-a2e4-199d632a5002" name="List&lt;ByteWrapper&gt;" direction="In" isUnique="false">
+                  <elementDefinition Id="45f39aff-d8b2-4f51-b085-2d5a342b698d" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="60432555-5b63-4472-8724-9420bb53b705" name="WriteBytesToFileAsync" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="5bf35292-e095-491f-a67a-006de95c097c" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="6593be47-4795-4a34-8fe8-03b2402edafd" name="ByteWrapper" direction="In" isUnique="false">
+                  <elementDefinition Id="d00af8d7-b7dc-44f2-b95f-37a947b5f130" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="069ac5ee-bad1-42b4-8298-8de91af74bc3" name="ByteWrapper" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="e141cba8-1917-46d0-a0e5-609fa226e162" />
+        <ownedAttributesInternal>
+          <property Id="2229bf80-8510-4463-b738-a4d19b1932d1" name="bytes" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="6ab69889-b3ad-4d45-a320-25d9e3d8f072" />
+          </property>
+          <property Id="ea4da0cb-0053-4f2f-8656-0affdcf8fbad" name="created" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="a76f0a97-20d3-4733-a5ce-5b82e4397795" />
+          </property>
+          <property Id="e39fa85b-bc2a-4f08-ae44-b279bbbe52ae" name="sequenceNumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="dce4cdd4-19b7-48d0-a9d7-8bc48240071b" />
+          </property>
+          <property Id="063a7d91-b50f-4fac-86a4-bd755a986a5f" name="saveFilePath" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="cdeca169-0e67-4db3-81a5-0765567563ba" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="a02e73aa-afe1-4b6a-a5c7-c764aa328a60" name="BitmapWrapper" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="d13faae7-1691-4469-b242-5715712c40f3" />
+        <targetEnds>
+          <association Id="5ceef534-57ec-411b-b62b-350f052172fe" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+            <classMoniker Id="7b234378-9518-45d9-9eb0-bdca2ca12515" LastKnownName="PixelMatrix" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e901b878-2a79-4d89-b0e8-d3fa60cb34e6" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="c7c948f2-1919-438a-ad20-94d78183ff7a" name="Lower" value="2">
+                      <elementDefinition Id="9923c6bf-5f1f-4609-96f1-decb0682b290" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="4921e95c-99cd-4128-ad54-3fff2a9e4b43" name="Upper" value="2">
+                      <elementDefinition Id="f1d7f782-3821-4260-90d4-223fb47c1df0" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="02173aa6-3e74-41f2-b747-78b433ccdc12" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="4569e52d-a0c8-4ad9-a1fa-945036c9407f" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="4a7415c4-1477-4b47-8ff4-532fcaf0f617" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="da24747e-9e17-47ff-aee0-ed1e7577dc91" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="3361d8da-de71-4ef5-8cda-b558184bbd1e" name="bitmap" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="14086074-c2be-4849-9583-a311771c78f9" />
+          </property>
+          <property Id="023b9846-0c0b-4201-a6fd-788f8a36a8ff" name="sequenceNumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e60880d5-c70a-4f5c-b5d6-39a285e40368" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
   </packagedElements>
-  <package Id="b635976e-b08b-4de1-8ced-ebfe14b09313" name="ModelingProject1">
+  <package Id="354fdadb-9cbd-4a9f-b742-e375f40afc83" name="ModelingProject1">
     <elementDefinition Id="0b733217-d670-40cf-bffd-3600d0762abe" />
+    <profileInstances>
+      <packageHasProfileInstances Id="a9866802-b264-4f09-8208-42aba905e5a2">
+        <profileInstance Id="0cd2842f-518e-4b6c-8b3b-e02a55dbca44" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="04b64bce-0aa9-4da4-82b4-ce4992f57009">
+        <profileInstance Id="00e0edc1-cf4b-4bc3-bdf5-cdbc243361d4" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
   </package>
 </logicalClassDesignerModel>

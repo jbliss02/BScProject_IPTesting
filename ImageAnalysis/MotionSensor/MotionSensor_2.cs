@@ -38,7 +38,7 @@ namespace ImageAnalysis.MotionSensor
         public Logs.Logging logging;
 
         /// <summary>
-        /// comparision object - returned from one capture, to be used in the next
+        /// comparision object - returned from one capture, to be used in the nextD:\bsc\project\IPConnect_Testing\ImageAnalysis\MotionSensor\IMotionSensor_2.cs
         /// </summary>
         public List<PixelColumn> Comparison;
 

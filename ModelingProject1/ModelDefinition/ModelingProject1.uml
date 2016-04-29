@@ -1184,8 +1184,8 @@
           <association
             Id="046290a4-28cf-414b-9f57-9e07fb6b9e43"
             isDerived="false"
-            sourceEndRoleName="PixelMatrix"
-            targetEndRoleName="ByteWrapper"
+            sourceEndRoleName=""
+            targetEndRoleName=""
             isLeaf="false"
             isAbstract="false">
             <classMoniker
@@ -1196,7 +1196,6 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="d3bf320c-5d9b-40eb-bfe9-d8efa15b9379"
-                  name="PixelMatrix"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -1209,7 +1208,6 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="3d8d730e-e375-4e3c-b324-b87d62f7b9bf"
-                  name="ByteWrapper"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -1539,8 +1537,8 @@
           <association
             Id="da24747e-9e17-47ff-aee0-ed1e7577dc91"
             isDerived="false"
-            sourceEndRoleName="BitmapWrapper"
-            targetEndRoleName="PixelMatrix"
+            sourceEndRoleName=""
+            targetEndRoleName=""
             isLeaf="false"
             isAbstract="false">
             <classMoniker
@@ -1551,7 +1549,6 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="02173aa6-3e74-41f2-b747-78b433ccdc12"
-                  name="BitmapWrapper"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -1577,7 +1574,6 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="4a7415c4-1477-4b47-8ff4-532fcaf0f617"
-                  name="PixelMatrix"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"

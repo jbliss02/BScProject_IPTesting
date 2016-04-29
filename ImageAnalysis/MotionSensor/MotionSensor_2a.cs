@@ -18,7 +18,7 @@ namespace ImageAnalysis.MotionSensor
     /// is considered abnormal, and therefore classed as movement. 
     /// </summary>
 
-    public class MotionSensor_2a : MotionSensor_2, IDisposable
+    public class MotionSensor_2a : MotionSensor_2
     {
         private List<double> pixelChange; //holds a list of the difference between pixels of 2 images (used for setting threshold)
         public double pixelChangeThreshold;
@@ -35,7 +35,7 @@ namespace ImageAnalysis.MotionSensor
             PixelMatrix matrix = new PixelMatrix();
             matrix.LinkCompare = settings.linkCompare;
             if (settings.searchHeight > 0) { matrix.SearchHeight = settings.searchHeight; }
-            if (settings.searchWidth > 0) {  matrix.SearchWidth = settings.searchWidth; }
+            if (settings.searchWidth > 0) { matrix.SearchWidth = settings.searchWidth; }
             if (settings.horizontalPixelsToSkip > 0) { matrix.WidthSearchOffset = settings.horizontalPixelsToSkip + 1; }
             if (settings.verticalPixelsToSkip > 0) { matrix.WidthSearchOffset = settings.verticalPixelsToSkip + 1; }
 
@@ -51,7 +51,7 @@ namespace ImageAnalysis.MotionSensor
             double sumChangedPixels = matrix.SumChangedPixelsPositive;
 
             //keep adding for threshold calculation, set the threshold, or monitor
-            if(ThresholdSet)
+            if (ThresholdSet)
             {
                 //now scanning, compare the two images and see what the difference is
                 if (sumChangedPixels > pixelChangeThreshold)
@@ -63,7 +63,7 @@ namespace ImageAnalysis.MotionSensor
             {
                 pixelChange.Add(sumChangedPixels);
             }
-            else  
+            else
             {
                 SetThreshold(); //enough images received to set the threshold and start monitoring
             }
@@ -80,7 +80,7 @@ namespace ImageAnalysis.MotionSensor
             bm2 = null;
 
         }//Compare
-     
+
         /// <summary>
         /// Called when the threshold is to be set, or re-set
         /// takes the current range of changes and calculates threshold
