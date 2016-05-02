@@ -10,6 +10,43 @@
             <elementDefinition Id="93133214-8f78-415f-a686-0e7038435ae1" />
           </generalization>
         </generalsInternal>
+        <ownedAttributesInternal>
+          <property Id="f10ace65-8c57-4b15-9947-c6d189c42918" name="images" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="d06a0d63-40f8-42f5-bbe3-90d2b3d785f5" />
+          </property>
+          <property Id="612bfd49-e392-4a69-8c4b-694583d08ad5" name="objLock" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="473de863-76e6-4586-be43-051f622eb04b" />
+          </property>
+          <property Id="af2eca43-4e8c-4946-8fee-9ce84077c487" name="lastAlarm" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e07fa669-b0b4-48d1-be92-02f0a4ac0101" />
+          </property>
+          <property Id="85b4f52e-b4a6-493c-a119-4e520724ff28" name="secondsBetweenAlarms" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="851b6016-9a3e-4875-a6b2-757bdf65c94f" />
+          </property>
+          <property Id="aecd75c0-7414-427e-ad4b-cb370b8f0987" name="minimumMovementForAlarms" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="21907991-8cea-4c58-954c-27df3e4cd601" />
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="66f858b7-aa30-48f9-9eb5-0ff3b1e9bd9c" name="ImageExtracted" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="6837f777-7a24-4f82-97ec-8044e7d24be8" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="9732d396-b4d9-4071-8422-eb8aa4dda26c" name="imagePath" direction="In" isUnique="false">
+                  <elementDefinition Id="0b053a1a-6dc1-421d-93d3-8e2a42b96377" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="26c7ed1a-6dc6-4d3d-825b-43a6775efe37" name="e" direction="In" isUnique="false">
+                  <elementDefinition Id="3bcc148b-69d3-4c8f-b1f5-d1588e9a715b" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="47bf5417-b67b-4963-b406-2da1c7c73670" name="RaiseAlarm" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="d127462c-2d16-40f7-ad7c-b1de2971bb16" />
+          </operation>
+        </ownedOperationsInternal>
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
@@ -39,11 +76,45 @@
             <elementDefinition Id="7bb7fe35-ccdd-4129-abd3-151ef70faaf6" />
           </association>
         </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="457644b9-6553-4aa0-a2e4-324d9a998408" name="emailAddress" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="92fe7a06-d52f-4bdb-bab4-712243779acc" />
+          </property>
+          <property Id="0c3a5f8a-5631-474e-8fc6-bff9c7c3b0ec" name="maxEmailImages" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="08a8539d-c541-4a2d-9659-dfba09ef8f01" />
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="6b99c6f6-d659-44e3-afe5-351d82f2ab75" name="RaiseAlarm" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="ef5ecd50-8a8d-4c7e-ade6-759b9f8941f7" />
+          </operation>
+          <operation Id="28dde3ec-25fc-45d0-9827-1a0eb6d67f5f" name="SendAlarmEmail" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="aa5436bf-d0b9-454b-944f-35af08287e09" />
+          </operation>
+          <operation Id="03c4f1a5-aacf-420b-b099-f6ef340cf14c" name="SendAlarmPrimedEmail" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="cab3609f-dcc1-4f95-9a37-c14654de344c" />
+          </operation>
+          <operation Id="caca4116-932e-4154-9e16-55fdca7b5aff" name="SnendEmail" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="b4c33132-90dc-4205-a199-9a981fac65fd" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="e710006c-e158-4be2-be8c-bd8d4ae14691" name="String" direction="In" isUnique="false">
+                  <elementDefinition Id="9b10c6e4-a57c-4404-a74b-5c8615c49306" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
       <Interface Id="9ad56551-05a7-40b6-9068-a9d18d688bc3" name="IAlarm" isAbstract="false" isLeaf="false">
         <elementDefinition Id="71ac842f-7715-4043-a528-a650d98ed3c3" />
+        <ownedAttributes>
+          <property Id="91e654dd-d1fa-46f8-a320-839f347eb472" name="ImageExtracted" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="cc3f4c5a-ec96-49b7-903f-cac6b02cee6f" />
+          </property>
+        </ownedAttributes>
       </Interface>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
@@ -169,65 +240,6 @@
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <class Id="5e9323e9-134e-40a2-b084-2ea3a4cd92e3" name="PixelColumn" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="4bf24fdf-2d6c-4fe4-9d1d-8840e13cad85" />
-        <targetEnds>
-          <association Id="49ec405f-e1a5-49d3-baab-cce40c1b9a11" isDerived="false" sourceEndRoleName="PixelColumn" targetEndRoleName="MotionSensor_2" isLeaf="false" isAbstract="false">
-            <classMoniker Id="c669f1f5-b4c7-4127-9f60-6ea5e2ff39ce" LastKnownName="MotionSensor_2" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="2e15a625-df5d-4737-b51a-85f4d4d1bb3c" name="PixelColumn" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString Id="6412a21f-1ebd-4be3-b768-97b102ee23db" name="Lower" value="*">
-                      <elementDefinition Id="f51dbda4-dd86-4a7e-b24a-dac10de19eb9" />
-                    </literalString>
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString Id="24b7ed35-a2e8-4982-9478-e36541f62f9f" name="Upper" value="*">
-                      <elementDefinition Id="62e6aef8-cf93-4b58-88be-d0cb35958a55" />
-                    </literalString>
-                  </upperValueInternal>
-                  <elementDefinition Id="14e6a2cb-8714-4c13-9336-c21a0ca7c9b5" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="444ab11b-d314-41d2-96bb-9c41279183e4" name="MotionSensor_2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="aa08540e-b2a9-4177-9e15-151ee06ca5ac" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="ea4a0911-0ca8-4c49-8b90-07f57d478d5c" />
-          </association>
-          <association Id="f4ed03d8-81eb-4bd6-b3fb-ebbb5d0f9bf3" isDerived="false" sourceEndRoleName="PixelColumn" targetEndRoleName="PixelMatrix" isLeaf="false" isAbstract="false">
-            <classMoniker Id="7b234378-9518-45d9-9eb0-bdca2ca12515" LastKnownName="PixelMatrix" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="b2b3dc60-0a9f-450c-9fe4-f9c3cc36b68f" name="PixelColumn" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString Id="6d2f513a-4cb6-48e9-a223-66737d37616d" name="Lower" value="*">
-                      <elementDefinition Id="fd5b782e-c9ca-4af0-bcee-502279c03ea8" />
-                    </literalString>
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString Id="c8c448aa-bb4c-4354-8e24-ae2a63116844" name="Upper" value="*">
-                      <elementDefinition Id="37f51324-f9ed-4c07-b2da-e3b266188e18" />
-                    </literalString>
-                  </upperValueInternal>
-                  <elementDefinition Id="84bcd12a-4a70-421b-a05e-3e5993b1eafe" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="083dfc13-c4b7-4d93-9931-1499312017ac" name="PixelMatrix" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <elementDefinition Id="1b49845f-1deb-466b-af3e-07e60012a446" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="79f297e7-e6fa-4ce7-bedf-0fd8988520ce" />
-          </association>
-        </targetEnds>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <logicalClassDesignerModelHasTypes>
       <class Id="30c44bbe-a078-4b6a-813e-6ec76e501192" name="Logging" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="cf7e154e-cc6a-4cb5-b0ee-396593e3a66a" />
         <targetEnds>
@@ -346,6 +358,12 @@
     <logicalClassDesignerModelHasTypes>
       <class Id="bf486ef1-8b57-494b-860d-202f590413aa" name="ImageExtractor" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="0a58fece-474c-413a-8745-4f283b161340" />
+        <suppliersInternal>
+          <interfaceRealization Id="83d5a31b-1a8e-4418-97ea-8b2161dc4ae3">
+            <interfaceMoniker Id="d3385d1b-71ca-4149-86ed-802e7cfd7702" LastKnownName="IImageExtractor" />
+            <elementDefinition Id="ad533da4-a51f-488a-9583-e78d8696a33b" />
+          </interfaceRealization>
+        </suppliersInternal>
         <ownedAttributesInternal>
           <property Id="0abaa93b-c612-4948-8ab3-2ef92eb835ed" name="imagesAnalysed" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="9cfbeb7e-d31d-4617-8f78-3ae5d6732d35" />
@@ -1061,6 +1079,138 @@
           </property>
           <property Id="023b9846-0c0b-4201-a6fd-788f8a36a8ff" name="sequenceNumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="e60880d5-c70a-4f5c-b5d6-39a285e40368" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="d3385d1b-71ca-4149-86ed-802e7cfd7702" name="IImageExtractor" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="bd714e70-0d3d-4847-84a7-dc3a5946f1c4" />
+        <targetEnds>
+          <association Id="43d1862a-6bc2-4e8a-832c-0dc8e9f836b7" isDerived="false" sourceEndRoleName="IImageExtractor" targetEndRoleName="ImageValidator" isLeaf="false" isAbstract="false">
+            <classMoniker Id="1acd3de9-3cfa-457b-9b45-b177364e151a" LastKnownName="ImageValidator" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="73521e29-4ddc-4de5-8cda-47620021c15e" name="IImageExtractor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="f0bc1d50-3c0a-4dec-ae92-731a5c7d3a8e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f0d0b22d-f771-464a-9208-e50fd77835e8" name="ImageValidator" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="65f407ac-07e0-430c-93e7-025c1944ad1b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="82953044-2ff4-456d-bb86-ee96c89f8db5" />
+          </association>
+        </targetEnds>
+        <ownedAttributes>
+          <property Id="3f6ccad5-8f06-4458-8d18-c221daeede32" name="FramerateBroadcastEvent" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="0cd1eab5-3bef-494b-bfe8-0c9e4dd8834d" />
+          </property>
+          <property Id="b0762267-81f1-4b89-a01b-8e43316612a1" name="ImageCreatedEvent" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="b3a213c7-c544-45cf-93e2-af0aa2272864" />
+          </property>
+          <property Id="6a0454b6-1c5c-4b13-9a84-bc5d8b6d4147" name="asyncrohous" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="548eb919-fa57-414e-9057-fb3d89d2b26c" />
+          </property>
+        </ownedAttributes>
+        <ownedOperations>
+          <operation Id="9ac4627e-635e-4177-8e6f-1b4d72df62a8" name="Run" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="612dd485-e414-4825-99b3-53ff59e684cd" />
+          </operation>
+          <operation Id="90f7e112-5374-4b8d-9da3-89661e06b939" name="Run" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="374c0ffc-ec5d-4010-9e30-1f93dd03fa77" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="59e0b646-23c6-4d95-8255-f2742f834085" name="minutes" direction="In" isUnique="false">
+                  <elementDefinition Id="6de6c1d1-8b3d-4ea9-8f44-1ef9d6e998e4" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="631c1c33-32e6-4436-8680-666c18300d01" name="Run" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="638ffa46-35d6-4664-bef9-4bfe068c299e" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="65ff865f-564c-46d6-bd01-5a41fa37f6d5" name="singleImage" direction="In" isUnique="false">
+                  <elementDefinition Id="db116a65-c2a9-40d5-9e7f-0c14111caa5b" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="7168f695-7b66-4f76-9905-673e9d6f0886" name="PixelColumn" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="4bf24fdf-2d6c-4fe4-9d1d-8840e13cad85" />
+        <targetEnds>
+          <association Id="78962fbc-39aa-4c11-819d-1e00a281dfdf" isDerived="false" sourceEndRoleName="PixelColumn" targetEndRoleName="MotionSensor_2" isLeaf="false" isAbstract="false">
+            <classMoniker Id="c669f1f5-b4c7-4127-9f60-6ea5e2ff39ce" LastKnownName="MotionSensor_2" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="09942ffc-3ef7-40b5-baf2-cab02a116ea1" name="PixelColumn" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="cfe47ddf-9216-435d-b809-0b7f663aeb3c" name="Lower" value="*">
+                      <elementDefinition Id="f51dbda4-dd86-4a7e-b24a-dac10de19eb9" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="04dcc692-202c-452b-a1ce-1f9fedf6fbda" name="Upper" value="*">
+                      <elementDefinition Id="62e6aef8-cf93-4b58-88be-d0cb35958a55" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="14e6a2cb-8714-4c13-9336-c21a0ca7c9b5" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="de356d0f-0d08-450f-8255-30f45781ce1d" name="MotionSensor_2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="aa08540e-b2a9-4177-9e15-151ee06ca5ac" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="ea4a0911-0ca8-4c49-8b90-07f57d478d5c" />
+          </association>
+          <association Id="33522b1d-8a48-4422-9499-c3f6ca67662f" isDerived="false" sourceEndRoleName="PixelColumn" targetEndRoleName="PixelMatrix" isLeaf="false" isAbstract="false">
+            <classMoniker Id="7b234378-9518-45d9-9eb0-bdca2ca12515" LastKnownName="PixelMatrix" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="9f858778-787c-4b38-9534-ee05d094b1d9" name="PixelColumn" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="b3ee9b88-7ea2-4048-afbc-73d5df76a728" name="Lower" value="*">
+                      <elementDefinition Id="fd5b782e-c9ca-4af0-bcee-502279c03ea8" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="c2268f16-4775-4a4c-a933-8a560f25d302" name="Upper" value="*">
+                      <elementDefinition Id="37f51324-f9ed-4c07-b2da-e3b266188e18" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="84bcd12a-4a70-421b-a05e-3e5993b1eafe" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ffc170f7-3632-4c21-b6db-2c7bb56476e9" name="PixelMatrix" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="1b49845f-1deb-466b-af3e-07e60012a446" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="79f297e7-e6fa-4ce7-bedf-0fd8988520ce" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="70c3247a-cde5-407b-bc29-108a31620344" name="Cells" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="9f0ed82e-a240-47c0-86be-5425ed6d01f9" />
+          </property>
+          <property Id="2b3054c0-d29a-49a9-bc90-847044596ccd" name="numberChangedPixels" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="2cdf72da-71b0-4d6e-a903-39d528784e5b" />
+          </property>
+          <property Id="d7e45bd1-e32c-43d3-9a4c-ef50e4e8e43b" name="maxChange" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="0a01d380-c8ea-4777-bc35-eefcf1d154e6" />
+          </property>
+          <property Id="7737dcef-c65d-42c1-8a09-58dd1d98ba79" name="minChanged" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="7100f2b7-39ec-47fc-8adb-7ffd1cfdd294" />
           </property>
         </ownedAttributesInternal>
       </class>

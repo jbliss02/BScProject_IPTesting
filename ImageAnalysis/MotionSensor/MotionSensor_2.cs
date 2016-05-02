@@ -53,52 +53,8 @@ namespace ImageAnalysis.MotionSensor
             logging = new Logs.Logging();
             ThresholdSet = false;
             ControlImageNumber = ConfigurationManager.AppSettings["imagesInThreshold"].StringToInt() / 2;
-
-            //backlog monitoring
             backlog = new MotionSensorBacklog();
-            //backlogCheckMs = ConfigurationManager.AppSettings["backlogCheckMs"].ToString().StringToInt();
-            //backlogSpeedup = ConfigurationManager.AppSettings["backlogSpeedup"].ToString().StringToInt();
-            //backlogSlowdown = ConfigurationManager.AppSettings["backlogSlowdown"].ToString().StringToInt();
-            //backlogTimer = new Stopwatch();
-            //backlog = new List<int>();
-            //SetRegulationParameters();
         }
-
-        /// <summary>
-        /// Extracts the regulation formula from config files and sets the pixelJumpPerFrameJump variable
-        /// this drives the logic on what metric to increase / decrease when changing speed
-        /// </summary>
-        //private void SetRegulationParameters()
-        //{
-        //    string[] split = Regex.Split(ConfigurationManager.AppSettings["regulationFormula"], ":");
-
-        //    if(split.Length != 2)
-        //    {
-        //        throw new Exception("regulationFormula was not in expected format");
-        //    }
-
-        //    int framesToSkip;
-        //    int pixelsToSkip;
-
-        //    if(split[0].Substring(split[0].Length - 2).ToUpper() == "P")
-        //    {
-        //        pixelsToSkip = split[0].Substring(0, split[0].Length - 2).StringToInt();
-        //        framesToSkip = split[1].Substring(0, split[1].Length - 2).StringToInt();
-        //    }
-        //    else
-        //    {
-        //        framesToSkip = split[0].Substring(0, split[0].Length - 1).StringToInt();
-        //        pixelsToSkip = split[1].Substring(0, split[1].Length - 1).StringToInt();
-        //    }
-
-        //    if(framesToSkip <= 0 || pixelsToSkip <= 0)
-        //    {
-        //        throw new Exception("regulationFormula was not in expected format");
-        //    }
-
-        //    pixelJumpPerFrameJump =  framesToSkip / pixelsToSkip;
-
-        //}//SetRegulationParameters
 
         /// <summary>
         /// Called when the object detects motion, creates the event
@@ -229,7 +185,7 @@ namespace ImageAnalysis.MotionSensor
             }
         }//SendForCompare
 
-        public virtual void Compare(ByteWrapper img1, ByteWrapper img2) { } //will always be implemented in the sub class
+        public virtual void Compare(ByteWrapper img1, ByteWrapper img2) { } //will always be implemented in the derived class
 
         /// <summary>
         /// Monitor's the backlog by comparing the number of received and processed images

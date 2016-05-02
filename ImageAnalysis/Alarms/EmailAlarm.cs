@@ -21,9 +21,18 @@ namespace ImageAnalysis.Alarms
     {
         public string emailAddress { get; set; }
 
+        public string alarmText { get; set; }
+
+        public string emailSubject { get; set; }
+
         private int maxEmailImages; //limit the number of attachments in the email
 
-        public EmailAlarm() : base() { maxEmailImages = ConfigurationManager.AppSettings["maxEmailImages"].ToString().StringToInt(); }
+        public EmailAlarm() : base()
+        {
+            maxEmailImages = ConfigurationManager.AppSettings["maxEmailImages"].ToString().StringToInt();
+            alarmText = ConfigurationManager.AppSettings["alarmText"];
+            emailSubject = ConfigurationManager.AppSettings["alarmEmailSubject"];
+        }
 
         public override void RaiseAlarm()
         {
@@ -36,7 +45,7 @@ namespace ImageAnalysis.Alarms
         /// </summary>
         public void SendAlarmEmail()
         {
-            SendEmail(ConfigurationManager.AppSettings["alarmText"]);
+            SendEmail(alarmText);
         }
 
         /// <summary>
@@ -50,25 +59,27 @@ namespace ImageAnalysis.Alarms
 
         private void SendEmail(string emailBody)
         {
+        
             //Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
             //config file may in in standalone exe app.config, or web site web.config
-            Configuration config = null;
-            try
-            {
-                config = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("~");
-            }
-            catch
-            {
-                config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            }
+            //Configuration config = null;
+            //try
+            //{
+            //    config = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("~");
+            //}
+            //catch
+            //{
+            //    config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            //}
 
+            var config = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("~");
 
             MailSettingsSectionGroup settings = (MailSettingsSectionGroup)config.GetSectionGroup("system.net/mailSettings");
 
             MailMessage mail = new MailMessage();
             mail.To.Add(emailAddress);
-            mail.Subject = ConfigurationManager.AppSettings["alarmEmailSubject"];
+            mail.Subject = emailSubject;
             mail.Body = emailBody;
 
             SmtpClient smtp = new SmtpClient();

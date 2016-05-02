@@ -61,7 +61,7 @@
     <Compile Include="Data\DataTests.cs" />
     <Compile Include="ImageSaverTesting.cs" />
     <Compile Include="MotionSensor\MotionSensor2Testing.cs" />
-    <Compile Include="MotionSensor\MotionSensorStartup.cs" />
+    <Compile Include="MotionSensor\MotionSensorConfigTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HTTP_Streamer\JpegStreamTest.cs" />
     <Compile Include="BitmapAnalaysisTesting.cs" />
@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="connections.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

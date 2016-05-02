@@ -83,13 +83,18 @@ namespace ImageAnalysis.Images
             this.SaveDirectory = saveDirectory + @"\" + cameraId + @"\" + captureId;
             CreateDirectory(this.SaveDirectory);
             this.fileStartName = fileStartName;
+
+
         }
 
-        private void SetUp()
+        public void SetUp()
         {
             if (fileStartName == String.Empty) { fileStartName = "image"; }
 
-            ParentDirectory = ConfigurationManager.AppSettings["SaveLocation"].ToString();
+            if(ParentDirectory == String.Empty)
+            {
+                ParentDirectory = ConfigurationManager.AppSettings["SaveLocation"].ToString();
+            }
 
             //define the camera directory, and create if not exists
             string cameraDirectory = ParentDirectory + @"\" + cameraId;

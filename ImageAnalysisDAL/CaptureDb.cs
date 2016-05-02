@@ -118,6 +118,11 @@ namespace ImageAnalysisDAL
 
         }
 
+        public DataTable ReturnDetectionConfiguration()
+        {
+            return DataTableFromView("dbo.v_motionSensorConfig");
+        }
+
         public void SaveDetectionImage(string captureId, int detectionId, byte[] image, int imageNumber)
         {
 

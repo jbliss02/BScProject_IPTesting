@@ -36,8 +36,9 @@ namespace ImageAnalysis.MotionSensor
 
             //set up the save file object
             imageSaver = new ImageSaver(setup.imageSaveLocation, "movement", setup.camera.cameraId);
-            imageSaver.saveToFileServer = setup.saveImagesToFileServer;
+            imageSaver.saveToFileServer = true; //setup.saveImagesToFileServer;
             imageSaver.saveToDatabase = setup.saveImagesToDatabase;
+            imageSaver.ParentDirectory = setup.imageSaveLocation;
             captureId = imageSaver.captureId;
 
             //set up the database object

@@ -220,7 +220,7 @@ namespace IPConnect_Testing.Testing.DataObjects
         {
             foreach (PropertyInfo property in typeof(MotionSensorSettingsTest).GetProperties())
             {
-                if (property.Name.Equals(propertyName)) { property.SetValue(this, value); }
+                if (property.Name == propertyName) { property.SetValue(this, value); }
             }
         }
 

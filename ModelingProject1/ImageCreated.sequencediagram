@@ -1,0 +1,382 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SequenceDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm11="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" xmlns:dm12="http://schemas.microsoft.com/dsltools/UseCaseModel" dslVersion="1.0.0.0" Id="69109df9-8944-42ac-85e0-4c8cb70db133" name="ImageCreated" linkedPackageId="cd35cf76-585d-4d86-8637-4bfcadcb1488" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="9ff2f10d-8937-4a5c-b753-1a26fdb69fe2">
+      <profileInstance Id="41f8367f-2f19-444f-9c40-f8dde3e0f066" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="60ba3e16-5e34-43f5-b101-9012142308f2">
+      <profileInstance Id="a8a94556-699d-46da-a8a4-3e026dbb1f41" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <interaction Id="d0f82484-bc60-424e-88f7-98c1c77334e6" name="ImageCreated" collapseFragmentsFlag="false" isActiveClass="false" isAbstract="false" isLeaf="false" isReentrant="false">
+        <elementDefinition Id="309a7f1e-d5b1-43a4-8ab0-2ed93553f24a" />
+        <fragments>
+          <behaviorExecutionSpecification Id="76d83138-77ea-43fb-9ea5-90d03dff8212" name="BehaviorExecutionSpecification2">
+            <elementDefinition Id="7f521b40-619a-4cee-96ca-b691a8506fb2" />
+            <coveredLifelines>
+              <lifelineMoniker Id="fee35c52-7e66-4c4c-9783-8a53f6862e8b" LastKnownName="ImageValidator" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker Id="18eff7db-80dc-44f9-8097-c45b2df3367b" LastKnownName="ExecutionOccurrenceSpecification4" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker Id="9835c8f3-20a7-45b4-82ed-223fc91fca11" LastKnownName="ExecutionOccurrenceSpecification3" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="28becd5b-6859-4d8f-abb7-5eb532cd6f6e" LastKnownName="MessageOccurrenceSpecification4" />
+              <messageOccurrenceSpecificationMoniker Id="67e95286-5fc2-4466-a28b-98a68c736ef5" LastKnownName="MessageOccurrenceSpecification5" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification Id="9835c8f3-20a7-45b4-82ed-223fc91fca11" name="ExecutionOccurrenceSpecification3">
+            <elementDefinition Id="3c91d0c9-01d9-4122-a2af-e413e8b0e8b1" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="8f24cd7d-323c-45ac-b0da-7f3f603acda2" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="fee35c52-7e66-4c4c-9783-8a53f6862e8b" LastKnownName="ImageValidator" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="f272df76-b055-4ae7-a0e2-221327f66f8b" name="MessageOccurrenceSpecification3">
+            <elementDefinition Id="3b114b76-a89a-41dd-a364-b503dbcd7f82" />
+            <covered>
+              <lifelineMoniker Id="1553e173-33ca-44b6-89ed-fce8d70e5b66" LastKnownName="imageExtractor : ImageExtractor" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="28becd5b-6859-4d8f-abb7-5eb532cd6f6e" name="MessageOccurrenceSpecification4">
+            <elementDefinition Id="74452af7-ee99-4034-86b5-17121eec0c31" />
+            <covered>
+              <lifelineMoniker Id="fee35c52-7e66-4c4c-9783-8a53f6862e8b" LastKnownName="ImageValidator" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification Id="ce3663d2-f68f-4c24-a3ea-310f6892690f" name="BehaviorExecutionSpecification3">
+            <elementDefinition Id="9d0f4d23-f2a3-4eef-93c7-b1dd87c5010d" />
+            <coveredLifelines>
+              <lifelineMoniker Id="260e8668-bfa2-4cbb-8fb1-1d12d4a1efd1" LastKnownName="imageSaver : ImageSaver" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker Id="c233aa1f-249e-44b5-ae0f-80de28589e42" LastKnownName="ExecutionOccurrenceSpecification6" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker Id="73215045-75d6-4c72-b925-2788a9e1d831" LastKnownName="ExecutionOccurrenceSpecification5" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="0d5d2caa-ffa5-459a-81f0-99fc2cae00a6" LastKnownName="MessageOccurrenceSpecification6" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification Id="73215045-75d6-4c72-b925-2788a9e1d831" name="ExecutionOccurrenceSpecification5">
+            <elementDefinition Id="33670b0e-95b1-45a6-b2e3-a55b5119dc1b" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="28a86776-e0dd-4f4c-81c6-039187e603f7" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="260e8668-bfa2-4cbb-8fb1-1d12d4a1efd1" LastKnownName="imageSaver : ImageSaver" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="67e95286-5fc2-4466-a28b-98a68c736ef5" name="MessageOccurrenceSpecification5">
+            <elementDefinition Id="e05cd0f3-15a7-4ebc-94d2-97e87a206ca9" />
+            <covered>
+              <lifelineMoniker Id="fee35c52-7e66-4c4c-9783-8a53f6862e8b" LastKnownName="ImageValidator" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="0d5d2caa-ffa5-459a-81f0-99fc2cae00a6" name="MessageOccurrenceSpecification6">
+            <elementDefinition Id="9d3d101e-6192-4cba-b0d9-721e7ab24294" />
+            <covered>
+              <lifelineMoniker Id="260e8668-bfa2-4cbb-8fb1-1d12d4a1efd1" LastKnownName="imageSaver : ImageSaver" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification Id="18eff7db-80dc-44f9-8097-c45b2df3367b" name="ExecutionOccurrenceSpecification4">
+            <elementDefinition Id="3fe820d4-77e9-40c4-b8a9-5ba117f39c72" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="dea5f3f0-d676-4be6-996d-7b1b23b490dd" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="fee35c52-7e66-4c4c-9783-8a53f6862e8b" LastKnownName="ImageValidator" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <executionOccurrenceSpecification Id="c233aa1f-249e-44b5-ae0f-80de28589e42" name="ExecutionOccurrenceSpecification6">
+            <elementDefinition Id="433065f6-ae33-496e-bde1-d9480f93c0f8" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="5bc148f2-5af0-4dde-8bd8-a2974a8182ee" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="260e8668-bfa2-4cbb-8fb1-1d12d4a1efd1" LastKnownName="imageSaver : ImageSaver" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <behaviorExecutionSpecification Id="28805368-eeaa-443c-b356-b26345eb7c7b" name="BehaviorExecutionSpecification4">
+            <elementDefinition Id="6b3cd760-f4fa-4bcd-b064-99b7fa27f387" />
+            <coveredLifelines>
+              <lifelineMoniker Id="fee35c52-7e66-4c4c-9783-8a53f6862e8b" LastKnownName="ImageValidator" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker Id="fee62ac2-b112-4a7f-bb02-f1b1859b182f" LastKnownName="ExecutionOccurrenceSpecification8" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker Id="903bf1fa-d4cb-4b54-a29c-0b70397572b2" LastKnownName="ExecutionOccurrenceSpecification7" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="6c9ed192-9f14-4292-8acb-dfdd4600de08" LastKnownName="MessageOccurrenceSpecification8" />
+              <messageOccurrenceSpecificationMoniker Id="42d6bb69-a038-4b0f-8d3a-b5300ff1e5a8" LastKnownName="MessageOccurrenceSpecification9" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification Id="903bf1fa-d4cb-4b54-a29c-0b70397572b2" name="ExecutionOccurrenceSpecification7">
+            <elementDefinition Id="9feb3043-48a5-4d46-b0e0-988b752d1db3" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="37d4f498-80c1-46cd-91ef-90d2b089b11c" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="fee35c52-7e66-4c4c-9783-8a53f6862e8b" LastKnownName="ImageValidator" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="726033ae-0055-46d5-8e86-2b7e0682199f" name="MessageOccurrenceSpecification7">
+            <elementDefinition Id="f16898c4-d897-44ee-8af6-5ffa3e0d3209" />
+            <covered>
+              <lifelineMoniker Id="1553e173-33ca-44b6-89ed-fce8d70e5b66" LastKnownName="imageExtractor : ImageExtractor" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="6c9ed192-9f14-4292-8acb-dfdd4600de08" name="MessageOccurrenceSpecification8">
+            <elementDefinition Id="849b2407-21a0-4804-b6a8-c4f4f50d991b" />
+            <covered>
+              <lifelineMoniker Id="fee35c52-7e66-4c4c-9783-8a53f6862e8b" LastKnownName="ImageValidator" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification Id="d5a46de5-6b63-4091-80bb-2793d708da1c" name="BehaviorExecutionSpecification5">
+            <elementDefinition Id="6991aa61-8ac6-406a-9545-90f0b5e0c167" />
+            <coveredLifelines>
+              <lifelineMoniker Id="260e8668-bfa2-4cbb-8fb1-1d12d4a1efd1" LastKnownName="imageSaver : ImageSaver" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker Id="3bf63a91-541f-40c8-a50d-5a082a8f2592" LastKnownName="ExecutionOccurrenceSpecification10" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker Id="7427bcf1-af40-4cba-8e73-6fba895d3c44" LastKnownName="ExecutionOccurrenceSpecification9" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="dbea3c2c-fa05-4bca-8706-200528450b92" LastKnownName="MessageOccurrenceSpecification10" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification Id="7427bcf1-af40-4cba-8e73-6fba895d3c44" name="ExecutionOccurrenceSpecification9">
+            <elementDefinition Id="8fd6de15-2ba6-4def-9818-d46fdfc63460" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="95199849-4ddf-42a4-b7e3-7bc0bffba4d0" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="260e8668-bfa2-4cbb-8fb1-1d12d4a1efd1" LastKnownName="imageSaver : ImageSaver" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="42d6bb69-a038-4b0f-8d3a-b5300ff1e5a8" name="MessageOccurrenceSpecification9">
+            <elementDefinition Id="57757f81-a1c5-4c23-a9e6-5694aaab33fe" />
+            <covered>
+              <lifelineMoniker Id="fee35c52-7e66-4c4c-9783-8a53f6862e8b" LastKnownName="ImageValidator" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="dbea3c2c-fa05-4bca-8706-200528450b92" name="MessageOccurrenceSpecification10">
+            <elementDefinition Id="b95a2465-5f4c-43ab-816c-dcda76f92ef6" />
+            <covered>
+              <lifelineMoniker Id="260e8668-bfa2-4cbb-8fb1-1d12d4a1efd1" LastKnownName="imageSaver : ImageSaver" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification Id="fee62ac2-b112-4a7f-bb02-f1b1859b182f" name="ExecutionOccurrenceSpecification8">
+            <elementDefinition Id="b750b32d-d17d-42b9-9709-d99d554bd443" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="c5789c56-5da2-44cc-a27e-ce9952c16b78" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="fee35c52-7e66-4c4c-9783-8a53f6862e8b" LastKnownName="ImageValidator" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <executionOccurrenceSpecification Id="3bf63a91-541f-40c8-a50d-5a082a8f2592" name="ExecutionOccurrenceSpecification10">
+            <elementDefinition Id="ec6876a3-d254-4f68-a301-b6a5401294ee" />
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker Id="4ac8e68d-8fda-49d0-bb1b-5a6ee552dabc" LastKnownName="ExecutionEvent" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker Id="260e8668-bfa2-4cbb-8fb1-1d12d4a1efd1" LastKnownName="imageSaver : ImageSaver" />
+            </covered>
+          </executionOccurrenceSpecification>
+        </fragments>
+        <lifelines>
+          <lifeline Id="1553e173-33ca-44b6-89ed-fce8d70e5b66" name="imageExtractor : ImageExtractor" isActor="false" lifelineDisplayName="imageExtractor : ImageExtractor">
+            <elementDefinition Id="bd9f4ce9-8816-4472-936d-be417bb78a2d" />
+            <represents>
+              <propertyMoniker Id="d49a95c6-20af-4b8d-9fab-cc6b3dceac12" />
+            </represents>
+            <topLevelOccurrences>
+              <messageOccurrenceSpecificationMoniker Id="f272df76-b055-4ae7-a0e2-221327f66f8b" LastKnownName="MessageOccurrenceSpecification3" />
+              <messageOccurrenceSpecificationMoniker Id="726033ae-0055-46d5-8e86-2b7e0682199f" LastKnownName="MessageOccurrenceSpecification7" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline Id="fee35c52-7e66-4c4c-9783-8a53f6862e8b" name="ImageValidator" isActor="false" lifelineDisplayName="ImageValidator">
+            <elementDefinition Id="2598f05c-b808-4852-8812-5ddeda190a33" />
+            <represents>
+              <propertyMoniker Id="6d1fb2c0-26f7-4081-9bb9-5009f67988f2" />
+            </represents>
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker Id="9835c8f3-20a7-45b4-82ed-223fc91fca11" LastKnownName="ExecutionOccurrenceSpecification3" />
+              <executionOccurrenceSpecificationMoniker Id="18eff7db-80dc-44f9-8097-c45b2df3367b" LastKnownName="ExecutionOccurrenceSpecification4" />
+              <executionOccurrenceSpecificationMoniker Id="903bf1fa-d4cb-4b54-a29c-0b70397572b2" LastKnownName="ExecutionOccurrenceSpecification7" />
+              <executionOccurrenceSpecificationMoniker Id="fee62ac2-b112-4a7f-bb02-f1b1859b182f" LastKnownName="ExecutionOccurrenceSpecification8" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline Id="260e8668-bfa2-4cbb-8fb1-1d12d4a1efd1" name="imageSaver : ImageSaver" isActor="false" lifelineDisplayName="imageSaver : ImageSaver">
+            <elementDefinition Id="b70eee24-5182-4d4f-9d59-4e4c13066070" />
+            <represents>
+              <propertyMoniker Id="7b76aff9-869c-4c91-82c3-cc1a789cbc8b" />
+            </represents>
+            <topLevelOccurrences>
+              <executionOccurrenceSpecificationMoniker Id="73215045-75d6-4c72-b925-2788a9e1d831" LastKnownName="ExecutionOccurrenceSpecification5" />
+              <executionOccurrenceSpecificationMoniker Id="c233aa1f-249e-44b5-ae0f-80de28589e42" LastKnownName="ExecutionOccurrenceSpecification6" />
+              <executionOccurrenceSpecificationMoniker Id="7427bcf1-af40-4cba-8e73-6fba895d3c44" LastKnownName="ExecutionOccurrenceSpecification9" />
+              <executionOccurrenceSpecificationMoniker Id="3bf63a91-541f-40c8-a50d-5a082a8f2592" LastKnownName="ExecutionOccurrenceSpecification10" />
+            </topLevelOccurrences>
+          </lifeline>
+        </lifelines>
+        <messages>
+          <message Id="f89f4ea4-092b-43ff-9146-86d734971967" name="Message1" messageKind="Complete" messageSort="AsynchCall" createSelfMessage="false">
+            <elementDefinition Id="6c7cc56f-e325-49ea-be65-a28e86ebdf19" />
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker Id="f272df76-b055-4ae7-a0e2-221327f66f8b" LastKnownName="MessageOccurrenceSpecification3" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="28becd5b-6859-4d8f-abb7-5eb532cd6f6e" LastKnownName="MessageOccurrenceSpecification4" />
+            </receiveEvent>
+          </message>
+          <message Id="e46df9f4-f2cb-4203-9aa3-5c9b940bdee6" name="Message2" messageKind="Complete" messageSort="AsynchCall" createSelfMessage="false">
+            <elementDefinition Id="df8a6daf-8872-4286-8af2-175ad5440471" />
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker Id="67e95286-5fc2-4466-a28b-98a68c736ef5" LastKnownName="MessageOccurrenceSpecification5" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="0d5d2caa-ffa5-459a-81f0-99fc2cae00a6" LastKnownName="MessageOccurrenceSpecification6" />
+            </receiveEvent>
+          </message>
+          <message Id="b0c98a9e-6eeb-49c6-ae6f-3fb1c5fd637b" name="Message3" messageKind="Complete" messageSort="AsynchCall" createSelfMessage="false">
+            <elementDefinition Id="0dc810e3-e3fb-4872-be7c-e7f28607a388" />
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker Id="726033ae-0055-46d5-8e86-2b7e0682199f" LastKnownName="MessageOccurrenceSpecification7" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="6c9ed192-9f14-4292-8acb-dfdd4600de08" LastKnownName="MessageOccurrenceSpecification8" />
+            </receiveEvent>
+          </message>
+          <message Id="04f00672-2fa8-4818-87da-f272b7bb34ac" name="Message4" messageKind="Complete" messageSort="AsynchCall" createSelfMessage="false">
+            <elementDefinition Id="858b8441-3d09-449a-8664-9e59831dfa31" />
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker Id="42d6bb69-a038-4b0f-8d3a-b5300ff1e5a8" LastKnownName="MessageOccurrenceSpecification9" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker Id="dbea3c2c-fa05-4bca-8706-200528450b92" LastKnownName="MessageOccurrenceSpecification10" />
+            </receiveEvent>
+          </message>
+        </messages>
+        <ownedAttributesInternal>
+          <property Id="d49a95c6-20af-4b8d-9fab-cc6b3dceac12" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="0b458350-02ca-4b56-af40-c1e473528af8" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="2d875c7b-87f6-413c-a82a-e0ab59a582cc" LastKnownName="ImageExtractor" />
+            </type_NamedElement>
+          </property>
+          <property Id="6d1fb2c0-26f7-4081-9bb9-5009f67988f2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="14108d8d-9930-4338-bdad-b22d047aba7b" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="27740e06-9d52-4086-bfcd-2ed4db13d9c9" LastKnownName="ImageValidator" />
+            </type_NamedElement>
+          </property>
+          <property Id="7b76aff9-869c-4c91-82c3-cc1a789cbc8b" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="a00f7a65-a054-4cdc-9307-ce85af3b5433" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="92bcf61d-83ae-4b28-9fe8-1e7d2c59ee61" LastKnownName="ImageSaver" />
+            </type_NamedElement>
+          </property>
+          <property Id="bdd22515-037f-4b84-b830-3b6b1c88b877" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="41e32ee3-3d2d-4a88-8d5d-e8813c42bac0" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="2d875c7b-87f6-413c-a82a-e0ab59a582cc" LastKnownName="ImageExtractor" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </interaction>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="2d875c7b-87f6-413c-a82a-e0ab59a582cc" name="ImageExtractor" isAbstract="false" isLeaf="false" cachedFullName="ModelingProject1::ImageExtractor">
+        <elementDefinition Id="0a58fece-474c-413a-8745-4f283b161340" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="27740e06-9d52-4086-bfcd-2ed4db13d9c9" name="ImageValidator" isAbstract="false" isLeaf="false" cachedFullName="ModelingProject1::ImageValidator">
+        <elementDefinition Id="786f0813-465d-4ac4-82c3-6edaed5b195f" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="92bcf61d-83ae-4b28-9fe8-1e7d2c59ee61" name="ImageSaver" isAbstract="false" isLeaf="false" cachedFullName="ModelingProject1::ImageSaver">
+        <elementDefinition Id="fcf97fba-f1f2-4977-9042-8fd44825626f" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="8f24cd7d-323c-45ac-b0da-7f3f603acda2" name="ExecutionEvent">
+        <elementDefinition Id="5a6a5d28-7b6c-4585-86aa-73f822f2c3d9" />
+      </executionEvent>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="dea5f3f0-d676-4be6-996d-7b1b23b490dd" name="ExecutionEvent">
+        <elementDefinition Id="51901807-a6be-4f95-a945-08de7ce1f33f" />
+      </executionEvent>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="28a86776-e0dd-4f4c-81c6-039187e603f7" name="ExecutionEvent">
+        <elementDefinition Id="ac29284b-182f-4d9d-9baa-81e594141d12" />
+      </executionEvent>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="5bc148f2-5af0-4dde-8bd8-a2974a8182ee" name="ExecutionEvent">
+        <elementDefinition Id="44d3742d-2131-4e7d-b92d-827bdf3f0598" />
+      </executionEvent>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="37d4f498-80c1-46cd-91ef-90d2b089b11c" name="ExecutionEvent">
+        <elementDefinition Id="e65968e7-214b-4b27-b8f9-ada1547be1fb" />
+      </executionEvent>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="c5789c56-5da2-44cc-a27e-ce9952c16b78" name="ExecutionEvent">
+        <elementDefinition Id="da65f850-e3f9-472c-9222-04c0c0727489" />
+      </executionEvent>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="95199849-4ddf-42a4-b7e3-7bc0bffba4d0" name="ExecutionEvent">
+        <elementDefinition Id="196f0de9-e1ce-4b2c-8e0f-eb37b1b39785" />
+      </executionEvent>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent Id="4ac8e68d-8fda-49d0-bb1b-5a6ee552dabc" name="ExecutionEvent">
+        <elementDefinition Id="52622543-61e6-4411-9df9-791b859da7d9" />
+      </executionEvent>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="cd35cf76-585d-4d86-8637-4bfcadcb1488" name="ModelingProject1">
+    <elementDefinition Id="0b733217-d670-40cf-bffd-3600d0762abe" />
+  </package>
+</SequenceDesignerModel>
