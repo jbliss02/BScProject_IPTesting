@@ -11,11 +11,11 @@ namespace Testing
     {
         [TestMethod]
         [TestCategory("BitmapWrapper")]
-        public void TestMethod1()
+        public void TotalPixelsVersusSumPixel()
         {
-            BitmapWrapper bitmap = new BitmapWrapper(@"F:\temp\analysis\multiple_movement\test_266.jpg");
+            BitmapWrapper bitmap = new BitmapWrapper(@"d:\temp\analysis\multiple_movement\test_266.jpg");
 
-            Assert.IsTrue(bitmap.pixelAnalysis.SumPixelHex == bitmap.pixelAnalysis.totalPixelColors);
+            Assert.IsFalse(bitmap.pixelAnalysis.SumPixelHex == bitmap.pixelAnalysis.totalPixelColors);
         }
     }
 }

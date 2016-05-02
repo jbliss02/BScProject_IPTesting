@@ -24,9 +24,12 @@ namespace Testing.MotionSensor
         public void MotionSensor_2b_threshold()
         {
             MotionSensor_2b motion = new MotionSensor_2b();
+            motion.settings = new MotionSensorSettings();
+            motion.settings.LoadDefaults();
+
             motion.ControlImageNumber = 10;
 
-            foreach (var file in Directory.EnumerateFiles(@"f:\bsc\project\TestImages"))
+            foreach (var file in Directory.EnumerateFiles(@"d:\bsc\project\TestImages"))
             {
                 ByteWrapper wrapper = ImageConvert.ReturnByteWrapper(file);
                 motion.ImageCreatedAsync(wrapper, EventArgs.Empty);
@@ -116,15 +119,6 @@ namespace Testing.MotionSensor
             test.PopulateSequentialChange();
             Assert.IsTrue(test.list[0].GetHashCode() != test.list[1].GetHashCode());
         }
-
-        [TestMethod]
-        [TestCategory("Motion Sensor")]
-        public void WorkMonitorTest()
-        {
-            var motion = new MotionSensor2aTest();
-            motion.Run("201621411494640");
-        }
-
 
 
 

@@ -25,7 +25,7 @@ namespace Testing.Tools
         [TestCategory("Tools")]
         public void HexToInt()
         {
-            BitmapWrapper bm1 = new BitmapWrapper(@"F:\temp\analysis\640x480\test_0.jpg");
+            BitmapWrapper bm1 = new BitmapWrapper(@"d:\temp\analysis\640x480\test_0.jpg");
 
             for(int i = 0; i < bm1.bitmap.Width; i++)
             {

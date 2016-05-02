@@ -15,7 +15,7 @@ namespace Testing
         {
             PixelMatrix matrix = new PixelMatrix();
             matrix.GridSystemOn = true;
-            matrix.Populate(@"F:\temp\MotionSensor\2.2\test_101.jpg", @"F:\temp\MotionSensor\2.2\test_128.jpg");
+            matrix.Populate(@"d:\temp\MotionSensor\2.2\test_101.jpg", @"d:\temp\MotionSensor\2.2\test_128.jpg");
 
             Assert.IsNotNull(matrix.imageGrid.Columns);
             Assert.IsTrue(matrix.imageGrid.Columns.Count == 4);
@@ -34,7 +34,7 @@ namespace Testing
         {
             PixelMatrix matrix = new PixelMatrix();
             matrix.GridSystemOn = true;
-            matrix.Populate(@"F:\temp\MotionSensor\2.2\test_101.jpg", @"F:\temp\MotionSensor\2.2\test_128.jpg");
+            matrix.Populate(@"d:\temp\MotionSensor\2.2\test_101.jpg", @"d:\temp\MotionSensor\2.2\test_128.jpg");
 
             for(int i = 0; i < matrix.imageGrid.Columns.Count; i++)
             {

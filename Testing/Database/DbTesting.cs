@@ -52,7 +52,7 @@ namespace Testing.Database
         [TestCategory("Database")]
         public void TestAddCapture()
         {
-            ImageSaver imageSaver = new ImageSaver(@"f:\motion", "movement", 0);
+            ImageSaver imageSaver = new ImageSaver(@"d:\motion", "movement", 0);
 
             ICaptureDb db = new CaptureDb(ConfigurationManager.ConnectionStrings["LOCALDB"].ConnectionString);
             db.CreateCaptureSession(imageSaver.captureId, imageSaver.SaveDirectory);

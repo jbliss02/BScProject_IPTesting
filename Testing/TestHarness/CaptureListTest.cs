@@ -9,16 +9,6 @@ namespace Testing.TestHarness
     [TestClass]
     public class CaptureListTest
     {
-        [TestMethod]
-        [TestCategory("Test harness")]
-        public void UpdateNumberFrames()
-        {
-            CaptureListTesting captureListTesting = new CaptureListTesting();
 
-            captureListTesting.UpdateNumberFrames(0);
-
-            //Assert.IsTrue(doc.InnerXml.Length > 20);
-
-        }
     }
 }
